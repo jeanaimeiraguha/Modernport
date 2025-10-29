@@ -1504,7 +1504,7 @@ export default function Portfolio() {
               © {new Date().getFullYear()} {personalData.name}. All rights reserved.
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-500">
-              Built with React, Tailwind CSS & ❤️
+              Built with ❤️By Jeanaime Iraguha
             </p>
           </div>
         </footer>

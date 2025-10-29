@@ -343,7 +343,7 @@ const personalData = {
   title: "Full-Stack Developer & Creative Technologist",
   email: "jeanaimeiraguha@gmail.com",
   phone: "+250 793 411 594",
-  location: "Kigali, Rwanda",
+  location: "Bugesera , Kigali, Rwanda",
   bio: "Passionate software engineer dedicated to creating innovative digital solutions that make a real difference. With expertise in full-stack development and a keen eye for design.",
   socials: {
     github: "https://github.com/Iraguha",

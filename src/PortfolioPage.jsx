@@ -1,4 +1,4 @@
-// src/App.jsx - IRAGUHA Jean Aime Portfolio with Custom Logo & Smooth Animations
+// src/App.jsx - IRAGUHA Jean Aime Portfolio (Fixed Version)
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
@@ -10,12 +10,14 @@ import {
     FaGraduationCap, FaBriefcase, FaAward, FaUsers, FaProjectDiagram,
     FaLaptopCode, FaPalette, FaMobile, FaServer, FaRocket,
     FaLightbulb, FaCog, FaChartLine, FaShieldAlt, FaGlobe,
-    FaPhone, FaMapMarkerAlt, FaStar, FaHeart, FaCoffee
+    FaPhone, FaMapMarkerAlt, FaStar, FaHeart, FaCoffee,
+    FaPython, FaAws, FaDocker, FaGitAlt
 } from 'react-icons/fa';
 import { 
     SiNextdotjs, SiMongodb, SiMysql, SiGit, SiTailwindcss,
-    SiPython, SiDjango, SiFlutter, SiFirebase, SiTypescript,
-    SiRedux, SiGraphql, SiDocker, SiAmazonaws, SiFigma
+    SiDjango, SiFlutter, SiFirebase, SiTypescript,
+    SiRedux, SiGraphql, SiFigma, SiPostgresql,
+    SiJavascript, SiBootstrap, SiExpress
 } from 'react-icons/si';
 
 // ====================================================================
@@ -302,6 +304,34 @@ const CursorFollower = () => {
 };
 
 // ====================================================================
+// ANIMATED TEXT COMPONENT
+// ====================================================================
+
+const AnimatedText = ({ text, className = "" }) => {
+  const letters = text.split("");
+  
+  return (
+    <span className={className}>
+      {letters.map((letter, index) => (
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.5,
+            delay: index * 0.03,
+            ease: "easeOut"
+          }}
+          className="inline-block"
+        >
+          {letter === " " ? "\u00A0" : letter}
+        </motion.span>
+      ))}
+    </span>
+  );
+};
+
+// ====================================================================
 // PERSONAL DATA
 // ====================================================================
 
@@ -333,10 +363,12 @@ const skills = [
   { name: "Next.js", level: 85, color: "#000000", icon: <SiNextdotjs /> },
   { name: "MongoDB", level: 80, color: "#47A248", icon: <SiMongodb /> },
   { name: "Tailwind CSS", level: 90, color: "#06B6D4", icon: <SiTailwindcss /> },
-  { name: "Python", level: 75, color: "#3776AB", icon: <SiPython /> },
+  { name: "Python", level: 75, color: "#3776AB", icon: <FaPython /> },
   { name: "MySQL", level: 85, color: "#4479A1", icon: <SiMysql /> },
   { name: "Git", level: 88, color: "#F05032", icon: <SiGit /> },
   { name: "Figma", level: 82, color: "#F24E1E", icon: <SiFigma /> },
+  { name: "Express.js", level: 83, color: "#000000", icon: <SiExpress /> },
+  { name: "PostgreSQL", level: 78, color: "#336791", icon: <SiPostgresql /> },
 ];
 
 // ====================================================================
@@ -739,22 +771,10 @@ export default function Portfolio() {
                   className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6"
                 >
                   Hi, I'm{' '}
-                  <motion.span
+                  <AnimatedText 
+                    text={personalData.firstName}
                     className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
-                    animate={{
-                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                    }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
-                    style={{
-                      backgroundSize: '200% 200%',
-                    }}
-                  >
-                    {personalData.firstName}
-                  </motion.span>
+                  />
                   <motion.span
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -932,6 +952,8 @@ export default function Portfolio() {
           </motion.div>
         </section>
 
+        {/* Rest of the sections remain the same but I'll continue with the about section */}
+        
         {/* About Section */}
         <section id="about" className="py-20 relative">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -1130,11 +1152,7 @@ export default function Portfolio() {
                   className="relative group"
                   data-cursor="pointer"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl blur-xl"
-                    style={{
-                      backgroundImage: `linear-gradient(135deg, ${service.color.split(' ')[1]} 0%, ${service.color.split(' ')[3]} 100%)`,
-                    }}
-                  />
+                  <div className={`absolute inset-0 bg-gradient-to-r ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl blur-xl`} />
                   <div className="relative p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all">
                     <div className={`inline-flex p-4 rounded-xl bg-gradient-to-r ${service.color} text-white text-3xl mb-4`}>
                       {service.icon}

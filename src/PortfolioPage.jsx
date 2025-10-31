@@ -346,7 +346,7 @@ const personalData = {
   location: "Bugesera , Kigali, Rwanda",
   bio: "Passionate software engineer dedicated to creating innovative digital solutions that make a real difference. With expertise in full-stack development and a keen eye for design.",
   socials: {
-    github: "https://github.com/Iraguha",
+    github: "https://github.com/jeanaimeiraguha",
     linkedin: "https://www.linkedin.com/in/jean-aime-iraguha/",
     twitter: "https://twitter.com/iraguha",
   },

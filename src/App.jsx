@@ -1,10 +1,18 @@
 import React from 'react'; // ✅ Always import React
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import PortfolioPage from './PortfolioPage.jsx';
+import PortfolioPage from './PortfolioPage';
+import CVPage from './CVPage';
+import NotFoundPage from './NotFoundPage';
+
 const App = () => {
   return (
     <div>
-      <PortfolioPage />
+      <Routes>
+        <Route path="/" element={<PortfolioPage />} />
+        <Route path="/cv" element={<CVPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </div>
   );
 };

@@ -1,0 +1,114 @@
+{
+  "nav": {
+    "home": "home",
+    "about": "about",
+    "services": "services",
+    "skills": "skills",
+    "projects": "projects",
+    "testimonials": "testimonials",
+    "contact": "contact",
+    "lightMode": "☀️ Light Mode",
+    "darkMode": "🌙 Dark Mode"
+  },
+  "hero": {
+    "welcome": "Welcome to my portfolio",
+    "greeting": "Hi, I'm",
+    "firstName": "Jean Aime",
+    "lastName": "IRAGUHA",
+    "title": "Full-Stack Developer & Creative Technologist",
+    "bio": "Passionate software engineer dedicated to creating innovative digital solutions that make a real difference. With expertise in full-stack development and a keen eye for design.",
+    "viewWork": "View My Work",
+    "viewCV": "View CV",
+    "scrollDown": "Scroll Down"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Get to know more about my journey and what drives my passion for technology",
+    "journeyTitle": "My Journey",
+    "journeyText": "My passion for technology started at Gikonko Technical Secondary School, where I discovered the power of code to solve real-world problems. Since then, I've been on a continuous journey of learning and growth, mastering various technologies and frameworks.",
+    "loveTitle": "What I Love",
+    "loveText": "I'm passionate about creating elegant solutions to complex problems. I love working with modern technologies, building user-friendly interfaces, and optimizing performance. When I'm not coding, you'll find me exploring new tech trends or contributing to open-source projects.",
+    "missionTitle": "My Mission",
+    "missionText": "To leverage technology in creating innovative solutions that make a positive impact. I believe in writing clean, maintainable code and building products that not only meet technical requirements but also provide exceptional user experiences.",
+    "yearsExperience": "Years Experience",
+    "projectsCompleted": "Projects Completed",
+    "happyClients": "Happy Clients",
+    "technologies": "Technologies",
+    "funFactsTitle": "Fun Facts",
+    "fact1": "Coffee enthusiast (3+ cups daily ☕)",
+    "fact2": "Open source contributor",
+    "fact3": "Love solving complex algorithms",
+    "fact4": "Always learning new technologies"
+  },
+  "services": {
+    "title": "My Services",
+    "subtitle": "Comprehensive solutions tailored to meet your digital needs",
+    "webDev": "Web Development",
+    "webDevDesc": "Building responsive and performant web applications.",
+    "webDevFeatures": ["React/Next.js", "Full-Stack Apps", "API Development"],
+    "mobileDev": "Mobile Development",
+    "mobileDevDesc": "Creating cross-platform mobile experiences.",
+    "mobileDevFeatures": ["React Native", "Flutter", "Progressive Web Apps"],
+    "uiUx": "UI/UX Design",
+    "uiUxDesc": "Designing beautiful and intuitive interfaces.",
+    "uiUxFeatures": ["Figma Design", "Prototyping", "User Research"],
+    "backend": "Backend Development",
+    "backendDesc": "Building scalable server-side solutions.",
+    "backendFeatures": ["Node.js", "Database Design", "Cloud Services"]
+  },
+  "skills": {
+    "title": "Technical Skills",
+    "subtitle": "Technologies and tools I use to bring ideas to life",
+    "proficiency": "Proficiency"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "Showcasing my best work and creative solutions"
+  },
+  "testimonials": {
+    "title": "Client Testimonials",
+    "subtitle": "What my clients say about working with me"
+  },
+  "contact": {
+    "title": "Let's Connect",
+    "subtitle": "Have a project in mind? I'd love to hear from you!",
+    "email": "Email",
+    "phone": "Phone",
+    "location": "Location",
+    "reachOut": "Or reach out directly through my social channels"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "builtWith": "Built with ❤️By Jeanaime Iraguha"
+  },
+  "cv": {
+    "title": "Software Engineer | Full-Stack Developer | Blockchain & Web3 | Graphic Designer",
+    "summary": "Passionate and ethical Software Engineer with 3–5 years of experience in full-stack web development, backend engineering, and modern frontend technologies. Skilled in building scalable systems using Node.js, React, Next.js, PHP, MySQL, MongoDB, Flutter, and blockchain technologies. Highly motivated, hardworking, and dedicated to delivering clean, beginner-friendly code and efficient digital solutions. Also experienced in graphic design, UI/UX, and remote collaborative work.",
+    "profileSummary": "Profile Summary",
+    "coreSkills": "Core Skills",
+    "keyProjects": "Key Projects",
+    "workExperience": "Work Experience",
+    "education": "Education & Certifications",
+    "achievements": "Achievements",
+    "languages": "Languages",
+    "interests": "Interests",
+    "skillsCategories": {
+      "Frontend": "Frontend",
+      "Backend": "Backend",
+      "Mobile Development": "Mobile Development",
+      "Blockchain": "Blockchain",
+      "Tools": "Tools",
+      "Other Skills": "Other Skills"
+    },
+    "experience": [
+      { "role": "Backend Developer Intern", "company": "CodeAlpha", "date": "March 2025", "description": "Designed and built backend systems focusing on APIs, authentication, and database structures. Worked remotely and delivered beginner-friendly, maintainable code." },
+      { "role": "Remote Graphic Designer", "company": "", "date": "", "description": "Worked on brand identities, UI designs, posters, and promotional materials." }
+    ],
+    "achievementsList": [
+      "Built multiple real-world systems (School MIS, SIMS, PSSMS, Student Portals).",
+      "Successfully integrated backend–frontend pipelines across several projects.",
+      "Improved skills through professional training from Cyberu.",
+      "Recognized for dedication, ethics, and professionalism in software engineering."
+    ]
+  }
+}

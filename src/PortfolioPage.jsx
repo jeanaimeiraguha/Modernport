@@ -1,6 +1,7 @@
 // src/App.jsx - IRAGUHA Jean Aime Portfolio (Fixed Version)
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { 
     FaGithub, FaLinkedin, FaEnvelope, FaCode, FaPaintBrush, 
@@ -19,6 +20,9 @@ import {
     SiRedux, SiGraphql, SiFigma, SiPostgresql,
     SiJavascript, SiBootstrap, SiExpress
 } from 'react-icons/si';
+
+// Lazily load the CVPage component to improve initial load time
+const CVPage = lazy(() => import('./CVPage'));
 
 // ====================================================================
 // LOGO COMPONENT - Custom Animated Logo for IRAGUHA Jean Aime
@@ -42,9 +46,9 @@ const AnimatedLogo = ({ size = 60, animated = true }) => {
         {/* Background Circle with Gradient */}
         <defs>
           <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="50%" stopColor="#8B5CF6" />
-            <stop offset="100%" stopColor="#EC4899" />
+            <stop offset="0%" stopColor="#2563EB" />
+            <stop offset="50%" stopColor="#0891B2" />
+            <stop offset="100%" stopColor="#0D9488" />
           </linearGradient>
           <filter id="glow">
             <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -114,7 +118,7 @@ const AnimatedLogo = ({ size = 60, animated = true }) => {
               cx="20"
               cy="20"
               r="2"
-              fill="#3B82F6"
+              fill="#2563EB"
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [1, 0.5, 1],
@@ -129,7 +133,7 @@ const AnimatedLogo = ({ size = 60, animated = true }) => {
               cx="80"
               cy="20"
               r="2"
-              fill="#8B5CF6"
+              fill="#0891B2"
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [1, 0.5, 1],
@@ -145,7 +149,7 @@ const AnimatedLogo = ({ size = 60, animated = true }) => {
               cx="80"
               cy="80"
               r="2"
-              fill="#EC4899"
+              fill="#0D9488"
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [1, 0.5, 1],
@@ -161,7 +165,7 @@ const AnimatedLogo = ({ size = 60, animated = true }) => {
               cx="20"
               cy="80"
               r="2"
-              fill="#10B981"
+              fill="#059669"
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [1, 0.5, 1],
@@ -188,7 +192,7 @@ const AnimatedBackground = () => {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
       {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-blue-950 dark:to-purple-950" />
+      <div className="absolute inset-0 bg-gray-50 dark:bg-slate-900" />
       
       {/* Animated Shapes */}
       <div className="absolute inset-0">
@@ -197,9 +201,8 @@ const AnimatedBackground = () => {
             key={i}
             className="absolute rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-30"
             style={{
-              background: `radial-gradient(circle, ${
-                ['#3B82F6', '#8B5CF6', '#EC4899', '#10B981', '#F59E0B', '#EF4444'][i]
-              } 0%, transparent 70%)`,
+              background: `radial-gradient(circle, ${['#2563EB', '#0891B2', '#0D9488', '#059669', '#F59E0B', '#DB2777'][i]
+                } 0%, transparent 70%)`,
             }}
             animate={{
               x: [0, 100, -100, 0],
@@ -227,7 +230,7 @@ const AnimatedBackground = () => {
       <div 
         className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]"
         style={{
-          backgroundImage: `linear-gradient(#3B82F6 1px, transparent 1px), linear-gradient(90deg, #3B82F6 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(#2563EB 1px, transparent 1px), linear-gradient(90deg, #2563EB 1px, transparent 1px)`,
           backgroundSize: '50px 50px',
         }}
       />
@@ -297,7 +300,7 @@ const CursorFollower = () => {
           y: mousePosition.y - 4,
         }}
       >
-        <div className="w-2 h-2 bg-blue-600 rounded-full" />
+        <div className="w-2 h-2 bg-cyan-500 rounded-full" />
       </motion.div>
     </>
   );
@@ -335,23 +338,6 @@ const AnimatedText = ({ text, className = "" }) => {
 // PERSONAL DATA
 // ====================================================================
 
-const personalData = {
-  name: "IRAGUHA Jean Aime",
-  firstName: "Jean Aime",
-  lastName: "IRAGUHA",
-  initials: "JA",
-  title: "Full-Stack Developer & Creative Technologist",
-  email: "jeanaimeiraguha@gmail.com",
-  phone: "+250 793 411 594",
-  location: "Bugesera , Kigali, Rwanda",
-  bio: "Passionate software engineer dedicated to creating innovative digital solutions that make a real difference. With expertise in full-stack development and a keen eye for design.",
-  socials: {
-    github: "https://github.com/jeanaimeiraguha",
-    linkedin: "https://www.linkedin.com/in/jean-aime-iraguha/",
-    twitter: "https://twitter.com/iraguha",
-  },
-};
-
 // ====================================================================
 // SKILLS DATA
 // ====================================================================
@@ -379,137 +365,34 @@ const services = [
   {
     icon: <FaLaptopCode />,
     title: "Web Development",
-    description: "Building responsive and performant web applications",
-    color: "from-blue-400 to-blue-600",
-    features: ["React/Next.js", "Full-Stack Apps", "API Development"],
+    description: "services.webDevDesc",
+    color: "from-blue-500 to-cyan-500",
+    featuresKey: "services.webDevFeatures",
     delay: 0,
   },
   {
     icon: <FaMobile />,
     title: "Mobile Development",
-    description: "Creating cross-platform mobile experiences",
-    color: "from-purple-400 to-purple-600",
-    features: ["React Native", "Flutter", "Progressive Web Apps"],
+    description: "services.mobileDevDesc",
+    color: "from-teal-500 to-emerald-500",
+    featuresKey: "services.mobileDevFeatures",
     delay: 0.1,
   },
   {
     icon: <FaPalette />,
     title: "UI/UX Design",
-    description: "Designing beautiful and intuitive interfaces",
-    color: "from-pink-400 to-pink-600",
-    features: ["Figma Design", "Prototyping", "User Research"],
+    description: "services.uiUxDesc",
+    color: "from-purple-500 to-pink-500",
+    featuresKey: "services.uiUxFeatures",
     delay: 0.2,
   },
   {
     icon: <FaServer />,
     title: "Backend Development",
-    description: "Building scalable server-side solutions",
-    color: "from-green-400 to-green-600",
-    features: ["Node.js", "Database Design", "Cloud Services"],
+    description: "services.backendDesc",
+    color: "from-slate-500 to-gray-500",
+    featuresKey: "services.backendFeatures",
     delay: 0.3,
-  },
-];
-
-// ====================================================================
-// PROJECTS DATA
-// ====================================================================
-
-const projects = [
-  {
-    id: 1,
-    title: "E-Learning Platform",
-    category: "Education",
-    description: "A comprehensive online learning management system with real-time collaboration features.",
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=500&fit=crop",
-    technologies: ["React", "Node.js", "MongoDB", "Socket.io", "Tailwind CSS"],
-    color: "from-blue-400 to-cyan-400",
-    github: "https://github.com/Iraguha/elearning",
-    live: "https://elearning-demo.com",
-    features: [
-      "Live video classes",
-      "Interactive quizzes",
-      "Progress tracking",
-      "Certificate generation"
-    ],
-  },
-  {
-    id: 2,
-    title: "Smart City Dashboard",
-    category: "IoT & Data",
-    description: "Real-time city monitoring dashboard integrating IoT sensors for traffic, weather, and utilities.",
-    image: "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&h=500&fit=crop",
-    technologies: ["Next.js", "Python", "PostgreSQL", "D3.js", "Docker"],
-    color: "from-purple-400 to-pink-400",
-    github: "https://github.com/Iraguha/smart-city",
-    live: "https://smartcity-demo.com",
-    features: [
-      "Real-time data visualization",
-      "Predictive analytics",
-      "Alert system",
-      "Mobile responsive"
-    ],
-  },
-  {
-    id: 3,
-    title: "FinTech Mobile App",
-    category: "Finance",
-    description: "Secure mobile banking application with biometric authentication and instant transfers.",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=500&fit=crop",
-    technologies: ["React Native", "Node.js", "MySQL", "Redis", "JWT"],
-    color: "from-green-400 to-teal-400",
-    github: "https://github.com/Iraguha/fintech",
-    live: "https://fintech-demo.com",
-    features: [
-      "Biometric authentication",
-      "QR code payments",
-      "Transaction history",
-      "Budget tracking"
-    ],
-  },
-  {
-    id: 4,
-    title: "AI Health Assistant",
-    category: "Healthcare",
-    description: "AI-powered health monitoring app with symptom checker and appointment scheduling.",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop",
-    technologies: ["React", "Python", "TensorFlow", "Firebase", "Chart.js"],
-    color: "from-red-400 to-orange-400",
-    github: "https://github.com/Iraguha/health-ai",
-    live: "https://healthai-demo.com",
-    features: [
-      "AI symptom checker",
-      "Medicine reminders",
-      "Health tracking",
-      "Doctor consultation"
-    ],
-  },
-];
-
-// ====================================================================
-// TESTIMONIALS DATA
-// ====================================================================
-
-const testimonials = [
-  {
-    name: "Sarah Johnson",
-    role: "CEO, TechStart Rwanda",
-    content: "Jean Aime is an exceptional developer who brings creativity and technical excellence to every project. His work exceeded our expectations.",
-    rating: 5,
-    color: "from-blue-400 to-purple-400",
-  },
-  {
-    name: "David Kwizera",
-    role: "Product Manager, InnovateAfrica",
-    content: "Working with Jean Aime was a game-changer for our startup. He delivered a robust solution that scaled perfectly with our growth.",
-    rating: 5,
-    color: "from-purple-400 to-pink-400",
-  },
-  {
-    name: "Marie Claire",
-    role: "CTO, Digital Solutions Ltd",
-    content: "Jean Aime's attention to detail and problem-solving skills are outstanding. He's a valuable asset to any development team.",
-    rating: 5,
-    color: "from-green-400 to-teal-400",
   },
 ];
 
@@ -518,9 +401,10 @@ const testimonials = [
 // ====================================================================
 
 export default function Portfolio() {
-  const [loading, setLoading] = useState(true);
+  const { t, i18n } = useTranslation();
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isCvModalOpen, setIsCvModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -529,11 +413,128 @@ export default function Portfolio() {
     restDelta: 0.001
   });
 
-  // Loading effect
+  const personalData = {
+    name: "IRAGUHA Jean Aime",
+    firstName: "Jean Aime",
+    lastName: "IRAGUHA",
+    titleKey: "hero.title",
+    initials: "JA",
+    email: "jeanaimeiraguha@gmail.com",
+    phone: "+250 793 411 594",
+    socials: {
+      github: "https://github.com/jeanaimeiraguha",
+      linkedin: "https://www.linkedin.com/in/jean-aime-iraguha/",
+      twitter: "https://twitter.com/iraguha",
+    },
+    bioKey: "hero.bio",
+  };
+
+  const projects = [
+    {
+      id: 1,
+      key: 'elearning',
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=500&fit=crop",
+      titleKey: "projects.items.elearning.title",
+      categoryKey: "projects.categories.elearning",
+      descriptionKey: "projects.items.elearning.description",
+      featuresKey: "projects.items.elearning.features",
+      technologies: ["React", "Node.js", "MongoDB", "Socket.io", "Tailwind CSS"],
+      color: "from-blue-500 to-cyan-500",
+      github: "https://github.com/Iraguha/elearning",
+      live: "https://elearning-demo.com",
+    },
+    {
+      id: 2,
+      key: 'smartCity',
+      image: "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&h=500&fit=crop",
+      titleKey: "projects.items.smartCity.title",
+      categoryKey: "projects.categories.smartCity",
+      descriptionKey: "projects.items.smartCity.description",
+      featuresKey: "projects.items.smartCity.features",
+      technologies: ["Next.js", "Python", "PostgreSQL", "D3.js", "Docker"],
+      color: "from-purple-500 to-pink-500",
+      github: "https://github.com/Iraguha/smart-city",
+      live: "https://smartcity-demo.com",
+    },
+    {
+      id: 3,
+      key: 'fintechApp',
+      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=500&fit=crop",
+      titleKey: "projects.items.fintechApp.title",
+      categoryKey: "projects.categories.fintechApp",
+      descriptionKey: "projects.items.fintechApp.description",
+      featuresKey: "projects.items.fintechApp.features",
+      technologies: ["React Native", "Node.js", "MySQL", "Redis", "JWT"],
+      color: "from-emerald-500 to-teal-500",
+      github: "https://github.com/Iraguha/fintech",
+      live: "https://fintech-demo.com",
+    },
+    {
+      id: 4,
+      key: 'aiHealth',
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop",
+      titleKey: "projects.items.aiHealth.title",
+      categoryKey: "projects.categories.aiHealth",
+      descriptionKey: "projects.items.aiHealth.description",
+      featuresKey: "projects.items.aiHealth.features",
+      technologies: ["React", "Python", "TensorFlow", "Firebase", "Chart.js"],
+      color: "from-red-500 to-orange-500",
+      github: "https://github.com/Iraguha/health-ai",
+      live: "https://healthai-demo.com",
+    },
+  ];
+
+  const testimonials = [
+    {
+      key: 'sarah',
+      rating: 5,
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      key: 'david',
+      rating: 5,
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      key: 'marie',
+      rating: 5,
+      color: "from-emerald-500 to-teal-500",
+    },
+  ];
+
+  const aboutStats = [
+    { labelKey: "about.yearsExperience", number: "3+", icon: <FaBriefcase />, color: "from-blue-500 to-cyan-500" },
+    { labelKey: "about.projectsCompleted", number: "50+", icon: <FaProjectDiagram />, color: "from-purple-500 to-pink-500" },
+    { labelKey: "about.happyClients", number: "30+", icon: <FaUsers />, color: "from-pink-500 to-rose-500" },
+    { labelKey: "about.technologies", number: "10+", icon: <FaCode />, color: "from-emerald-500 to-teal-500" },
+  ];
+
+  const contactInfo = [
+    { labelKey: 'contact.email', icon: <FaEnvelope />, value: personalData.email, href: `mailto:${personalData.email}` },
+    { labelKey: 'contact.phone', icon: <FaPhone />, value: personalData.phone, href: `tel:${personalData.phone}` },
+    { labelKey: 'contact.location', icon: <FaMapMarkerAlt />, valueKey: "personal.location" },
+  ];
+
+  // Set initial dark mode state from localStorage or system preference
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3000);
-    return () => clearTimeout(timer);
+    const isDark =
+      localStorage.getItem('darkMode') === 'true' ||
+      (!('darkMode' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches);
+    setDarkMode(isDark);
   }, []);
+
+  // Update localStorage and html class when dark mode changes
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('darkMode', 'true');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('darkMode', 'false');
+    }
+  }, [darkMode]);
+
 
   // Scroll spy
   useEffect(() => {
@@ -565,65 +566,22 @@ export default function Portfolio() {
     }
   };
 
-  // Preloader
-  if (loading) {
-    return (
-      <motion.div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-center"
-        >
-          <AnimatedLogo size={120} animated={true} />
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mt-6 text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-          >
-            {personalData.name}
-          </motion.h1>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="mt-4 flex justify-center space-x-2"
-          >
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                className="w-3 h-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
-                animate={{
-                  scale: [1, 1.5, 1],
-                  opacity: [1, 0.5, 1],
-                }}
-                transition={{
-                  duration: 1,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                }}
-              />
-            ))}
-          </motion.div>
-        </motion.div>
-      </motion.div>
-    );
-  }
-
   return (
     <div className={`${darkMode ? 'dark' : ''}`}>
-      <div className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen overflow-x-hidden">
+      <div className="bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-100 min-h-screen overflow-x-hidden">
         
         {/* Animated Background */}
         <AnimatedBackground />
+
+        {/* Body overflow is hidden when CV modal is open */}
+        {isCvModalOpen && <style>{'body { overflow: hidden; }'}</style>}
         
         {/* Custom Cursor */}
         <CursorFollower />
 
         {/* Progress Bar */}
         <motion.div
-          className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 transform-origin-0 z-50"
+          className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 transform-origin-0 z-50"
           style={{ scaleX }}
         />
 
@@ -632,7 +590,7 @@ export default function Portfolio() {
           initial={{ y: -100 }}
           animate={{ y: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed top-0 w-full z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200/20 dark:border-gray-700/20"
+          className="fixed top-0 w-full z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-gray-200/20 dark:border-gray-800/20"
         >
           <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
@@ -644,7 +602,7 @@ export default function Portfolio() {
                 onClick={() => scrollToSection('home')}
               >
                 <AnimatedLogo size={40} animated={false} />
-                <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   {personalData.lastName}
                 </span>
               </motion.div>
@@ -659,19 +617,37 @@ export default function Portfolio() {
                     whileTap={{ scale: 0.95 }}
                     className={`px-4 py-2 rounded-lg capitalize transition-all ${
                       activeSection === item
-                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
-                        : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                        ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
+                        : 'hover:bg-gray-100 dark:hover:bg-slate-800'
                     }`}
                     data-cursor="pointer"
                   >
-                    {item}
+                    {t(`nav.${item}`)}
                   </motion.button>
                 ))}
+                {/* Language Switcher */}
+                <div className="ml-4">
+                  <button
+                    onClick={() => i18n.changeLanguage('en')}
+                    className={`px-2 py-1 text-sm rounded-md ${i18n.language.startsWith('en') ? 'bg-cyan-500 text-white' : 'hover:bg-gray-200 dark:hover:bg-slate-700'}`}
+                    disabled={i18n.language.startsWith('en')}
+                  >
+                    EN
+                  </button>
+                  <span className="text-gray-300 dark:text-gray-600 mx-1">|</span>
+                  <button
+                    onClick={() => i18n.changeLanguage('kin')}
+                    className={`px-2 py-1 text-sm rounded-md ${i18n.language === 'kin' ? 'bg-cyan-500 text-white' : 'hover:bg-gray-200 dark:hover:bg-slate-700'}`}
+                    disabled={i18n.language === 'kin'}
+                  >
+                    KIN
+                  </button>
+                </div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setDarkMode(!darkMode)}
-                  className="ml-4 p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                  className="ml-4 p-2 rounded-lg bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors"
                   data-cursor="pointer"
                 >
                   <motion.div
@@ -688,7 +664,7 @@ export default function Portfolio() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
                 data-cursor="pointer"
               >
                 {mobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
@@ -703,7 +679,7 @@ export default function Portfolio() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-gray-200/20 dark:border-gray-700/20"
+                className="md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-gray-200/20 dark:border-gray-800/20"
               >
                 <div className="px-4 py-4 space-y-2">
                   {['home', 'about', 'services', 'skills', 'projects', 'testimonials', 'contact'].map((item, index) => (
@@ -715,11 +691,11 @@ export default function Portfolio() {
                       onClick={() => scrollToSection(item)}
                       className={`block w-full text-left px-4 py-3 rounded-lg capitalize transition-all ${
                         activeSection === item
-                          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                          : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                          ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white'
+                          : 'hover:bg-gray-100 dark:hover:bg-slate-800'
                       }`}
                     >
-                      {item}
+                      {t(`nav.${item}`)}
                     </motion.button>
                   ))}
                   <motion.button
@@ -727,10 +703,26 @@ export default function Portfolio() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.35 }}
                     onClick={() => setDarkMode(!darkMode)}
-                    className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
                   >
-                    {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+                    {darkMode ? t('nav.lightMode') : t('nav.darkMode')}
                   </motion.button>
+                  <div className="pt-2 flex justify-center gap-4">
+                     <button
+                        onClick={() => i18n.changeLanguage('en')}
+                        className={`px-4 py-2 text-sm rounded-md ${i18n.language.startsWith('en') ? 'bg-cyan-500 text-white' : 'bg-gray-200 dark:bg-slate-700'}`}
+                        disabled={i18n.language.startsWith('en')}
+                      >
+                        English
+                      </button>
+                      <button
+                        onClick={() => i18n.changeLanguage('kin')}
+                        className={`px-4 py-2 text-sm rounded-md ${i18n.language === 'kin' ? 'bg-cyan-500 text-white' : 'bg-gray-200 dark:bg-slate-700'}`}
+                        disabled={i18n.language === 'kin'}
+                      >
+                        Kinyarwanda
+                      </button>
+                </div>
                 </div>
               </motion.div>
             )}
@@ -751,7 +743,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.2, type: "spring" }}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-full text-sm font-semibold mb-6"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900/30 dark:to-cyan-900/30 rounded-full text-sm font-semibold mb-6"
                 >
                   <motion.span
                     animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
@@ -759,8 +751,8 @@ export default function Portfolio() {
                   >
                     👋
                   </motion.span>
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Welcome to my portfolio
+                  <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                    {t('hero.welcome')}
                   </span>
                 </motion.div>
 
@@ -770,10 +762,10 @@ export default function Portfolio() {
                   transition={{ delay: 0.3 }}
                   className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6"
                 >
-                  Hi, I'm{' '}
+                  {t('hero.greeting')}{' '}
                   <AnimatedText 
-                    text={personalData.firstName}
-                    className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
+                    text={t('hero.firstName')}
+                    className="bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 bg-clip-text text-transparent"
                   />
                   <motion.span
                     initial={{ opacity: 0, x: -20 }}
@@ -781,7 +773,7 @@ export default function Portfolio() {
                     transition={{ delay: 0.5 }}
                     className="block text-gray-700 dark:text-gray-300"
                   >
-                    {personalData.lastName}
+                    {t('hero.lastName')}
                   </motion.span>
                 </motion.h1>
 
@@ -791,7 +783,7 @@ export default function Portfolio() {
                   transition={{ delay: 0.4 }}
                   className="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-4"
                 >
-                  {personalData.title}
+                  {t(personalData.titleKey)}
                 </motion.p>
 
                 <motion.p
@@ -800,7 +792,7 @@ export default function Portfolio() {
                   transition={{ delay: 0.5 }}
                   className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed"
                 >
-                  {personalData.bio}
+                  {t(personalData.bioKey)}
                 </motion.p>
 
                 {/* CTA Buttons */}
@@ -814,24 +806,23 @@ export default function Portfolio() {
                     whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(59, 130, 246, 0.5)" }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => scrollToSection('projects')}
-                    className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold shadow-lg flex items-center gap-2 transition-all"
+                    className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-full font-semibold shadow-lg flex items-center gap-2 transition-all"
                     data-cursor="pointer"
                   >
                     <FaRocket className="animate-bounce" />
-                    View My Work
+                    {t('hero.viewWork')}
                   </motion.button>
                   
-                  <motion.a
-                    href="/resume.pdf"
-                    download
+                  <motion.button
+                    onClick={() => setIsCvModalOpen(true)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 border-2 border-gray-300 dark:border-gray-600 rounded-full font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all flex items-center gap-2"
+                    className="px-8 py-4 border-2 border-gray-300 dark:border-gray-600 rounded-full font-semibold hover:bg-gray-100 dark:hover:bg-slate-800 transition-all flex items-center gap-2"
                     data-cursor="pointer"
                   >
-                    <FaFileDownload />
-                    Download CV
-                  </motion.a>
+                    <FaExternalLinkAlt />
+                    {t('hero.viewCV')}
+                  </motion.button>
                 </motion.div>
 
                 {/* Social Links */}
@@ -852,7 +843,7 @@ export default function Portfolio() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.8 + index * 0.1 }}
-                      className="p-3 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-lg hover:from-blue-100 hover:to-purple-100 dark:hover:from-blue-900/30 dark:hover:to-purple-900/30 transition-all"
+                      className="p-3 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-slate-800 dark:to-slate-700 rounded-lg hover:from-blue-100 hover:to-cyan-100 dark:hover:from-blue-900/30 dark:hover:to-cyan-900/30 transition-all"
                       data-cursor="pointer"
                     >
                       {platform === 'github' && <FaGithub size={20} />}
@@ -877,7 +868,7 @@ export default function Portfolio() {
                     animate={{ rotate: 360 }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   >
-                    <div className="absolute w-96 h-96 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl" />
+                    <div className="absolute w-96 h-96 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl" />
                   </motion.div>
                   
                   <motion.div
@@ -885,7 +876,7 @@ export default function Portfolio() {
                     animate={{ rotate: -360 }}
                     transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
                   >
-                    <div className="absolute w-80 h-80 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl" />
+                    <div className="absolute w-80 h-80 bg-gradient-to-r from-cyan-400/20 to-teal-400/20 rounded-full blur-3xl" />
                   </motion.div>
 
                   {/* Central Logo */}
@@ -919,7 +910,7 @@ export default function Portfolio() {
                     >
                       <motion.div
                         whileHover={{ scale: 1.5 }}
-                        className="p-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg"
+                        className="p-3 bg-white dark:bg-slate-800 rounded-lg shadow-lg"
                         style={{ color: skill.color }}
                         data-cursor="pointer"
                       >
@@ -946,7 +937,7 @@ export default function Portfolio() {
               onClick={() => scrollToSection('about')}
               data-cursor="pointer"
             >
-              <span className="text-sm text-gray-600 dark:text-gray-400 mb-2">Scroll Down</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400 mb-2">{t('hero.scrollDown')}</span>
               <FaArrowRight className="rotate-90" />
             </motion.div>
           </motion.div>
@@ -969,19 +960,18 @@ export default function Portfolio() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                About{' '}
+                {t('about.title').split(' ')[0]}{' '}
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Me
+                  {t('about.title').split(' ')[1]}
                 </span>
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
                 className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
               >
-                Get to know more about my journey and what drives my passion for technology
+                {t('about.subtitle')}
               </motion.p>
             </motion.div>
 
@@ -998,17 +988,13 @@ export default function Portfolio() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.1 }}
-                    className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl"
+                    className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl"
                   >
                     <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
                       <FaLightbulb className="text-yellow-500" />
-                      My Journey
+                      {t('about.journeyTitle')}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                      My passion for technology started at Gikonko Technical Secondary School, where I discovered 
-                      the power of code to solve real-world problems. Since then, I've been on a continuous journey 
-                      of learning and growth, mastering various technologies and frameworks.
-                    </p>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{t('about.journeyText')}</p>
                   </motion.div>
 
                   <motion.div
@@ -1020,13 +1006,9 @@ export default function Portfolio() {
                   >
                     <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
                       <FaHeart className="text-red-500" />
-                      What I Love
+                      {t('about.loveTitle')}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                      I'm passionate about creating elegant solutions to complex problems. I love working with 
-                      modern technologies, building user-friendly interfaces, and optimizing performance. 
-                      When I'm not coding, you'll find me exploring new tech trends or contributing to open-source projects.
-                    </p>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{t('about.loveText')}</p>
                   </motion.div>
 
                   <motion.div
@@ -1034,17 +1016,13 @@ export default function Portfolio() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.3 }}
-                    className="p-6 bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-2xl"
+                    className="p-6 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-2xl"
                   >
                     <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
                       <FaRocket className="text-green-500" />
-                      My Mission
+                      {t('about.missionTitle')}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                      To leverage technology in creating innovative solutions that make a positive impact. 
-                      I believe in writing clean, maintainable code and building products that not only meet 
-                      technical requirements but also provide exceptional user experiences.
-                    </p>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{t('about.missionText')}</p>
                   </motion.div>
                 </div>
               </motion.div>
@@ -1058,20 +1036,15 @@ export default function Portfolio() {
               >
                 {/* Stats Cards */}
                 <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { number: "3+", label: "Years Experience", icon: <FaBriefcase />, color: "from-blue-400 to-blue-600" },
-                    { number: "50+", label: "Projects Completed", icon: <FaProjectDiagram />, color: "from-purple-400 to-purple-600" },
-                    { number: "30+", label: "Happy Clients", icon: <FaUsers />, color: "from-pink-400 to-pink-600" },
-                    { number: "10+", label: "Technologies", icon: <FaCode />, color: "from-green-400 to-green-600" },
-                  ].map((stat, index) => (
+                  {aboutStats.map((stat, index) => (
                     <motion.div
-                      key={stat.label}
+                      key={stat.labelKey}
                       initial={{ opacity: 0, scale: 0.5 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.1 * index, type: "spring" }}
                       whileHover={{ scale: 1.05 }}
-                      className="relative p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-xl"
+                      className="relative p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-xl"
                       data-cursor="pointer"
                     >
                       <div className={`absolute inset-0 bg-gradient-to-r ${stat.color} opacity-10 rounded-2xl`} />
@@ -1079,7 +1052,7 @@ export default function Portfolio() {
                         {stat.icon}
                       </div>
                       <h4 className="text-3xl font-bold mb-1">{stat.number}</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{t(stat.labelKey)}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -1094,24 +1067,24 @@ export default function Portfolio() {
                 >
                   <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                     <FaCoffee className="text-orange-500" />
-                    Fun Facts
+                    {t('about.funFactsTitle')}
                   </h3>
                   <ul className="space-y-2 text-gray-600 dark:text-gray-400">
                     <li className="flex items-center gap-2">
                       <FaCheckCircle className="text-green-500" />
-                      Coffee enthusiast (3+ cups daily ☕)
+                      {t('about.fact1')}
                     </li>
                     <li className="flex items-center gap-2">
                       <FaCheckCircle className="text-green-500" />
-                      Open source contributor
+                      {t('about.fact2')}
                     </li>
                     <li className="flex items-center gap-2">
                       <FaCheckCircle className="text-green-500" />
-                      Love solving complex algorithms
+                      {t('about.fact3')}
                     </li>
                     <li className="flex items-center gap-2">
                       <FaCheckCircle className="text-green-500" />
-                      Always learning new technologies
+                      {t('about.fact4')}
                     </li>
                   </ul>
                 </motion.div>
@@ -1121,7 +1094,7 @@ export default function Portfolio() {
         </section>
 
         {/* Services Section */}
-        <section id="services" className="py-20 relative bg-gray-50/50 dark:bg-gray-800/50">
+        <section id="services" className="py-20 relative bg-gray-50/50 dark:bg-slate-800/50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -1130,13 +1103,13 @@ export default function Portfolio() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                My{' '}
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Services
+                {t('services.title').split(' ')[0]}{' '}
+                <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  {t('services.title').split(' ')[1]}
                 </span>
               </h2>
               <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Comprehensive solutions tailored to meet your digital needs
+                {t('services.subtitle')}
               </p>
             </motion.div>
 
@@ -1153,14 +1126,15 @@ export default function Portfolio() {
                   data-cursor="pointer"
                 >
                   <div className={`absolute inset-0 bg-gradient-to-r ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl blur-xl`} />
-                  <div className="relative p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all">
+                  <div className="relative p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all">
                     <div className={`inline-flex p-4 rounded-xl bg-gradient-to-r ${service.color} text-white text-3xl mb-4`}>
                       {service.icon}
                     </div>
-                    <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">{service.description}</p>
+                    <h3 className="text-xl font-bold mb-3">{t(service.title.toLowerCase().replace(" ", ""))}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">{t(service.description)}</p>
                     <ul className="space-y-2">
-                      {service.features.map((feature) => (
+                      {Array.isArray(t(service.featuresKey, { returnObjects: true })) && 
+                        t(service.featuresKey, { returnObjects: true }).map((feature) => (
                         <li key={feature} className="flex items-center gap-2 text-sm">
                           <FaCheckCircle className="text-green-500 flex-shrink-0" />
                           <span>{feature}</span>
@@ -1184,13 +1158,13 @@ export default function Portfolio() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                Technical{' '}
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Skills
+                {t('skills.title').split(' ')[0]}{' '}
+                <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  {t('skills.title').split(' ')[1]}
                 </span>
               </h2>
               <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Technologies and tools I use to bring ideas to life
+                {t('skills.subtitle')}
               </p>
             </motion.div>
 
@@ -1203,7 +1177,7 @@ export default function Portfolio() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05, type: "spring" }}
                   whileHover={{ scale: 1.05 }}
-                  className="relative p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg"
+                  className="relative p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg"
                   data-cursor="pointer"
                 >
                   <div className="flex items-center justify-between mb-4">
@@ -1214,13 +1188,13 @@ export default function Portfolio() {
                       <div>
                         <h3 className="font-bold">{skill.name}</h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {skill.level}% Proficiency
+                          {skill.level}% {t('skills.proficiency')}
                         </p>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="relative h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div className="relative h-3 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${skill.level}%` }}
@@ -1239,7 +1213,7 @@ export default function Portfolio() {
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="py-20 relative bg-gray-50/50 dark:bg-gray-800/50">
+        <section id="projects" className="py-20 relative bg-gray-50/50 dark:bg-slate-800/50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -1248,13 +1222,13 @@ export default function Portfolio() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                Featured{' '}
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Projects
+                {t('projects.title').split(' ')[0]}{' '}
+                <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  {t('projects.title').split(' ')[1]}
                 </span>
               </h2>
               <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Showcasing my best work and creative solutions
+                {t('projects.subtitle')}
               </p>
             </motion.div>
 
@@ -1267,7 +1241,7 @@ export default function Portfolio() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -5 }}
-                  className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden"
+                  className="group relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden"
                   data-cursor="pointer"
                 >
                   {/* Project Image */}
@@ -1275,15 +1249,15 @@ export default function Portfolio() {
                     <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-90`} />
                     <img
                       src={project.image}
-                      alt={project.title}
+                      alt={t(project.titleKey)}
                       className="w-full h-full object-cover mix-blend-overlay"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                     
                     {/* Category Badge */}
                     <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 bg-white/20 backdrop-blur-md text-white rounded-full text-sm font-semibold">
-                        {project.category}
+                      <span className="px-3 py-1 bg-white/20 backdrop-blur-md text-white rounded-full text-sm font-semibold capitalize">
+                        {t(project.categoryKey)}
                       </span>
                     </div>
 
@@ -1300,29 +1274,18 @@ export default function Portfolio() {
                       >
                         <FaGithub />
                       </motion.a>
-                      <motion.a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="p-2 bg-white/20 backdrop-blur-md text-white rounded-lg hover:bg-white/30 transition"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <FaExternalLinkAlt />
-                      </motion.a>
                     </div>
 
                     {/* Project Title Overlay */}
                     <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
+                      <h3 className="text-2xl font-bold text-white mb-2">{t(project.titleKey)}</h3>
                     </div>
                   </div>
 
                   {/* Project Content */}
                   <div className="p-6">
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      {project.description}
+                      {t(project.descriptionKey)}
                     </p>
 
                     {/* Technologies */}
@@ -1330,7 +1293,7 @@ export default function Portfolio() {
                       {project.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm"
+                          className="px-3 py-1 bg-gray-100 dark:bg-slate-700 rounded-full text-sm"
                         >
                           {tech}
                         </span>
@@ -1339,7 +1302,8 @@ export default function Portfolio() {
 
                     {/* Features */}
                     <div className="space-y-2">
-                      {project.features.slice(0, 3).map((feature) => (
+                      {Array.isArray(t(project.featuresKey, { returnObjects: true })) && 
+                        t(project.featuresKey, { returnObjects: true }).slice(0, 3).map((feature) => (
                         <div key={feature} className="flex items-center gap-2 text-sm">
                           <FaCheckCircle className="text-green-500 flex-shrink-0" />
                           <span>{feature}</span>
@@ -1363,40 +1327,42 @@ export default function Portfolio() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                Client{' '}
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Testimonials
+                {t('testimonials.title').split(' ')[0]}{' '}
+                <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  {t('testimonials.title').split(' ')[1]}
                 </span>
               </h2>
               <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                What my clients say about working with me
+                {t('testimonials.subtitle')}
               </p>
             </motion.div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
+              {testimonials.map((testimonial, index) => {
+                const testimonialContent = t(`testimonials.items.${testimonial.key}`, { returnObjects: true }) || {};
+                return (
                 <motion.div
-                  key={testimonial.name}
+                  key={testimonial.key}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -5 }}
-                  className="relative p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg"
+                  className="relative p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-lg"
                   data-cursor="pointer"
                 >
                   <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${testimonial.color} rounded-t-2xl`} />
                   
-                  <FaQuoteLeft className="text-3xl text-gray-300 dark:text-gray-600 mb-4" />
+                  <FaQuoteLeft className="text-3xl text-gray-300 dark:text-slate-600 mb-4" />
                   
                   <p className="text-gray-600 dark:text-gray-400 mb-6 italic">
-                    "{testimonial.content}"
+                    "{testimonialContent.content}"
                   </p>
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-bold">{testimonial.name}</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{testimonial.role}</p>
+                      <p className="font-bold">{testimonialContent.name}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{testimonialContent.role}</p>
                     </div>
                     <div className="flex gap-1">
                       {[...Array(testimonial.rating)].map((_, i) => (
@@ -1405,13 +1371,14 @@ export default function Portfolio() {
                     </div>
                   </div>
                 </motion.div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-20 relative bg-gray-50/50 dark:bg-gray-800/50">
+        <section id="contact" className="py-20 relative bg-gray-50/50 dark:bg-slate-800/50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -1420,39 +1387,35 @@ export default function Portfolio() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                Let's{' '}
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Connect
+                {t('contact.title').split(' ')[0]}{' '}
+                <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  {t('contact.title').split(' ')[1]}
                 </span>
               </h2>
               <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Have a project in mind? I'd love to hear from you!
+                {t('contact.subtitle')}
               </p>
             </motion.div>
 
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-3 gap-8 mb-12">
-                {[
-                  { icon: <FaEnvelope />, label: "Email", value: personalData.email, href: `mailto:${personalData.email}` },
-                  { icon: <FaPhone />, label: "Phone", value: personalData.phone, href: `tel:${personalData.phone}` },
-                  { icon: <FaMapMarkerAlt />, label: "Location", value: personalData.location },
-                ].map((info, index) => (
+                {contactInfo.map((info, index) => (
                   <motion.a
-                    key={info.label}
+                    key={info.labelKey}
                     href={info.href}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
                     whileHover={{ scale: 1.05 }}
-                    className="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg cursor-pointer"
+                    className="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg cursor-pointer"
                     data-cursor="pointer"
                   >
                     <div className="text-3xl text-blue-600 dark:text-blue-400 mb-3">
                       {info.icon}
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{info.label}</p>
-                    <p className="font-semibold text-center">{info.value}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{t(info.labelKey)}</p>
+                    <p className="font-semibold text-center">{info.valueKey ? t(info.valueKey) : info.value}</p>
                   </motion.a>
                 ))}
               </div>
@@ -1464,7 +1427,7 @@ export default function Portfolio() {
                 className="text-center"
               >
                 <p className="text-gray-600 dark:text-gray-400 mb-8">
-                  Or reach out directly through my social channels
+                  {t('contact.reachOut')}
                 </p>
                 <div className="flex justify-center gap-4">
                   {Object.entries(personalData.socials).map(([platform, url]) => (
@@ -1475,7 +1438,7 @@ export default function Portfolio() {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.1, rotate: 360 }}
                       whileTap={{ scale: 0.9 }}
-                      className="p-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-lg"
+                      className="p-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-full shadow-lg"
                       data-cursor="pointer"
                     >
                       {platform === 'github' && <FaGithub size={24} />}
@@ -1490,7 +1453,7 @@ export default function Portfolio() {
         </section>
 
         {/* Footer */}
-        <footer className="py-8 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+        <footer className="py-8 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <motion.div
               initial={{ opacity: 0 }}
@@ -1501,13 +1464,48 @@ export default function Portfolio() {
               <AnimatedLogo size={50} animated={false} />
             </motion.div>
             <p className="text-gray-600 dark:text-gray-400 mb-2">
-              © {new Date().getFullYear()} {personalData.name}. All rights reserved.
+              © {new Date().getFullYear()} {personalData.name}. {t('footer.rights')}
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-500">
-              Built with ❤️By Jeanaime Iraguha
+              {t('footer.builtWith')}
             </p>
           </div>
         </footer>
+
+        {/* CV Modal */}
+        <AnimatePresence>
+          {isCvModalOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+              onClick={() => setIsCvModalOpen(false)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, y: 50 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 50 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                className="relative w-full max-w-4xl h-[90vh] bg-white dark:bg-slate-800 rounded-lg shadow-2xl overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="h-full overflow-y-auto">
+                  <Suspense fallback={<div className="p-8 text-center">Loading CV...</div>}>
+                    <CVPage darkMode={darkMode} setDarkMode={setDarkMode} isModal={true} />
+                  </Suspense>
+                </div>
+                <button
+                  onClick={() => setIsCvModalOpen(false)}
+                  className="absolute top-4 right-4 p-2 bg-gray-200 dark:bg-slate-700 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors"
+                  aria-label="Close CV"
+                >
+                  <FaTimes />
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       </div>
     </div>

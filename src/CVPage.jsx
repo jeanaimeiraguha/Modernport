@@ -86,13 +86,10 @@ export default function CVPage({ darkMode: darkModeProp, setDarkMode: setDarkMod
 
             {/* Core Skills */}
             <Section title={t('cv.coreSkills')} icon={<FaStar />}>
-              <div className="space-y-3">
-                {Object.entries(t('cv.skills', { returnObjects: true }) || {}).map(([category, skills]) => (
-                  <div key={category}>
-                    <h3 className="font-semibold text-gray-700 dark:text-gray-200 print:text-black">{t(`cv.skillsCategories.${category}`, category)}:</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm print:text-black">{Array.isArray(skills) ? skills.join(', ') : ''}</p>
-                  </div>
-                ))}
+              <div className="flex flex-wrap gap-2">
+                {Array.isArray(t('cv.coreSkillsList', { returnObjects: true })) && t('cv.coreSkillsList', { returnObjects: true }).map((skill, index) => (
+                  <span key={index} className="bg-gray-200 dark:bg-slate-700 px-3 py-1 rounded-full text-sm text-gray-700 dark:text-gray-300 print:bg-transparent print:p-0 print:text-black print:inline-block print:mr-2">{skill}</span>
+                ))} 
               </div>
             </Section>
 

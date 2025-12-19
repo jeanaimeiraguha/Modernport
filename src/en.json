@@ -135,7 +135,22 @@
     "summary": "Passionate and ethical Software Engineer with 3–5 years of experience in full-stack web development, backend engineering, and modern frontend technologies. Skilled in building scalable systems using Node.js, React, Next.js, PHP, MySQL, MongoDB, Flutter, and blockchain technologies. Highly motivated, hardworking, and dedicated to delivering clean, beginner-friendly code and efficient digital solutions. Also experienced in graphic design, UI/UX, and remote collaborative work.",
     "profileSummary": "Profile Summary",
     "coreSkills": "Core Skills",
+    "coreSkillsList": [
+      "Full-Stack Web Development",
+      "Node.js & Express",
+      "React.js & Next.js",
+      "PHP & MySQL",
+      "MongoDB & NoSQL",
+      "Flutter & Mobile Dev",
+      "Blockchain & Web3",
+      "UI/UX & Graphic Design",
+      "Git & Version Control"
+    ],
     "keyProjects": "Key Projects",
+    "projectsList": [
+      { "title": "E-Learning Platform", "description": "Built a real-time collaboration system using React and Node.js." },
+      { "title": "Smart City Dashboard", "description": "Developed an IoT monitoring dashboard with Next.js and Python." }
+    ],
     "workExperience": "Work Experience",
     "education": "Education & Certifications",
     "achievements": "Achievements",
@@ -153,6 +168,15 @@
       { "role": "Backend Developer Intern", "company": "CodeAlpha", "date": "March 2025", "description": "Designed and built backend systems focusing on APIs, authentication, and database structures. Worked remotely and delivered beginner-friendly, maintainable code." },
       { "role": "Remote Graphic Designer", "company": "", "date": "", "description": "Worked on brand identities, UI designs, posters, and promotional materials." }
     ],
+    "educationList": [
+      "Bachelor of Science in Computer Science - University of Rwanda",
+      "Software Engineering Certification - ALX Africa",
+      "Technical Education - Gikonko Technical Secondary School"
+    ],
+    "languagesList": [
+      "English (Professional)", "French (Intermediate)", "Kinyarwanda (Native)"
+    ],
+    "interestsList": ["Open Source", "AI & Machine Learning", "Tech Blogging", "Football"],
     "achievementsList": [
       "Built multiple real-world systems (School MIS, SIMS, PSSMS, Student Portals).",
       "Successfully integrated backend–frontend pipelines across several projects.",

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  FaGithub, FaLinkedin, FaEnvelope, FaGlobe, FaPhone, FaMapMarkerAlt,
+  FaEnvelope, FaPhone, FaMapMarkerAlt,
   FaReact, FaNodeJs, FaPhp, FaDatabase, FaPython, FaGitAlt, FaDocker,
   FaBriefcase, FaGraduationCap, FaAward, FaStar, FaSun, FaMoon
 } from 'react-icons/fa';
@@ -35,8 +35,6 @@ export default function CVPage({ darkMode: darkModeProp, setDarkMode: setDarkMod
   const cvData = {
     name: "IRAGUHA Jean Aime",
     contacts: {
-      github: "github.com/jeanaimeiraguha",
-      portfolio: "iraguha-jean-aime.vercel.app",
       email: "jeanaimeiraguha@gmail.com",
       phone: "+250 793 411 594",
     },
@@ -72,9 +70,6 @@ export default function CVPage({ darkMode: darkModeProp, setDarkMode: setDarkMod
               <a href={`mailto:${cvData.contacts.email}`} className="flex items-center gap-2 hover:text-cyan-400"><FaEnvelope /> {cvData.contacts.email}</a>
               <a href={`tel:${cvData.contacts.phone}`} className="flex items-center gap-2 hover:text-cyan-400"><FaPhone /> {cvData.contacts.phone}</a>
               <span className="flex items-center gap-2"><FaMapMarkerAlt /> {t('personal.location')}</span>
-            </div>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm mt-2 text-slate-200 dark:text-slate-300 print:text-gray-700">
-              <a href={`https://${cvData.contacts.github}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-cyan-400"><FaGithub /> {cvData.contacts.github}</a>
             </div>
           </header>
 

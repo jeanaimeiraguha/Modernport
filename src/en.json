@@ -28,7 +28,7 @@
     "title": "About Me",
     "subtitle": "Get to know more about my journey and what drives my passion for technology",
     "journeyTitle": "My Journey",
-    "journeyText": "My passion for technology started at Gikonko Technical Secondary School, where I discovered the power of code to solve real-world problems. Since then, I've been on a continuous journey of learning and growth, mastering various technologies and frameworks.",
+    "journeyText": "My passion for technology started at G TSS, where I discovered the power of code to solve real-world problems. Since then, I've been on a continuous journey of learning and growth, mastering various technologies and frameworks.",
     "loveTitle": "What I Love",
     "loveText": "I'm passionate about creating elegant solutions to complex problems. I love working with modern technologies, building user-friendly interfaces, and optimizing performance. When I'm not coding, you'll find me exploring new tech trends or contributing to open-source projects.",
     "missionTitle": "My Mission",
@@ -171,7 +171,7 @@
     "educationList": [
       "Bachelor of Science in Computer Science - University of Rwanda",
       "Software Engineering Certification - ALX Africa",
-      "Technical Education - Gikonko Technical Secondary School"
+      "Technical Education - G TSS"
     ],
     "languagesList": [
       "English (Professional)", "French (Intermediate)", "Kinyarwanda (Native)"

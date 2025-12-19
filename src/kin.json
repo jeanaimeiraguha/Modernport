@@ -10,6 +10,9 @@
     "lightMode": "☀️ Urumuri",
     "darkMode": "🌙 Umwijima"
   },
+  "loading": {
+    "text": "Birimo gufunguka..."
+  },
   "hero": {
     "welcome": "Murakaza neza ku rubuga rwanjye",
     "greeting": "Muraho, nitwa",
@@ -74,22 +77,26 @@
       "elearning": {
         "title": "Ikoranabuhanga ryo Kwigiraho",
         "description": "Sisitemu yuzuye yo kwigiraho hifashishijwe ikoranabuhanga, ifite n'uburyo bwo gufatanya mu gihe nyacyo.",
-        "features": ["Amasomo kuri videwo", "Ibibazo n'ibisubizo", "Gukurikirana imyigire", "Gutanga impamyabushobozi"]
+        "features": ["Amasomo kuri videwo", "Ibibazo n'ibisubizo", "Gukurikirana imyigire", "Gutanga impamyabushobozi"],
+        "technologies": ["React", "Node.js", "MongoDB", "Socket.io", "Tailwind CSS"]
       },
       "smartCity": {
         "title": "Imbonerahamwe y'Umujyi Ugezweho",
         "description": "Imbonerahamwe igaragaza imikorere y'umujyi mu gihe nyacyo, ikoresheje ibyuma bifata amakuru (IoT) ku mihanda, ikirere, n'ibindi.",
-        "features": ["Kugaragaza amakuru mu gihe nyacyo", "Isesengura riteganya", "Sisitemu y'integuza", "Ijyana na telefone"]
+        "features": ["Kugaragaza amakuru mu gihe nyacyo", "Isesengura riteganya", "Sisitemu y'integuza", "Ijyana na telefone"],
+        "technologies": ["Next.js", "Python", "PostgreSQL", "D3.js", "Docker"]
       },
       "fintechApp": {
         "title": "Porogaramu ya Telefone y'Imari",
         "description": "Porogaramu ya banki kuri telefone itekanye, ikoresha igikumwe mu kwemeza umwirondoro no kohereza amafaranga ako kanya.",
-        "features": ["Kwemeza umwirondoro n'igikumwe", "Kwishyura na kode ya QR", "Amateka y'imikoranire", "Gukurikirana ingengo y'imari"]
+        "features": ["Kwemeza umwirondoro n'igikumwe", "Kwishyura na kode ya QR", "Amateka y'imikoranire", "Gukurikirana ingengo y'imari"],
+        "technologies": ["React Native", "Node.js", "MySQL", "Redis", "JWT"]
       },
       "aiHealth": {
         "title": "Umujyanama w'Ubuzima wa AI",
         "description": "Porogaramu ikurikirana ubuzima ishingiye kuri ubwenge bw'ubukorano (AI), ifite uburyo bwo kugenzura ibimenyetso no gufata gahunda kwa muganga.",
-        "features": ["Isesengura ry'ibimenyetso na AI", "Kwibutsa imiti", "Gukurikirana ubuzima", "Kuvugana na muganga"]
+        "features": ["Isesengura ry'ibimenyetso na AI", "Kwibutsa imiti", "Gukurikirana ubuzima", "Kuvugana na muganga"],
+        "technologies": ["React", "Python", "TensorFlow", "Firebase", "Chart.js"]
       }
     }
   },
@@ -115,6 +122,9 @@
     "phone": "Telefone",
     "location": "Aho mba",
     "reachOut": "Cyangwa unyandikire unyuze ku mbuga nkoranyambaga zanjye"
+  },
+  "personal": {
+    "location": "Bugesera, KIgali Rwanda"
   },
   "footer": {
     "rights": "Uburenganzira bwose burubahirizwa.",

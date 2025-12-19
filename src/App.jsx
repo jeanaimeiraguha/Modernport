@@ -1,4 +1,4 @@
-import React from 'react'; // ✅ Always import React
+import React from 'react'; 
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import PortfolioPage from './PortfolioPage';

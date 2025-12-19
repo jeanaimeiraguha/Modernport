@@ -10,6 +10,9 @@
     "lightMode": "☀️ Light Mode",
     "darkMode": "🌙 Dark Mode"
   },
+  "loading": {
+    "text": "Loading..."
+  },
   "hero": {
     "welcome": "Welcome to my portfolio",
     "greeting": "Hi, I'm",
@@ -63,11 +66,54 @@
   },
   "projects": {
     "title": "Featured Projects",
-    "subtitle": "Showcasing my best work and creative solutions"
+    "subtitle": "Showcasing my best work and creative solutions",
+    "categories": {
+      "elearning": "Education",
+      "smartCity": "IoT & Data",
+      "fintechApp": "Finance",
+      "aiHealth": "Health"
+    },
+    "items": {
+      "elearning": {
+        "title": "E-Learning Platform",
+        "description": "A comprehensive e-learning system with real-time collaboration features.",
+        "features": ["Video Lessons", "Q&A", "Progress Tracking", "Certification"],
+        "technologies": ["React", "Node.js", "MongoDB", "Socket.io", "Tailwind CSS"]
+      },
+      "smartCity": {
+        "title": "Smart City Dashboard",
+        "description": "Real-time city monitoring dashboard using IoT sensors for traffic, weather, etc.",
+        "features": ["Real-time Visualization", "Predictive Analytics", "Alert System", "Mobile Responsive"],
+        "technologies": ["Next.js", "Python", "PostgreSQL", "D3.js", "Docker"]
+      },
+      "fintechApp": {
+        "title": "Fintech Mobile App",
+        "description": "Secure mobile banking application with biometric authentication and instant transfers.",
+        "features": ["Biometric Auth", "QR Payments", "Transaction History", "Budget Tracking"],
+        "technologies": ["React Native", "Node.js", "MySQL", "Redis", "JWT"]
+      },
+      "aiHealth": {
+        "title": "AI Health Assistant",
+        "description": "AI-powered health monitoring app with symptom checker and appointment scheduling.",
+        "features": ["AI Symptom Analysis", "Medication Reminders", "Health Tracking", "Doctor Consultation"],
+        "technologies": ["React", "Python", "TensorFlow", "Firebase", "Chart.js"]
+      }
+    }
   },
   "testimonials": {
     "title": "Client Testimonials",
-    "subtitle": "What my clients say about working with me"
+    "subtitle": "What my clients say about working with me",
+    "items": {
+      "sarah": {
+        "name": "Sarah Johnson", "role": "CEO, TechStart Rwanda", "content": "Jean Aime is an exceptional developer who brings creativity and technical excellence to every project. His work exceeded our expectations."
+      },
+      "david": {
+        "name": "David Kwizera", "role": "Product Manager, InnovateAfrica", "content": "Working with Jean Aime was a game-changer for our company. He delivered a robust solution that perfectly aligned with our growth."
+      },
+      "marie": {
+        "name": "Marie Claire", "role": "CTO, Digital Solutions Ltd", "content": "Jean Aime's attention to detail and problem-solving skills are impressive. He is a valuable asset to any development team."
+      }
+    }
   },
   "contact": {
     "title": "Let's Connect",
@@ -76,6 +122,9 @@
     "phone": "Phone",
     "location": "Location",
     "reachOut": "Or reach out directly through my social channels"
+  },
+  "personal": {
+    "location": "Bugesera, KIgali Rwanda"
   },
   "footer": {
     "rights": "All rights reserved.",

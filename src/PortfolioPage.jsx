@@ -1070,6 +1070,13 @@ export default function Portfolio() {
     const isDark = localStorage.getItem('darkMode') === 'true' || 
                    (!('darkMode' in localStorage) && true); // Default to dark mode
     setDarkMode(isDark);
+    
+    // Apply dark mode class immediately to prevent white flash
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }, []);
 
   // Update localStorage and html class when dark mode changes

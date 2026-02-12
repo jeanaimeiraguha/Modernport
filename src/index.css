@@ -1,1 +1,290 @@
 @import "tailwindcss";
+
+/* Custom CSS for enhanced interactive colors and animations */
+
+/* Root variables for theme colors */
+:root {
+  --color-cool-blue-50: #f0f7ff;
+  --color-cool-blue-100: #e0f0ff;
+  --color-cool-blue-200: #cfe6ff;
+  --color-cool-blue-300: #b0d6ff;
+  --color-cool-blue-400: #80bfff;
+  --color-cool-blue-500: #2563eb;
+  --color-cool-blue-600: #1d4ed8;
+  --color-cool-blue-700: #1e40af;
+  --color-cool-blue-800: #1e3a8a;
+  --color-cool-blue-900: #1e3a8a;
+
+  --color-cool-cyan-50: #ecfeff;
+  --color-cool-cyan-100: #cffafe;
+  --color-cool-cyan-200: #a5f3fc;
+  --color-cool-cyan-300: #67e8f9;
+  --color-cool-cyan-400: #22d3ee;
+  --color-cool-cyan-500: #0891b2;
+  --color-cool-cyan-600: #0e7490;
+  --color-cool-cyan-700: #115e59;
+  --color-cool-cyan-800: #134e4a;
+  --color-cool-cyan-900: #0f3d3e;
+
+  --color-cool-teal-50: #f0fdfa;
+  --color-cool-teal-100: #ccfbf1;
+  --color-cool-teal-200: #99f6e4;
+  --color-cool-teal-300: #5eead4;
+  --color-cool-teal-400: #2dd4bf;
+  --color-cool-teal-500: #0d9488;
+  --color-cool-teal-600: #0f766e;
+  --color-cool-teal-700: #115e59;
+  --color-cool-teal-800: #134e4a;
+  --color-cool-teal-900: #0f3d3e;
+
+  --color-cool-gray-50: #f9fafb;
+  --color-cool-gray-100: #f3f4f6;
+  --color-cool-gray-200: #e5e7eb;
+  --color-cool-gray-300: #d1d5db;
+  --color-cool-gray-400: #9ca3af;
+  --color-cool-gray-500: #6b7280;
+  --color-cool-gray-600: #4b5563;
+  --color-cool-gray-700: #374151;
+  --color-cool-gray-800: #1f2937;
+  --color-cool-gray-900: #111827;
+
+  /* Animation durations */
+  --anim-duration-fast: 0.3s;
+  --anim-duration-normal: 0.5s;
+  --anim-duration-slow: 1s;
+  --anim-duration-very-slow: 2s;
+}
+
+/* Dark theme overrides */
+.dark {
+  --color-cool-blue-50: #0f172a;
+  --color-cool-blue-100: #111827;
+  --color-cool-blue-200: #1f2937;
+  --color-cool-blue-300: #334155;
+  --color-cool-blue-400: #475569;
+  --color-cool-blue-500: #64748b;
+  --color-cool-blue-600: #94a3b8;
+  --color-cool-blue-700: #cbd5e1;
+  --color-cool-blue-800: #e2e8f0;
+  --color-cool-blue-900: #f1f5f9;
+
+  --color-cool-cyan-50: #0f172a;
+  --color-cool-cyan-100: #111827;
+  --color-cool-cyan-200: #1f2937;
+  --color-cool-cyan-300: #334155;
+  --color-cool-cyan-400: #475569;
+  --color-cool-cyan-500: #64748b;
+  --color-cool-cyan-600: #94a3b8;
+  --color-cool-cyan-700: #cbd5e1;
+  --color-cool-cyan-800: #e2e8f0;
+  --color-cool-cyan-900: #f1f5f9;
+
+  --color-cool-teal-50: #0f172a;
+  --color-cool-teal-100: #111827;
+  --color-cool-teal-200: #1f2937;
+  --color-cool-teal-300: #334155;
+  --color-cool-teal-400: #475569;
+  --color-cool-teal-500: #64748b;
+  --color-cool-teal-600: #94a3b8;
+  --color-cool-teal-700: #cbd5e1;
+  --color-cool-teal-800: #e2e8f0;
+  --color-cool-teal-900: #f1f5f9;
+}
+
+/* Enhanced background with interactive gradient */
+body {
+  background: linear-gradient(135deg, 
+    #F5F6FA 0%, 
+    #F3F4F6 50%, 
+    #F7F8FC 100%
+  );
+  background-attachment: fixed;
+  transition: background-color var(--anim-duration-normal) ease;
+}
+
+/* Dark mode background */
+.dark body {
+  background: linear-gradient(135deg, 
+    var(--color-cool-gray-900) 0%, 
+    var(--color-cool-gray-800) 50%, 
+    var(--color-cool-gray-900) 100%
+  );
+}
+
+/* Interactive elements with hover effects */
+.interactive-element {
+  transition: all var(--anim-duration-normal) cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.interactive-element::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--anim-duration-normal);
+}
+
+.interactive-element:hover::before {
+  left: 100%;
+}
+
+/* Enhanced button animations */
+.btn-cool {
+  background: linear-gradient(135deg, var(--color-cool-blue-500), var(--color-cool-cyan-500));
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+  transition: all var(--anim-duration-normal) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-cool:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+  filter: brightness(1.1);
+}
+
+.btn-cool:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Floating animation for cards */
+.card-float {
+  animation: float-up 4s ease-in-out infinite;
+  transition: transform var(--anim-duration-normal) ease;
+}
+
+.card-float:hover {
+  transform: translateY(-10px) scale(1.02);
+  animation-play-state: paused;
+}
+
+/* Pulse animation for important elements */
+.pulse-cool {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Gradient text animation */
+.text-gradient-animated {
+  background: linear-gradient(45deg, var(--color-cool-blue-500), var(--color-cool-cyan-500), var(--color-cool-teal-500), var(--color-cool-blue-500));
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient 6s ease infinite;
+}
+
+/* Subtle wave animation */
+.wave-cool {
+  animation: wave 3s ease-in-out infinite;
+}
+
+/* Drifting animation for decorative elements */
+.drift-cool {
+  animation: drift 8s ease-in-out infinite;
+}
+
+/* Breathing animation for logos and icons */
+.breathing {
+  animation: breathing 4s ease-in-out infinite;
+}
+
+/* Glow effect on hover */
+.glow-hover:hover {
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.5), 0 0 40px rgba(8, 145, 178, 0.3);
+  transition: box-shadow var(--anim-duration-normal) ease;
+}
+
+/* Enhanced focus states */
+.focus-cool:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3), 0 0 15px rgba(37, 99, 235, 0.5);
+}
+
+/* Smooth page transitions */
+.page-transition {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading shimmer effect */
+.shimmer-loading {
+  background: linear-gradient(90deg, 
+    #f0f0f0 25%, 
+    #e0e0e0 50%, 
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Enhanced scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cool-gray-100);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-cool-blue-400), var(--color-cool-cyan-400));
+  border-radius: 4px;
+  transition: background var(--anim-duration-normal) ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--color-cool-blue-500), var(--color-cool-cyan-500));
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: var(--color-cool-gray-800);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-cool-blue-600), var(--color-cool-cyan-600));
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--color-cool-blue-500), var(--color-cool-cyan-500));
+}
+
+/* Responsive animations */
+@media (max-width: 768px) {
+  .card-float {
+    animation-duration: 6s;
+  }
+  
+  .text-gradient-animated {
+    animation-duration: 8s;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

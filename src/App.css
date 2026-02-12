@@ -1,1 +1,102 @@
 @import "tailwindcss";
+
+/* Ensure entire app has cool bluish background */
+html, body {
+  background: linear-gradient(135deg, 
+    #F5F6FA 0%, 
+    #F3F4F6 50%, 
+    #F7F8FC 100%
+  ) !important;
+  background-attachment: fixed;
+}
+
+/* Override component backgrounds to be transparent or matching */
+.bg-white {
+  background-color: transparent !important;
+}
+
+.bg-gray-50 {
+  background-color: rgba(245, 246, 250, 0.8) !important;
+}
+
+.bg-gray-100 {
+  background-color: rgba(245, 246, 250, 0.9) !important;
+}
+
+.bg-slate-800 {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+}
+
+.bg-slate-900 {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+}
+
+/* Ensure dark mode backgrounds work properly */
+.dark .bg-white {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+}
+
+.dark .bg-gray-50 {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+}
+
+.dark .bg-gray-100 {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+}
+
+/* Make sure sections have proper transparency */
+section {
+  background: transparent !important;
+}
+
+/* Override specific component backgrounds */
+.card-float, .interactive-element {
+  background: transparent !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Ensure modals and overlays work properly */
+.modal, .popup {
+  background: transparent !important;
+}
+
+.dark .modal, .dark .popup {
+  background: transparent !important;
+}
+
+/* Override CV page backgrounds */
+.bg-slate-700 {
+  background-color: rgba(51, 65, 85, 0.8) !important;
+}
+
+.bg-slate-900 {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+}
+
+.bg-gray-200 {
+  background-color: rgba(229, 231, 235, 0.8) !important;
+}
+
+.bg-gray-100 {
+  background-color: rgba(243, 244, 246, 0.9) !important;
+}
+
+/* Override specific component backgrounds in CV */
+.cv-header {
+  background: linear-gradient(135deg, #F5F6FA 0%, #F3F4F6 50%, #F7F8FC 100%) !important;
+}
+
+/* Ensure all text containers have proper transparency */
+.container, .max-w-4xl {
+  background: transparent !important;
+}
+
+/* Override any remaining white backgrounds */
+*:not(input):not(button):not(select) {
+  background-color: transparent !important;
+}
+
+/* Make sure the main content area shows the background */
+main, section, article {
+  background: transparent !important;
+}

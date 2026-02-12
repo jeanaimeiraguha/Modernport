@@ -424,12 +424,14 @@ const education = [
     degree: "Bachelor of Science in Computer Science",
     institution: "University of Rwanda",
     period: "2018 - 2022",
-    description: "Graduated with honors in Computer Science with focus on software engineering, artificial intelligence, and web technologies.",
+    description: "Graduated with honors in Computer Science with focus on software engineering, artificial intelligence, and web technologies. Specialized in full-stack development, machine learning, and blockchain technologies.",
     achievements: [
-      "Graduated with First Class Honors",
-      "President of Computer Science Club",
-      "Participated in national coding competitions",
-      "Research project on AI in healthcare applications"
+      "Graduated with First Class Honors (GPA: 3.8/4.0)",
+      "President of Computer Science Club (2020-2022)",
+      "Participated in national coding competitions and hackathons",
+      "Research project on AI in healthcare applications using TensorFlow",
+      "Led team projects in web development and database management",
+      "Published research paper on blockchain applications in supply chain management"
     ],
     gpa: "3.8/4.0"
   },
@@ -437,12 +439,42 @@ const education = [
     degree: "Advanced Web Development Certification",
     institution: "FreeCodeCamp",
     period: "2021 - 2022",
-    description: "Completed comprehensive certification in modern web development technologies and best practices.",
+    description: "Completed comprehensive certification in modern web development technologies and best practices. Mastered full-stack development with industry-standard tools and frameworks.",
     achievements: [
       "Mastered React, Node.js, and full-stack development",
-      "Learned database design and API development",
-      "Completed 300+ hours of hands-on projects",
-      "Achieved certification in responsive web design"
+      "Learned database design and API development with MongoDB and PostgreSQL",
+      "Completed 300+ hours of hands-on projects and real-world applications",
+      "Achieved certification in responsive web design and accessibility",
+      "Built 15+ full-stack applications with modern tech stack",
+      "Learned DevOps practices including Docker, Git, and CI/CD"
+    ]
+  },
+  {
+    degree: "Secondary School Education",
+    institution: "Ecole de Science de Musanze",
+    period: "2014 - 2017",
+    description: "Completed advanced secondary education with focus on science and mathematics. Developed strong analytical and problem-solving skills through rigorous academic curriculum.",
+    achievements: [
+      "Specialized in Mathematics, Physics, and Computer Science",
+      "Participated in national science competitions and mathematics olympiads",
+      "Developed foundational programming skills in Python and Java",
+      "Led school technology club and organized coding workshops",
+      "Achieved excellent results in national examinations",
+      "Mentored junior students in STEM subjects"
+    ]
+  },
+  {
+    degree: "Primary School Education",
+    institution: "Kibenga Primary School",
+    period: "2006 - 2013",
+    description: "Completed primary education with strong foundation in basic sciences, mathematics, and computer literacy. Developed early interest in technology and problem-solving.",
+    achievements: [
+      "Excelled in mathematics and science subjects",
+      "Participated in school science fairs and technology exhibitions",
+      "Learned basic computer skills and digital literacy",
+      "Developed teamwork and leadership skills through group projects",
+      "Achieved top academic performance throughout primary education",
+      "Participated in extracurricular activities including sports and arts"
     ]
   }
 ];
@@ -952,7 +984,6 @@ const Chatbot = () => {
 
 export default function Portfolio() {
   const { t, i18n } = useTranslation();
-  const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -1065,30 +1096,6 @@ export default function Portfolio() {
     { labelKey: 'contact.location', icon: <FaMapMarkerAlt />, valueKey: "personal.location" },
   ];
 
-  // Set initial dark mode state to dark by default
-  useEffect(() => {
-    const isDark = localStorage.getItem('darkMode') === 'true' || 
-                   (!('darkMode' in localStorage) && true); // Default to dark mode
-    setDarkMode(isDark);
-    
-    // Apply dark mode class immediately to prevent white flash
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
-
-  // Update localStorage and html class when dark mode changes
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('darkMode', 'true');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('darkMode', 'false');
-    }
-  }, [darkMode]);
 
 
   // Scroll spy
@@ -1122,7 +1129,7 @@ export default function Portfolio() {
   };
 
   return (
-    <div className={`${darkMode ? 'dark' : ''}`}>
+    <div>
       <div className="bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-100 min-h-screen overflow-x-hidden">
         
         {/* Animated Background */}
@@ -1145,7 +1152,7 @@ export default function Portfolio() {
           initial={{ y: -100 }}
           animate={{ y: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed top-0 w-full z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-gray-200/20 dark:border-gray-800/20 interactive-element"
+          className="fixed top-0 w-full z-40 bg-white/80 backdrop-blur-lg border-b border-gray-200/20 interactive-element"
         >
           <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
@@ -1198,20 +1205,6 @@ export default function Portfolio() {
                     KIN
                   </button>
                 </div>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setDarkMode(!darkMode)}
-                  className="ml-4 p-2 rounded-lg bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors"
-                  data-cursor="pointer"
-                >
-                  <motion.div
-                    animate={{ rotate: darkMode ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {darkMode ? '☀️' : '🌙'}
-                  </motion.div>
-                </motion.button>
               </div>
 
               {/* Mobile Menu Button */}
@@ -1253,15 +1246,6 @@ export default function Portfolio() {
                       {t(`nav.${item}`)}
                     </motion.button>
                   ))}
-                  <motion.button
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.35 }}
-                    onClick={() => setDarkMode(!darkMode)}
-                    className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
-                  >
-                    {darkMode ? t('nav.lightMode') : t('nav.darkMode')}
-                  </motion.button>
                   <div className="pt-2 flex justify-center gap-4">
                      <button
                         onClick={() => i18n.changeLanguage('en')}
@@ -1517,7 +1501,7 @@ export default function Portfolio() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
- me                Professional <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Experience</span>
+                Professional <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Experience</span>
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -2286,7 +2270,7 @@ export default function Portfolio() {
               >
                 <div className="h-full overflow-y-auto">
                   <Suspense fallback={<div className="p-8 text-center">Loading CV...</div>}>
-                    <CVPage darkMode={darkMode} setDarkMode={setDarkMode} isModal={true} />
+                    <CVPage isModal={true} />
                   </Suspense>
                 </div>
                 <button

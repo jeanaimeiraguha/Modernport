@@ -1065,12 +1065,10 @@ export default function Portfolio() {
     { labelKey: 'contact.location', icon: <FaMapMarkerAlt />, valueKey: "personal.location" },
   ];
 
-  // Set initial dark mode state from localStorage or system preference
+  // Set initial dark mode state to dark by default
   useEffect(() => {
-    const isDark =
-      localStorage.getItem('darkMode') === 'true' ||
-      (!('darkMode' in localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const isDark = localStorage.getItem('darkMode') === 'true' || 
+                   (!('darkMode' in localStorage) && true); // Default to dark mode
     setDarkMode(isDark);
   }, []);
 

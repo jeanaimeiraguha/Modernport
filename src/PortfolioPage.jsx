@@ -1294,7 +1294,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-2"
                 >
                   Full-Stack Developer • AI & Blockchain Engineer
                 </motion.h2>
@@ -1305,7 +1305,7 @@ export default function Portfolio() {
                   transition={{ delay: 0.3 }}
                   className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"
                 >
-                  <span className="block text-gray-700 dark:text-gray-300 mb-2">Hi there, I'm</span>
+                  <span className="block text-gray-800 dark:text-gray-200 mb-2">Hi there, I'm</span>
                   <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                     Jean Aime IRAGUHA
                   </span>
@@ -1315,7 +1315,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-6 leading-relaxed"
+                  className="text-lg sm:text-xl text-gray-700 dark:text-gray-300 mb-6 leading-relaxed"
                 >
                   I build scalable web applications, AI-powered solutions, and blockchain systems using modern technologies like React, Node.js, Python, and Web3 frameworks to solve real-world problems with clean, efficient code.
                 </motion.p>
@@ -1512,7 +1512,7 @@ export default function Portfolio() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                Professional <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Experience</span>
+ me                Professional <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Experience</span>
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}

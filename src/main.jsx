@@ -15,7 +15,7 @@ const RootApp = () => {
     // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 2500) // 2.5 seconds loading time
+    }, 10000) // 10 seconds loading time
 
     return () => clearTimeout(timer)
   }, [])

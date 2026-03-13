@@ -58,57 +58,48 @@
 /* Dark theme overrides */
 .dark {
   --color-cool-blue-50: #0f172a;
-  --color-cool-blue-100: #111827;
-  --color-cool-blue-200: #1f2937;
-  --color-cool-blue-300: #334155;
-  --color-cool-blue-400: #475569;
-  --color-cool-blue-500: #64748b;
-  --color-cool-blue-600: #94a3b8;
-  --color-cool-blue-700: #cbd5e1;
-  --color-cool-blue-800: #e2e8f0;
-  --color-cool-blue-900: #f1f5f9;
+  --color-cool-blue-100: #1e293b;
+  --color-cool-blue-200: #334155;
+  --color-cool-blue-300: #475569;
+  --color-cool-blue-400: #64748b;
+  --color-cool-blue-500: #94a3b8;
+  --color-cool-blue-600: #cbd5e1;
+  --color-cool-blue-700: #e2e8f0;
+  --color-cool-blue-800: #f1f5f9;
+  --color-cool-blue-900: #f8fafc;
 
   --color-cool-cyan-50: #0f172a;
-  --color-cool-cyan-100: #111827;
-  --color-cool-cyan-200: #1f2937;
-  --color-cool-cyan-300: #334155;
-  --color-cool-cyan-400: #475569;
-  --color-cool-cyan-500: #64748b;
-  --color-cool-cyan-600: #94a3b8;
-  --color-cool-cyan-700: #cbd5e1;
-  --color-cool-cyan-800: #e2e8f0;
-  --color-cool-cyan-900: #f1f5f9;
+  --color-cool-cyan-100: #1e293b;
+  --color-cool-cyan-200: #334155;
+  --color-cool-cyan-300: #475569;
+  --color-cool-cyan-400: #64748b;
+  --color-cool-cyan-500: #94a3b8;
+  --color-cool-cyan-600: #cbd5e1;
+  --color-cool-cyan-700: #e2e8f0;
+  --color-cool-cyan-800: #f1f5f9;
+  --color-cool-cyan-900: #f8fafc;
 
   --color-cool-teal-50: #0f172a;
-  --color-cool-teal-100: #111827;
-  --color-cool-teal-200: #1f2937;
-  --color-cool-teal-300: #334155;
-  --color-cool-teal-400: #475569;
-  --color-cool-teal-500: #64748b;
-  --color-cool-teal-600: #94a3b8;
-  --color-cool-teal-700: #cbd5e1;
-  --color-cool-teal-800: #e2e8f0;
-  --color-cool-teal-900: #f1f5f9;
+  --color-cool-teal-100: #1e293b;
+  --color-cool-teal-200: #334155;
+  --color-cool-teal-300: #475569;
+  --color-cool-teal-400: #64748b;
+  --color-cool-teal-500: #94a3b8;
+  --color-cool-teal-600: #cbd5e1;
+  --color-cool-teal-700: #e2e8f0;
+  --color-cool-teal-800: #f1f5f9;
+  --color-cool-teal-900: #f8fafc;
 }
 
-/* Enhanced background with interactive gradient */
+/* Enhanced background with dark gradient */
 body {
   background: linear-gradient(135deg, 
-    #F5F6FA 0%, 
-    #F3F4F6 50%, 
-    #F7F8FC 100%
+    #0f172a 0%, 
+    #1e293b 50%, 
+    #334155 100%
   );
   background-attachment: fixed;
   transition: background-color var(--anim-duration-normal) ease;
-}
-
-/* Dark mode background */
-.dark body {
-  background: linear-gradient(135deg, 
-    var(--color-cool-gray-900) 0%, 
-    var(--color-cool-gray-800) 50%, 
-    var(--color-cool-gray-900) 100%
-  );
 }
 
 /* Interactive elements with hover effects */

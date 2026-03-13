@@ -1,48 +1,37 @@
 @import "tailwindcss";
 
-/* Ensure entire app has cool bluish background */
+/* Ensure entire app has dark background */
 html, body {
   background: linear-gradient(135deg, 
-    #F5F6FA 0%, 
-    #F3F4F6 50%, 
-    #F7F8FC 100%
+    #0f172a 0%, 
+    #1e293b 50%, 
+    #334155 100%
   ) !important;
   background-attachment: fixed;
 }
 
-/* Override component backgrounds to be transparent or matching */
-.bg-white {
-  background-color: transparent !important;
+/* Override component backgrounds to be transparent or matching - but not main containers */
+.bg-white:not(.min-h-screen) {
+  background-color: rgba(30, 41, 59, 0.9) !important;
 }
 
-.bg-gray-50 {
-  background-color: rgba(245, 246, 250, 0.8) !important;
+.bg-gray-50:not(.min-h-screen) {
+  background-color: rgba(51, 65, 85, 0.8) !important;
 }
 
-.bg-gray-100 {
-  background-color: rgba(245, 246, 250, 0.9) !important;
+.bg-gray-100:not(.min-h-screen) {
+  background-color: rgba(71, 85, 105, 0.9) !important;
 }
 
-.bg-slate-800 {
+.bg-slate-800:not(.min-h-screen) {
   background-color: rgba(15, 23, 42, 0.8) !important;
 }
 
-.bg-slate-900 {
+.bg-slate-900:not(.min-h-screen) {
   background-color: rgba(15, 23, 42, 0.9) !important;
 }
 
-/* Ensure dark mode backgrounds work properly */
-.dark .bg-white {
-  background-color: rgba(15, 23, 42, 0.9) !important;
-}
-
-.dark .bg-gray-50 {
-  background-color: rgba(15, 23, 42, 0.8) !important;
-}
-
-.dark .bg-gray-100 {
-  background-color: rgba(15, 23, 42, 0.9) !important;
-}
+/* Dark mode text color overrides - removed to let Tailwind handle dark mode properly */
 
 /* Make sure sections have proper transparency */
 section {

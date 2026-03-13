@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { 
     FaGithub, FaLinkedin, FaEnvelope, FaCode, FaPaintBrush, 
     FaFileDownload, FaArrowRight, FaCheckCircle, FaReact, 
@@ -12,7 +12,7 @@ import {
     FaLaptopCode, FaPalette, FaMobile, FaServer, FaRocket,
     FaLightbulb, FaCog, FaChartLine, FaShieldAlt, FaGlobe,
     FaPhone, FaMapMarkerAlt, FaStar, FaHeart, FaCoffee,
-    FaPython, FaAws, FaDocker, FaGitAlt
+    FaPython, FaAws, FaDocker, FaGitAlt, FaRobot
 } from 'react-icons/fa';
 import { 
     SiNextdotjs, SiMongodb, SiMysql, SiGit, SiTailwindcss,
@@ -23,6 +23,9 @@ import {
 
 // Lazily load the CVPage component to improve initial load time
 const CVPage = lazy(() => import('./CVPage'));
+
+// Import ThemeToggle
+// import ThemeToggle from './ThemeToggle';
 
 // ====================================================================
 // LOGO COMPONENT - Custom Animated Logo for IRAGUHA Jean Aime
@@ -192,14 +195,14 @@ const AnimatedBackground = () => {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
       {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gray-50 dark:bg-slate-900" />
+      <div className="absolute inset-0 bg-slate-900" />
       
       {/* Animated Shapes */}
       <div className="absolute inset-0">
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-30"
+            className="absolute rounded-full mix-blend-screen filter blur-xl opacity-30"
             style={{
               background: `radial-gradient(circle, ${['#2563EB', '#0891B2', '#0D9488', '#059669', '#F59E0B', '#DB2777'][i]
                 } 0%, transparent 70%)`,
@@ -228,7 +231,7 @@ const AnimatedBackground = () => {
 
       {/* Grid Pattern */}
       <div 
-        className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]"
+        className="absolute inset-0 opacity-[0.05] dark:opacity-[0.05]"
         style={{
           backgroundImage: `linear-gradient(#2563EB 1px, transparent 1px), linear-gradient(90deg, #2563EB 1px, transparent 1px)`,
           backgroundSize: '50px 50px',
@@ -517,152 +520,14 @@ const certifications = [
 ];
 
 // ====================================================================
-// PROJECTS DATA (Enhanced)
-// ====================================================================
-
-const projects = [
-  {
-    id: 1,
-    key: 'elearning',
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=500&fit=crop",
-    titleKey: "projects.items.elearning.title",
-    categoryKey: "projects.categories.elearning",
-    descriptionKey: "projects.items.elearning.description",
-    featuresKey: "projects.items.elearning.features",
-    technologies: ["React", "Node.js", "MongoDB", "Socket.io", "Tailwind CSS"],
-    color: "from-blue-500 to-cyan-500",
-    github: "https://github.com/Iraguha/elearning",
-    live: "https://elearning-demo.com",
-    details: "A comprehensive e-learning platform with real-time collaboration features, AI-powered recommendations, and interactive quizzes. Built with modern technologies to provide seamless learning experience."
-  },
-  {
-    id: 2,
-    key: 'smartCity',
-    image: "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&h=500&fit=crop",
-    titleKey: "projects.items.smartCity.title",
-    categoryKey: "projects.categories.smartCity",
-    descriptionKey: "projects.items.smartCity.description",
-    featuresKey: "projects.items.smartCity.features",
-    technologies: ["Next.js", "Python", "PostgreSQL", "D3.js", "Docker"],
-    color: "from-purple-500 to-pink-500",
-    github: "https://github.com/Iraguha/smart-city",
-    live: "https://smartcity-demo.com",
-    details: "IoT-based smart city dashboard providing real-time data visualization for urban planning, traffic management, and environmental monitoring."
-  },
-  {
-    id: 3,
-    key: 'fintechApp',
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=500&fit=crop",
-    titleKey: "projects.items.fintechApp.title",
-    categoryKey: "projects.categories.fintechApp",
-    descriptionKey: "projects.items.fintechApp.description",
-    featuresKey: "projects.items.fintechApp.features",
-    technologies: ["React Native", "Node.js", "MySQL", "Redis", "JWT"],
-    color: "from-emerald-500 to-teal-500",
-    github: "https://github.com/Iraguha/fintech",
-    live: "https://fintech-demo.com",
-    details: "Mobile banking application with biometric authentication, real-time transactions, and AI-powered financial insights for personal finance management."
-  },
-  {
-    id: 4,
-    key: 'aiHealth',
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop",
-    titleKey: "projects.items.aiHealth.title",
-    categoryKey: "projects.categories.aiHealth",
-    descriptionKey: "projects.items.aiHealth.description",
-    featuresKey: "projects.items.aiHealth.features",
-    technologies: ["React", "Python", "TensorFlow", "Firebase", "Chart.js"],
-    color: "from-red-500 to-orange-500",
-    github: "https://github.com/Iraguha/health-ai",
-    live: "https://healthai-demo.com",
-    details: "AI-powered health monitoring system that analyzes medical data, provides predictive analytics, and offers personalized health recommendations."
-  },
-  {
-    id: 5,
-    key: 'blockchainVoting',
-    image: "https://images.unsplash.com/photo-1615874694520-47de4582f735?w=800&h=500&fit=crop",
-    titleKey: "projects.items.blockchainVoting.title",
-    categoryKey: "projects.categories.blockchainVoting",
-    descriptionKey: "projects.items.blockchainVoting.description",
-    featuresKey: "projects.items.blockchainVoting.features",
-    technologies: ["Solidity", "Web3.js", "React", "Node.js", "IPFS"],
-    color: "from-indigo-500 to-purple-500",
-    github: "https://github.com/Iraguha/blockchain-voting",
-    live: "https://voting-demo.com",
-    details: "Decentralized voting platform built on Ethereum blockchain ensuring transparent, secure, and tamper-proof elections with smart contract verification."
-  },
-  {
-    id: 6,
-    key: 'ecommercePlatform',
-    image: "https://images.unsplash.com/photo-1661956602116-aa6865609028?w=800&h=500&fit=crop",
-    titleKey: "projects.items.ecommercePlatform.title",
-    categoryKey: "projects.categories.ecommercePlatform",
-    descriptionKey: "projects.items.ecommercePlatform.description",
-    featuresKey: "projects.items.ecommercePlatform.features",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe", "AWS"],
-    color: "from-pink-500 to-rose-500",
-    github: "https://github.com/Iraguha/ecommerce",
-    live: "https://shop-demo.com",
-    details: "Full-featured e-commerce platform with product catalog, shopping cart, user reviews, and secure payment processing with admin dashboard."
-  }
-];
-
-// ====================================================================
-// TESTIMONIALS DATA (Enhanced)
-// ====================================================================
-
-const testimonials = [
-  {
-    key: 'sarah',
-    rating: 5,
-    color: "from-blue-500 to-cyan-500",
-    content: "Jean Aime is an exceptional developer who delivered our project ahead of schedule. His expertise in React and Node.js was invaluable, and his problem-solving skills are outstanding.",
-    name: "Sarah Johnson",
-    role: "CTO, TechStart Inc."
-  },
-  {
-    key: 'david',
-    rating: 5,
-    color: "from-purple-500 to-pink-500",
-    content: "Working with Jean Aime on our blockchain project was a game-changer. His deep understanding of Web3 technologies and attention to detail made all the difference.",
-    name: "David Kim",
-    role: "Product Manager, Blockchain Solutions"
-  },
-  {
-    key: 'marie',
-    rating: 5,
-    color: "from-emerald-500 to-teal-500",
-    content: "The AI-powered features Jean Aime implemented for our healthcare platform have significantly improved patient outcomes. His technical skills are matched only by his dedication.",
-    name: "Dr. Marie Dubois",
-    role: "Medical Director, HealthTech Rwanda"
-  },
-  {
-    key: 'alex',
-    rating: 5,
-    color: "from-amber-500 to-orange-500",
-    content: "Jean Aime's ability to understand complex business requirements and translate them into elegant technical solutions is remarkable. Our e-commerce platform exceeded all expectations.",
-    name: "Alex Chen",
-    role: "Founder, ShopSmart"
-  },
-  {
-    key: 'emma',
-    rating: 5,
-    color: "from-violet-500 to-fuchsia-500",
-    content: "The educational platform Jean Aime developed has transformed how we deliver online learning. His commitment to user experience and technical excellence is unparalleled.",
-    name: "Emma Rodriguez",
-    role: "Education Director, LearnFuture"
-  }
-];
-
-// ====================================================================
 // CHATBOT DATA
 // ====================================================================
 
 const chatbotResponses = {
   greetings: [
-    "Hello! I'm Alex, Jean Aime's AI assistant. Welcome to his portfolio! How can I help you today?",
-    "Hi there! I'm Alex, here to tell you all about Jean Aime's amazing skills and experience. What would you like to know?",
-    "Welcome! I'm Alex, Jean Aime's virtual assistant. I'd love to share his story with you. What interests you most?"
+    "Hello! I'm Jean Aime's AI assistant. Welcome to his portfolio! How can I help you today?",
+    "Hi there! I'm here to tell you all about Jean Aime's amazing skills and experience. What would you like to know?",
+    "Welcome! I'm Jean Aime's virtual assistant. I'd love to share his story with you. What interests you most?"
   ],
   about: [
     "Jean Aime IRAGUHA is a talented Full-Stack Developer and AI & Blockchain Engineer from Rwanda. He specializes in building scalable web applications, AI-powered solutions, and blockchain systems using modern technologies like React, Node.js, Python, and Web3 frameworks.",
@@ -749,7 +614,7 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm Alex, Jean Aime's AI assistant. Welcome to his portfolio! How can I help you today?",
+      text: "🤖 Hi! I'm Jean Aime's AI Chatbot. I can tell you about his skills, experience, projects, and more. What would you like to know?",
       sender: 'bot',
       timestamp: new Date()
     }
@@ -829,7 +694,7 @@ const Chatbot = () => {
       setMessages([
         {
           id: 1,
-          text: "Hello! I'm Alex, Jean Aime's AI assistant. Welcome to his portfolio! How can I help you today?",
+          text: "🤖 Hi! I'm Jean Aime's AI Chatbot. I can tell you about his skills, experience, projects, and more. What would you like to know?",
           sender: 'bot',
           timestamp: new Date()
         }
@@ -853,7 +718,7 @@ const Chatbot = () => {
           className={`p-4 rounded-full shadow-lg ${
             isOpen 
               ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white' 
-              : 'bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400'
+              : 'bg-slate-800 text-blue-400'
           }`}
           data-cursor="pointer"
         >
@@ -861,7 +726,7 @@ const Chatbot = () => {
             <FaTimes size={24} />
           ) : (
             <div className="relative">
-              <FaEnvelope size={24} />
+              <FaRobot size={24} />
               <motion.div
                 className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
                 animate={{ scale: [1, 1.2, 1] }}
@@ -880,7 +745,7 @@ const Chatbot = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed bottom-24 right-6 w-80 md:w-96 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-slate-700 z-50 overflow-hidden"
+            className="fixed bottom-24 right-6 w-80 md:w-96 bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 z-50 overflow-hidden"
           >
             {/* Chat Header */}
             <div className="p-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
@@ -890,8 +755,8 @@ const Chatbot = () => {
                     <FaRobot size={20} />
                   </div>
                   <div>
-                    <h3 className="font-bold">Alex - AI Assistant</h3>
-                    <p className="text-xs opacity-80">Always ready to help</p>
+                    <h3 className="font-bold">🤖 AI Chatbot</h3>
+                    <p className="text-xs opacity-80">Ask me about Jean Aime!</p>
                   </div>
                 </div>
                 <div className="flex gap-2">
@@ -906,7 +771,7 @@ const Chatbot = () => {
             </div>
 
             {/* Chat Messages */}
-            <div className="h-80 overflow-y-auto p-4 space-y-3 bg-gray-50/50 dark:bg-slate-900/50">
+            <div className="h-80 overflow-y-auto p-4 space-y-3 bg-slate-900/50">
               {messages.map((message) => (
                 <motion.div
                   key={message.id}
@@ -918,11 +783,11 @@ const Chatbot = () => {
                     className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${
                       message.sender === 'user'
                         ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white'
-                        : 'bg-white dark:bg-slate-700 text-gray-800 dark:text-gray-200'
+                        : 'bg-slate-700 text-gray-200'
                     }`}
                   >
                     <p className="text-sm">{message.text}</p>
-                    <p className={`text-xs mt-1 ${message.sender === 'user' ? 'text-blue-100' : 'text-gray-500 dark:text-gray-400'}`}>
+                    <p className={`text-xs mt-1 ${message.sender === 'user' ? 'text-blue-100' : 'text-gray-400'}`}>
                       {message.timestamp.toLocaleTimeString()}
                     </p>
                   </div>
@@ -934,7 +799,7 @@ const Chatbot = () => {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex justify-start"
                 >
-                  <div className="bg-white dark:bg-slate-700 px-4 py-2 rounded-2xl">
+                  <div className="bg-slate-700 px-4 py-2 rounded-2xl">
                     <div className="flex space-x-2">
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -947,14 +812,14 @@ const Chatbot = () => {
             </div>
 
             {/* Chat Input */}
-            <div className="p-4 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700">
+            <div className="p-4 bg-slate-800 border-t border-slate-700">
               <form onSubmit={handleSendMessage} className="flex gap-2">
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Type your message..."
-                  className="flex-1 px-3 py-2 bg-gray-100 dark:bg-slate-700 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-3 py-2 bg-slate-700 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -967,7 +832,7 @@ const Chatbot = () => {
                   <FaArrowRight size={16} />
                 </motion.button>
               </form>
-              <div className="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center">
+              <div className="mt-2 text-xs text-gray-400 text-center">
                 Try asking: "What are Jean Aime's skills?" or "Tell me about his projects"
               </div>
             </div>
@@ -979,6 +844,519 @@ const Chatbot = () => {
 };
 
 // ====================================================================
+// CONTACT FORM COMPONENT
+// ====================================================================
+
+const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    // Simulate form submission
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <motion.form
+      onSubmit={handleSubmit}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl"
+    >
+      <div className="grid md:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+            Name *
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 transition-colors"
+            placeholder="Your full name"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+            Email *
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 transition-colors"
+            placeholder="your.email@example.com"
+          />
+        </div>
+      </div>
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+          Subject *
+        </label>
+        <input
+          type="text"
+          name="subject"
+          value={formData.subject}
+          onChange={handleChange}
+          required
+          className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 transition-colors"
+          placeholder="What's this about?"
+        />
+      </div>
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+          Message *
+        </label>
+        <textarea
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          required
+          rows={5}
+          className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 transition-colors resize-none"
+          placeholder="Tell me about your project or inquiry..."
+        />
+      </div>
+      <div className="flex items-center justify-between">
+        <motion.button
+          type="submit"
+          disabled={isSubmitting}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          data-cursor="pointer"
+        >
+          {isSubmitting ? (
+            <>
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+              />
+              Sending...
+            </>
+          ) : (
+            <>
+              <FaEnvelope />
+              Send Message
+            </>
+          )}
+        </motion.button>
+        {submitStatus && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
+              submitStatus === 'success'
+                ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400'
+                : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400'
+            }`}
+          >
+            {submitStatus === 'success' ? (
+              <>
+                <FaCheckCircle />
+                Message sent successfully!
+              </>
+            ) : (
+              <>
+                <FaTimes />
+                Failed to send message. Please try again.
+              </>
+            )}
+          </motion.div>
+        )}
+      </div>
+    </motion.form>
+  );
+};
+
+// ====================================================================
+// PROJECT MODAL COMPONENT
+// ====================================================================
+
+const ProjectModal = ({ project, isOpen, onClose }) => {
+  if (!project) return null;
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ scale: 0.9, y: 50 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.9, y: 50 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            className="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="relative h-64 md:h-80">
+              <img
+                src={project.image}
+                alt={project.titleKey}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute top-4 right-4">
+                <motion.button
+                  onClick={onClose}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
+                >
+                  <FaTimes size={20} />
+                </motion.button>
+              </div>
+              <div className="absolute bottom-6 left-6 right-6">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                  {project.titleKey}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm text-white"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 md:p-8 overflow-y-auto max-h-[50vh]">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
+                    Project Overview
+                  </h4>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    {project.details}
+                  </p>
+                  <h4 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
+                    Key Features
+                  </h4>
+                  <ul className="space-y-2">
+                    {project.featuresKey && (
+                      <li className="flex items-start gap-2">
+                        <FaCheckCircle className="text-green-500 mt-1 flex-shrink-0" />
+                        <span className="text-gray-600 dark:text-gray-400">Feature details would be here</span>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
+                    Technologies Used
+                  </h4>
+                  <div className="grid grid-cols-2 gap-3 mb-6">
+                    {project.technologies.map((tech, index) => (
+                      <div key={index} className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-slate-700 rounded-lg">
+                        <FaCode className="text-blue-500" />
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{tech}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex gap-4">
+                    {project.github && (
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex-1 px-4 py-3 bg-gray-900 text-white rounded-lg text-center font-medium hover:bg-gray-800 transition-colors"
+                      >
+                        <FaGithub className="inline mr-2" />
+                        View Code
+                      </motion.a>
+                    )}
+                    {project.live && (
+                      <motion.a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg text-center font-medium hover:shadow-lg transition-all"
+                      >
+                        <FaExternalLinkAlt className="inline mr-2" />
+                        Live Demo
+                      </motion.a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+// ====================================================================
+// PARTICLE EFFECT COMPONENT
+// ====================================================================
+
+const ParticleEffect = () => {
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    const generateParticles = () => {
+      const newParticles = [];
+      for (let i = 0; i < 30; i++) {
+        newParticles.push({
+          id: i,
+          x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1920),
+          y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1080),
+          size: Math.random() * 3 + 1,
+          speedX: (Math.random() - 0.5) * 0.3,
+          speedY: (Math.random() - 0.5) * 0.3,
+          opacity: Math.random() * 0.3 + 0.1,
+        });
+      }
+      setParticles(newParticles);
+    };
+
+    generateParticles();
+
+    const animateParticles = () => {
+      setParticles(prevParticles =>
+        prevParticles.map(particle => ({
+          ...particle,
+          x: (particle.x + particle.speedX + (typeof window !== 'undefined' ? window.innerWidth : 1920)) % (typeof window !== 'undefined' ? window.innerWidth : 1920),
+          y: (particle.y + particle.speedY + (typeof window !== 'undefined' ? window.innerHeight : 1080)) % (typeof window !== 'undefined' ? window.innerHeight : 1080),
+        }))
+      );
+    };
+
+    const interval = setInterval(animateParticles, 50);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-0">
+      {particles.map(particle => (
+        <motion.div
+          key={particle.id}
+          className="absolute rounded-full bg-gradient-to-r from-blue-400/30 to-cyan-400/30"
+          style={{
+            width: particle.size,
+            height: particle.size,
+            left: particle.x,
+            top: particle.y,
+            opacity: particle.opacity,
+          }}
+          animate={{
+            opacity: [particle.opacity, particle.opacity * 1.5, particle.opacity],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 3 + Math.random() * 2,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// ====================================================================
+// ANIMATED SKILL BARS COMPONENT
+// ====================================================================
+
+const AnimatedSkillBar = ({ skill, index }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, scale: 0.5 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.05, type: "spring" }}
+      whileHover={{ scale: 1.05 }}
+      className="relative p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg"
+      data-cursor="pointer"
+    >
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div className="text-4xl" style={{ color: skill.color }}>
+            {skill.icon}
+          </div>
+          <div>
+            <h3 className="font-bold">{skill.name}</h3>
+            <motion.p
+              className="text-sm text-gray-600 dark:text-gray-400"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isVisible ? 1 : 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              {isVisible ? `${skill.level}% Proficiency` : 'Loading...'}
+            </motion.p>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative h-4 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: isVisible ? `${skill.level}%` : '0%' }}
+          transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+          className="absolute h-full rounded-full shadow-sm"
+          style={{
+            background: `linear-gradient(90deg, ${skill.color} 0%, ${skill.color}dd 100%)`,
+          }}
+        />
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: isVisible ? `${skill.level}%` : '0%' }}
+          transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+          className="absolute h-full rounded-full"
+          style={{
+            background: `linear-gradient(90deg, ${skill.color} 0%, rgba(255,255,255,0.3) 100%)`,
+            boxShadow: `0 0 10px ${skill.color}40`,
+          }}
+        />
+      </div>
+    </motion.div>
+  );
+};
+
+// ====================================================================
+// PROJECT FILTER COMPONENT
+// ====================================================================
+
+const ProjectFilter = ({ activeFilter, setActiveFilter, projects }) => {
+  const categories = ['all', ...new Set(projects.map(project => project.categoryKey.split('.').pop()))];
+
+  return (
+    <div className="flex flex-wrap justify-center gap-4 mb-12">
+      {categories.map((category) => (
+        <motion.button
+          key={category}
+          onClick={() => setActiveFilter(category)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+            activeFilter === category
+              ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
+              : 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700'
+          }`}
+          data-cursor="pointer"
+        >
+          {category === 'all' ? 'All Projects' : category.charAt(0).toUpperCase() + category.slice(1)}
+        </motion.button>
+      ))}
+    </div>
+  );
+};
+
+// ====================================================================
+// SCROLL TO TOP COMPONENT
+// ====================================================================
+
+const ScrollToTop = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.5 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-full shadow-lg z-40"
+          data-cursor="pointer"
+        >
+          <FaArrowRight className="transform rotate-[-90deg]" size={20} />
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+};
+
+// ====================================================================
 // MAIN APP COMPONENT
 // ====================================================================
 
@@ -986,6 +1364,9 @@ export default function Portfolio() {
   const { t, i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [projectFilter, setProjectFilter] = useState('all');
   const [activeSection, setActiveSection] = useState('home');
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -1130,10 +1511,13 @@ export default function Portfolio() {
 
   return (
     <div>
-      <div className="bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-100 min-h-screen overflow-x-hidden">
+      <div className="bg-slate-900 text-gray-100 min-h-screen overflow-x-hidden">
         
         {/* Animated Background */}
         <AnimatedBackground />
+
+        {/* Particle Effect */}
+        <ParticleEffect />
 
         {/* Body overflow is hidden when CV modal is open */}
         {isCvModalOpen && <style>{'body { overflow: hidden; }'}</style>}
@@ -1152,7 +1536,7 @@ export default function Portfolio() {
           initial={{ y: -100 }}
           animate={{ y: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed top-0 w-full z-40 bg-white/80 backdrop-blur-lg border-b border-gray-200/20 interactive-element"
+          className="fixed top-0 w-full z-40 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/20 interactive-element"
         >
           <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
@@ -1180,7 +1564,7 @@ export default function Portfolio() {
                     className={`px-4 py-2 rounded-lg capitalize transition-all ${
                       activeSection === item
                         ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
-                        : 'hover:bg-gray-100 dark:hover:bg-slate-800'
+                        : 'hover:bg-slate-800'
                     }`}
                     data-cursor="pointer"
                   >
@@ -1191,15 +1575,15 @@ export default function Portfolio() {
                 <div className="ml-4">
                   <button
                     onClick={() => i18n.changeLanguage('en')}
-                    className={`px-2 py-1 text-sm rounded-md ${i18n.language.startsWith('en') ? 'bg-cyan-500 text-white' : 'hover:bg-gray-200 dark:hover:bg-slate-700'}`}
+                    className={`px-2 py-1 text-sm rounded-md ${i18n.language.startsWith('en') ? 'bg-cyan-500 text-white' : 'hover:bg-slate-700'}`}
                     disabled={i18n.language.startsWith('en')}
                   >
                     EN
                   </button>
-                  <span className="text-gray-300 dark:text-gray-600 mx-1">|</span>
+                  <span className="text-gray-600 mx-1">|</span>
                   <button
                     onClick={() => i18n.changeLanguage('kin')}
-                    className={`px-2 py-1 text-sm rounded-md ${i18n.language === 'kin' ? 'bg-cyan-500 text-white' : 'hover:bg-gray-200 dark:hover:bg-slate-700'}`}
+                    className={`px-2 py-1 text-sm rounded-md ${i18n.language === 'kin' ? 'bg-cyan-500 text-white' : 'hover:bg-slate-700'}`}
                     disabled={i18n.language === 'kin'}
                   >
                     KIN
@@ -1212,7 +1596,7 @@ export default function Portfolio() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
+                className="md:hidden p-2 rounded-lg hover:bg-slate-800"
                 data-cursor="pointer"
               >
                 {mobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
@@ -1227,7 +1611,7 @@ export default function Portfolio() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-gray-200/20 dark:border-gray-800/20"
+                className="md:hidden bg-slate-900/95 backdrop-blur-lg border-t border-slate-700/20"
               >
                 <div className="px-4 py-4 space-y-2">
                   {['home', 'about', 'services', 'skills', 'projects', 'testimonials', 'contact'].map((item, index) => (
@@ -1240,7 +1624,7 @@ export default function Portfolio() {
                       className={`block w-full text-left px-4 py-3 rounded-lg capitalize transition-all ${
                         activeSection === item
                           ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white'
-                          : 'hover:bg-gray-100 dark:hover:bg-slate-800'
+                          : 'hover:bg-slate-800'
                       }`}
                     >
                       {t(`nav.${item}`)}
@@ -1249,14 +1633,14 @@ export default function Portfolio() {
                   <div className="pt-2 flex justify-center gap-4">
                      <button
                         onClick={() => i18n.changeLanguage('en')}
-                        className={`px-4 py-2 text-sm rounded-md ${i18n.language.startsWith('en') ? 'bg-cyan-500 text-white' : 'bg-gray-200 dark:bg-slate-700'}`}
+                        className={`px-4 py-2 text-sm rounded-md ${i18n.language.startsWith('en') ? 'bg-cyan-500 text-white' : 'bg-slate-700'}`}
                         disabled={i18n.language.startsWith('en')}
                       >
                         English
                       </button>
                       <button
                         onClick={() => i18n.changeLanguage('kin')}
-                        className={`px-4 py-2 text-sm rounded-md ${i18n.language === 'kin' ? 'bg-cyan-500 text-white' : 'bg-gray-200 dark:bg-slate-700'}`}
+                        className={`px-4 py-2 text-sm rounded-md ${i18n.language === 'kin' ? 'bg-cyan-500 text-white' : 'bg-slate-700'}`}
                         disabled={i18n.language === 'kin'}
                       >
                         Kinyarwanda
@@ -1283,7 +1667,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-2"
+                  className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-200 mb-2"
                 >
                   Full-Stack Developer • AI & Blockchain Engineer
                 </motion.h2>
@@ -1294,7 +1678,7 @@ export default function Portfolio() {
                   transition={{ delay: 0.3 }}
                   className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"
                 >
-                  <span className="block text-gray-800 dark:text-gray-200 mb-2">Hi there, I'm</span>
+                  <span className="block text-gray-200 mb-2">Hi there, I'm</span>
                   <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                     Jean Aime IRAGUHA
                   </span>
@@ -1304,7 +1688,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="text-lg sm:text-xl text-gray-700 dark:text-gray-300 mb-6 leading-relaxed"
+                  className="text-lg sm:text-xl text-gray-300 mb-6 leading-relaxed"
                 >
                   I build scalable web applications, AI-powered solutions, and blockchain systems using modern technologies like React, Node.js, Python, and Web3 frameworks to solve real-world problems with clean, efficient code.
                 </motion.p>
@@ -1945,43 +2329,7 @@ export default function Portfolio() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {skills.map((skill, index) => (
-                <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05, type: "spring" }}
-                  whileHover={{ scale: 1.05 }}
-                  className="relative p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg"
-                  data-cursor="pointer"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="text-4xl" style={{ color: skill.color }}>
-                        {skill.icon}
-                      </div>
-                      <div>
-                        <h3 className="font-bold">{skill.name}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {skill.level}% {t('skills.proficiency')}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="relative h-3 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: index * 0.1 }}
-                      className="absolute h-full rounded-full"
-                      style={{
-                        background: `linear-gradient(90deg, ${skill.color} 0%, ${skill.color}dd 100%)`,
-                      }}
-                    />
-                  </div>
-                </motion.div>
+                <AnimatedSkillBar key={skill.name} skill={skill} index={index} />
               ))}
             </div>
           </div>
@@ -2007,8 +2355,17 @@ export default function Portfolio() {
               </p>
             </motion.div>
 
+            {/* Project Filter */}
+            <ProjectFilter
+              activeFilter={projectFilter}
+              setActiveFilter={setProjectFilter}
+              projects={projects}
+            />
+
             <div className="grid lg:grid-cols-2 gap-8">
-              {projects.map((project, index) => (
+              {projects
+                .filter(project => projectFilter === 'all' || project.categoryKey.split('.').pop() === projectFilter)
+                .map((project, index) => (
                 <motion.div
                   key={project.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -2016,7 +2373,11 @@ export default function Portfolio() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -5 }}
-                  className="group relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden"
+                  onClick={() => {
+                    setSelectedProject(project);
+                    setIsProjectModalOpen(true);
+                  }}
+                  className="group relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden cursor-pointer"
                   data-cursor="pointer"
                 >
                   {/* Project Image */}
@@ -2107,7 +2468,7 @@ export default function Portfolio() {
                   {t('testimonials.title').split(' ')[1]}
                 </span>
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              <p className="text-gray-400 max-w-2xl mx-auto">
                 {t('testimonials.subtitle')}
               </p>
             </motion.div>
@@ -2123,21 +2484,21 @@ export default function Portfolio() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -5 }}
-                  className="relative p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-lg"
+                  className="relative p-8 bg-slate-800 rounded-2xl shadow-lg"
                   data-cursor="pointer"
                 >
                   <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${testimonial.color} rounded-t-2xl`} />
                   
-                  <FaQuoteLeft className="text-3xl text-gray-300 dark:text-slate-600 mb-4" />
+                  <FaQuoteLeft className="text-3xl text-slate-600 mb-4" />
                   
-                  <p className="text-gray-600 dark:text-gray-400 mb-6 italic">
+                  <p className="text-gray-400 mb-6 italic">
                     "{testimonialContent.content}"
                   </p>
                   
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-bold">{testimonialContent.name}</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{testimonialContent.role}</p>
+                      <p className="text-sm text-gray-400">{testimonialContent.role}</p>
                     </div>
                     <div className="flex gap-1">
                       {[...Array(testimonial.rating)].map((_, i) => (
@@ -2151,6 +2512,19 @@ export default function Portfolio() {
             </div>
           </div>
         </section>
+
+        {/* Contact Form Component */}
+        <ContactForm />
+
+        {/* Project Modal Component */}
+        <ProjectModal
+          project={selectedProject}
+          isOpen={isProjectModalOpen}
+          onClose={() => {
+            setIsProjectModalOpen(false);
+            setSelectedProject(null);
+          }}
+        />
 
         {/* Contact Section */}
         <section id="contact" className="py-20 relative bg-gray-50/50 dark:bg-slate-800/50">
@@ -2172,27 +2546,45 @@ export default function Portfolio() {
               </p>
             </motion.div>
 
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-3 gap-8 mb-12">
-                {contactInfo.map((info, index) => (
-                  <motion.a
-                    key={info.labelKey}
-                    href={info.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                    className="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg cursor-pointer"
-                    data-cursor="pointer"
-                  >
-                    <div className="text-3xl text-blue-600 dark:text-blue-400 mb-3">
-                      {info.icon}
-                    </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{t(info.labelKey)}</p>
-                    <p className="font-semibold text-center">{info.valueKey ? t(info.valueKey) : info.value}</p>
-                  </motion.a>
-                ))}
+            <div className="max-w-6xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-12 mb-12">
+                {/* Contact Form */}
+                <div>
+                  <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+                    Send me a message
+                  </h3>
+                  <ContactForm />
+                </div>
+
+                {/* Contact Info */}
+                <div>
+                  <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+                    Get in touch
+                  </h3>
+                  <div className="space-y-6">
+                    {contactInfo.map((info, index) => (
+                      <motion.a
+                        key={info.labelKey}
+                        href={info.href}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                        whileHover={{ scale: 1.05 }}
+                        className="flex items-center gap-4 p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg cursor-pointer"
+                        data-cursor="pointer"
+                      >
+                        <div className="text-3xl text-blue-600 dark:text-blue-400">
+                          {info.icon}
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{t(info.labelKey)}</p>
+                          <p className="font-semibold text-gray-900 dark:text-gray-100">{info.valueKey ? t(info.valueKey) : info.value}</p>
+                        </div>
+                      </motion.a>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               <motion.div
@@ -2226,6 +2618,9 @@ export default function Portfolio() {
             </div>
           </div>
         </section>
+
+        {/* Scroll to Top Button */}
+        <ScrollToTop />
 
         {/* AI Chatbot Component */}
         <Chatbot />

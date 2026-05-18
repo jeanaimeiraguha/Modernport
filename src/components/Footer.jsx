@@ -1,4 +1,5 @@
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaGithub, FaLinkedin, FaEnvelope, FaFileAlt } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -11,6 +12,15 @@ export default function Footer() {
           © {new Date().getFullYear()} Jean Aime Iraguha
         </p>
         <div className="flex items-center gap-5">
+          <Link
+            to="/cv"
+            className="inline-flex items-center gap-1.5 text-xs font-medium transition-colors"
+            style={{ color: 'var(--text-muted)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
+          >
+            <FaFileAlt size={12} /> View CV
+          </Link>
           {[
             { href: 'https://github.com/jeanaimeiraguha', icon: <FaGithub size={15} />, label: 'GitHub' },
             { href: 'https://www.linkedin.com/in/iraguha-jean-aime-53ba74405/', icon: <FaLinkedin size={15} />, label: 'LinkedIn' },

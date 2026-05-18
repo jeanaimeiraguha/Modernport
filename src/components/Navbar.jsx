@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaFileAlt } from 'react-icons/fa';
 import { HiSun, HiMoon } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 import { NAV_LINKS } from './data';
 import { useTheme } from '../ThemeContext';
 
@@ -111,6 +112,17 @@ export default function Navbar() {
             </AnimatePresence>
           </motion.button>
 
+          {/* View CV — desktop */}
+          <Link
+            to="/cv"
+            className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+            style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-secondary)'; }}
+          >
+            <FaFileAlt size={11} /> CV
+          </Link>
+
           {/* Hire me — desktop */}
           <button
             onClick={() => handleNav('contact')}
@@ -166,6 +178,14 @@ export default function Navbar() {
             >
               Hire me
             </button>
+            <Link
+              to="/cv"
+              className="text-sm font-medium px-4 py-2 rounded-lg w-fit inline-flex items-center gap-1.5"
+              style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
+              onClick={() => setOpen(false)}
+            >
+              <FaFileAlt size={11} /> View CV
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

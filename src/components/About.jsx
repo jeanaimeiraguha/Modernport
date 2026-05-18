@@ -5,8 +5,8 @@ import { STATS } from './data';
 
 const TRAITS = [
   { icon: <FaCode size={14} />,     label: 'Clean code advocate',     desc: 'Readable, tested, maintainable — always.' },
-  { icon: <FaLightbulb size={14} />, label: 'Product-minded engineer', desc: 'I think in user outcomes, not just tickets.' },
-  { icon: <FaUsers size={14} />,    label: 'Team builder',             desc: 'Grew and led a 4-person engineering team at Igifu.' },
+  { icon: <FaLightbulb size={14} />, label: 'AI & Robotics builder',    desc: 'Computer vision, ML models, and autonomous systems.' },
+  { icon: <FaUsers size={14} />,    label: 'Team builder & CTO',       desc: 'Led a 4-person engineering team at Igifu Meals.' },
 ];
 
 export default function About() {

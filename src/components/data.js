@@ -1,12 +1,61 @@
 export const NAV_LINKS = ['about', 'skills', 'projects', 'experience', 'contact'];
 
-export const SKILLS = {
-  Frontend:  ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Redux Toolkit'],
-  Backend:   ['Node.js', 'Express', 'Python', 'Django', 'GraphQL'],
-  Database:  ['PostgreSQL', 'MongoDB', 'MySQL', 'Redis', 'Firebase'],
-  DevOps:    ['Docker', 'AWS', 'Git', 'CI/CD', 'Linux'],
-  Design:    ['Figma', 'UI/UX', 'Responsive Design', 'Accessibility'],
-};
+export const DOMAINS = [
+  {
+    id: 'web',
+    icon: '⬡',
+    label: 'Full-Stack Web',
+    color: '#6366f1',
+    headline: 'Production-grade web apps',
+    desc: 'End-to-end systems — from pixel-perfect UIs to battle-tested APIs. I ship things that scale.',
+    skills: ['React', 'Next.js', 'TypeScript', 'Node.js', 'GraphQL', 'Tailwind CSS', 'PostgreSQL', 'Redis'],
+  },
+  {
+    id: 'ai',
+    icon: '◈',
+    label: 'AI & Machine Learning',
+    color: '#a78bfa',
+    headline: 'Intelligent systems that learn',
+    desc: 'From NLP pipelines to computer vision models — I build AI that solves real problems, not demos.',
+    skills: ['TensorFlow', 'PyTorch', 'OpenCV', 'Scikit-learn', 'Python', 'Hugging Face', 'LangChain', 'YOLO'],
+  },
+  {
+    id: 'robotics',
+    icon: '◎',
+    label: 'Robotics & Computer Vision',
+    color: '#34d399',
+    headline: 'Eyes and motion for machines',
+    desc: 'Object detection, real-time tracking, and autonomous control systems bridging software with the physical world.',
+    skills: ['OpenCV', 'ROS', 'YOLO', 'MediaPipe', 'Raspberry Pi', 'Arduino', 'Python', 'C++'],
+  },
+  {
+    id: 'blockchain',
+    icon: '◇',
+    label: 'Blockchain & Web3',
+    color: '#f59e0b',
+    headline: 'Decentralised & trustless systems',
+    desc: 'Smart contracts, DeFi protocols, and Web3 integrations — building on-chain logic that is transparent and tamper-proof.',
+    skills: ['Solidity', 'Ethereum', 'Web3.js', 'Hardhat', 'IPFS', 'Polygon', 'MetaMask', 'NFT Standards'],
+  },
+  {
+    id: 'devops',
+    icon: '◉',
+    label: 'DevOps & Cloud',
+    color: '#38bdf8',
+    headline: 'Ship fast, stay reliable',
+    desc: 'CI/CD pipelines, containerised deployments, and cloud infrastructure that keeps systems running at scale.',
+    skills: ['Docker', 'AWS', 'GitHub Actions', 'Linux', 'Nginx', 'Terraform', 'CI/CD', 'Monitoring'],
+  },
+  {
+    id: 'mobile',
+    icon: '▣',
+    label: 'Mobile Development',
+    color: '#fb7185',
+    headline: 'Native-feel cross-platform apps',
+    desc: 'React Native apps with smooth animations, offline support, and deep platform integrations.',
+    skills: ['React Native', 'Expo', 'iOS', 'Android', 'Push Notifications', 'Biometrics', 'SQLite'],
+  },
+];
 
 export const PROJECTS = [
   {
@@ -61,6 +110,28 @@ export const PROJECTS = [
     stack: ['React', 'Python', 'TensorFlow', 'Firebase', 'Chart.js'],
     live: null,
     image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80',
+    featured: false,
+    highlight: false,
+  },
+  {
+    title: 'Computer Vision Security System',
+    category: 'Robotics & CV',
+    description:
+      'Real-time object detection and intruder recognition system using YOLO v8 and OpenCV. Processes live camera feeds at 30fps, triggers alerts, and logs events — deployed on Raspberry Pi hardware.',
+    stack: ['Python', 'YOLOv8', 'OpenCV', 'Raspberry Pi', 'MQTT'],
+    live: null,
+    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80',
+    featured: false,
+    highlight: false,
+  },
+  {
+    title: 'Blockchain Voting Platform',
+    category: 'Blockchain & Web3',
+    description:
+      'Tamper-proof decentralised voting system on Ethereum. Smart contracts enforce one-vote-per-wallet rules, results are immutable on-chain, and a React frontend makes participation seamless.',
+    stack: ['Solidity', 'Ethereum', 'Hardhat', 'Web3.js', 'React'],
+    live: null,
+    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80',
     featured: false,
     highlight: false,
   },

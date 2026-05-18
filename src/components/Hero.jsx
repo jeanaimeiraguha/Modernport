@@ -6,7 +6,7 @@ const item = (delay) => ({
   animate: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay } },
 });
 
-const PILLS = ['React / Next.js', 'Node.js', 'Python', 'AWS', 'CTO @ Igifu Meals'];
+const PILLS = ['Full-Stack Web', 'AI & ML', 'Computer Vision', 'Blockchain', 'Robotics', 'CTO @ Igifu Meals'];
 
 export default function Hero() {
   return (

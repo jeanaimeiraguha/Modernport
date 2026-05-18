@@ -43,10 +43,28 @@ export default function Navbar() {
         {/* Logo */}
         <button
           onClick={() => scrollTo('hero')}
-          className="font-display text-sm font-bold tracking-wide transition-colors"
-          style={{ color: 'var(--text-primary)' }}
+          className="flex items-center gap-[10px] group"
+          aria-label="Jean Aime Iraguha"
         >
-          JA<span style={{ color: 'var(--accent)' }}>.</span>
+          {/* SVG monogram mark */}
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Background square with cut corner */}
+            <path d="M4 0h28a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4z" fill="var(--accent)" />
+            {/* J letter */}
+            <text x="4" y="26" fontFamily="Georgia, serif" fontSize="22" fontWeight="700" fill="white" letterSpacing="-1">J</text>
+            {/* A letter — slightly offset, accent-tinted */}
+            <text x="16" y="26" fontFamily="Georgia, serif" fontSize="22" fontWeight="700" fill="rgba(255,255,255,0.75)" letterSpacing="-1">A</text>
+            {/* Bottom accent line */}
+            <rect x="4" y="30" width="28" height="2" rx="1" fill="rgba(255,255,255,0.3)" />
+          </svg>
+
+          {/* Wordmark */}
+          <span
+            className="font-display font-bold tracking-tight transition-colors"
+            style={{ fontSize: '1.05rem', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}
+          >
+            Iraguha<span style={{ color: 'var(--accent)' }}>.</span>
+          </span>
         </button>
 
         {/* Desktop links */}

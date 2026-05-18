@@ -24,8 +24,34 @@ export default function Hero() {
         style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 65%)' }}
       />
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-28 pb-20">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-14">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-20 pb-12 lg:pt-28 lg:pb-20">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-14">
+
+          {/* ── Avatar mobile top ── */}
+          <motion.div {...item(0.05)} className="flex lg:hidden flex-col items-center gap-3">
+            <div className="relative w-28 h-28">
+              <motion.div
+                className="absolute inset-[-5px] rounded-full"
+                style={{
+                  background: 'conic-gradient(var(--accent) 0deg 100deg, transparent 100deg 260deg, var(--accent) 260deg 360deg)',
+                  WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))',
+                  mask: 'radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))',
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+              />
+              <img src="/aime picture.jpeg" alt="Jean Aime Iraguha" className="w-full h-full object-cover rounded-full" style={{ border: '3px solid var(--bg-base)' }} />
+              <span className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full" style={{ background: '#4ade80', border: '2px solid var(--bg-base)', boxShadow: '0 0 8px rgba(74,222,128,0.6)' }} />
+            </div>
+            <div className="flex gap-3">
+              {[{ value: '4+', label: 'Yrs' }, { value: '50+', label: 'Projects' }, { value: '30+', label: 'Clients' }].map((s) => (
+                <div key={s.label} className="rounded-lg px-3 py-1.5 text-center" style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
+                  <p className="font-display text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{s.value}</p>
+                  <p className="text-[9px]" style={{ color: 'var(--text-muted)' }}>{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
 
           {/* ── Left column ── */}
           <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
@@ -141,10 +167,10 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* ── Right column — avatar + quick stats ── */}
+          {/* ── Right column — avatar + quick stats (desktop only) ── */}
           <motion.div
             {...item(0.18)}
-            className="flex flex-col items-center gap-6 shrink-0"
+            className="hidden lg:flex flex-col items-center gap-6 shrink-0"
           >
             {/* Avatar */}
             <div className="relative w-44 h-44 md:w-52 md:h-52">

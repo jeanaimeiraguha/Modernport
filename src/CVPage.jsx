@@ -217,7 +217,7 @@ export default function CVPage() {
                 {/* Glow ring */}
                 <div className="absolute inset-[-3px] rounded-full" style={{ background: 'linear-gradient(135deg,#6366f1,#a78bfa)', padding: 2, borderRadius: '9999px' }}>
                   <div className="w-full h-full rounded-full overflow-hidden" style={{ background: '#0d0d22' }}>
-                    <img src="/aime picture.jpeg" alt="Jean Aime Iraguha" className="w-full h-full object-cover rounded-full" />
+                    <img src="/images/profile/aime picture.jpeg" alt="Jean Aime Iraguha" className="w-full h-full object-cover rounded-full" />
                   </div>
                 </div>
                 <div className="absolute inset-0 rounded-full blur-lg opacity-30" style={{ background: '#6366f1' }} />

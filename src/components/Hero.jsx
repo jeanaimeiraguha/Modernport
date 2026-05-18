@@ -40,7 +40,7 @@ export default function Hero() {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
               />
-              <img src="/aime picture.jpeg" alt="Jean Aime Iraguha" className="w-full h-full object-cover rounded-full" style={{ border: '3px solid var(--bg-base)' }} />
+              <img src="/images/profile/aime picture.jpeg" alt="Jean Aime Iraguha" className="w-full h-full object-cover rounded-full" style={{ border: '3px solid var(--bg-base)' }} />
               <span className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full" style={{ background: '#4ade80', border: '2px solid var(--bg-base)', boxShadow: '0 0 8px rgba(74,222,128,0.6)' }} />
             </div>
             <div className="flex gap-3">
@@ -187,7 +187,7 @@ export default function Hero() {
                 transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
               />
               <img
-                src="/aime picture.jpeg"
+                src="/images/profile/aime picture.jpeg"
                 alt="Jean Aime Iraguha"
                 className="w-full h-full object-cover rounded-full"
                 style={{ border: '3px solid var(--bg-base)' }}

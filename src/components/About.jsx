@@ -77,7 +77,7 @@ export default function About() {
                   {/* Manchester City */}
                   <div className="flex-1 rounded-xl overflow-hidden"
                     style={{ background: 'rgba(108,171,221,0.08)', border: '1.5px solid rgba(108,171,221,0.3)' }}>
-                    <img src="/city.jpg" alt="Manchester City" className="w-full h-36 object-cover" />
+                    <img src="/images/clubs/city.jpg" alt="Manchester City" className="w-full h-36 object-cover" />
                     <div className="text-center py-3">
                       <p className="text-xs font-bold" style={{ color: '#6CABDD' }}>Manchester City</p>
                       <p className="text-[10px] mt-0.5" style={{ color: 'var(--text-muted)' }}>⭐ Favourite Club</p>
@@ -87,7 +87,7 @@ export default function About() {
                   {/* Real Madrid */}
                   <div className="flex-1 rounded-xl overflow-hidden"
                     style={{ background: 'rgba(255,255,255,0.04)', border: '1.5px solid rgba(218,165,32,0.35)' }}>
-                    <img src="/madrid.jpg" alt="Real Madrid" className="w-full h-36 object-cover" />
+                    <img src="/images/clubs/madrid.jpg" alt="Real Madrid" className="w-full h-36 object-cover" />
                     <div className="text-center py-3">
                       <p className="text-xs font-bold" style={{ color: '#DAA520' }}>Real Madrid</p>
                       <p className="text-[10px] mt-0.5" style={{ color: 'var(--text-muted)' }}>👑 Los Blancos</p>
@@ -97,7 +97,7 @@ export default function About() {
                   {/* Chelsea */}
                   <div className="flex-1 rounded-xl overflow-hidden"
                     style={{ background: 'rgba(3,70,148,0.08)', border: '1.5px solid rgba(3,70,148,0.4)' }}>
-                    <img src="/chelsea.jpg" alt="Chelsea" className="w-full h-36 object-cover" />
+                    <img src="/images/clubs/chelsea.jpg" alt="Chelsea" className="w-full h-36 object-cover" />
                     <div className="text-center py-3">
                       <p className="text-xs font-bold" style={{ color: '#0346A0' }}>Chelsea FC</p>
                       <p className="text-[10px] mt-0.5" style={{ color: 'var(--text-muted)' }}>💙 The Blues</p>

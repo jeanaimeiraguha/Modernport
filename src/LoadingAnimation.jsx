@@ -1,11 +1,5 @@
 import { motion } from 'framer-motion';
 
-const LINES = [
-  'Initializing portfolio…',
-  'Loading projects…',
-  'Almost ready…',
-];
-
 export default function LoadingAnimation({ onDone }) {
   return (
     <motion.div
@@ -14,42 +8,109 @@ export default function LoadingAnimation({ onDone }) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: 'easeInOut' }}
     >
-      {/* Subtle grid */}
       <div className="absolute inset-0 grid-bg opacity-50 pointer-events-none" />
 
-      {/* Radial glow */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%)' }}
-      />
+      <div className="relative z-10 flex flex-col items-center gap-8 px-6 text-center">
 
-      <div className="relative z-10 flex flex-col items-center gap-10 px-6 text-center">
+        {/* ── Kicking figure + ball ── */}
+        <div className="relative w-48 h-48 flex items-end justify-center">
 
-        {/* Spinning ring + initials */}
-        <div className="relative w-20 h-20 flex items-center justify-center">
-          {/* Outer spinning arc */}
+          {/* Shadow under figure */}
           <motion.div
-            className="absolute inset-0 rounded-full"
-            style={{
-              border: '2px solid transparent',
-              borderTopColor: 'var(--accent)',
-              borderRightColor: 'var(--accent)',
-            }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1.2, repeat: Infinity, ease: 'linear' }}
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-2 rounded-full"
+            style={{ background: 'rgba(99,102,241,0.18)', filter: 'blur(4px)' }}
+            animate={{ scaleX: [1, 0.7, 1], opacity: [0.5, 0.3, 0.5] }}
+            transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
           />
-          {/* Inner static ring */}
-          <div
-            className="absolute inset-[6px] rounded-full"
-            style={{ border: '1px solid var(--border)' }}
-          />
-          {/* Initials */}
-          <span
-            className="font-display text-lg font-bold"
-            style={{ color: 'var(--text-primary)' }}
+
+          {/* ── Stick figure ── */}
+          <svg
+            width="90" height="160"
+            viewBox="0 0 90 160"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="relative z-10"
+            style={{ overflow: 'visible' }}
           >
-            JA
-          </span>
+            {/* Head */}
+            <motion.circle
+              cx="45" cy="18" r="14"
+              fill="var(--accent)"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
+            />
+
+            {/* Body */}
+            <motion.line
+              x1="45" y1="32" x2="45" y2="90"
+              stroke="var(--accent)" strokeWidth="5" strokeLinecap="round"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
+            />
+
+            {/* Left arm (raised up — celebrating) */}
+            <motion.line
+              x1="45" y1="50" x2="15" y2="30"
+              stroke="var(--accent)" strokeWidth="4.5" strokeLinecap="round"
+              animate={{ rotate: [-10, 10, -10], originX: '45px', originY: '50px' }}
+              transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
+            />
+
+            {/* Right arm (swinging for kick) */}
+            <motion.line
+              x1="45" y1="50" x2="75" y2="65"
+              stroke="var(--accent)" strokeWidth="4.5" strokeLinecap="round"
+              animate={{ rotate: [0, 15, 0], originX: '45px', originY: '50px' }}
+              transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
+            />
+
+            {/* Left leg (standing) */}
+            <motion.line
+              x1="45" y1="90" x2="30" y2="140"
+              stroke="var(--accent)" strokeWidth="4.5" strokeLinecap="round"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
+            />
+
+            {/* Right leg — kicking! */}
+            <motion.line
+              x1="45" y1="90" x2="80" y2="115"
+              stroke="var(--accent)" strokeWidth="4.5" strokeLinecap="round"
+              animate={{
+                x2: [80, 105, 80],
+                y2: [115, 90, 115],
+              }}
+              transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </svg>
+
+          {/* ── Ball ── */}
+          <motion.div
+            className="absolute"
+            style={{ bottom: 0, left: '62%' }}
+            animate={{
+              x:    [0,  60, 130, 200],
+              y:    [0, -70,  -20, 0],
+              rotate: [0, 180, 360, 540],
+            }}
+            transition={{
+              duration: 1.2,
+              repeat: Infinity,
+              ease: 'easeOut',
+              repeatType: 'loop',
+            }}
+          >
+            {/* Soccer ball SVG */}
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="13" fill="white" stroke="#ccc" strokeWidth="1" />
+              {/* Pentagon patches */}
+              <polygon points="14,4 18,8 16,13 12,13 10,8" fill="#1e1e2e" />
+              <polygon points="4,10 8,8 10,13 7,17 3,15" fill="#1e1e2e" />
+              <polygon points="24,10 20,8 18,13 21,17 25,15" fill="#1e1e2e" />
+              <polygon points="7,22 10,18 14,20 18,18 21,22 14,26" fill="#1e1e2e" />
+            </svg>
+          </motion.div>
+
         </div>
 
         {/* Name */}
@@ -63,13 +124,10 @@ export default function LoadingAnimation({ onDone }) {
             style={{ color: 'var(--text-primary)' }}
           >
             Jean Aime{' '}
-            <span style={{ color: 'var(--accent)' }}>Iraguha</span>
+            <span style={{ color: 'var(--accent)' }}>IRAGUHA</span>
           </h1>
-          <p
-            className="mt-2 text-sm font-medium tracking-wide"
-            style={{ color: 'var(--text-muted)' }}
-          >
-            Full-Stack Developer
+          <p className="mt-2 text-sm font-medium tracking-wide" style={{ color: 'var(--text-muted)' }}>
+            Full-Stack Engineer · CTO @ Igifu Meals
           </p>
         </motion.div>
 
@@ -80,10 +138,7 @@ export default function LoadingAnimation({ onDone }) {
           transition={{ delay: 0.5 }}
           className="w-56 sm:w-72"
         >
-          <div
-            className="w-full h-[2px] rounded-full overflow-hidden"
-            style={{ background: 'var(--border)' }}
-          >
+          <div className="w-full h-[2px] rounded-full overflow-hidden" style={{ background: 'var(--border)' }}>
             <motion.div
               className="h-full rounded-full"
               style={{ background: 'var(--accent)' }}
@@ -93,26 +148,14 @@ export default function LoadingAnimation({ onDone }) {
               onAnimationComplete={onDone}
             />
           </div>
-
-          {/* Cycling status text */}
-          <div className="mt-3 h-4 overflow-hidden">
-            {LINES.map((line, i) => (
-              <motion.p
-                key={line}
-                className="text-[11px] tracking-widest uppercase"
-                style={{ color: 'var(--text-muted)' }}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: [0, 1, 1, 0], y: [8, 0, 0, -8] }}
-                transition={{
-                  delay: 0.6 + i * 0.75,
-                  duration: 0.75,
-                  times: [0, 0.15, 0.75, 1],
-                }}
-              >
-                {line}
-              </motion.p>
-            ))}
-          </div>
+          <motion.p
+            className="mt-3 text-[11px] tracking-widest uppercase"
+            style={{ color: 'var(--text-muted)' }}
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1.2, repeat: Infinity }}
+          >
+            Loading portfolio…
+          </motion.p>
         </motion.div>
 
       </div>

@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 
 export const fadeUp = {
@@ -12,9 +13,10 @@ export const stagger = (delay = 0.08) => ({
 
 export const viewportOnce = { once: true, margin: '-60px' };
 
-export function FadeUp({ children, delay = 0, className = '' }) {
+export const FadeUp = forwardRef(function FadeUp({ children, delay = 0, className = '' }, ref) {
   return (
     <motion.div
+      ref={ref}
       className={className}
       initial="hidden"
       whileInView="show"
@@ -27,7 +29,7 @@ export function FadeUp({ children, delay = 0, className = '' }) {
       {children}
     </motion.div>
   );
-}
+});
 
 export function Badge({ children }) {
   return (

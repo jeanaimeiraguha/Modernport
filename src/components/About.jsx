@@ -63,6 +63,65 @@ export default function About() {
                 ))}
               </div>
 
+              {/* ── Hobbies ── */}
+              <div className="mt-8 rounded-xl p-5" style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
+                <p className="text-xs font-bold uppercase tracking-[0.14em] mb-4" style={{ color: 'var(--text-muted)' }}>
+                  ⚽ Beyond the Code
+                </p>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>
+                  When I'm not architecting systems, you'll find me on the pitch or glued to a match.
+                  Football is my reset button — it taught me teamwork, pressure, and never giving up.
+                </p>
+                {/* Favourite clubs */}
+                <div className="flex gap-4">
+                  {/* Manchester City */}
+                  <div className="flex-1 rounded-xl p-4 flex flex-col items-center gap-3"
+                    style={{ background: 'rgba(108,171,221,0.08)', border: '1.5px solid rgba(108,171,221,0.3)' }}>
+                    {/* Man City jersey SVG */}
+                    <svg width="52" height="58" viewBox="0 0 52 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      {/* Body */}
+                      <path d="M10 14 L4 22 L10 24 L10 54 L42 54 L42 24 L48 22 L42 14 L34 10 Q26 16 18 10 Z" fill="#6CABDD" />
+                      {/* Collar */}
+                      <path d="M18 10 Q22 14 26 13 Q30 14 34 10 Q30 7 26 8 Q22 7 18 10Z" fill="white" />
+                      {/* Sleeve stripes */}
+                      <path d="M4 22 L10 24 L10 34 L4 32Z" fill="white" opacity="0.4" />
+                      <path d="M48 22 L42 24 L42 34 L48 32Z" fill="white" opacity="0.4" />
+                      {/* Badge area */}
+                      <circle cx="21" cy="26" r="5" fill="white" opacity="0.9" />
+                      <text x="21" y="29" textAnchor="middle" fontSize="5" fontWeight="bold" fill="#6CABDD">MC</text>
+                    </svg>
+                    <div className="text-center">
+                      <p className="text-xs font-bold" style={{ color: '#6CABDD' }}>Manchester City</p>
+                      <p className="text-[10px] mt-0.5" style={{ color: 'var(--text-muted)' }}>⭐ Favourite Club</p>
+                    </div>
+                  </div>
+
+                  {/* Real Madrid */}
+                  <div className="flex-1 rounded-xl p-4 flex flex-col items-center gap-3"
+                    style={{ background: 'rgba(255,255,255,0.04)', border: '1.5px solid rgba(218,165,32,0.35)' }}>
+                    {/* Real Madrid jersey SVG */}
+                    <svg width="52" height="58" viewBox="0 0 52 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      {/* Body */}
+                      <path d="M10 14 L4 22 L10 24 L10 54 L42 54 L42 24 L48 22 L42 14 L34 10 Q26 16 18 10 Z" fill="white" />
+                      {/* Collar */}
+                      <path d="M18 10 Q22 14 26 13 Q30 14 34 10 Q30 7 26 8 Q22 7 18 10Z" fill="#DAA520" />
+                      {/* Gold trim on sleeves */}
+                      <path d="M4 22 L10 24 L10 28 L4 26Z" fill="#DAA520" />
+                      <path d="M48 22 L42 24 L42 28 L48 26Z" fill="#DAA520" />
+                      {/* Outline */}
+                      <path d="M10 14 L4 22 L10 24 L10 54 L42 54 L42 24 L48 22 L42 14 L34 10 Q26 16 18 10 Z" stroke="#DAA520" strokeWidth="1" fill="none" />
+                      {/* Badge */}
+                      <circle cx="21" cy="26" r="5" fill="#DAA520" opacity="0.9" />
+                      <text x="21" y="29" textAnchor="middle" fontSize="4.5" fontWeight="bold" fill="white">RM</text>
+                    </svg>
+                    <div className="text-center">
+                      <p className="text-xs font-bold" style={{ color: '#DAA520' }}>Real Madrid</p>
+                      <p className="text-[10px] mt-0.5" style={{ color: 'var(--text-muted)' }}>👑 Los Blancos</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Roots & Values — ANLM tribute */}
               <div
                 className="mt-8 rounded-xl p-5"

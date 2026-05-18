@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="flex items-center gap-5">
           {[
             { href: 'https://github.com/jeanaimeiraguha', icon: <FaGithub size={15} />, label: 'GitHub' },
-            { href: 'https://www.linkedin.com/in/jean-aime-iraguha/', icon: <FaLinkedin size={15} />, label: 'LinkedIn' },
+            { href: 'https://www.linkedin.com/in/iraguha-jean-aime-53ba74405/', icon: <FaLinkedin size={15} />, label: 'LinkedIn' },
             { href: 'mailto:jeanaimeiraguha@gmail.com', icon: <FaEnvelope size={15} />, label: 'Email' },
           ].map(({ href, icon, label }) => (
             <a

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
 import { SectionHeader, FadeUp } from './motion';
 import { CONTACT_ITEMS } from './data';
 
@@ -8,6 +8,11 @@ const ICONS = {
   phone:    <FaPhone size={13} />,
   location: <FaMapMarkerAlt size={13} />,
   linkedin: <FaLinkedin size={13} />,
+  whatsapp: <FaWhatsapp size={13} />,
+};
+
+const ICON_COLORS = {
+  whatsapp: '#25d366',
 };
 
 export default function Contact() {
@@ -115,7 +120,7 @@ export default function Contact() {
             <div className="space-y-5">
               {CONTACT_ITEMS.map((item) => (
                 <div key={item.label} className="flex items-start gap-3">
-                  <span className="mt-0.5" style={{ color: 'var(--accent)' }}>{ICONS[item.type]}</span>
+                  <span className="mt-0.5" style={{ color: ICON_COLORS[item.type] || 'var(--accent)' }}>{ICONS[item.type]}</span>
                   <div>
                     <p className="text-[11px] font-semibold mb-0.5" style={{ color: 'var(--text-muted)' }}>
                       {item.label}

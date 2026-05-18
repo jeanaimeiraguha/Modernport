@@ -124,7 +124,7 @@ export default function Hero() {
                 Let's talk
               </button>
               <a
-                href="https://www.linkedin.com/in/jean-aime-iraguha/"
+                href="https://www.linkedin.com/in/iraguha-jean-aime-53ba74405/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-lg transition-colors"

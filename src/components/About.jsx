@@ -93,6 +93,16 @@ export default function About() {
                       <p className="text-[10px] mt-0.5" style={{ color: 'var(--text-muted)' }}>👑 Los Blancos</p>
                     </div>
                   </div>
+
+                  {/* Chelsea */}
+                  <div className="flex-1 rounded-xl overflow-hidden"
+                    style={{ background: 'rgba(3,70,148,0.08)', border: '1.5px solid rgba(3,70,148,0.4)' }}>
+                    <img src="/chelsea.jpg" alt="Chelsea" className="w-full h-36 object-cover" />
+                    <div className="text-center py-3">
+                      <p className="text-xs font-bold" style={{ color: '#0346A0' }}>Chelsea FC</p>
+                      <p className="text-[10px] mt-0.5" style={{ color: 'var(--text-muted)' }}>💙 The Blues</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 

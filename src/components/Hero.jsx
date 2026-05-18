@@ -60,10 +60,13 @@ export default function Hero() {
             {/* Role line */}
             <motion.p
               {...item(0.15)}
-              className="text-base sm:text-lg font-semibold mb-4"
+              className="text-base sm:text-lg font-semibold mb-4 tracking-wide"
               style={{ color: 'var(--text-secondary)' }}
             >
-              Full-Stack Engineer &amp; Co-Founder · CTO @ Igifu Meals
+              <span style={{ color: 'var(--accent)' }}>Full-Stack Engineer</span>
+              {' '}&amp; Co-Founder
+              {' '}·{' '}
+              <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>CTO @ Igifu Meals</span>
             </motion.p>
 
             {/* Pitch */}
@@ -72,9 +75,13 @@ export default function Hero() {
               className="text-sm sm:text-base leading-relaxed max-w-lg mb-8"
               style={{ color: 'var(--text-muted)' }}
             >
-              I turn complex problems into clean, scalable software. 4+ years shipping production
-              systems across fintech, edtech, and food-tech — from solo contributor to leading
-              engineering teams as CTO.
+              I don't just write code —{' '}
+              <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>I architect systems that outlast deadlines.</span>
+              {' '}4+ years turning brutal real-world problems into{' '}
+              <span style={{ color: 'var(--accent)', fontWeight: 600 }}>clean, battle-tested software</span>
+              {' '}across fintech, edtech &amp; food-tech —
+              from lone engineer to{' '}
+              <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>leading teams as CTO.</span>
             </motion.p>
 
             {/* Tech pills */}

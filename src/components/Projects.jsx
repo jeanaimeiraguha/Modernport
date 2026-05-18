@@ -141,7 +141,7 @@ export default function Projects() {
         <SectionHeader
           label="Projects"
           heading="Things I've built"
-          sub="From co-founding a food-tech startup to shipping AI-powered platforms — here's a selection of my work."
+          sub="A selection of work across web, AI, robotics, blockchain, and food-tech."
         />
 
         {/* Hero card — Igifu Meals */}

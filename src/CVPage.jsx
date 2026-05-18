@@ -1,153 +1,399 @@
-// src/CVPage.jsx - IRAGUHA Jean Aime CV
-
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { EXPERIENCE, EDUCATION } from './components/data';
 import {
-  FaEnvelope, FaPhone, FaMapMarkerAlt,
-  FaReact, FaNodeJs, FaPhp, FaDatabase, FaPython, FaGitAlt, FaDocker,
-  FaBriefcase, FaGraduationCap, FaAward, FaStar, FaSun, FaMoon
+  FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin,
+  FaArrowLeft, FaPrint, FaCode, FaBriefcase,
+  FaGraduationCap, FaAward, FaGlobe, FaStar,
 } from 'react-icons/fa';
-import { SiNextdotjs, SiMongodb, SiMysql, SiTailwindcss, SiFlutter, SiSolidity } from 'react-icons/si';
 
-const Section = ({ title, icon, children }) => (
-  <section className="mb-8 print:mb-4">
-    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 border-b-2 border-cyan-500 dark:border-cyan-400 pb-1 mb-4 flex items-center gap-2 print:text-black">
-      {icon} {title}
-    </h2>
-    {children}
-  </section>
-);
+/* ── Data ─────────────────────────────────────────────────────────────────── */
+const SKILLS = [
+  { name: 'React / Next.js',  level: 95 },
+  { name: 'Node.js / APIs',   level: 92 },
+  { name: 'TypeScript',       level: 88 },
+  { name: 'PostgreSQL',       level: 85 },
+  { name: 'Python / AI/ML',   level: 80 },
+  { name: 'Docker / AWS',     level: 82 },
+  { name: 'React Native',     level: 78 },
+  { name: 'Solidity / Web3',  level: 70 },
+];
 
-const DarkModeToggle = ({ darkMode, setDarkMode }) => (
-  <button
-    onClick={() => setDarkMode(!darkMode)}
-    className="fixed bottom-4 right-4 bg-white dark:bg-slate-700 p-3 rounded-full shadow-lg z-50 print:hidden"
-    aria-label="Toggle Dark Mode"
-  >
-    {darkMode ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-slate-800" />}
-  </button>
-);
+const TAGS = [
+  'GraphQL','Redis','TensorFlow','OpenCV','Tailwind CSS',
+  'GitHub Actions','Nginx','Terraform','Hardhat','YOLO',
+];
 
-export default function CVPage({ darkMode: darkModeProp, setDarkMode: setDarkModeProp, isModal = false }) {
-  const { t } = useTranslation();
+const CERTS = [
+  { title: 'AWS Certified Developer', sub: 'Associate · Amazon Web Services' },
+  { title: 'Full-Stack Certification', sub: 'freeCodeCamp · 300+ hours' },
+];
 
-  // Combine static data with translated data
-  const cvData = {
-    name: "IRAGUHA Jean Aime",
-    contacts: {
-      email: "jeanaimeiraguha@gmail.com",
-      phone: "+250 793 411 594",
-    },
-  };
+const STATS = [
+  { value: '4+',  label: 'Years' },
+  { value: '50+', label: 'Projects' },
+  { value: '30+', label: 'Clients' },
+  { value: '3.8', label: 'GPA' },
+];
 
-  // This allows the component to either control its own state (standalone page)
-  // or be controlled by a parent component (modal).
-  const [internalDarkMode, setInternalDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return false;
-  });
+const LANGS = [
+  { lang: 'Kinyarwanda', level: 'Native' },
+  { lang: 'English',     level: 'Fluent' },
+  { lang: 'French',      level: 'Conversational' },
+];
 
-  const isControlled = darkModeProp !== undefined;
-  const darkMode = isControlled ? darkModeProp : internalDarkMode;
-  const setDarkMode = isControlled ? setDarkModeProp : setInternalDarkMode;
+/* ── Sub-components ───────────────────────────────────────────────────────── */
+function SideLabel({ icon, children }) {
+  return (
+    <p className="flex items-start gap-2 text-[0.8rem] leading-snug" style={{ color: 'rgba(255,255,255,0.7)' }}>
+      <span className="mt-0.5 shrink-0" style={{ color: 'rgba(255,255,255,0.45)' }}>{icon}</span>
+      {children}
+    </p>
+  );
+}
+
+function SideSection({ title, children }) {
+  return (
+    <div className="mb-7">
+      <p className="text-[10px] font-bold tracking-[0.2em] uppercase mb-3" style={{ color: 'rgba(255,255,255,0.35)' }}>
+        {title}
+      </p>
+      {children}
+    </div>
+  );
+}
+
+function SkillBar({ name, level, animate }) {
+  return (
+    <div className="mb-3">
+      <div className="flex justify-between mb-1">
+        <span className="text-[0.75rem]" style={{ color: 'rgba(255,255,255,0.75)' }}>{name}</span>
+        <span className="text-[0.7rem]" style={{ color: 'rgba(255,255,255,0.35)' }}>{level}%</span>
+      </div>
+      <div className="h-1 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
+        <motion.div
+          className="h-full rounded-full"
+          style={{ background: 'linear-gradient(90deg,#6366f1,#a78bfa)' }}
+          initial={{ width: 0 }}
+          animate={{ width: animate ? `${level}%` : 0 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function MainSection({ icon, title, children }) {
+  return (
+    <div className="mb-8 print:mb-5">
+      <div className="flex items-center gap-2 mb-5">
+        <span style={{ color: 'var(--accent)' }}>{icon}</span>
+        <h2 className="font-display text-sm font-bold tracking-[0.12em] uppercase" style={{ color: 'var(--text-primary)' }}>
+          {title}
+        </h2>
+        <div className="flex-1 h-px ml-1" style={{ background: 'var(--border)' }} />
+      </div>
+      {children}
+    </div>
+  );
+}
+
+/* ── Page ─────────────────────────────────────────────────────────────────── */
+export default function CVPage() {
+  const [animated, setAnimated] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setAnimated(true), 300);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
-    <div className={darkMode ? 'dark' : ''}>
-      {/* The background and padding are adjusted if it's not in a modal */}
-      <div className={`${!isModal ? 'bg-gray-100 dark:bg-slate-900 min-h-screen p-4 sm:p-8' : 'bg-white dark:bg-slate-800'} font-sans transition-colors duration-300`}>
-        {/* The dark mode toggle is only shown on the standalone page */}
-        {!isModal && <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />}
-        
-        {/* The main content container */}
-        <div className={`max-w-4xl mx-auto bg-white dark:bg-slate-800 ${!isModal ? 'shadow-2xl rounded-lg' : ''} print:shadow-none print:rounded-none`}>
-          {/* Header */}
-          <header className="bg-slate-700 dark:bg-slate-900 text-white p-8 rounded-t-lg print:bg-white print:text-black">
-            <h1 className="text-4xl font-bold text-cyan-400 print:text-black">{t('hero.firstName')} {t('hero.lastName')}</h1>
-            <p className="text-lg text-slate-300 dark:text-slate-400 mt-1 print:text-gray-600">{t('cv.title')}</p>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm mt-4 text-slate-200 dark:text-slate-300 print:text-gray-700">
-              <a href={`mailto:${cvData.contacts.email}`} className="flex items-center gap-2 hover:text-cyan-400"><FaEnvelope /> {cvData.contacts.email}</a>
-              <a href={`tel:${cvData.contacts.phone}`} className="flex items-center gap-2 hover:text-cyan-400"><FaPhone /> {cvData.contacts.phone}</a>
-              <span className="flex items-center gap-2"><FaMapMarkerAlt /> {t('personal.location')}</span>
-            </div>
-          </header>
+    <div style={{ background: 'var(--bg-base)', minHeight: '100vh' }}>
 
-          <main className="p-8 print:p-0">
-            {/* Profile Summary */}
-            <Section title={t('cv.profileSummary')} icon={<FaBriefcase />}>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed print:text-black">{t('cv.summary')}</p>
-            </Section>
+      {/* ── Toolbar ── */}
+      <div
+        className="print:hidden flex items-center justify-between px-6 py-3.5 sticky top-0 z-50"
+        style={{ background: 'var(--bg-surface)', borderBottom: '1px solid var(--border)', backdropFilter: 'blur(12px)' }}
+      >
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-sm transition-colors"
+          style={{ color: 'var(--text-secondary)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+        >
+          <FaArrowLeft size={11} /> Back to portfolio
+        </Link>
 
-            {/* Core Skills */}
-            <Section title={t('cv.coreSkills')} icon={<FaStar />}>
-              <div className="flex flex-wrap gap-2">
-                {Array.isArray(t('cv.coreSkillsList', { returnObjects: true })) && t('cv.coreSkillsList', { returnObjects: true }).map((skill, index) => (
-                  <span key={index} className="bg-gray-200 dark:bg-slate-700 px-3 py-1 rounded-full text-sm text-gray-700 dark:text-gray-300 print:bg-transparent print:p-0 print:text-black print:inline-block print:mr-2">{skill}</span>
-                ))} 
+        <div className="flex items-center gap-3">
+          <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: 'rgba(74,222,128,0.1)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.2)' }}>
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-400 mr-1.5 animate-pulse" />
+            Open to work
+          </span>
+          <button
+            onClick={() => window.print()}
+            className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg transition-all"
+            style={{ background: 'var(--accent)', color: '#fff' }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--accent-hover)')}
+            onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--accent)')}
+          >
+            <FaPrint size={11} /> Print / Save PDF
+          </button>
+        </div>
+      </div>
+
+      {/* ── CV Shell ── */}
+      <div className="max-w-5xl mx-auto my-8 print:my-0 shadow-2xl print:shadow-none overflow-hidden rounded-2xl print:rounded-none">
+        <div className="flex min-h-screen print:min-h-0" style={{ background: 'var(--bg-surface)' }}>
+
+          {/* ════ SIDEBAR ════ */}
+          <aside
+            className="w-64 shrink-0 flex flex-col print:w-52"
+            style={{ background: 'linear-gradient(160deg,#0f0f2a 0%,#0a0a1f 60%,#0d0d22 100%)' }}
+          >
+            {/* Avatar / Name block */}
+            <div className="px-6 pt-10 pb-8" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+              {/* Avatar ring */}
+              <div className="relative w-20 h-20 mb-5">
+                <div
+                  className="absolute inset-0 rounded-full"
+                  style={{ background: 'linear-gradient(135deg,#6366f1,#a78bfa)', padding: 2 }}
+                >
+                  <div
+                  className="w-full h-full rounded-full overflow-hidden"
+                  style={{ background: '#0f0f2a' }}
+                >
+                  <img src="/aime picture.jpeg" alt="Jean Aime Iraguha" className="w-full h-full object-cover" />
+                </div>
+                </div>
+                {/* glow */}
+                <div className="absolute inset-0 rounded-full blur-md opacity-40" style={{ background: 'radial-gradient(circle,#6366f1,transparent)' }} />
               </div>
-            </Section>
 
-            {/* Key Projects */}
-            <Section title={t('cv.keyProjects')} icon={<FaReact />}>
-              <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 print:text-black">
-                {Array.isArray(t('cv.projectsList', { returnObjects: true })) && t('cv.projectsList', { returnObjects: true }).map(p => (
-                  <li key={p.title}>
-                    <span className="font-semibold">{p.title}:</span> {p.description}
-                  </li>
-                ))}
-              </ul>
-            </Section>
+              <h1 className="font-display text-lg font-bold leading-tight" style={{ color: '#fff' }}>
+                Jean Aime<br />Iraguha
+              </h1>
+              <p className="text-[0.75rem] mt-1 font-medium" style={{ color: '#818cf8' }}>
+                Full-Stack Engineer &amp; CTO
+              </p>
+            </div>
 
-            {/* Work Experience */}
-            <Section title={t('cv.workExperience')} icon={<FaBriefcase />}>
-              <div className="space-y-4">
-                {Array.isArray(t('cv.experience', { returnObjects: true })) && t('cv.experience', { returnObjects: true }).map(exp => (
-                  <div key={exp.role}>
-                    <div className="flex justify-between items-baseline">
-                      <h3 className="font-bold text-gray-800 dark:text-gray-200 print:text-black">{exp.role} {exp.company && `- ${exp.company}`}</h3>
-                      {exp.date && <p className="text-sm text-gray-500 dark:text-gray-400 print:text-gray-600">{exp.date}</p>}
+            {/* Contact */}
+            <div className="px-6 py-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+              <SideSection title="Contact">
+                <div className="space-y-2.5">
+                  <SideLabel icon={<FaEnvelope size={10} />}>jeanaimeiraguha@gmail.com</SideLabel>
+                  <SideLabel icon={<FaPhone size={10} />}>+250 793 411 594</SideLabel>
+                  <SideLabel icon={<FaMapMarkerAlt size={10} />}>Bugesera, Kigali, Rwanda</SideLabel>
+                  <SideLabel icon={<FaLinkedin size={10} />}>iraguha-jean-aime</SideLabel>
+                  <SideLabel icon={<FaGlobe size={10} />}>igifumeals.com</SideLabel>
+                </div>
+              </SideSection>
+            </div>
+
+            {/* Stats */}
+            <div className="px-6 py-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+              <SideSection title="At a glance">
+                <div className="grid grid-cols-2 gap-2">
+                  {STATS.map((s) => (
+                    <div
+                      key={s.label}
+                      className="rounded-lg p-3 text-center"
+                      style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.15)' }}
+                    >
+                      <p className="font-display text-xl font-bold" style={{ color: '#a78bfa' }}>{s.value}</p>
+                      <p className="text-[10px] mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{s.label}</p>
                     </div>
-                    <p className="text-gray-700 dark:text-gray-300 print:text-black">{exp.description}</p>
+                  ))}
+                </div>
+              </SideSection>
+            </div>
+
+            {/* Skills */}
+            <div className="px-6 py-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+              <SideSection title="Core Skills">
+                {SKILLS.map((s) => (
+                  <SkillBar key={s.name} {...s} animate={animated} />
+                ))}
+              </SideSection>
+            </div>
+
+            {/* Tech tags */}
+            <div className="px-6 py-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+              <SideSection title="Also proficient in">
+                <div className="flex flex-wrap gap-1.5">
+                  {TAGS.map((t) => (
+                    <span
+                      key={t}
+                      className="text-[10px] px-2 py-0.5 rounded"
+                      style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.08)' }}
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </SideSection>
+            </div>
+
+            {/* Languages */}
+            <div className="px-6 py-6">
+              <SideSection title="Languages">
+                <div className="space-y-2">
+                  {LANGS.map((l) => (
+                    <div key={l.lang} className="flex justify-between items-center">
+                      <span className="text-[0.78rem]" style={{ color: 'rgba(255,255,255,0.7)' }}>{l.lang}</span>
+                      <span
+                        className="text-[10px] px-2 py-0.5 rounded-full"
+                        style={{ background: 'rgba(99,102,241,0.15)', color: '#818cf8' }}
+                      >
+                        {l.level}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </SideSection>
+            </div>
+          </aside>
+
+          {/* ════ MAIN ════ */}
+          <main className="flex-1 px-10 py-10 print:px-7 print:py-6 overflow-hidden">
+
+            {/* Header banner */}
+            <div
+              className="rounded-xl p-6 mb-8 relative overflow-hidden"
+              style={{ background: 'linear-gradient(120deg,rgba(99,102,241,0.12) 0%,rgba(167,139,250,0.06) 100%)', border: '1px solid rgba(99,102,241,0.2)' }}
+            >
+              {/* decorative circle */}
+              <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full opacity-10" style={{ background: 'radial-gradient(circle,#6366f1,transparent)' }} />
+              <p className="text-[0.9375rem] leading-[1.8] tracking-[-0.01em]" style={{ color: 'var(--text-secondary)' }}>
+                Full-stack engineer with <strong style={{ color: 'var(--text-primary)' }}>4+ years</strong> building production software across fintech, edtech, and food-tech.
+                Co-Founder &amp; CTO of <strong style={{ color: 'var(--accent)' }}>Igifu Meals</strong> — designed the architecture, hired the team, and led engineering from day one.
+                First Class Honors, GPA <strong style={{ color: 'var(--text-primary)' }}>3.8/4.0</strong> — University of Rwanda.
+              </p>
+            </div>
+
+            {/* Experience */}
+            <MainSection icon={<FaBriefcase size={13} />} title="Work Experience">
+              <div className="relative">
+                {/* timeline line */}
+                <div className="absolute left-[7px] top-2 bottom-2 w-px" style={{ background: 'var(--border)' }} />
+
+                <div className="space-y-7">
+                  {EXPERIENCE.map((e, i) => (
+                    <div key={e.role} className="pl-7 relative">
+                      {/* dot */}
+                      <div
+                        className="absolute left-0 top-1.5 w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center"
+                        style={{
+                          borderColor: e.current ? 'var(--accent)' : 'var(--border)',
+                          background: e.current ? 'rgba(99,102,241,0.2)' : 'var(--bg-surface)',
+                        }}
+                      >
+                        {e.current && (
+                          <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: 'var(--accent)' }} />
+                        )}
+                      </div>
+
+                      <div className="flex items-start justify-between gap-3 flex-wrap">
+                        <div>
+                          <p className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>{e.role}</p>
+                          <p className="text-xs mt-0.5" style={{ color: 'var(--accent)' }}>{e.company}</p>
+                        </div>
+                        <span
+                          className="text-[11px] px-2.5 py-0.5 rounded-full shrink-0"
+                          style={{
+                            background: e.current ? 'rgba(99,102,241,0.1)' : 'var(--bg-elevated)',
+                            color: e.current ? 'var(--accent)' : 'var(--text-muted)',
+                            border: `1px solid ${e.current ? 'rgba(99,102,241,0.2)' : 'var(--border)'}`,
+                          }}
+                        >
+                          {e.period}
+                        </span>
+                      </div>
+
+                      <ul className="mt-2.5 space-y-1.5">
+                        {e.points.map((p) => (
+                          <li key={p} className="flex items-start gap-2 text-[0.8125rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                            <span className="mt-[0.45em] w-1 h-1 rounded-full shrink-0" style={{ background: 'var(--accent)', opacity: 0.6 }} />
+                            {p}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </MainSection>
+
+            {/* Education */}
+            <MainSection icon={<FaGraduationCap size={13} />} title="Education">
+              <div className="space-y-4">
+                {EDUCATION.map((e) => (
+                  <div
+                    key={e.degree}
+                    className="flex items-start justify-between gap-4 rounded-lg px-4 py-3"
+                    style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
+                  >
+                    <div>
+                      <p className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>{e.degree}</p>
+                      <p className="text-xs mt-0.5" style={{ color: 'var(--accent)' }}>{e.institution}</p>
+                      {e.note && <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>{e.note}</p>}
+                    </div>
+                    <span className="text-[11px] shrink-0 mt-0.5" style={{ color: 'var(--text-muted)' }}>{e.period}</span>
                   </div>
                 ))}
               </div>
-            </Section>
+            </MainSection>
 
-            {/* Education */}
-            <Section title={t('cv.education')} icon={<FaGraduationCap />}>
-              <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 print:text-black">
-                {Array.isArray(t('cv.educationList', { returnObjects: true })) && t('cv.educationList', { returnObjects: true }).map(edu => <li key={edu}>{edu}</li>)}
-              </ul>
-            </Section>
+            {/* Certifications */}
+            <MainSection icon={<FaAward size={13} />} title="Certifications">
+              <div className="grid sm:grid-cols-2 gap-3">
+                {CERTS.map((c) => (
+                  <div
+                    key={c.title}
+                    className="flex items-start gap-3 rounded-lg px-4 py-3"
+                    style={{ background: 'rgba(99,102,241,0.05)', border: '1px solid rgba(99,102,241,0.15)' }}
+                  >
+                    <FaStar size={11} className="mt-0.5 shrink-0" style={{ color: 'var(--accent)' }} />
+                    <div>
+                      <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{c.title}</p>
+                      <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>{c.sub}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </MainSection>
 
-            {/* Achievements */}
-            <Section title={t('cv.achievements')} icon={<FaAward />}>
-              <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 print:text-black">
-                {Array.isArray(t('cv.achievementsList', { returnObjects: true })) && t('cv.achievementsList', { returnObjects: true }).map(ach => <li key={ach}>{ach}</li>)}
-              </ul>
-            </Section>
+            {/* Key achievements */}
+            <MainSection icon={<FaCode size={13} />} title="Key Achievements">
+              <div className="grid sm:grid-cols-2 gap-2">
+                {[
+                  '🏆 First Class Honors — GPA 3.8/4.0, top 5% of cohort',
+                  '🚀 Scaled Igifu Meals to 30+ restaurant partners',
+                  '⚡ Built real-time order engine — sub-200ms at 500+ concurrent sessions',
+                  '💰 Delivered AI/blockchain features generating $500K+ in new contracts',
+                  '📚 E-learning platform serving 5,000+ students across East Africa',
+                  '🎓 Mentored 20+ junior developers into production-ready engineers',
+                ].map((a) => (
+                  <p key={a} className="text-[0.8125rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    {a}
+                  </p>
+                ))}
+              </div>
+            </MainSection>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Languages */}
-              <Section title={t('cv.languages')}>
-                <p className="text-gray-700 dark:text-gray-300 print:text-black">{Array.isArray(t('cv.languagesList', { returnObjects: true })) ? t('cv.languagesList', { returnObjects: true }).join(', ') : ''}</p>
-              </Section>
-
-              {/* Interests */}
-              <Section title={t('cv.interests')}>
-                <p className="text-gray-700 dark:text-gray-300 print:text-black">{Array.isArray(t('cv.interestsList', { returnObjects: true })) ? t('cv.interestsList', { returnObjects: true }).join(', ') : ''}</p>
-              </Section>
-            </div>
           </main>
         </div>
-        {/* Footer is only shown on the standalone page */}
-        {!isModal && (
-          <footer className="text-center mt-8 text-sm text-gray-500 dark:text-gray-400 print:hidden">
-            <p>This CV was generated from my portfolio.</p>
-          </footer>
-        )}
       </div>
+
+      {/* Print styles */}
+      <style>{`
+        @media print {
+          body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+          .print\\:hidden { display: none !important; }
+        }
+      `}</style>
     </div>
   );
 }

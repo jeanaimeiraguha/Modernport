@@ -1,4 +1,43 @@
-export const NAV_LINKS = ['about', 'skills', 'projects', 'experience', 'contact'];
+export const NAV_LINKS = ['about', 'skills', 'projects', 'experience', 'testimonials', 'contact'];
+
+export const TESTIMONIALS = [
+  {
+    name: 'Mugisha Eric',
+    role: 'CEO, Igifu Meals',
+    avatar: 'ME',
+    text: 'Jean Aime is the kind of CTO every startup dreams of. He took our idea from a napkin sketch to a live platform with 30+ restaurant partners. His ability to balance speed with technical rigour is genuinely rare.',
+  },
+  {
+    name: 'Uwimana Claire',
+    role: 'Product Manager, Tech Solutions Rwanda',
+    avatar: 'UC',
+    text: 'Working with Jean Aime was a masterclass in clean engineering. He delivered a fintech dashboard that processed over $2M in transactions without a single critical bug in production. Exceptional attention to detail.',
+  },
+  {
+    name: 'Nkurunziza David',
+    role: 'Lead Engineer, Innovation Hub Kigali',
+    avatar: 'ND',
+    text: 'Jean Aime built our e-learning platform almost single-handedly. 5,000+ students use it daily. He wrote code that was so readable and well-structured that onboarding new engineers took half the usual time.',
+  },
+  {
+    name: 'Habimana Patrick',
+    role: 'Director, Digital Transformation Center',
+    avatar: 'HP',
+    text: 'As an intern, Jean Aime outperformed senior developers. He automated workflows that saved us 20+ hours a week and asked the right questions before writing a single line of code. A true professional.',
+  },
+  {
+    name: 'Ishimwe Grace',
+    role: 'Frontend Developer, Igifu Meals',
+    avatar: 'IG',
+    text: 'Jean Aime mentored me through my first production deployment. He has a gift for explaining complex systems simply and always makes time for the team. The code review culture he built made us all better engineers.',
+  },
+  {
+    name: 'Nzeyimana Joel',
+    role: 'University of Rwanda — CS Cohort 2022',
+    avatar: 'NJ',
+    text: 'Jean Aime graduated top of our cohort with a 3.8 GPA and still found time to help classmates debug their projects. He leads by example — humble, sharp, and always focused on the actual problem.',
+  },
+];
 
 export const DOMAINS = [
   {

@@ -52,11 +52,8 @@ export default function Hero() {
               style={{ fontSize: 'clamp(2.6rem, 6vw, 4.5rem)', color: 'var(--text-primary)' }}
             >
               Jean Aime<br />
-              <span
-                className="text-transparent bg-clip-text"
-                style={{ backgroundImage: 'linear-gradient(130deg, var(--accent) 0%, #a78bfa 100%)' }}
-              >
-                Iraguha
+              <span style={{ color: 'var(--accent)' }}>
+                IRAGUHA
               </span>
             </motion.h1>
 
@@ -157,7 +154,7 @@ export default function Hero() {
                 transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
               />
               <img
-                src="/iraguha profile.jpeg"
+                src="/aime picture.jpeg"
                 alt="Jean Aime Iraguha"
                 className="w-full h-full object-cover rounded-full"
                 style={{ border: '3px solid var(--bg-base)' }}

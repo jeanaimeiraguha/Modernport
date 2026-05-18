@@ -24,7 +24,7 @@ export default function About() {
 
             <FadeUp delay={0.1}>
               {/* Bio */}
-              <div className="mt-8 space-y-4 text-sm leading-[1.85]" style={{ color: 'var(--text-secondary)' }}>
+              <div className="mt-8 space-y-5 text-[1.0625rem] leading-[1.85] tracking-[-0.01em]" style={{ color: 'var(--text-secondary)' }}>
                 <p>
                   I'm Jean Aime — a full-stack engineer from{' '}
                   <strong style={{ color: 'var(--text-primary)' }}>Bugesera, Kigali, Rwanda</strong>{' '}
@@ -56,8 +56,8 @@ export default function About() {
                   >
                     <span className="mt-0.5 shrink-0" style={{ color: 'var(--accent)' }}>{t.icon}</span>
                     <div>
-                      <p className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{t.label}</p>
-                      <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>{t.desc}</p>
+                      <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{t.label}</p>
+                      <p className="text-sm mt-0.5" style={{ color: 'var(--text-muted)' }}>{t.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -71,7 +71,7 @@ export default function About() {
                 <p className="text-xs font-bold uppercase tracking-[0.14em] mb-3" style={{ color: 'var(--text-muted)' }}>
                   ✦ Roots &amp; Values
                 </p>
-                <p className="text-sm leading-[1.85]" style={{ color: 'var(--text-secondary)' }}>
+                <p className="text-[1.0625rem] leading-[1.85] tracking-[-0.01em]" style={{ color: 'var(--text-secondary)' }}>
                   I grew up in{' '}
                   <strong style={{ color: 'var(--text-primary)' }}>Bugesera, Kigali, Rwanda</strong> — a
                   place that taught me resilience and community long before I wrote a single line of
@@ -149,7 +149,7 @@ export default function About() {
                   Currently available
                 </p>
               </div>
-              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+              <p className="text-base" style={{ color: 'var(--text-secondary)' }}>
                 Open to senior full-stack, lead engineer, or CTO-track remote roles.
                 Also available for consulting and fractional CTO engagements.
               </p>
@@ -164,7 +164,7 @@ export default function About() {
                 '🎓 Mentored 20+ junior developers',
                 '🙏 Shaped by ANLM — Kibenga Primary School, Bugesera',
               ].map((a) => (
-                <p key={a} className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                <p key={a} className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                   {a}
                 </p>
               ))}

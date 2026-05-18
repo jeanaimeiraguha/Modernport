@@ -55,7 +55,7 @@ export default function Navbar() {
             <li key={l}>
               <button
                 onClick={() => handleNav(l)}
-                className="text-sm capitalize transition-colors hover:opacity-100"
+                className="text-[0.9375rem] font-medium capitalize transition-colors hover:opacity-100"
                 style={{ color: 'var(--text-muted)' }}
                 onMouseEnter={(e) => (e.target.style.color = 'var(--text-primary)')}
                 onMouseLeave={(e) => (e.target.style.color = 'var(--text-muted)')}
@@ -135,7 +135,7 @@ export default function Navbar() {
               <button
                 key={l}
                 onClick={() => handleNav(l)}
-                className="text-sm capitalize text-left transition-colors"
+                className="text-[0.9375rem] capitalize text-left transition-colors"
                 style={{ color: 'var(--text-secondary)' }}
               >
                 {l}

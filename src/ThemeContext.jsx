@@ -3,10 +3,12 @@ import { createContext, useContext, useEffect, useState } from 'react';
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
     const saved = localStorage.getItem('portfolio-theme');
-    return saved ?? 'light';
-  });
+    if (saved) setTheme(saved);
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;

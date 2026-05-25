@@ -256,6 +256,6 @@ export const CONTACT_ITEMS = [
   { label: 'Email',    value: 'jeanaimeiraguha@gmail.com',          href: 'mailto:jeanaimeiraguha@gmail.com',              type: 'email'    },
   { label: 'Phone',    value: '+250 793 411 594',                    href: 'tel:+250793411594',                             type: 'phone'    },
   { label: 'Location', value: 'Bugesera, Kigali, Rwanda',             href: null,                                            type: 'location' },
-  { label: 'LinkedIn',  value: 'linkedin.com/in/iraguha-jean-aime', href: 'https://www.linkedin.com/in/iraguha-jean-aime-53ba74405/', type: 'linkedin'  },
+  { label: 'LinkedIn',  value: 'linkedin.com/in/iraguha-jean-aime-53ba74405', href: 'https://www.linkedin.com/in/iraguha-jean-aime-53ba74405/', type: 'linkedin'  },
   { label: 'WhatsApp', value: '+250 793 411 594',                    href: 'https://wa.me/250793411594',                                type: 'whatsapp' },
 ];

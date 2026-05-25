@@ -1,174 +1,175 @@
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-function Avatar() {
+/* ── Kid kicking a globe SVG ── */
+function KidWithGlobe() {
   return (
-    <svg width="112" height="112" viewBox="0 0 112 112" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* Circle background */}
-      <circle cx="56" cy="56" r="56" fill="rgba(99,102,241,0.12)" />
+    <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-      {/* Body / torso */}
-      <ellipse cx="56" cy="95" rx="28" ry="18" fill="#6366f1" opacity="0.9" />
+      {/* ── Globe (ball) — bouncing ── */}
+      <motion.g
+        animate={{ x: [0, 18, 0], y: [0, -10, 0] }}
+        transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        {/* Globe circle */}
+        <circle cx="118" cy="118" r="22" stroke="#e2e8f0" strokeWidth="1.5" fill="none" />
+        {/* Latitude lines */}
+        <ellipse cx="118" cy="118" rx="22" ry="10" stroke="#e2e8f0" strokeWidth="1" fill="none" opacity="0.5" />
+        <line x1="96" y1="118" x2="140" y2="118" stroke="#e2e8f0" strokeWidth="1" opacity="0.5" />
+        {/* Longitude curves */}
+        <path d="M118 96 Q128 108 128 118 Q128 128 118 140" stroke="#e2e8f0" strokeWidth="1" fill="none" opacity="0.5" />
+        <path d="M118 96 Q108 108 108 118 Q108 128 118 140" stroke="#e2e8f0" strokeWidth="1" fill="none" opacity="0.5" />
+        {/* Continents hint */}
+        <path d="M106 108 Q110 104 116 106 Q120 108 118 112 Q114 114 110 112 Z" fill="#94a3b8" opacity="0.6" />
+        <path d="M120 114 Q124 112 128 115 Q130 119 126 121 Q122 120 120 117 Z" fill="#94a3b8" opacity="0.5" />
+      </motion.g>
 
-      {/* Neck */}
-      <rect x="50" y="72" width="12" height="10" rx="4" fill="#f5c5a3" />
+      {/* ── Kid body ── */}
 
       {/* Head */}
-      <circle cx="56" cy="58" r="20" fill="#f5c5a3" />
-
+      <circle cx="62" cy="34" r="14" stroke="#f1f5f9" strokeWidth="1.5" fill="#0a0a0f" />
       {/* Hair */}
-      <path d="M36 54 Q36 34 56 34 Q76 34 76 54 Q72 44 56 44 Q40 44 36 54Z" fill="#1a1a2e" />
-
-      {/* Eyes */}
-      <circle cx="49" cy="56" r="2.5" fill="#1a1a2e" />
-      <circle cx="63" cy="56" r="2.5" fill="#1a1a2e" />
-      {/* Eye shine */}
-      <circle cx="50" cy="55" r="0.8" fill="white" />
-      <circle cx="64" cy="55" r="0.8" fill="white" />
-
+      <path d="M48 30 Q50 18 62 18 Q74 18 76 30" stroke="#f1f5f9" strokeWidth="1.5" fill="none" />
+      {/* Face — eyes */}
+      <circle cx="57" cy="33" r="1.5" fill="#f1f5f9" />
+      <circle cx="67" cy="33" r="1.5" fill="#f1f5f9" />
       {/* Smile */}
-      <path d="M49 63 Q56 69 63 63" stroke="#c0845a" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+      <path d="M57 39 Q62 43 67 39" stroke="#f1f5f9" strokeWidth="1.2" fill="none" strokeLinecap="round" />
 
-      {/* Shirt collar */}
-      <path d="M44 78 L56 84 L68 78 L64 72 L56 76 L48 72Z" fill="#4f46e5" />
+      {/* Torso */}
+      <path d="M62 48 L62 90" stroke="#f1f5f9" strokeWidth="2" strokeLinecap="round" />
 
-      {/* Laptop hint on lap */}
-      <rect x="38" y="90" width="36" height="6" rx="2" fill="#818cf8" opacity="0.7" />
-      <rect x="40" y="88" width="32" height="5" rx="1.5" fill="#6366f1" opacity="0.5" />
+      {/* Left arm — raised up (excited) */}
+      <motion.path
+        d="M62 58 Q48 48 42 38"
+        stroke="#f1f5f9" strokeWidth="2" fill="none" strokeLinecap="round"
+        animate={{ d: ['M62 58 Q48 48 42 38', 'M62 58 Q46 44 38 36', 'M62 58 Q48 48 42 38'] }}
+        transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      {/* Right arm — swinging toward ball */}
+      <motion.path
+        d="M62 58 Q76 68 88 78"
+        stroke="#f1f5f9" strokeWidth="2" fill="none" strokeLinecap="round"
+        animate={{ d: ['M62 58 Q76 68 88 78', 'M62 58 Q80 72 94 80', 'M62 58 Q76 68 88 78'] }}
+        transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      {/* Left leg — standing */}
+      <path d="M62 90 L54 128" stroke="#f1f5f9" strokeWidth="2" strokeLinecap="round" />
+      {/* Left foot */}
+      <path d="M54 128 L44 130" stroke="#f1f5f9" strokeWidth="2" strokeLinecap="round" />
+
+      {/* Right leg — kicking */}
+      <motion.path
+        d="M62 90 Q80 100 96 108"
+        stroke="#f1f5f9" strokeWidth="2" fill="none" strokeLinecap="round"
+        animate={{ d: ['M62 90 Q80 100 96 108', 'M62 90 Q82 104 100 112', 'M62 90 Q80 100 96 108'] }}
+        transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      {/* Right foot — kicking the globe */}
+      <motion.path
+        d="M96 108 L108 114"
+        stroke="#f1f5f9" strokeWidth="2" fill="none" strokeLinecap="round"
+        animate={{ d: ['M96 108 L108 114', 'M100 112 L112 116', 'M96 108 L108 114'] }}
+        transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      {/* Ground line */}
+      <line x1="30" y1="142" x2="148" y2="142" stroke="#1e293b" strokeWidth="1" />
+
+      {/* Motion lines near globe */}
+      <motion.g
+        animate={{ opacity: [0, 1, 0], x: [0, 6, 12] }}
+        transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <line x1="138" y1="108" x2="148" y2="106" stroke="#475569" strokeWidth="1" strokeLinecap="round" />
+        <line x1="140" y1="114" x2="150" y2="114" stroke="#475569" strokeWidth="1" strokeLinecap="round" />
+        <line x1="138" y1="120" x2="148" y2="122" stroke="#475569" strokeWidth="1" strokeLinecap="round" />
+      </motion.g>
     </svg>
   );
 }
 
 export default function LoadingAnimation({ onDone }) {
+  const [progress, setProgress] = useState(0);
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    const start = performance.now();
+    const duration = 2400;
+
+    const tick = (now) => {
+      const pct = Math.min(((now - start) / duration) * 100, 100);
+      setProgress(pct);
+      if (pct < 100) {
+        requestAnimationFrame(tick);
+      } else {
+        setTimeout(() => { setDone(true); setTimeout(onDone, 500); }, 150);
+      }
+    };
+    requestAnimationFrame(tick);
+  }, [onDone]);
+
   return (
-    <motion.div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: 'var(--bg-base)' }}
-      exit={{ opacity: 0, transition: { duration: 0.6, ease: 'easeInOut' } }}
-    >
-      {/* Grid */}
-      <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
-
-      {/* Ambient glow */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%)' }}
-      />
-
-      <div className="relative z-10 flex flex-col items-center gap-8">
-
-        {/* ── Avatar ── */}
+    <AnimatePresence>
+      {!done && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.7 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="relative"
+          key="loader"
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center gap-6"
+          style={{ background: '#0a0a0f' }}
+          exit={{ opacity: 0, transition: { duration: 0.5, ease: 'easeInOut' } }}
         >
-          {/* Outer spinning arc */}
+          {/* Kid + globe */}
           <motion.div
-            className="absolute rounded-full"
-            style={{
-              inset: -6,
-              border: '2.5px solid transparent',
-              borderTopColor: 'var(--accent)',
-              borderRightColor: 'var(--accent)',
-              borderBottomColor: 'rgba(99,102,241,0.15)',
-              borderLeftColor: 'rgba(99,102,241,0.15)',
-            }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
-          />
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <KidWithGlobe />
+          </motion.div>
 
-          {/* Counter arc */}
+          {/* Name */}
           <motion.div
-            className="absolute rounded-full"
-            style={{
-              inset: -14,
-              border: '1.5px solid transparent',
-              borderTopColor: 'rgba(129,140,248,0.3)',
-              borderBottomColor: 'rgba(129,140,248,0.3)',
-              borderLeftColor: 'transparent',
-              borderRightColor: 'transparent',
-            }}
-            animate={{ rotate: -360 }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-          />
-
-          {/* Avatar circle */}
-          <div
-            className="w-28 h-28 rounded-full overflow-hidden flex items-center justify-center"
-            style={{ border: '3px solid var(--bg-base)', background: 'var(--bg-elevated)' }}
+            className="flex flex-col items-center gap-1"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
           >
-            <Avatar />
-          </div>
+            <p className="font-display font-bold text-lg tracking-tight" style={{ color: '#f1f5f9', letterSpacing: '-0.02em' }}>
+              Jean Aime <span style={{ color: '#f1f5f9' }}>Iraguha</span>
+            </p>
+            <p className="text-[11px] tracking-[0.22em] uppercase font-sans" style={{ color: '#334155' }}>
+              Portfolio
+            </p>
+          </motion.div>
 
-          {/* Online dot */}
-          <motion.span
-            className="absolute bottom-1 right-1 w-4 h-4 rounded-full"
-            style={{ background: '#4ade80', border: '2px solid var(--bg-base)', boxShadow: '0 0 8px rgba(74,222,128,0.7)' }}
-            animate={{ scale: [1, 1.25, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </motion.div>
-
-        {/* ── Name + role ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center gap-1 text-center"
-        >
-          <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
-            <motion.span
-              animate={{ rotate: [0, 20, -10, 20, 0] }}
-              transition={{ delay: 0.8, duration: 0.8, ease: 'easeInOut' }}
-              style={{ display: 'inline-block', marginRight: 6 }}
-            >
-              👋
-            </motion.span>
-            Welcome to my portfolio
-          </p>
-
-          <h1
-            className="font-display font-bold text-2xl sm:text-3xl"
-            style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}
+          {/* Progress bar */}
+          <motion.div
+            className="w-40 h-[2px] rounded-full overflow-hidden"
+            style={{ background: '#1e293b' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
           >
-            Jean Aime{' '}
-            <span style={{ color: 'var(--accent)' }}>IRAGUHA</span>
-          </h1>
-
-          <p className="text-xs tracking-[0.18em] uppercase font-medium" style={{ color: 'var(--text-muted)' }}>
-            Full-Stack Engineer · CTO @ Igifu Meals
-          </p>
-        </motion.div>
-
-        {/* ── Progress bar ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className="w-52 sm:w-64 flex flex-col items-center gap-2"
-        >
-          <div className="w-full h-[2px] rounded-full overflow-hidden" style={{ background: 'var(--border)' }}>
-            <motion.div
-              className="h-full rounded-full"
-              style={{ background: 'linear-gradient(90deg, var(--accent), var(--accent-hover))' }}
-              initial={{ width: '0%' }}
-              animate={{ width: '100%' }}
-              transition={{ delay: 0.8, duration: 2, ease: [0.4, 0, 0.2, 1] }}
-              onAnimationComplete={onDone}
+            <div
+              className="h-full rounded-full transition-none"
+              style={{ width: `${progress}%`, background: '#f1f5f9' }}
             />
-          </div>
-          <motion.span
-            className="text-[10px] tracking-widest uppercase font-mono"
-            style={{ color: 'var(--text-muted)' }}
-            animate={{ opacity: [0.4, 1, 0.4] }}
-            transition={{ duration: 1.4, repeat: Infinity }}
-          >
-            Loading…
-          </motion.span>
-        </motion.div>
+          </motion.div>
 
-      </div>
-    </motion.div>
+          {/* Percentage */}
+          <motion.p
+            className="text-[11px] tabular-nums font-mono"
+            style={{ color: '#334155' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            {Math.round(progress)}%
+          </motion.p>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

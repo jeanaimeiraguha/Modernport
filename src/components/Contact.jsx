@@ -1,5 +1,4 @@
-import { useState, useRef } from 'react';
-import emailjs from '@emailjs/browser';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaLinkedin, FaEnvelope, FaPhone,
@@ -8,11 +7,6 @@ import {
 } from 'react-icons/fa';
 import { SectionHeader, FadeUp } from './motion';
 import { CONTACT_ITEMS } from './data';
-
-/* ── EmailJS config — fill these in from emailjs.com dashboard ── */
-const EJS_SERVICE  = 'service_xxxxxxx';   // ← your Service ID
-const EJS_TEMPLATE = 'template_xxxxxxx';  // ← your Template ID
-const EJS_KEY      = 'xxxxxxxxxxxxxxxxxxxx'; // ← your Public Key
 
 const ICONS = {
   email:    <FaEnvelope size={14} />,
@@ -46,10 +40,9 @@ function Field({ label, error, children }) {
 }
 
 export default function Contact() {
-  const formRef = useRef();
   const [form, setForm]     = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [status, setStatus] = useState('idle'); // idle | sent
   const [focused, setFocused] = useState(null);
 
   const validate = () => {
@@ -67,19 +60,16 @@ export default function Contact() {
     if (errors[e.target.name]) setErrors({ ...errors, [e.target.name]: '' });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
 
-    setStatus('sending');
-    try {
-      await emailjs.sendForm(EJS_SERVICE, EJS_TEMPLATE, formRef.current, EJS_KEY);
-      setStatus('sent');
-      setForm({ name: '', email: '', message: '' });
-    } catch {
-      setStatus('error');
-    }
+    const subject = encodeURIComponent(`Portfolio contact from ${form.name}`);
+    const body    = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`);
+    window.location.href = `mailto:jeanaimeiraguha@gmail.com?subject=${subject}&body=${body}`;
+    setStatus('sent');
+    setForm({ name: '', email: '', message: '' });
   };
 
   const inputBase = (name) => ({
@@ -146,7 +136,6 @@ export default function Contact() {
               ) : (
                 <motion.form
                   key="form"
-                  ref={formRef}
                   onSubmit={handleSubmit}
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   className="space-y-5"
@@ -185,44 +174,17 @@ export default function Contact() {
                     />
                   </Field>
 
-                  {/* Error banner */}
-                  <AnimatePresence>
-                    {status === 'error' && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                        className="flex items-center gap-2 text-sm px-4 py-3 rounded-lg"
-                        style={{ background: 'rgba(248,113,113,0.08)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}
-                      >
-                        <FaExclamationCircle size={13} />
-                        Something went wrong. Please try emailing me directly at jeanaimeiraguha@gmail.com
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
                   {/* Submit */}
                   <motion.button
                     type="submit"
-                    disabled={status === 'sending'}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3 text-sm font-semibold rounded-xl text-white transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3 text-sm font-semibold rounded-xl text-white transition-colors"
                     style={{ background: 'var(--accent)' }}
-                    onMouseEnter={(e) => { if (status !== 'sending') e.currentTarget.style.background = 'var(--accent-hover)'; }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--accent-hover)')}
                     onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--accent)')}
                   >
-                    {status === 'sending' ? (
-                      <>
-                        <motion.span
-                          animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.8, ease: 'linear' }}
-                          className="inline-block w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full"
-                        />
-                        Sending…
-                      </>
-                    ) : (
-                      <>
-                        <FaPaperPlane size={12} /> Send message
-                      </>
-                    )}
+                    <FaPaperPlane size={12} /> Send message
                   </motion.button>
                 </motion.form>
               )}

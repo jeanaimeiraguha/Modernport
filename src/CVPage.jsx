@@ -157,7 +157,7 @@ export default function CVPage() {
 
       {/* ── Toolbar ── */}
       <div
-        className="print:hidden sticky top-0 z-50 flex items-center justify-between px-6 py-3"
+        className="print:hidden sticky top-0 z-50 flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3"
         style={{ background: 'rgba(10,10,15,0.9)', borderBottom: '1px solid var(--border)', backdropFilter: 'blur(16px)' }}
       >
         <Link
@@ -196,18 +196,18 @@ export default function CVPage() {
         className="max-w-5xl mx-auto my-8 print:my-0 rounded-2xl print:rounded-none overflow-hidden"
         style={{ boxShadow: '0 32px 80px rgba(0,0,0,0.5)' }}
       >
-        <div className="flex min-h-[1100px] print:min-h-0">
+        <div className="flex flex-col lg:flex-row min-h-[1100px] print:min-h-0">
 
           {/* ════ SIDEBAR ════ */}
           <aside
-            className="w-[240px] shrink-0 flex flex-col print:w-48"
+            className="w-full lg:w-[240px] lg:shrink-0 flex flex-col print:w-48"
             style={{ background: 'linear-gradient(175deg,#0d0d22 0%,#0a0a1a 50%,#0f0f28 100%)' }}
           >
             {/* Top accent bar */}
             <div className="h-1 w-full" style={{ background: 'linear-gradient(90deg,#6366f1,#a78bfa,#6366f1)' }} />
 
             {/* Avatar + name */}
-            <div className="px-6 pt-8 pb-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="px-6 pt-8 pb-6 flex flex-col sm:flex-row lg:flex-col sm:items-center lg:items-start gap-4 lg:gap-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -243,7 +243,7 @@ export default function CVPage() {
             </div>
 
             {/* Contact */}
-            <div className="px-5 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
               <SideSection title="Contact">
                 <div className="space-y-2">
                   {[
@@ -264,7 +264,7 @@ export default function CVPage() {
             </div>
 
             {/* Stats */}
-            <div className="px-5 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
               <SideSection title="At a Glance">
                 <div className="grid grid-cols-2 gap-2">
                   {STATS.map((s) => (
@@ -279,14 +279,14 @@ export default function CVPage() {
             </div>
 
             {/* Skills */}
-            <div className="px-5 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
               <SideSection title="Core Skills">
                 {SKILLS.map((s) => <SkillBar key={s.name} {...s} animated={animated} />)}
               </SideSection>
             </div>
 
             {/* Tech tags */}
-            <div className="px-5 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
               <SideSection title="Also Proficient In">
                 <div className="flex flex-wrap gap-1">
                   {TAGS.map((t) => (
@@ -300,7 +300,7 @@ export default function CVPage() {
             </div>
 
             {/* Languages */}
-            <div className="px-5 py-5">
+            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6">
               <SideSection title="Languages">
                 {LANGS.map((l) => <LangBar key={l.lang} {...l} animated={animated} />)}
               </SideSection>
@@ -311,7 +311,7 @@ export default function CVPage() {
           </aside>
 
           {/* ════ MAIN ════ */}
-          <main className="flex-1 px-9 py-8 print:px-6 print:py-5 overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
+          <main className="flex-1 px-5 sm:px-9 py-8 print:px-6 print:py-5 overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
 
             {/* Header banner */}
             <motion.div

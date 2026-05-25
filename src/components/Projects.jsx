@@ -15,7 +15,7 @@ function HeroProjectCard({ project }) {
       style={{ border: '1px solid var(--border)' }}
     >
       {/* Splash image */}
-      <div className="relative h-56 sm:h-72 overflow-hidden">
+      <div className="relative h-48 sm:h-56 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
@@ -78,25 +78,39 @@ function ProjectCard({ project, index }) {
         hidden: { opacity: 0, y: 24 },
         show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16,1,0.3,1] } },
       }}
-      whileHover={{ y: -4, transition: { duration: 0.22 } }}
+      whileHover={{ y: -8, scale: 1.02, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
       className="group relative flex flex-col rounded-xl overflow-hidden card-hover"
       style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}
     >
       {/* Splash image */}
-      <div className="relative h-44 overflow-hidden">
+      <div className="relative h-36 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           style={{ filter: 'brightness(0.5)' }}
         />
         <div
           className="absolute inset-0"
           style={{ background: 'linear-gradient(to top, var(--bg-card) 0%, transparent 55%)' }}
         />
+        {/* Hover overlay */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ background: 'rgba(99,102,241,0.18)', backdropFilter: 'blur(2px)' }}
+        >
+          <motion.span
+            initial={{ y: 12, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            className="text-xs font-bold text-white px-4 py-2 rounded-full font-sans"
+            style={{ background: 'var(--accent)', border: '1px solid rgba(255,255,255,0.2)' }}
+          >
+            View Project
+          </motion.span>
+        </div>
         <div className="absolute top-3 left-3">
           <span
-            className="text-[9px] font-bold tracking-[0.16em] uppercase px-2.5 py-1 rounded-full"
+            className="text-[9px] font-bold tracking-[0.16em] uppercase px-2.5 py-1 rounded-full font-sans"
             style={{ background: 'rgba(99,102,241,0.85)', color: '#fff' }}
           >
             {project.category}
@@ -121,7 +135,7 @@ function ProjectCard({ project, index }) {
         <h3 className="font-display text-lg font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
           {project.title}
         </h3>
-        <p className="text-sm leading-relaxed flex-1 mb-4" style={{ color: 'var(--text-secondary)' }}>
+        <p className="text-sm leading-relaxed flex-1 mb-4 font-sans" style={{ color: 'var(--text-secondary)' }}>
           {project.description}
         </p>
         <div className="flex flex-wrap gap-1.5 mt-auto">

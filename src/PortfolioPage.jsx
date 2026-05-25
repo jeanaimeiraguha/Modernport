@@ -11,6 +11,7 @@ import Testimonials from './components/Testimonials';
 import Contact     from './components/Contact';
 import Footer      from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import ChatBot     from './components/ChatBot';
 
 export default function PortfolioPage() {
   const [loaded, setLoaded] = useState(false);
@@ -42,6 +43,7 @@ export default function PortfolioPage() {
             </main>
             <Footer />
             <ScrollToTop />
+            <ChatBot />
           </motion.div>
         )}
       </AnimatePresence>

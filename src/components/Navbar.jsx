@@ -30,8 +30,11 @@ export default function Navbar() {
     : 'transparent';
 
   return (
-    <header
+    <motion.header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      initial={{ y: -64, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       style={{
         background: navBg,
         backdropFilter: scrolled ? 'blur(16px)' : 'none',
@@ -74,7 +77,7 @@ export default function Navbar() {
             <li key={l}>
               <button
                 onClick={() => handleNav(l)}
-                className="text-[0.9375rem] font-medium capitalize transition-colors hover:opacity-100"
+                className="nav-link text-sm font-medium capitalize transition-colors hover:opacity-100"
                 style={{ color: 'var(--text-muted)' }}
                 onMouseEnter={(e) => (e.target.style.color = 'var(--text-primary)')}
                 onMouseLeave={(e) => (e.target.style.color = 'var(--text-muted)')}
@@ -165,7 +168,7 @@ export default function Navbar() {
               <button
                 key={l}
                 onClick={() => handleNav(l)}
-                className="text-[0.9375rem] capitalize text-left transition-colors"
+                className="text-sm capitalize text-left transition-colors"
                 style={{ color: 'var(--text-secondary)' }}
               >
                 {l}
@@ -189,6 +192,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }

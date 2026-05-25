@@ -8,7 +8,7 @@ export default function Footer() {
       style={{ background: 'var(--bg-base)', borderTop: '1px solid var(--border)' }}
     >
       <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+        <p className="text-xs sm:text-sm" style={{ color: 'var(--text-muted)' }}>
           © {new Date().getFullYear()} Jean Aime Iraguha
         </p>
         <div className="flex items-center gap-5">

@@ -5,8 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Poppins', 'sans-serif'],
-        sans: ['Poppins', 'sans-serif'],
+        sans:    ['Poppins', 'sans-serif'],
+        display: ['DM Sans', 'sans-serif'],
+        mono:    ['Inter', 'monospace'],
       },
       colors: {
         dark: {
@@ -21,6 +22,20 @@ export default {
           500: '#6366f1',
           600: '#4f46e5',
         },
+      },
+      keyframes: {
+        'gradient-shift': {
+          '0%,100%': { backgroundPosition: '0% 50%' },
+          '50%':      { backgroundPosition: '100% 50%' },
+        },
+        float: {
+          '0%,100%': { transform: 'translateY(0px)' },
+          '50%':      { transform: 'translateY(-20px)' },
+        },
+      },
+      animation: {
+        'gradient-shift': 'gradient-shift 4s ease infinite',
+        'float':          'float 6s ease-in-out infinite',
       },
     },
   },

@@ -99,6 +99,28 @@ export default function LoadingAnimation({ onDone }) {
     const start = performance.now();
     const duration = 2400;
 
+    // Welcome voice greeting
+    if ('speechSynthesis' in window) {
+      const utter = new SpeechSynthesisUtterance('Welcome');
+      utter.rate   = 0.95;
+      utter.pitch  = 1;
+      utter.volume = 1;
+      // Use a natural English voice if available
+      const setVoice = () => {
+        const voices = window.speechSynthesis.getVoices();
+        const preferred = voices.find((v) =>
+          v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Daniel'))
+        ) || voices.find((v) => v.lang.startsWith('en'));
+        if (preferred) utter.voice = preferred;
+        window.speechSynthesis.speak(utter);
+      };
+      if (window.speechSynthesis.getVoices().length) {
+        setVoice();
+      } else {
+        window.speechSynthesis.onvoiceschanged = setVoice;
+      }
+    }
+
     const tick = (now) => {
       const pct = Math.min(((now - start) / duration) * 100, 100);
       setProgress(pct);

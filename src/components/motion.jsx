@@ -132,20 +132,23 @@ export function Badge({ children }) {
 export function SectionHeader({ label, heading, sub }) {
   return (
     <Reveal>
-      <p
-        className="text-xs font-semibold tracking-[0.18em] uppercase mb-3 font-sans"
-        style={{ color: 'var(--accent)' }}
-      >
-        {label}
-      </p>
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-6 h-px" style={{ background: 'var(--accent)' }} />
+        <p
+          className="text-[11px] font-semibold tracking-[0.2em] uppercase"
+          style={{ color: 'var(--accent)' }}
+        >
+          {label}
+        </p>
+      </div>
       <h2
-        className="font-display text-2xl sm:text-3xl font-bold leading-tight"
-        style={{ color: 'var(--text-primary)' }}
+        className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight"
+        style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}
       >
         {heading}
       </h2>
       {sub && (
-        <p className="mt-3 text-base max-w-lg font-sans" style={{ color: 'var(--text-secondary)' }}>
+        <p className="mt-3 text-base max-w-xl" style={{ color: 'var(--text-secondary)', lineHeight: 1.7 }}>
           {sub}
         </p>
       )}

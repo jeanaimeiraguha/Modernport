@@ -207,7 +207,7 @@ export default function CVPage() {
             <div className="h-1 w-full" style={{ background: 'linear-gradient(90deg,#6366f1,#a78bfa,#6366f1)' }} />
 
             {/* Avatar + name */}
-            <div className="px-6 pt-8 pb-6 flex flex-col sm:flex-row lg:flex-col sm:items-center lg:items-start gap-4 lg:gap-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="px-5 sm:px-6 pt-6 sm:pt-8 pb-5 sm:pb-6 flex flex-row lg:flex-col items-center lg:items-start gap-4 lg:gap-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -311,7 +311,7 @@ export default function CVPage() {
           </aside>
 
           {/* ════ MAIN ════ */}
-          <main className="flex-1 px-5 sm:px-9 py-8 print:px-6 print:py-5 overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
+          <main className="flex-1 px-4 sm:px-6 md:px-9 py-6 sm:py-8 print:px-6 print:py-5 overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
 
             {/* Header banner */}
             <motion.div

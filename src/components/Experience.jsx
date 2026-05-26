@@ -100,7 +100,7 @@ export default function Experience() {
           sub="4+ years of building — from intern to co-founder."
         />
 
-        <div className="mt-14 grid md:grid-cols-[3fr_2fr] gap-14">
+        <div className="mt-14 grid md:grid-cols-[3fr_2fr] gap-10 md:gap-14">
           {/* Work */}
           <div>
             <FadeUp>

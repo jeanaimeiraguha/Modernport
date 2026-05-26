@@ -42,7 +42,7 @@ export default function Navbar() {
         borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
       }}
     >
-      <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
 
         {/* Logo */}
         <button
@@ -77,10 +77,8 @@ export default function Navbar() {
             <li key={l}>
               <button
                 onClick={() => handleNav(l)}
-                className="nav-link text-sm font-medium capitalize transition-colors hover:opacity-100"
+                className="nav-link text-sm font-medium capitalize"
                 style={{ color: 'var(--text-muted)' }}
-                onMouseEnter={(e) => (e.target.style.color = 'var(--text-primary)')}
-                onMouseLeave={(e) => (e.target.style.color = 'var(--text-muted)')}
               >
                 {l}
               </button>

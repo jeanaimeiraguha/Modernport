@@ -4,45 +4,34 @@ import { FaQuoteLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { SectionHeader } from './motion';
 import { TESTIMONIALS } from './data';
 
+const AUTO_DELAY = 9000;
+
 export default function Testimonials() {
   const [active, setActive] = useState(0);
-  const [dir, setDir] = useState(1);
-  const timerRef = useRef(null);
+  const [dir, setDir]       = useState(1);
+  const timerRef            = useRef(null);
 
-  const go = (index) => {
-    setDir(index > active ? 1 : -1);
-    setActive(index);
-  };
-
-  const prev = () => go(active === 0 ? TESTIMONIALS.length - 1 : active - 1);
-  const next = () => go(active === TESTIMONIALS.length - 1 ? 0 : active + 1);
-
-  /* Auto-advance every 5s */
-  useEffect(() => {
-    timerRef.current = setInterval(() => {
-      setDir(1);
-      setActive((a) => (a + 1) % TESTIMONIALS.length);
-    }, 5000);
-    return () => clearInterval(timerRef.current);
-  }, []);
-
-  const resetTimer = () => {
+  const startTimer = () => {
     clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       setDir(1);
       setActive((a) => (a + 1) % TESTIMONIALS.length);
-    }, 5000);
+    }, AUTO_DELAY);
   };
 
-  const handlePrev = () => { prev(); resetTimer(); };
-  const handleNext = () => { next(); resetTimer(); };
-  const handleDot  = (i) => { go(i); resetTimer(); };
+  useEffect(() => { startTimer(); return () => clearInterval(timerRef.current); }, []);
+
+  const go = (i) => {
+    setDir(i > active ? 1 : -1);
+    setActive(i);
+    startTimer();
+  };
 
   const t = TESTIMONIALS[active];
 
   return (
-    <section id="testimonials" className="py-28" style={{ background: 'var(--bg-base)' }}>
-      <div className="max-w-4xl mx-auto px-6">
+    <section id="testimonials" className="py-20 sm:py-28" style={{ background: 'var(--bg-base)' }}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
         <SectionHeader
           label="Testimonials"
@@ -50,12 +39,12 @@ export default function Testimonials() {
           sub="Feedback from colleagues, clients, and teammates I've had the privilege of working with."
         />
 
-        <div className="mt-14 relative">
+        <div className="mt-12 sm:mt-14">
 
           {/* ── Main card ── */}
           <div
             className="relative rounded-2xl overflow-hidden"
-            style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', minHeight: 260 }}
+            style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}
           >
             {/* Accent top bar */}
             <div className="h-1 w-full" style={{ background: 'linear-gradient(90deg, var(--accent), var(--accent-hover))' }} />
@@ -65,41 +54,52 @@ export default function Testimonials() {
                 key={active}
                 custom={dir}
                 variants={{
-                  enter: (d) => ({ opacity: 0, x: d > 0 ? 60 : -60 }),
-                  center: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
-                  exit:  (d) => ({ opacity: 0, x: d > 0 ? -60 : 60, transition: { duration: 0.25 } }),
+                  enter:  (d) => ({ opacity: 0, x: d > 0 ? 48 : -48 }),
+                  center: { opacity: 1, x: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } },
+                  exit:   (d) => ({ opacity: 0, x: d > 0 ? -48 : 48, transition: { duration: 0.25 } }),
                 }}
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="p-8 sm:p-12"
+                className="p-6 sm:p-10"
               >
-                {/* Quote icon */}
-                <FaQuoteLeft size={28} style={{ color: 'var(--accent)', opacity: 0.25, marginBottom: 20 }} />
+                <FaQuoteLeft size={24} style={{ color: 'var(--accent)', opacity: 0.3, marginBottom: 18 }} />
 
-                {/* Text */}
                 <p
-                  className="text-base sm:text-lg leading-[1.85] font-medium mb-8"
+                  className="text-base sm:text-lg leading-[1.9] mb-8"
                   style={{ color: 'var(--text-secondary)' }}
                 >
                   "{t.text}"
                 </p>
 
-                {/* Author */}
-                <div className="flex items-center gap-4">
+                {/* Author row */}
+                <div className="flex items-center gap-4 flex-wrap">
+                  {/* Real photo */}
+                  <img
+                    src={t.image}
+                    alt={t.name}
+                    className="w-12 h-12 rounded-full object-cover shrink-0"
+                    style={{ border: '2px solid var(--border)' }}
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                  {/* Fallback initials */}
                   <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-black shrink-0"
-                    style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-hover))', color: '#fff' }}
+                    className="w-12 h-12 rounded-full items-center justify-center text-sm font-bold shrink-0"
+                    style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-hover))', color: '#fff', display: 'none' }}
                   >
                     {t.avatar}
                   </div>
-                  <div>
+
+                  <div className="flex-1 min-w-0">
                     <p className="font-bold text-sm" style={{ color: 'var(--text-primary)' }}>{t.name}</p>
-                    <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>{t.role}</p>
+                    <p className="text-xs mt-0.5 truncate" style={{ color: 'var(--text-muted)' }}>{t.role}</p>
                   </div>
 
-                  {/* Progress bar */}
-                  <div className="ml-auto hidden sm:block w-28">
+                  {/* Progress bar — desktop */}
+                  <div className="hidden sm:block w-24 shrink-0">
                     <div className="h-[2px] rounded-full overflow-hidden" style={{ background: 'var(--border)' }}>
                       <motion.div
                         key={active}
@@ -107,7 +107,7 @@ export default function Testimonials() {
                         style={{ background: 'var(--accent)' }}
                         initial={{ width: '0%' }}
                         animate={{ width: '100%' }}
-                        transition={{ duration: 5, ease: 'linear' }}
+                        transition={{ duration: AUTO_DELAY / 1000, ease: 'linear' }}
                       />
                     </div>
                     <p className="text-[10px] mt-1 text-right" style={{ color: 'var(--text-muted)' }}>
@@ -120,13 +120,11 @@ export default function Testimonials() {
           </div>
 
           {/* ── Controls ── */}
-          <div className="flex items-center justify-between mt-6">
-
-            {/* Prev / Next */}
+          <div className="flex items-center justify-between mt-5">
             <div className="flex gap-2">
               <button
-                onClick={handlePrev}
-                className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+                onClick={() => go(active === 0 ? TESTIMONIALS.length - 1 : active - 1)}
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
                 style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)', background: 'var(--bg-surface)' }}
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-secondary)'; }}
@@ -134,8 +132,8 @@ export default function Testimonials() {
                 <FaChevronLeft size={12} />
               </button>
               <button
-                onClick={handleNext}
-                className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+                onClick={() => go(active === TESTIMONIALS.length - 1 ? 0 : active + 1)}
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
                 style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)', background: 'var(--bg-surface)' }}
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-secondary)'; }}
@@ -149,7 +147,7 @@ export default function Testimonials() {
               {TESTIMONIALS.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => handleDot(i)}
+                  onClick={() => go(i)}
                   className="rounded-full transition-all duration-300"
                   style={{
                     width:  i === active ? 24 : 8,
@@ -159,35 +157,46 @@ export default function Testimonials() {
                 />
               ))}
             </div>
-
           </div>
 
           {/* ── Thumbnail strip ── */}
-          <div className="flex gap-3 mt-6 overflow-x-auto pb-1 scrollbar-hide">
+          <div className="flex gap-2 sm:gap-3 mt-5 overflow-x-auto pb-1 scrollbar-hide">
             {TESTIMONIALS.map((item, i) => (
               <button
                 key={i}
-                onClick={() => handleDot(i)}
-                className="shrink-0 flex items-center gap-2.5 px-3 py-2 rounded-xl transition-all"
+                onClick={() => go(i)}
+                className="shrink-0 flex items-center gap-2 px-2.5 sm:px-3 py-2 rounded-xl transition-all"
                 style={{
                   background: i === active ? 'rgba(99,102,241,0.1)' : 'var(--bg-surface)',
                   border: `1px solid ${i === active ? 'var(--accent)' : 'var(--border)'}`,
                 }}
               >
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-7 h-7 rounded-full object-cover shrink-0"
+                  style={{ border: `1.5px solid ${i === active ? 'var(--accent)' : 'var(--border)'}` }}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
                 <div
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black shrink-0"
+                  className="w-7 h-7 rounded-full items-center justify-center text-[10px] font-bold shrink-0"
                   style={{
-                    background: i === active ? 'linear-gradient(135deg, var(--accent), var(--accent-hover))' : 'var(--bg-elevated)',
+                    background: i === active ? 'var(--accent)' : 'var(--bg-elevated)',
                     color: i === active ? '#fff' : 'var(--text-muted)',
+                    display: 'none',
                   }}
                 >
                   {item.avatar}
                 </div>
-                <div className="text-left hidden sm:block">
-                  <p className="text-[11px] font-semibold leading-tight" style={{ color: i === active ? 'var(--text-primary)' : 'var(--text-muted)' }}>
-                    {item.name.split(' ')[0]}
-                  </p>
-                </div>
+                <span
+                  className="text-[11px] font-medium hidden sm:block"
+                  style={{ color: i === active ? 'var(--text-primary)' : 'var(--text-muted)' }}
+                >
+                  {item.name.split(' ')[0]}
+                </span>
               </button>
             ))}
           </div>

@@ -29,20 +29,18 @@ function DomainCard({ domain, index, isActive, onClick }) {
 
       {/* Icon */}
       <div className="flex items-start justify-between mb-4">
-        <motion.span
+        <span
           className="text-2xl font-bold select-none"
           style={{ color: domain.color }}
-          animate={isActive ? { rotate: [0, 15, -10, 0], scale: [1, 1.2, 1] } : {}}
-          transition={{ duration: 0.5 }}
         >
           {domain.icon}
-        </motion.span>
+        </span>
         <span
-          className="text-[10px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-full"
+          className="text-[10px] font-semibold tracking-[0.14em] uppercase px-2 py-1 rounded-full"
           style={{
-            background: `${domain.color}15`,
+            background: `${domain.color}12`,
             color: domain.color,
-            border: `1px solid ${domain.color}30`,
+            border: `1px solid ${domain.color}25`,
           }}
         >
           {String(index + 1).padStart(2, '0')}
@@ -109,13 +107,13 @@ export default function Skills() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.35, ease: [0.16,1,0.3,1] }}
-            className="mt-5 rounded-xl p-7"
+            className="mt-5 rounded-xl p-5 sm:p-7"
             style={{
               background: `${domain.color}08`,
               border: `1px solid ${domain.color}30`,
             }}
           >
-            <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+            <div className="flex flex-col sm:flex-row sm:items-start gap-5 sm:gap-6">
               {/* Left — description */}
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">

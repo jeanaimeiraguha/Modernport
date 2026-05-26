@@ -137,8 +137,8 @@ export default function Projects() {
   const [hero, ...rest] = PROJECTS; // Igifu Meals is first = hero
 
   return (
-    <section id="projects" className="py-28" style={{ background: 'var(--bg-surface)' }}>
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="projects" className="py-16 sm:py-28" style={{ background: 'var(--bg-surface)' }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeader
           label="Projects"
           heading="Things I've built"
@@ -158,7 +158,7 @@ export default function Projects() {
 
         {/* Rest — 2-col grid */}
         <motion.div
-          className="mt-5 grid xs:grid-cols-2 gap-4 sm:gap-5"
+          className="mt-5 grid grid-cols-1 xs:grid-cols-2 gap-4 sm:gap-5"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-60px' }}

@@ -142,7 +142,7 @@ export default function Contact() {
                   noValidate
                 >
                   {/* Name + Email row */}
-                  <div className="grid xs:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
                     <Field label="Name" error={errors.name}>
                       <input
                         name="name" value={form.name} onChange={handleChange}

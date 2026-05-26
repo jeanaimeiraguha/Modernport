@@ -48,7 +48,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center"
       style={{ background: 'var(--bg-base)' }}
     >
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-16 flex flex-col lg:flex-row lg:items-start items-center gap-10 lg:gap-16">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-20 pb-12 sm:pt-24 sm:pb-16 flex flex-col lg:flex-row lg:items-start items-center gap-8 lg:gap-16">
 
         {/* ── Left — Text ── */}
         <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
@@ -57,7 +57,7 @@ export default function Hero() {
           <motion.h1
             {...item(0.07)}
             className="font-display font-bold leading-[1.05] mb-3"
-            style={{ fontSize: 'clamp(2.6rem, 6vw, 4rem)', color: 'var(--text-primary)', letterSpacing: '-0.03em' }}
+            style={{ fontSize: 'clamp(2rem, 8vw, 4rem)', color: 'var(--text-primary)', letterSpacing: '-0.03em' }}
           >
             Jean Aime<br />
             <span style={{ color: 'var(--accent)' }}>Iraguha</span>
@@ -79,7 +79,7 @@ export default function Hero() {
           {/* Pitch */}
           <motion.p
             {...item(0.19)}
-            className="text-base sm:text-lg leading-relaxed max-w-md mb-8"
+            className="text-sm sm:text-base lg:text-lg leading-relaxed max-w-md mb-6 sm:mb-8"
             style={{ color: 'var(--text-secondary)' }}
           >
             I build software that solves real problems, scales under pressure, and{' '}
@@ -89,7 +89,7 @@ export default function Hero() {
           </motion.p>
 
           {/* Stats */}
-          <motion.div {...item(0.24)} className="flex gap-8 mb-8 justify-center lg:justify-start">
+          <motion.div {...item(0.24)} className="flex gap-6 sm:gap-8 mb-6 sm:mb-8 justify-center lg:justify-start">
             {[
               { value: '4+',  label: 'Years' },
               { value: '50+', label: 'Projects' },
@@ -106,7 +106,7 @@ export default function Hero() {
           </motion.div>
 
           {/* CTAs */}
-          <motion.div {...item(0.3)} className="flex flex-wrap gap-3 justify-center lg:justify-start mb-7">
+          <motion.div {...item(0.3)} className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start mb-5 sm:mb-7">
             <motion.button
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
               className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-lg text-white"
@@ -172,7 +172,7 @@ export default function Hero() {
           {/* Portrait — circle */}
           <div
             className="relative flex items-center justify-center"
-            style={{ width: 'clamp(260px, 28vw, 320px)', height: 'clamp(260px, 28vw, 320px)' }}
+            style={{ width: 'clamp(180px, 45vw, 320px)', height: 'clamp(180px, 45vw, 320px)' }}
           >
             {/* Outer decorative ring */}
             <div

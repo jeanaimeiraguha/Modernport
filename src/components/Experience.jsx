@@ -92,15 +92,15 @@ function TimelineItem({ item, isWork }) {
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-28" style={{ background: 'var(--bg-base)' }}>
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="experience" className="py-16 sm:py-28" style={{ background: 'var(--bg-base)' }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeader
           label="Background"
           heading="Experience & Education"
           sub="4+ years of building — from intern to co-founder."
         />
 
-        <div className="mt-14 grid md:grid-cols-[3fr_2fr] gap-10 md:gap-14">
+        <div className="mt-10 sm:mt-14 grid md:grid-cols-[3fr_2fr] gap-8 md:gap-14">
           {/* Work */}
           <div>
             <FadeUp>

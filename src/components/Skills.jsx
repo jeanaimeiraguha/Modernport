@@ -72,8 +72,8 @@ export default function Skills() {
   const domain = DOMAINS[active];
 
   return (
-    <section id="skills" className="py-28" style={{ background: 'var(--bg-base)' }}>
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="skills" className="py-16 sm:py-28" style={{ background: 'var(--bg-base)' }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeader
           label="What I do"
           heading={<>Six domains.<br />One engineer.</>}
@@ -82,7 +82,7 @@ export default function Skills() {
 
         {/* Domain cards grid */}
         <motion.div
-          className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          className="mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}

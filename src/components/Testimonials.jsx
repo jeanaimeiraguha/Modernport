@@ -4,7 +4,7 @@ import { FaQuoteLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { SectionHeader } from './motion';
 import { TESTIMONIALS } from './data';
 
-const AUTO_DELAY = 9000;
+const AUTO_DELAY = 34000;
 
 export default function Testimonials() {
   const [active, setActive] = useState(0);

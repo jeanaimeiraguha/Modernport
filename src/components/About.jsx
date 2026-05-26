@@ -90,7 +90,7 @@ export default function About() {
 
         {/* Stats row */}
         <motion.div
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-14 mb-16"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-10 sm:mt-14 mb-12 sm:mb-16"
           initial="hidden" whileInView="show" viewport={viewportOnce}
           variants={stagger(0.08)}
         >

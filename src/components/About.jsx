@@ -18,14 +18,14 @@ function Counter({ target, suffix = '' }) {
       if (entry.isIntersecting && !started.current) {
         started.current = true;
         const num = parseInt(target);
-        const steps = 40;
+        const steps = 50;
         const inc = num / steps;
         let cur = 0;
         const timer = setInterval(() => {
           cur += inc;
           if (cur >= num) { setCount(num); clearInterval(timer); }
           else setCount(Math.floor(cur));
-        }, 1600 / steps);
+        }, 1800 / steps);
       }
     }, { threshold: 0.5 });
     obs.observe(el);
@@ -38,32 +38,28 @@ function Counter({ target, suffix = '' }) {
 const STATS = [
   { value: '4',  suffix: '+', label: 'Years experience', color: '#6366f1' },
   { value: '50', suffix: '+', label: 'Projects shipped',  color: '#a78bfa' },
-  { value: '30', suffix: '+', label: 'Clients & partners', color: '#34d399' },
+  { value: '30', suffix: '+', label: 'Clients & partners', color: '#22d3ee' },
   { value: '1',  suffix: '',  label: 'Startup as CTO',    color: '#f59e0b' },
 ];
 
 const VALUE_PROPS = [
   {
-    icon: <FaRocket size={16} />,
-    color: '#6366f1',
+    icon: <FaRocket size={14} />, color: '#6366f1',
     title: 'Ships fast without breaking things',
     desc: 'From zero to production in weeks, not months. I\'ve built entire platforms solo and led teams to do the same.',
   },
   {
-    icon: <FaBrain size={16} />,
-    color: '#a78bfa',
+    icon: <FaBrain size={14} />, color: '#a78bfa',
     title: 'Full-stack depth across 6 domains',
     desc: 'Web, mobile, AI/ML, blockchain, DevOps, computer vision — production code in every one of these areas.',
   },
   {
-    icon: <FaCode size={16} />,
-    color: '#34d399',
+    icon: <FaCode size={14} />, color: '#22d3ee',
     title: 'Code teams actually want to maintain',
     desc: 'At Igifu Meals, onboarding new engineers took half the usual time because of the code culture I built.',
   },
   {
-    icon: <FaUsers size={16} />,
-    color: '#f59e0b',
+    icon: <FaUsers size={14} />, color: '#f59e0b',
     title: 'Thinks like a founder, not just an engineer',
     desc: 'As CTO I made decisions that moved the business — not just the codebase. I understand tradeoffs and timelines.',
   },
@@ -81,27 +77,26 @@ export default function About() {
   return (
     <section id="about" className="py-24 sm:py-32" style={{ background: 'var(--bg-surface)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-
         <SectionHeader
           label="About"
           heading={<>The engineer behind<br />the work.</>}
           sub="4 years. 50+ projects. 1 startup. Here's the full picture."
         />
 
-        {/* Stats row */}
+        {/* Stats */}
         <motion.div
-          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-10 sm:mt-14 mb-12 sm:mb-16"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-12 mb-16"
           initial="hidden" whileInView="show" viewport={viewportOnce}
           variants={stagger(0.08)}
         >
           {STATS.map((s) => (
             <motion.div
               key={s.label}
-              variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16,1,0.3,1] } } }}
+              variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16,1,0.3,1] } } }}
               className="rounded-xl p-5 sm:p-6 text-center"
               style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
               whileHover={{ y: -3, borderColor: s.color }}
-              transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+              transition={{ type: 'spring', stiffness: 280, damping: 22 }}
             >
               <p className="font-display text-3xl sm:text-4xl font-bold mb-1.5" style={{ color: s.color }}>
                 <Counter target={s.value} suffix={s.suffix} />
@@ -111,13 +106,12 @@ export default function About() {
           ))}
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* Left */}
           <div className="space-y-8">
-
             <FadeUp delay={0.05}>
-              <div className="space-y-4 text-[1.0625rem] leading-[1.85]" style={{ color: 'var(--text-secondary)' }}>
+              <div className="space-y-4 leading-[1.85]" style={{ fontSize: '1.0625rem', color: 'var(--text-secondary)' }}>
                 <p>
                   I'm <strong style={{ color: 'var(--text-primary)' }}>Jean Aime Iraguha</strong> — a Full-Stack Engineer
                   and Co-Founder from <strong style={{ color: 'var(--text-primary)' }}>Kigali, Rwanda</strong> who has spent
@@ -140,11 +134,11 @@ export default function About() {
             <FadeUp delay={0.1}>
               <div
                 className="rounded-xl p-5 flex items-start gap-4"
-                style={{ background: 'rgba(52,211,153,0.05)', border: '1px solid rgba(52,211,153,0.18)' }}
+                style={{ background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.14)' }}
               >
                 <span className="glow-dot mt-1.5 shrink-0" />
                 <div>
-                  <p className="text-sm font-semibold mb-1" style={{ color: '#34d399' }}>Currently available for hire</p>
+                  <p className="text-sm font-semibold mb-1" style={{ color: '#4ade80' }}>Currently available for hire</p>
                   <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                     Open to senior full-stack, lead engineer, or CTO-track remote roles. Also available for
                     consulting and fractional CTO engagements. I reply within 24 hours.
@@ -155,7 +149,7 @@ export default function About() {
 
             {/* Timeline */}
             <FadeUp delay={0.15}>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] mb-5" style={{ color: 'var(--text-muted)' }}>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] mb-6" style={{ color: 'var(--text-muted)' }}>
                 Career highlights
               </p>
               <div className="relative pl-5 space-y-5">
@@ -167,7 +161,7 @@ export default function About() {
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={viewportOnce}
-                    transition={{ delay: i * 0.07, duration: 0.4, ease: [0.16,1,0.3,1] }}
+                    transition={{ delay: i * 0.07, duration: 0.45, ease: [0.16,1,0.3,1] }}
                   >
                     <span
                       className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full border-2"
@@ -185,16 +179,16 @@ export default function About() {
               <div className="flex flex-wrap gap-3 pt-2">
                 <motion.a
                   href="mailto:jeanaimeiraguha@gmail.com"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white"
                   style={{ background: 'var(--accent)' }}
-                  whileHover={{ background: 'var(--accent-hover)' }}
+                  whileHover={{ opacity: 0.88 }}
                   whileTap={{ scale: 0.97 }}
                 >
                   <FaEnvelope size={12} /> Let's talk
                 </motion.a>
                 <motion.a
                   href="/cv"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold"
                   style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
                   whileHover={{ borderColor: 'var(--accent)', color: 'var(--text-primary)' }}
                   whileTap={{ scale: 0.97 }}
@@ -211,9 +205,8 @@ export default function About() {
 
           {/* Right */}
           <div className="space-y-4">
-
             <FadeUp delay={0.08}>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] mb-5" style={{ color: 'var(--text-muted)' }}>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] mb-6" style={{ color: 'var(--text-muted)' }}>
                 Why teams hire me
               </p>
             </FadeUp>
@@ -227,8 +220,8 @@ export default function About() {
                   transition={{ duration: 0.2 }}
                 >
                   <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ background: `${v.color}15`, color: v.color }}
+                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
+                    style={{ background: `${v.color}12`, color: v.color }}
                   >
                     {v.icon}
                   </div>
@@ -240,10 +233,10 @@ export default function About() {
               </FadeUp>
             ))}
 
-            {/* Proof points */}
-            <FadeUp delay={0.35}>
-              <div className="rounded-xl p-4 sm:p-5 mt-1" style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] mb-4" style={{ color: 'var(--text-muted)' }}>
+            {/* Key results */}
+            <FadeUp delay={0.38}>
+              <div className="rounded-xl p-4 sm:p-5" style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: 'var(--text-muted)' }}>
                   Key results
                 </p>
                 <div className="space-y-2.5">
@@ -256,7 +249,7 @@ export default function About() {
                     'Mentored 4 engineers — cut onboarding time by 50%',
                   ].map((a) => (
                     <div key={a} className="flex items-start gap-2.5">
-                      <FaCheckCircle size={12} className="shrink-0 mt-0.5" style={{ color: '#34d399' }} />
+                      <FaCheckCircle size={11} className="shrink-0 mt-0.5" style={{ color: '#4ade80' }} />
                       <p className="text-sm leading-snug" style={{ color: 'var(--text-secondary)' }}>{a}</p>
                     </div>
                   ))}
@@ -265,9 +258,9 @@ export default function About() {
             </FadeUp>
 
             {/* Personal */}
-            <FadeUp delay={0.42}>
+            <FadeUp delay={0.44}>
               <div className="rounded-xl p-4 sm:p-5" style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] mb-3" style={{ color: 'var(--text-muted)' }}>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] mb-3" style={{ color: 'var(--text-muted)' }}>
                   Outside of work
                 </p>
                 <p className="text-sm leading-relaxed mb-3" style={{ color: 'var(--text-secondary)' }}>
@@ -283,7 +276,6 @@ export default function About() {
                 </p>
               </div>
             </FadeUp>
-
           </div>
         </div>
       </div>

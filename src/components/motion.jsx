@@ -1,29 +1,22 @@
 import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 
-export const viewportOnce = { once: true, margin: '-60px' };
+export const viewportOnce = { once: true, margin: '-80px' };
 
 export const stagger = (delay = 0.08) => ({
   hidden: {},
   show:   { transition: { staggerChildren: delay } },
 });
 
-export const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
-};
-
-/* ── Reusable reveal components ── */
-
 export const FadeUp = forwardRef(function FadeUp({ children, delay = 0, className = '' }, ref) {
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportOnce}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay }}
+      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay }}
     >
       {children}
     </motion.div>
@@ -34,10 +27,10 @@ export function Reveal({ children, delay = 0, className = '' }) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportOnce}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay }}
+      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay }}
     >
       {children}
     </motion.div>
@@ -48,10 +41,10 @@ export function RevealLeft({ children, delay = 0, className = '' }) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, x: -40 }}
+      initial={{ opacity: 0, x: -32 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={viewportOnce}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay }}
+      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay }}
     >
       {children}
     </motion.div>
@@ -62,24 +55,10 @@ export function RevealRight({ children, delay = 0, className = '' }) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, x: 40 }}
+      initial={{ opacity: 0, x: 32 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={viewportOnce}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-export function RevealScale({ children, delay = 0, className = '' }) {
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, scale: 0.88 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={viewportOnce}
-      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay }}
+      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay }}
     >
       {children}
     </motion.div>
@@ -105,8 +84,8 @@ export function StaggerItem({ children, className = '' }) {
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 24 },
-        show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+        hidden: { opacity: 0, y: 20 },
+        show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
       }}
     >
       {children}
@@ -114,14 +93,15 @@ export function StaggerItem({ children, className = '' }) {
   );
 }
 
-export function Badge({ children }) {
+export function Badge({ children, color }) {
   return (
     <span
-      className="inline-block px-2.5 py-0.5 text-[11px] font-medium rounded-md font-mono"
+      className="inline-block px-2.5 py-0.5 text-[11px] font-medium rounded-md"
       style={{
-        background: 'rgba(99,102,241,0.1)',
-        color: 'var(--accent)',
-        border: '1px solid rgba(99,102,241,0.2)',
+        fontFamily: 'Inter, monospace',
+        background: color ? `${color}12` : 'rgba(99,102,241,0.08)',
+        color: color || 'var(--accent)',
+        border: `1px solid ${color ? color + '28' : 'rgba(99,102,241,0.18)'}`,
       }}
     >
       {children}
@@ -132,23 +112,27 @@ export function Badge({ children }) {
 export function SectionHeader({ label, heading, sub }) {
   return (
     <Reveal>
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-6 h-px" style={{ background: 'var(--accent)' }} />
-        <p
-          className="text-[11px] font-semibold tracking-[0.2em] uppercase"
-          style={{ color: 'var(--accent)' }}
-        >
-          {label}
-        </p>
-      </div>
+      <p
+        className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-4"
+        style={{ color: 'var(--accent)' }}
+      >
+        {label}
+      </p>
       <h2
-        className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight"
-        style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}
+        className="font-display font-bold leading-[1.08]"
+        style={{
+          fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+          color: 'var(--text-primary)',
+          letterSpacing: '-0.03em',
+        }}
       >
         {heading}
       </h2>
       {sub && (
-        <p className="mt-3 text-base max-w-xl" style={{ color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+        <p
+          className="mt-4 max-w-lg leading-relaxed"
+          style={{ fontSize: '0.9375rem', color: 'var(--text-secondary)' }}
+        >
           {sub}
         </p>
       )}

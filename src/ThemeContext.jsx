@@ -7,7 +7,8 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     const saved = localStorage.getItem('portfolio-theme');
-    if (saved) setTheme(saved);
+    // Only restore if user explicitly chose dark — never default to dark
+    if (saved === 'dark') setTheme('dark');
   }, []);
 
   useEffect(() => {

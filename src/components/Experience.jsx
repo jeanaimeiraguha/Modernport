@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SectionHeader, FadeUp, Badge, stagger, viewportOnce } from './motion';
+import { SectionHeader, FadeUp, stagger, viewportOnce } from './motion';
 import { EXPERIENCE, EDUCATION } from './data';
 
 function TimelineItem({ item, isWork }) {
@@ -9,14 +9,12 @@ function TimelineItem({ item, isWork }) {
     <motion.div
       variants={{
         hidden: { opacity: 0, x: -16 },
-        show:   { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.16,1,0.3,1] } },
+        show:   { opacity: 1, x: 0, transition: { duration: 0.55, ease: [0.16,1,0.3,1] } },
       }}
       className="relative pl-6"
     >
-      {/* Vertical line */}
       <div className="absolute left-0 top-2 bottom-0 w-px" style={{ background: 'var(--border)' }} />
 
-      {/* Dot */}
       <div
         className="absolute left-[-4px] top-2 w-[9px] h-[9px] rounded-full"
         style={{
@@ -27,15 +25,14 @@ function TimelineItem({ item, isWork }) {
       />
 
       <div className="pb-9">
-        {/* Role + badges */}
         <div className="flex flex-wrap items-center gap-2 mb-0.5">
-          <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>
+          <p className="text-sm font-bold" style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
             {isWork ? item.role : item.degree}
           </p>
           {item.current && (
             <span
               className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-              style={{ color: '#4ade80', background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.25)' }}
+              style={{ color: '#4ade80', background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.18)' }}
             >
               Current
             </span>
@@ -43,7 +40,7 @@ function TimelineItem({ item, isWork }) {
           {isCTO && (
             <span
               className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-              style={{ color: 'var(--accent)', background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)' }}
+              style={{ color: 'var(--accent)', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.18)' }}
             >
               Co-Founder
             </span>
@@ -69,17 +66,14 @@ function TimelineItem({ item, isWork }) {
             <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{item.note}</p>
             {item.anlm && (
               <div
-                className="mt-3 rounded-lg px-4 py-3"
-                style={{ background: 'rgba(99,102,241,0.05)', border: '1px solid rgba(99,102,241,0.18)' }}
+                className="mt-3 rounded-xl px-4 py-3"
+                style={{ background: 'rgba(99,102,241,0.04)', border: '1px solid rgba(99,102,241,0.14)' }}
               >
-                <p className="text-xs font-semibold mb-1" style={{ color: 'var(--accent)' }}>
-                  ✦ Grateful to ANLM
-                </p>
+                <p className="text-xs font-semibold mb-1" style={{ color: 'var(--accent)' }}>✦ Grateful to ANLM</p>
                 <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  The ANLM (African New Life Ministries) supported and
-                  mentored me throughout my primary years. Their spiritual leadership and community
-                  values shaped who I am — teaching me discipline, integrity, and the importance
-                  of giving back. A debt I carry with deep gratitude.
+                  The ANLM (African New Life Ministries) supported and mentored me throughout my primary years.
+                  Their spiritual leadership and community values shaped who I am — teaching me discipline,
+                  integrity, and the importance of giving back.
                 </p>
               </div>
             )}
@@ -92,7 +86,7 @@ function TimelineItem({ item, isWork }) {
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-16 sm:py-28" style={{ background: 'var(--bg-base)' }}>
+    <section id="experience" className="py-20 sm:py-32" style={{ background: 'var(--bg-base)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeader
           label="Background"
@@ -100,11 +94,11 @@ export default function Experience() {
           sub="4+ years of building — from intern to co-founder."
         />
 
-        <div className="mt-10 sm:mt-14 grid md:grid-cols-[3fr_2fr] gap-8 md:gap-14">
+        <div className="mt-12 sm:mt-16 grid md:grid-cols-[3fr_2fr] gap-10 md:gap-16">
           {/* Work */}
           <div>
             <FadeUp>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-8" style={{ color: 'var(--text-muted)' }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-8" style={{ color: 'var(--text-muted)' }}>
                 Work history
               </p>
             </FadeUp>
@@ -120,10 +114,10 @@ export default function Experience() {
             </motion.div>
           </div>
 
-          {/* Education + extras */}
+          {/* Education + certs */}
           <div>
             <FadeUp>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-8" style={{ color: 'var(--text-muted)' }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-8" style={{ color: 'var(--text-muted)' }}>
                 Education
               </p>
             </FadeUp>
@@ -138,9 +132,8 @@ export default function Experience() {
               ))}
             </motion.div>
 
-            {/* Certifications */}
             <FadeUp delay={0.2}>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-5 mt-4" style={{ color: 'var(--text-muted)' }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-5 mt-2" style={{ color: 'var(--text-muted)' }}>
                 Certifications & Awards
               </p>
               <div className="space-y-3">
@@ -150,14 +143,16 @@ export default function Experience() {
                   { title: 'CS Club President', sub: '2020–2022 · Led 100+ members' },
                   { title: 'IEEE Research Publication', sub: 'Blockchain in supply chain' },
                 ].map((c) => (
-                  <div
+                  <motion.div
                     key={c.title}
-                    className="rounded-lg px-4 py-3"
+                    className="rounded-xl px-4 py-3"
                     style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
+                    whileHover={{ borderColor: 'rgba(99,102,241,0.3)', x: 3 }}
+                    transition={{ duration: 0.2 }}
                   >
                     <p className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{c.title}</p>
                     <p className="text-[11px] mt-0.5" style={{ color: 'var(--text-muted)' }}>{c.sub}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </FadeUp>

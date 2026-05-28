@@ -1,34 +1,35 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FaLinkedin, FaGithub, FaWhatsapp, FaArrowRight, FaDownload } from 'react-icons/fa';
+import GlobeCanvas from './GlobeCanvas';
 
 const ROLES = [
   'Full-Stack Engineer',
   'CTO @ Igifu Meals',
-  'AI & ML Builder',
   'Blockchain Developer',
+  'AI & ML Builder',
   'Open to Remote Roles',
 ];
 
-function useTypewriter(words, speed = 75, pause = 2000) {
-  const [display, setDisplay] = useState('');
-  const [wordIdx, setWordIdx] = useState(0);
+function useTypewriter(words, speed = 70, pause = 2200) {
+  const [display, setDisplay]   = useState('');
+  const [wordIdx, setWordIdx]   = useState(0);
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     const word = words[wordIdx];
-    let timeout;
+    let t;
     if (!deleting && display === word) {
-      timeout = setTimeout(() => setDeleting(true), pause);
+      t = setTimeout(() => setDeleting(true), pause);
     } else if (deleting && display === '') {
       setDeleting(false);
       setWordIdx((i) => (i + 1) % words.length);
     } else {
-      timeout = setTimeout(() => {
+      t = setTimeout(() => {
         setDisplay(deleting ? word.slice(0, display.length - 1) : word.slice(0, display.length + 1));
       }, deleting ? speed / 2 : speed);
     }
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(t);
   }, [display, deleting, wordIdx, words, speed, pause]);
 
   return display;
@@ -36,82 +37,162 @@ function useTypewriter(words, speed = 75, pause = 2000) {
 
 const item = (delay) => ({
   initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay } },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay } },
 });
 
 export default function Hero() {
   const role = useTypewriter(ROLES);
 
+  const mouseX  = useMotionValue(0);
+  const mouseY  = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 50, damping: 18 });
+  const springY = useSpring(mouseY, { stiffness: 50, damping: 18 });
+  const imgX    = useTransform(springX, [-1, 1], [-8, 8]);
+  const imgY    = useTransform(springY, [-1, 1], [-5, 5]);
+
+  useEffect(() => {
+    const fn = (e) => {
+      mouseX.set((e.clientX / window.innerWidth  - 0.5) * 2);
+      mouseY.set((e.clientY / window.innerHeight - 0.5) * 2);
+    };
+    window.addEventListener('mousemove', fn, { passive: true });
+    return () => window.removeEventListener('mousemove', fn);
+  }, [mouseX, mouseY]);
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center"
-      style={{ background: 'var(--bg-base)' }}
+      className="relative flex items-center overflow-hidden"
+      style={{ background: 'var(--bg-base)', minHeight: '100vh' }}
     >
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-20 pb-12 sm:pt-24 sm:pb-16 flex flex-col lg:flex-row lg:items-start items-center gap-8 lg:gap-16">
+      {/* Subtle grid */}
+      <div className="absolute inset-0 grid-bg pointer-events-none" style={{ opacity: 0.18 }} />
 
-        {/* ── Left — Text ── */}
+      {/* Globe — centered on the right half, clearly visible */}
+      <div
+        className="absolute pointer-events-none hidden sm:block"
+        style={{
+          top:    '50%',
+          right:  '2%',
+          width:  560,
+          height: 560,
+          transform: 'translateY(-50%)',
+        }}
+      >
+        <GlobeCanvas opacity={0.32} size={0.46} />
+      </div>
+
+      {/* Gradient mask — fades globe where it meets the text */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to right, var(--bg-base) 30%, transparent 60%, transparent 80%, var(--bg-base) 100%)',
+        }}
+      />
+      {/* Top + bottom fades */}
+      <div
+        className="absolute inset-x-0 top-0 pointer-events-none"
+        style={{ height: 140, background: 'linear-gradient(to bottom, var(--bg-base), transparent)' }}
+      />
+      <div
+        className="absolute inset-x-0 bottom-0 pointer-events-none"
+        style={{ height: 140, background: 'linear-gradient(to top, var(--bg-base), transparent)' }}
+      />
+
+      {/* ── Main content row ── */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-8 flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-16"
+        style={{ paddingTop: 'calc(64px + 3rem)', paddingBottom: '3rem' }}
+      >
+
+        {/* ── LEFT: text ── */}
         <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
+
+          {/* Available badge */}
+          <motion.div {...item(0.05)} className="mb-5">
+            <span
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium"
+              style={{
+                background: 'rgba(74,222,128,0.06)',
+                border:     '1px solid rgba(74,222,128,0.18)',
+                color:      '#16a34a',
+              }}
+            >
+              <span className="glow-dot" />
+              Available for new opportunities
+            </span>
+          </motion.div>
 
           {/* Name */}
           <motion.h1
-            {...item(0.07)}
-            className="font-display font-bold leading-[1.05] mb-3"
-            style={{ fontSize: 'clamp(2rem, 8vw, 4rem)', color: 'var(--text-primary)', letterSpacing: '-0.03em' }}
+            {...item(0.1)}
+            className="font-display font-bold mb-4"
+            style={{
+              fontSize:      'clamp(2.6rem, 6vw, 4.5rem)',
+              color:         'var(--text-primary)',
+              letterSpacing: '-0.04em',
+              lineHeight:    1.0,
+            }}
           >
             Jean Aime<br />
             <span style={{ color: 'var(--accent)' }}>Iraguha</span>
           </motion.h1>
 
           {/* Typewriter */}
-          <motion.div {...item(0.13)} className="flex items-center gap-2 mb-5 h-7">
-            <span className="text-base sm:text-lg font-medium" style={{ color: 'var(--text-secondary)' }}>
+          <motion.div {...item(0.16)} className="flex items-center gap-2 mb-5" style={{ height: 32 }}>
+            <span
+              className="font-display font-medium"
+              style={{ fontSize: '1.0625rem', color: 'var(--text-secondary)', letterSpacing: '-0.01em' }}
+            >
               {role}
             </span>
             <motion.span
               animate={{ opacity: [1, 0, 1] }}
-              transition={{ duration: 0.9, repeat: Infinity }}
-              className="inline-block w-[2px] h-4 rounded-sm"
+              transition={{ duration: 0.85, repeat: Infinity }}
+              className="inline-block w-[2px] h-5 rounded-sm"
               style={{ background: 'var(--accent)' }}
             />
           </motion.div>
 
           {/* Pitch */}
           <motion.p
-            {...item(0.19)}
-            className="text-sm sm:text-base lg:text-lg leading-relaxed max-w-md mb-6 sm:mb-8"
-            style={{ color: 'var(--text-secondary)' }}
+            {...item(0.22)}
+            className="leading-relaxed max-w-md mb-7"
+            style={{ fontSize: '0.9375rem', color: 'var(--text-secondary)' }}
           >
             I build software that solves real problems, scales under pressure, and{' '}
-            <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>stays reliable beyond the prototype.</span>
-            {' '}I don't just write code —{' '}
-            <span style={{ color: 'var(--accent)', fontWeight: 600 }}>I build solutions meant to last.</span>
+            <strong style={{ color: 'var(--text-primary)', fontWeight: 600 }}>stays reliable beyond the prototype.</strong>
+            {' '}Co-founder & CTO at{' '}
+            <strong style={{ color: 'var(--accent)', fontWeight: 600 }}>Igifu Meals</strong>.
           </motion.p>
 
           {/* Stats */}
-          <motion.div {...item(0.24)} className="flex gap-6 sm:gap-8 mb-6 sm:mb-8 justify-center lg:justify-start">
+          <motion.div {...item(0.27)} className="flex gap-8 mb-7 justify-center lg:justify-start">
             {[
-              { value: '4+',  label: 'Years' },
+              { value: '4+',  label: 'Years'    },
               { value: '50+', label: 'Projects' },
-              { value: '30+', label: 'Clients' },
-            ].map((s, i) => (
+              { value: '30+', label: 'Clients'  },
+            ].map((s) => (
               <div key={s.label} className="flex flex-col items-center lg:items-start">
-                {i > 0 && (
-                  <div className="hidden lg:block absolute" />
-                )}
-                <span className="font-display font-bold text-3xl sm:text-4xl" style={{ color: 'var(--text-primary)' }}>{s.value}</span>
-                <span className="text-xs uppercase tracking-widest mt-0.5" style={{ color: 'var(--text-muted)' }}>{s.label}</span>
+                <span
+                  className="font-display font-bold"
+                  style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2rem)', color: 'var(--text-primary)', letterSpacing: '-0.03em' }}
+                >
+                  {s.value}
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.18em] mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                  {s.label}
+                </span>
               </div>
             ))}
           </motion.div>
 
           {/* CTAs */}
-          <motion.div {...item(0.3)} className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start mb-5 sm:mb-7">
+          <motion.div {...item(0.32)} className="flex flex-wrap gap-3 justify-center lg:justify-start mb-6">
             <motion.button
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-lg text-white"
+              className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl text-white"
               style={{ background: 'var(--accent)' }}
-              whileHover={{ background: 'var(--accent-hover)' }}
+              whileHover={{ opacity: 0.88 }}
               whileTap={{ scale: 0.97 }}
             >
               View my work <FaArrowRight size={11} />
@@ -119,7 +200,7 @@ export default function Hero() {
 
             <motion.button
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-lg"
+              className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl"
               style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
               whileHover={{ borderColor: 'var(--accent)', color: 'var(--text-primary)' }}
               whileTap={{ scale: 0.97 }}
@@ -129,9 +210,9 @@ export default function Hero() {
 
             <motion.a
               href="/cv"
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-lg"
-              style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
-              whileHover={{ borderColor: 'rgba(99,102,241,0.4)', color: 'var(--text-primary)' }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl"
+              style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }}
+              whileHover={{ borderColor: 'rgba(99,102,241,0.35)', color: 'var(--text-primary)' }}
               whileTap={{ scale: 0.97 }}
             >
               <FaDownload size={11} /> Resume
@@ -139,11 +220,11 @@ export default function Hero() {
           </motion.div>
 
           {/* Socials */}
-          <motion.div {...item(0.36)} className="flex items-center gap-3">
+          <motion.div {...item(0.37)} className="flex items-center gap-2">
             {[
-              { icon: <FaLinkedin size={15} />, href: 'https://www.linkedin.com/in/iraguha-jean-aime-53ba74405/', label: 'LinkedIn' },
-              { icon: <FaGithub size={15} />,   href: 'https://github.com/',                                        label: 'GitHub'   },
-              { icon: <FaWhatsapp size={15} />, href: 'https://wa.me/250793411594',                                 label: 'WhatsApp' },
+              { icon: <FaLinkedin size={14} />, href: 'https://www.linkedin.com/in/iraguha-jean-aime-53ba74405/', label: 'LinkedIn'  },
+              { icon: <FaGithub   size={14} />, href: 'https://github.com/jeanaimeiraguha',                        label: 'GitHub'    },
+              { icon: <FaWhatsapp size={14} />, href: 'https://wa.me/250793411594',                                label: 'WhatsApp'  },
             ].map((s) => (
               <motion.a
                 key={s.label}
@@ -151,10 +232,10 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
+                className="w-9 h-9 rounded-lg flex items-center justify-center"
                 style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', color: 'var(--text-muted)' }}
                 whileHover={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
-                whileTap={{ scale: 0.93 }}
+                whileTap={{ scale: 0.9 }}
               >
                 {s.icon}
               </motion.a>
@@ -162,71 +243,74 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* ── Right — Portrait ── */}
+        {/* ── RIGHT: portrait ── */}
         <motion.div
-          className="shrink-0 order-1 lg:order-2 flex flex-col items-center gap-4 lg:pt-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="shrink-0 order-1 lg:order-2 flex items-center justify-center"
+          style={{ x: imgX, y: imgY }}
+          initial={{ opacity: 0, scale: 0.93 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.12, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Portrait — circle */}
-          <div
-            className="relative flex items-center justify-center"
-            style={{ width: 'clamp(180px, 45vw, 320px)', height: 'clamp(180px, 45vw, 320px)' }}
-          >
-            {/* Outer decorative ring */}
-            <div
-              className="absolute inset-0 rounded-full"
-              style={{ border: '1px solid rgba(99,102,241,0.18)' }}
-            />
-            {/* Inner accent ring */}
-            <div
-              className="absolute rounded-full"
-              style={{
-                inset: '12px',
-                border: '1px solid rgba(99,102,241,0.1)',
-              }}
+          <div className="relative">
+
+            {/* Slow rotating ring — desktop */}
+            <motion.div
+              className="absolute hidden lg:block rounded-full pointer-events-none"
+              style={{ inset: -16, border: '1px solid rgba(99,102,241,0.14)' }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 44, repeat: Infinity, ease: 'linear' }}
             />
 
-            {/* Photo circle */}
+            {/* ── Portrait image ──
+                Mobile  : 220×220 circle
+                Desktop : 300×380 rounded rectangle — shows full face + shoulders
+            */}
             <div
-              className="absolute overflow-hidden rounded-full"
+              className="overflow-hidden"
               style={{
-                inset: '20px',
-                border: '3px solid var(--bg-elevated)',
-                boxShadow: '0 0 0 1px var(--border)',
+                width:        'clamp(220px, 28vw, 300px)',
+                height:       'clamp(220px, 35vw, 380px)',
+                borderRadius: 'clamp(110px, 14vw, 150px) clamp(110px, 14vw, 150px) 20px 20px',
+                border:       '1px solid var(--border)',
+                boxShadow:    '0 16px 48px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.06)',
+                background:   'var(--bg-elevated)',
               }}
             >
               <img
                 src="/aime rm.png"
                 alt="Jean Aime Iraguha"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: 'center 8%' }}
               />
             </div>
 
-            {/* Available badge — bottom center, outside the rings */}
-            <div
-              className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap"
+            {/* Available badge */}
+            <motion.div
+              className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap"
               style={{
-                background: 'var(--bg-elevated)',
-                color: '#4ade80',
-                border: '1px solid rgba(74,222,128,0.25)',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+                bottom:     -14,
+                background: 'var(--bg-surface)',
+                color:      '#16a34a',
+                border:     '1px solid rgba(74,222,128,0.2)',
+                boxShadow:  '0 4px 16px rgba(0,0,0,0.07)',
               }}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400" style={{ boxShadow: '0 0 6px rgba(74,222,128,0.8)' }} />
+              <span className="glow-dot" />
               Open to work
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
 
       {/* Scroll hint */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-7 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
+        transition={{ delay: 1.4 }}
       >
         <motion.div
           animate={{ y: [0, 6, 0] }}

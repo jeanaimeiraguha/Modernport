@@ -4,32 +4,21 @@ export default {
   darkMode: 'class',
   theme: {
     screens: {
-      xs: '480px',
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
-      '2xl': '1536px',
+      xs: '480px', sm: '640px', md: '768px',
+      lg: '1024px', xl: '1280px', '2xl': '1536px',
     },
     extend: {
       fontFamily: {
-        sans:    ['Poppins', 'sans-serif'],
-        display: ['DM Sans', 'sans-serif'],
+        sans:    ['Inter', 'sans-serif'],
+        display: ['Space Grotesk', 'sans-serif'],
         mono:    ['Inter', 'monospace'],
       },
       colors: {
         dark: {
-          900: '#0a0a0f',
-          800: '#0f0f1a',
-          700: '#141420',
-          600: '#1a1a2e',
-          500: '#22223a',
+          900: '#080810', 800: '#0c0c16',
+          700: '#0e0e1c', 600: '#111120', 500: '#1a1a2e',
         },
-        indigo: {
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-        },
+        accent: { DEFAULT: '#6366f1', hover: '#818cf8', glow: 'rgba(99,102,241,0.25)' },
       },
       keyframes: {
         'gradient-shift': {
@@ -40,10 +29,15 @@ export default {
           '0%,100%': { transform: 'translateY(0px)' },
           '50%':      { transform: 'translateY(-20px)' },
         },
+        'orb-drift': {
+          '0%,100%': { transform: 'translate(0,0) scale(1)' },
+          '50%':      { transform: 'translate(30px,-20px) scale(1.05)' },
+        },
       },
       animation: {
-        'gradient-shift': 'gradient-shift 4s ease infinite',
-        'float':          'float 6s ease-in-out infinite',
+        'gradient-shift': 'gradient-shift 5s ease infinite',
+        'float':          'float 7s ease-in-out infinite',
+        'orb-drift':      'orb-drift 18s ease-in-out infinite',
       },
     },
   },

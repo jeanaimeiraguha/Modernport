@@ -6,190 +6,226 @@ import { Link } from 'react-router-dom';
 import { NAV_LINKS } from './data';
 import { useTheme } from '../ThemeContext';
 
-const scrollTo = (id) => {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-};
+const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
 export default function Navbar() {
-  const [open, setOpen]         = useState(false);
+  const [open, setOpen]        = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { theme, toggleTheme }  = useTheme();
+  const [active, setActive]    = useState('');
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 50);
+    const fn = () => setScrolled(window.scrollY > 20);
+    fn(); // run once on mount
     window.addEventListener('scroll', fn, { passive: true });
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); }),
+      { threshold: 0.3 }
+    );
+    NAV_LINKS.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
+    return () => obs.disconnect();
+  }, []);
+
   const handleNav = (id) => { scrollTo(id); setOpen(false); };
 
-  const navBg = scrolled
-    ? theme === 'dark'
-      ? 'rgba(10,10,15,0.88)'
-      : 'rgba(248,248,246,0.88)'
-    : 'transparent';
+  const bg = theme === 'dark' ? 'rgba(8,8,16,0.95)' : 'rgba(248,248,252,0.95)';
 
   return (
-    <motion.header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      initial={{ y: -64, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      style={{
-        background: navBg,
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
-      }}
-    >
-      <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <>
+      {/* ── Fixed navbar — always solid, never moves ── */}
+      <header
+        className="fixed top-0 left-0 right-0 z-50"
+        style={{
+          background:          scrolled ? bg : 'var(--bg-base)',
+          backdropFilter:      scrolled ? 'blur(20px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+          borderBottom:        `1px solid ${scrolled ? 'var(--border)' : 'transparent'}`,
+          transition:          'background 0.25s ease, border-color 0.25s ease',
+        }}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <nav className="flex items-center justify-between h-16">
 
-        {/* Logo */}
-        <button
-          onClick={() => scrollTo('hero')}
-          className="flex items-center gap-[10px] group"
-          aria-label="Jean Aime Iraguha"
-        >
-          {/* SVG monogram mark */}
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Background square with cut corner */}
-            <path d="M4 0h28a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4z" fill="var(--accent)" />
-            {/* J letter */}
-            <text x="4" y="26" fontFamily="Georgia, serif" fontSize="22" fontWeight="700" fill="white" letterSpacing="-1">J</text>
-            {/* A letter — slightly offset, accent-tinted */}
-            <text x="16" y="26" fontFamily="Georgia, serif" fontSize="22" fontWeight="700" fill="rgba(255,255,255,0.75)" letterSpacing="-1">A</text>
-            {/* Bottom accent line */}
-            <rect x="4" y="30" width="28" height="2" rx="1" fill="rgba(255,255,255,0.3)" />
-          </svg>
-
-          {/* Wordmark */}
-          <span
-            className="font-display font-bold tracking-tight transition-colors"
-            style={{ fontSize: '1.05rem', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}
-          >
-            Iraguha<span style={{ color: 'var(--accent)' }}>.</span>
-          </span>
-        </button>
-
-        {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((l) => (
-            <li key={l}>
-              <button
-                onClick={() => handleNav(l)}
-                className="nav-link text-sm font-medium capitalize"
-                style={{ color: 'var(--text-muted)' }}
-              >
-                {l}
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        {/* Right controls */}
-        <div className="flex items-center gap-2">
-          {/* Theme toggle */}
-          <motion.button
-            onClick={toggleTheme}
-            whileTap={{ scale: 0.9 }}
-            className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
-            style={{
-              background: 'var(--bg-elevated)',
-              border: '1px solid var(--border)',
-              color: 'var(--text-secondary)',
-            }}
-            aria-label="Toggle theme"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={theme}
-                initial={{ opacity: 0, rotate: -30, scale: 0.7 }}
-                animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                exit={{ opacity: 0, rotate: 30, scale: 0.7 }}
-                transition={{ duration: 0.18 }}
-              >
-                {theme === 'dark' ? <HiSun size={16} /> : <HiMoon size={16} />}
-              </motion.span>
-            </AnimatePresence>
-          </motion.button>
-
-          {/* View CV — desktop */}
-          <Link
-            to="/cv"
-            className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-            style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-secondary)'; }}
-          >
-            <FaFileAlt size={11} /> CV
-          </Link>
-
-          {/* Hire me — desktop */}
-          <button
-            onClick={() => handleNav('contact')}
-            className="hidden md:block text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-            style={{ background: 'var(--accent)', color: '#fff' }}
-            onMouseEnter={(e) => (e.target.style.background = 'var(--accent-hover)')}
-            onMouseLeave={(e) => (e.target.style.background = 'var(--accent)')}
-          >
-            Hire me
-          </button>
-
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden transition-colors"
-            style={{ color: 'var(--text-secondary)' }}
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
-          >
-            {open ? <FaTimes size={18} /> : <FaBars size={18} />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile drawer */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden px-6 py-5 flex flex-col gap-4"
-            style={{
-              background: theme === 'dark' ? 'rgba(10,10,15,0.97)' : 'rgba(248,248,246,0.97)',
-              backdropFilter: 'blur(16px)',
-              borderTop: '1px solid var(--border)',
-            }}
-          >
-            {NAV_LINKS.map((l) => (
-              <button
-                key={l}
-                onClick={() => handleNav(l)}
-                className="text-sm capitalize text-left transition-colors"
-                style={{ color: 'var(--text-secondary)' }}
-              >
-                {l}
-              </button>
-            ))}
+            {/* Logo */}
             <button
-              onClick={() => handleNav('contact')}
-              className="mt-1 text-sm font-medium px-4 py-2 rounded-lg w-fit"
-              style={{ background: 'var(--accent)', color: '#fff' }}
+              onClick={() => scrollTo('hero')}
+              className="flex items-center gap-2.5 shrink-0"
+              aria-label="Home"
             >
-              Hire me
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center"
+                style={{ background: 'var(--accent)' }}
+              >
+                <span className="font-display font-bold text-sm text-white">JA</span>
+              </div>
+              <span
+                className="font-display font-semibold hidden sm:block"
+                style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em', fontSize: '0.95rem' }}
+              >
+                Iraguha<span style={{ color: 'var(--accent)' }}>.</span>
+              </span>
             </button>
-            <Link
-              to="/cv"
-              className="text-sm font-medium px-4 py-2 rounded-lg w-fit inline-flex items-center gap-1.5"
-              style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
-              onClick={() => setOpen(false)}
+
+            {/* Desktop links */}
+            <ul className="hidden md:flex items-center gap-0.5">
+              {NAV_LINKS.map((l) => {
+                const isActive = active === l;
+                return (
+                  <li key={l}>
+                    <button
+                      onClick={() => handleNav(l)}
+                      className="relative px-3 py-1.5 text-sm font-medium capitalize rounded-lg"
+                      style={{
+                        color:      isActive ? 'var(--accent)' : 'var(--text-muted)',
+                        background: isActive ? 'rgba(99,102,241,0.07)' : 'transparent',
+                        transition: 'color 0.2s ease, background 0.2s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isActive) e.currentTarget.style.color = 'var(--text-primary)';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) e.currentTarget.style.color = 'var(--text-muted)';
+                      }}
+                    >
+                      {l}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {/* Right controls */}
+            <div className="flex items-center gap-2 shrink-0">
+
+              {/* Available badge */}
+              <div
+                className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium"
+                style={{
+                  background: 'rgba(74,222,128,0.07)',
+                  border:     '1px solid rgba(74,222,128,0.18)',
+                  color:      '#16a34a',
+                }}
+              >
+                <span className="glow-dot" />
+                Available
+              </div>
+
+              {/* Theme toggle */}
+              <button
+                onClick={toggleTheme}
+                className="w-8 h-8 rounded-lg flex items-center justify-center"
+                style={{
+                  background: 'var(--bg-elevated)',
+                  border:     '1px solid var(--border)',
+                  color:      'var(--text-secondary)',
+                  transition: 'border-color 0.2s ease',
+                }}
+                aria-label="Toggle theme"
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border)')}
+              >
+                {theme === 'dark' ? <HiSun size={14} /> : <HiMoon size={14} />}
+              </button>
+
+              {/* CV */}
+              <Link
+                to="/cv"
+                className="hidden md:inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg"
+                style={{
+                  border:     '1px solid var(--border)',
+                  color:      'var(--text-muted)',
+                  transition: 'border-color 0.2s ease, color 0.2s ease',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)';  e.currentTarget.style.color = 'var(--text-muted)'; }}
+              >
+                <FaFileAlt size={10} /> CV
+              </Link>
+
+              {/* Hire me */}
+              <button
+                onClick={() => handleNav('contact')}
+                className="hidden md:block text-xs font-semibold px-4 py-1.5 rounded-lg text-white"
+                style={{
+                  background: 'var(--accent)',
+                  transition: 'opacity 0.2s ease',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+              >
+                Hire me
+              </button>
+
+              {/* Hamburger */}
+              <button
+                className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center"
+                style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
+                onClick={() => setOpen((o) => !o)}
+                aria-label="Toggle menu"
+              >
+                {open ? <FaTimes size={14} /> : <FaBars size={14} />}
+              </button>
+            </div>
+          </nav>
+        </div>
+
+        {/* Mobile drawer */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18 }}
+              className="md:hidden px-4 pb-4"
+              style={{
+                background:          bg,
+                backdropFilter:      'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                borderBottom:        '1px solid var(--border)',
+              }}
             >
-              <FaFileAlt size={11} /> View CV
-            </Link>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+              <div className="flex flex-col gap-1 pt-2">
+                {NAV_LINKS.map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => handleNav(l)}
+                    className="text-sm capitalize text-left px-3 py-2.5 rounded-lg"
+                    style={{
+                      color:      active === l ? 'var(--accent)' : 'var(--text-secondary)',
+                      background: active === l ? 'rgba(99,102,241,0.07)' : 'transparent',
+                    }}
+                  >
+                    {l}
+                  </button>
+                ))}
+                <div className="h-px my-2" style={{ background: 'var(--border)' }} />
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleNav('contact')}
+                    className="flex-1 text-sm font-semibold py-2.5 rounded-lg text-white"
+                    style={{ background: 'var(--accent)' }}
+                  >
+                    Hire me
+                  </button>
+                  <Link
+                    to="/cv"
+                    className="flex-1 text-sm font-medium py-2.5 rounded-lg text-center inline-flex items-center justify-center gap-1.5"
+                    style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
+                    onClick={() => setOpen(false)}
+                  >
+                    <FaFileAlt size={10} /> View CV
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+    </>
   );
 }

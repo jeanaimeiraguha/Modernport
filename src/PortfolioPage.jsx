@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Lenis from 'lenis';
-import SplashScreen  from './components/SplashScreen';
+import LoadingAnimation from './LoadingAnimation';
 import CustomCursor  from './components/CustomCursor';
 import ScrollProgress from './components/ScrollProgress';
 import Navbar        from './components/Navbar';
@@ -39,7 +39,7 @@ export default function PortfolioPage() {
 
       <AnimatePresence mode="wait">
         {!loaded && (
-          <SplashScreen key="splash" onDone={() => setLoaded(true)} />
+          <LoadingAnimation key="loader" onDone={() => setLoaded(true)} />
         )}
       </AnimatePresence>
 
@@ -47,9 +47,9 @@ export default function PortfolioPage() {
         {loaded && (
           <motion.div
             key="portfolio"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, filter: 'blur(8px)', y: 16 }}
+            animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             style={{ background: 'var(--bg-base)', color: 'var(--text-primary)', minHeight: '100vh' }}
           >
             <ScrollProgress />

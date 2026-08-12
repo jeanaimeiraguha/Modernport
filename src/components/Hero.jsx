@@ -299,10 +299,10 @@ export default function Hero() {
               }}
             >
               <img
-                src="/aime rm.png"
+                src="/images/profile/aime-headshot.png"
                 alt="Jean Aime Iraguha"
                 className="w-full h-full object-cover"
-                style={{ objectPosition: 'center 8%' }}
+                style={{ objectPosition: 'center' }}
               />
               {/* Bottom scrim so the badge always reads clearly over the photo */}
               <div

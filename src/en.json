@@ -1,0 +1,215 @@
+{
+  "nav": {
+    "home": "home",
+    "about": "about",
+    "services": "services",
+    "skills": "skills",
+    "projects": "projects",
+    "testimonials": "testimonials",
+    "contact": "contact",
+    "lightMode": "☀️ Light Mode",
+    "darkMode": "🌙 Dark Mode"
+  },
+  "loading": {
+    "text": "Loading..."
+  },
+  "hero": {
+    "welcome": "Welcome to my portfolio",
+    "greeting": "Hi, I'm",
+    "firstName": "Jean Aime",
+    "lastName": "IRAGUHA",
+    "title": "Full-Stack Developer & Creative Technologist",
+    "bio": "Passionate software engineer dedicated to creating innovative digital solutions that make a real difference. With expertise in full-stack development and a keen eye for design.",
+    "viewWork": "View My Work",
+    "viewCV": "View CV",
+    "scrollDown": "Scroll Down"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Get to know more about my journey and what drives my passion for technology",
+    "journeyTitle": "My Journey",
+    "journeyText": "My passion for technology started at G TSS, where I discovered the power of code to solve real-world problems. Since then, I've been on a continuous journey of learning and growth, mastering various technologies and frameworks.",
+    "loveTitle": "What I Love",
+    "loveText": "I'm passionate about creating elegant solutions to complex problems. I love working with modern technologies, building user-friendly interfaces, and optimizing performance. When I'm not coding, you'll find me exploring new tech trends or contributing to open-source projects.",
+    "missionTitle": "My Mission",
+    "missionText": "To leverage technology in creating innovative solutions that make a positive impact. I believe in writing clean, maintainable code and building products that not only meet technical requirements but also provide exceptional user experiences.",
+    "yearsExperience": "Years Experience",
+    "projectsCompleted": "Projects Completed",
+    "happyClients": "Happy Clients",
+    "technologies": "Technologies",
+    "funFactsTitle": "Fun Facts",
+    "fact1": "Coffee enthusiast (3+ cups daily ☕)",
+    "fact2": "Open source contributor",
+    "fact3": "Love solving complex algorithms",
+    "fact4": "Always learning new technologies"
+  },
+  "services": {
+    "title": "My Services",
+    "subtitle": "Comprehensive solutions tailored to meet your digital needs",
+    "webDev": "Web Development",
+    "webDevDesc": "Building responsive and performant web applications.",
+    "webDevFeatures": ["React/Next.js", "Full-Stack Apps", "API Development"],
+    "mobileDev": "Mobile Development",
+    "mobileDevDesc": "Creating cross-platform mobile experiences.",
+    "mobileDevFeatures": ["React Native", "Flutter", "Progressive Web Apps"],
+    "uiUx": "UI/UX Design",
+    "uiUxDesc": "Designing beautiful and intuitive interfaces.",
+    "uiUxFeatures": ["Figma Design", "Prototyping", "User Research"],
+    "backend": "Backend Development",
+    "backendDesc": "Building scalable server-side solutions.",
+    "backendFeatures": ["Node.js", "Database Design", "Cloud Services"]
+  },
+  "skills": {
+    "title": "Technical Skills",
+    "subtitle": "Technologies and tools I use to bring ideas to life",
+    "proficiency": "Proficiency"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "Showcasing my best work and creative solutions",
+    "categories": {
+      "elearning": "Education",
+      "smartCity": "IoT & Data",
+      "fintechApp": "Finance",
+      "aiHealth": "Health"
+    },
+    "items": {
+      "elearning": {
+        "title": "E-Learning Platform",
+        "description": "A comprehensive e-learning system with real-time collaboration features.",
+        "features": ["Video Lessons", "Q&A", "Progress Tracking", "Certification"],
+        "technologies": ["React", "Node.js", "MongoDB", "Socket.io", "Tailwind CSS"]
+      },
+      "smartCity": {
+        "title": "Smart City Dashboard",
+        "description": "Real-time city monitoring dashboard using IoT sensors for traffic, weather, etc.",
+        "features": ["Real-time Visualization", "Predictive Analytics", "Alert System", "Mobile Responsive"],
+        "technologies": ["Next.js", "Python", "PostgreSQL", "D3.js", "Docker"]
+      },
+      "fintechApp": {
+        "title": "Fintech Mobile App",
+        "description": "Secure mobile banking application with biometric authentication and instant transfers.",
+        "features": ["Biometric Auth", "QR Payments", "Transaction History", "Budget Tracking"],
+        "technologies": ["React Native", "Node.js", "MySQL", "Redis", "JWT"]
+      },
+      "aiHealth": {
+        "title": "AI Health Assistant",
+        "description": "AI-powered health monitoring app with symptom checker and appointment scheduling.",
+        "features": ["AI Symptom Analysis", "Medication Reminders", "Health Tracking", "Doctor Consultation"],
+        "technologies": ["React", "Python", "TensorFlow", "Firebase", "Chart.js"]
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Client Testimonials",
+    "subtitle": "What my clients say about working with me",
+    "items": {
+      "sarah": {
+        "name": "Sarah Johnson", "role": "CEO, TechStart Rwanda", "content": "Jean Aime is an exceptional developer who brings creativity and technical excellence to every project. His work exceeded our expectations."
+      },
+      "david": {
+        "name": "David Kwizera", "role": "Product Manager, InnovateAfrica", "content": "Working with Jean Aime was a game-changer for our company. He delivered a robust solution that perfectly aligned with our growth."
+      },
+      "marie": {
+        "name": "Marie Claire", "role": "CTO, Digital Solutions Ltd", "content": "Jean Aime's attention to detail and problem-solving skills are impressive. He is a valuable asset to any development team."
+      }
+    }
+  },
+  "contact": {
+    "title": "Let's Connect",
+    "subtitle": "Have a project in mind? I'd love to hear from you!",
+    "email": "Email",
+    "phone": "Phone",
+    "location": "Location",
+    "reachOut": "Or reach out directly through my social channels"
+  },
+  "personal": {
+    "location": "Bugesera, KIgali Rwanda"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "builtWith": "Built with ❤️By Jeanaime Iraguha"
+  },
+  "cv": {
+    "title": "Full-Stack Developer & AI Engineer",
+    "profileSummary": "Profile Summary",
+    "summary": "Passionate Full-Stack Developer with 3+ years of experience in building scalable web applications, AI-powered solutions, and blockchain systems. Skilled in React, Node.js, Python, and modern cloud technologies. Strong problem-solving abilities and a commitment to writing clean, efficient code. Proven track record of delivering innovative solutions that solve real-world problems and improve user experiences.",
+    "coreSkills": "Core Skills",
+    "coreSkillsList": [
+      "React.js & Next.js - Advanced frontend development with modern state management",
+      "Node.js & Express - Backend API development and server-side rendering",
+      "Python & Django - Full-stack development and data processing",
+      "MongoDB & PostgreSQL - Database design and optimization",
+      "AWS & Cloud Deployment - Scalable cloud infrastructure and DevOps",
+      "Docker & Kubernetes - Containerization and microservices architecture",
+      "AI/ML with TensorFlow - Machine learning models and neural networks",
+      "Blockchain & Web3 - Smart contracts and decentralized applications",
+      "TypeScript - Type-safe development and modern JavaScript features",
+      "Git & Version Control - Collaborative development and CI/CD pipelines"
+    ],
+    "keyProjects": "Key Projects",
+    "projectsList": [
+      {
+        "title": "AI Health Monitoring System",
+        "description": "Developed a comprehensive health monitoring platform using React, Python, and TensorFlow for medical data analysis and predictive analytics. Implemented real-time data processing, machine learning algorithms for health predictions, and interactive dashboards for healthcare professionals."
+      },
+      {
+        "title": "Blockchain Voting Platform",
+        "description": "Built a secure, transparent voting system on Ethereum blockchain with smart contract verification and real-time results. Features include voter authentication, immutable vote recording, and real-time election monitoring with fraud detection capabilities."
+      },
+      {
+        "title": "E-Learning Platform",
+        "description": "Created an interactive learning platform with real-time collaboration features and AI-powered content recommendations. Implemented video conferencing, interactive quizzes, progress tracking, and personalized learning paths for 5000+ students."
+      },
+      {
+        "title": "Smart City Dashboard",
+        "description": "Developed an IoT-based dashboard for urban planning and environmental monitoring using Next.js, Python, and D3.js. Integrated real-time sensor data, traffic analysis, and predictive modeling for city management."
+      },
+      {
+        "title": "Fintech Mobile Application",
+        "description": "Built a mobile banking application with biometric authentication, real-time transactions, and AI-powered financial insights. Implemented secure payment processing, budget tracking, and personalized financial recommendations."
+      }
+    ],
+    "workExperience": "Work Experience",
+    "experience": [
+      {
+        "role": "Full-Stack Developer",
+        "company": "Tech Solutions Rwanda",
+        "date": "2023 - Present",
+        "description": "Lead development of scalable web applications using React, Node.js, and modern cloud technologies. Implemented AI-powered features and blockchain integrations for enterprise clients. Technologies: React, Node.js, Python, AWS, MongoDB, TensorFlow, Web3.js."
+      },
+      {
+        "role": "Frontend Developer",
+        "company": "Innovation Hub Kigali",
+        "date": "2021 - 2023",
+        "description": "Created responsive and interactive user interfaces for educational platforms and e-commerce websites. Focused on user experience and modern design principles. Technologies: React, Tailwind CSS, JavaScript, HTML5, CSS3, Socket.io."
+      },
+      {
+        "role": "Software Engineering Intern",
+        "company": "Digital Transformation Center",
+        "date": "2020 - 2021",
+        "description": "Assisted in developing internal tools and automation scripts. Gained experience in agile development methodologies and version control. Technologies: Python, Git, Django, SQL, Linux."
+      }
+    ],
+    "education": "Education",
+    "educationList": [
+      "Bachelor of Science in Computer Science - University of Rwanda (2018-2022) | GPA: 3.8/4.0",
+      "Advanced Web Development Certification - FreeCodeCamp (2021-2022) | 300+ hours of hands-on projects",
+      "Secondary School Education - Ecole de Science de Musanze (2014-2017) | Specialized in Mathematics and Computer Science"
+    ],
+    "achievements": "Achievements",
+    "achievementsList": [
+      "Graduated with First Class Honors (GPA: 3.8/4.0) - Top 5% of class",
+      "President of Computer Science Club (2020-2022) - Led 100+ members and organized coding workshops",
+      "Published research paper on blockchain applications in supply chain management in IEEE conference",
+      "Completed 15+ full-stack applications with modern tech stack serving 10,000+ users",
+      "Achieved AWS Certified Developer - Associate certification",
+      "Participated in national coding competitions and hackathons with multiple awards",
+      "Mentored 20+ junior developers and conducted technical workshops"
+    ],
+    "languages": "Languages",
+    "languagesList": ["English (Fluent)", "Kinyarwanda (Native)", "French (Intermediate)"],
+    "interests": "Interests",
+    "interestsList": ["Artificial Intelligence & Machine Learning", "Blockchain Technology & Cryptocurrencies", "Open Source Development", "Tech Communities & Meetups", "Continuous Learning & Certifications", "Mentoring & Teaching"]
+  }
+}

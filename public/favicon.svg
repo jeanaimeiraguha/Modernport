@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background -->
+  <rect width="64" height="64" rx="12" fill="#6366f1"/>
+
+  <!-- "J" -->
+  <text
+    x="8"
+    y="46"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-weight="700"
+    font-size="36"
+    fill="#ffffff"
+    letter-spacing="-2"
+  >JA</text>
+
+  <!-- Bottom underline accent -->
+  <rect x="8" y="51" width="28" height="2.5" rx="1.25" fill="rgba(255,255,255,0.4)"/>
+</svg>

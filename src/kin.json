@@ -1,0 +1,191 @@
+{
+  "nav": {
+    "home": "ahabanza",
+    "about": "uwo ndiwe",
+    "services": "serivisi",
+    "skills": "ubumenyi",
+    "projects": "imishinga",
+    "testimonials": "ubuhamya",
+    "contact": "tuvugane",
+    "lightMode": "☀️ Urumuri",
+    "darkMode": "🌙 Umwijima"
+  },
+  "loading": {
+    "text": "Birimo gufunguka..."
+  },
+  "hero": {
+    "welcome": "Murakaza neza ku rubuga rwanjye",
+    "greeting": "Muraho, nitwa",
+    "firstName": "Jean Aime",
+    "lastName": "IRAGUHA",
+    "title": "Umuhanga mu Ikoranabuhanga (Full-Stack) & Mpanga udushya",
+    "bio": "Ndi injeniyeri ya software ufite ishyaka ryo guhanga ibisubizo by'ikoranabuhanga bigezweho kandi bizana impinduka nziza. Mfite ubuhanga muri 'full-stack development' n'ubushobozi bwo gushushanya ibikorwa byiza.",
+    "viewWork": "Reba Ibikorwa Byanjye",
+    "viewCV": "Reba CV",
+    "scrollDown": "Manuka urebe"
+  },
+  "about": {
+    "title": "Ibindi Kuri Njye",
+    "subtitle": "Menya byinshi ku rugendo rwanjye n'ibitera ishyaka ryanjye mu ikoranabuhanga",
+    "journeyTitle": "Urugendo Rwanjye",
+    "journeyText": "Ishyaka ryanjye mu ikoranabuhanga ryatangiriye mu ishuri ryisumbuye rya Gikonko, aho navumbuye imbaraga zo gukoresha code mu gukemura ibibazo by'isi. Kuva icyo gihe, nagiye mu rugendo rwo kwiga no gukura, niga neza ikoranabuhanga n'uburyo butandukanye.",
+    "loveTitle": "Ibyo Nkunda",
+    "loveText": "Nkunda guhanga ibisubizo byiza ku bibazo bigoye. Nkunda gukorana n'ikoranabuhanga rigezweho, kubaka interineti zoroheye abakoresha, no kunoza imikorere. Iyo ntari muri code, usanga ndi gushakisha ibigezweho mu ikoranabuhanga cyangwa ngira uruhare mu mishinga ya open-source.",
+    "missionTitle": "Intego Yanjye",
+    "missionText": "Gukoresha ikoranabuhanga mu guhanga ibisubizo bishya bigira impinduka nziza. Nemera kwandika code isobanutse, yoroshye kubungabunga no kubaka ibicuruzwa bidahura gusa n'ibisabwa bya tekiniki ahubwo binatanga uburambe budasanzwe ku bakoresha.",
+    "yearsExperience": "Imyaka y'uburambe",
+    "projectsCompleted": "Imishinga nakoze",
+    "happyClients": "Abakiriya bishimye",
+    "technologies": "Ikoranabuhanga",
+    "funFactsTitle": "Amakuru Ashimishije",
+    "fact1": "Nkunda ikawa (ibikombe 3+ ku munsi ☕)",
+    "fact2": "Ngira uruhare muri open source",
+    "fact3": "Nkunda gukemura algorithms zigoye",
+    "fact4": "Ahora niga ikoranabuhanga rishya"
+  },
+  "services": {
+    "title": "Serivisi Zanjye",
+    "subtitle": "Ibisubizo byuzuye kandi byizewe bijyanye n'ibyifuzo byawe by'ikoranabuhanga",
+    "webDev": "Iterambere ry'imbuga",
+    "webDevDesc": "Kubaka porogaramu z'urubuga zikora neza kandi zikora neza.",
+    "webDevFeatures": ["React/Next.js", "Porogaramu zuzuye", "Iterambere rya API"],
+    "mobileDev": "Iterambere rya mobile",
+    "mobileDevDesc": "Guhanga uburambe bwa mobile kuri platform zose.",
+    "mobileDevFeatures": ["React Native", "Flutter", "Porogaramu z'urubuga zigenda"],
+    "uiUx": "Igishushanyo cya UI/UX",
+    "uiUxDesc": "Gushushanya interineti nziza kandi zumvikana.",
+    "uiUxFeatures": ["Igishushanyo cya Figma", "Gukora prototype", "Ubushakashatsi ku bakoresha"],
+    "backend": "Iterambere rya Backend",
+    "backendDesc": "Kubaka ibisubizo bya seriveri bishobora kwaguka.",
+    "backendFeatures": ["Node.js", "Igishushanyo cya Database", "Serivisi z'igicu"]
+  },
+  "skills": {
+    "title": "Ubumenyi bwa Tekiniki",
+    "subtitle": "Ikoranabuhanga n'ibikoresho nkoresha kugira ngo ibitekerezo bibe impamo",
+    "proficiency": "Ubuhanga"
+  },
+  "projects": {
+    "title": "Imishinga Yatoranijwe",
+    "subtitle": "Hano haratoranyijwe bimwe mu bikorwa byanjye by'indashyikirwa",
+    "categories": {
+      "elearning": "Uburezi",
+      "smartCity": "IoT & Amakuru",
+      "fintechApp": "Imari",
+      "aiHealth": "Ubuzima"
+    },
+    "items": {
+      "elearning": {
+        "title": "Ikoranabuhanga ryo Kwigiraho",
+        "description": "Sisitemu yuzuye yo kwigiraho hifashishijwe ikoranabuhanga, ifite n'uburyo bwo gufatanya mu gihe nyacyo.",
+        "features": ["Amasomo kuri videwo", "Ibibazo n'ibisubizo", "Gukurikirana imyigire", "Gutanga impamyabushobozi"],
+        "technologies": ["React", "Node.js", "MongoDB", "Socket.io", "Tailwind CSS"]
+      },
+      "smartCity": {
+        "title": "Imbonerahamwe y'Umujyi Ugezweho",
+        "description": "Imbonerahamwe igaragaza imikorere y'umujyi mu gihe nyacyo, ikoresheje ibyuma bifata amakuru (IoT) ku mihanda, ikirere, n'ibindi.",
+        "features": ["Kugaragaza amakuru mu gihe nyacyo", "Isesengura riteganya", "Sisitemu y'integuza", "Ijyana na telefone"],
+        "technologies": ["Next.js", "Python", "PostgreSQL", "D3.js", "Docker"]
+      },
+      "fintechApp": {
+        "title": "Porogaramu ya Telefone y'Imari",
+        "description": "Porogaramu ya banki kuri telefone itekanye, ikoresha igikumwe mu kwemeza umwirondoro no kohereza amafaranga ako kanya.",
+        "features": ["Kwemeza umwirondoro n'igikumwe", "Kwishyura na kode ya QR", "Amateka y'imikoranire", "Gukurikirana ingengo y'imari"],
+        "technologies": ["React Native", "Node.js", "MySQL", "Redis", "JWT"]
+      },
+      "aiHealth": {
+        "title": "Umujyanama w'Ubuzima wa AI",
+        "description": "Porogaramu ikurikirana ubuzima ishingiye kuri ubwenge bw'ubukorano (AI), ifite uburyo bwo kugenzura ibimenyetso no gufata gahunda kwa muganga.",
+        "features": ["Isesengura ry'ibimenyetso na AI", "Kwibutsa imiti", "Gukurikirana ubuzima", "Kuvugana na muganga"],
+        "technologies": ["React", "Python", "TensorFlow", "Firebase", "Chart.js"]
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Ubuhamya bw'abakiriya",
+    "subtitle": "Ibyo abakiriya banjye bavuga ku gukorana nanjye",
+    "items": {
+      "sarah": {
+        "name": "Sarah Johnson", "role": "Umuyobozi Mukuru, TechStart Rwanda", "content": "Jean Aime ni umuprogramu w'indashyikirwa uzana ubuhanga n'ubukorikori buhebuje muri buri mushinga. Igikorwa cye cyarenze ibyo twari twiteze."
+      },
+      "david": {
+        "name": "David Kwizera", "role": "Umuyobozi w'Igicuruzwa, InnovateAfrica", "content": "Gukorana na Jean Aime byabaye impinduka ikomeye ku isosiyete yacu. Yaduhaye igisubizo gikomeye cyahuzaga neza n'iterambere ryacu."
+      },
+      "marie": {
+        "name": "Marie Claire", "role": "Umuyobozi w'Ikoranabuhanga, Digital Solutions Ltd", "content": "Ubwitonzi bwa Jean Aime n'ubuhanga bwe mu gukemura ibibazo biratangaje. Ni umutungo w'agaciro kuri buri kipe y'abaprogramu."
+      }
+    }
+  },
+  "contact": {
+    "title": "Reka Tuvugane",
+    "subtitle": "Ufite umushinga mu bitekerezo? Nshimishijwe no kukumva!",
+    "email": "Imeyili",
+    "phone": "Telefone",
+    "location": "Aho mba",
+    "reachOut": "Cyangwa unyandikire unyuze ku mbuga nkoranyambaga zanjye"
+  },
+  "personal": {
+    "location": "Bugesera, KIgali Rwanda"
+  },
+  "footer": {
+    "rights": "Uburenganzira bwose burubahirizwa.",
+    "builtWith": "Byubatswe na ❤️ na Jeanaime Iraguha"
+  },
+  "cv": {
+    "title": "Injeniyeri wa Porogaramu | Umuhanga mu Ikoranabuhanga (Full-Stack) | Blockchain & Web3 | Umushushanyi",
+    "summary": "Ndi Injeniyeri ya Porogaramu (Software Engineer) ufite ishyaka n'uburambe bw'imyaka 3-5 mu gukora porogaramu z'imbuga (full-stack), backend, n'ikoranabuhanga rigezweho. Mfite ubuhanga mu kubaka sisitemu nini kandi zikora neza nkoresheje Node.js, React, Next.js, PHP, MySQL, MongoDB, Flutter, na blockchain. Ndi umunyamurava, witanga, kandi nshyira imbere kwandika code isobanutse, yoroshye kumva, no gutanga ibisubizo by'ikoranabuhanga byizewe. Mfite n'uburambe mu gushushanya (graphic design, UI/UX) no gukorera hamwe n'abandi ku buryo bw'ikoranabuhanga.",
+    "profileSummary": "Incshamake y'umwirondoro",
+    "coreSkills": "Ubumenyi Nshingiro",
+    "keyProjects": "Imishinga y'ingenzi",
+    "workExperience": "Uburambe mu kazi",
+    "education": "Amashuri & Impamyabumenyi",
+    "achievements": "Ibyagezweho",
+    "languages": "Indimi",
+    "interests": "Ibyo nkunda",
+    "skillsCategories": {
+      "Frontend": "Frontend",
+      "Backend": "Backend",
+      "Mobile Development": "Iterambere rya Mobile",
+      "Blockchain": "Blockchain",
+      "Tools": "Ibikoresho",
+      "Other Skills": "Ubindi bumenyi"
+    },
+    "experience": [
+      { "role": "Umutoza w'iterambere rya Backend", "company": "CodeAlpha", "date": "Werurwe 2025", "description": "Yashushanyije kandi yubaka sisitemu za backend yibanda kuri APIs, kwemeza, n'imiterere ya database. Yakoreye kure kandi yatanze code yoroheye abatangizi, ishobora kubungabungwa." },
+      { "role": "Umushushanyi ukorera kure", "company": "", "date": "", "description": "Yakoreye ku ndangamuntu z'ibigo, ibishushanyo bya UI, ibyapa, n'ibikoresho byo kwamamaza." }
+    ],
+    "achievementsList": [
+      "Yubatse sisitemu nyinshi z'isi nyayo (School MIS, SIMS, PSSMS, Student Portals).",
+      "Yashoboye guhuza neza imiyoboro ya backend-frontend mu mishinga myinshi.",
+      "Yateje imbere ubumenyi binyuze mu mahugurwa y'umwuga aturuka kuri Cyberu.",
+      "Yamenyekanye ku bwitange, imyitwarire, n'ubunyamwuga mu bwubatsi bwa porogaramu."
+    ],
+    "skills": {
+      "Frontend": ["React.js", "Next.js", "Tailwind CSS", "Framer Motion", "Typewriter Effects"],
+      "Backend": ["Node.js", "Express.js", "PHP", "MySQL", "MongoDB"],
+      "Mobile Development": ["Flutter", "Dart"],
+      "Tools": ["DBeaver", "DataGrip", "MySQL Workbench", "Git & GitHub"],
+      "Other Skills": ["Gushushanya", "Gukorera kure", "Gukemura ibibazo", "Kuvuga Icyongereza neza"]
+    },
+    "projectsList": [
+      { "title": "Sisitemu y'Irembo ry'Amaresitora", "description": "Yubatse irembo ryuzuye rihuzwa n'Irembo ry'Abanyeshuri risanzweho. Ibikubiyemo: kwiyandikisha kwa resitora, gucunga abafatanyabikorwa, gushakisha amakode, isesengura ry'imbonerahamwe, n'urwego rwa serivisi rwa API y'ikitegererezo ikoresheje uburyo bwa adaptateri." },
+      { "title": "Irembo ry'Abanyeshuri & Imigaragarire y'Ikarita y'Ifunguro y'Ikoranabuhanga", "description": "Yashushanyije kunoza imigaragarire n'imikorere y'imbonerahamwe. Yongereyeho incamake yoroheje y'ifunguro no gukurikirana ifunguro ry'umunyeshuri mu gihe nyacyo." },
+      { "title": "Sisitemu zo Gucunga Amashuri", "description": "Iterambere rya Backend & Frontend hakoreshejwe Node.js, PHP, MySQL, React. Imishinga ikubiyemo: Sisitemu y'Raporo y'Iterambere ry'Umunyeshuri, Module z'Ubwitabire & Isuzuma." },
+      { "title": "Sisitemu yo Gucunga Imyanya yo Guhagarara (PSSMS)", "description": "Gucunga Amakuru y'Abanyeshuri na MongoDB." },
+      { "title": "Sisitemu yo Gusuzuma Abahugurwa muri GIKONKO TSS", "description": "Hakoreshejwe PHP + Tailwind CSS." },
+      { "title": "Sisitemu yo Gucunga Ibikoresho mu Bubiko (SIMS)", "description": "Yubatse API yuzuye ya backend ya Node.js ifite ibice by'imashini, kwinjiza/gusohora mu bubiko, kwemeza umuyobozi, imbonerahamwe, n'ibikorwa byo gutanga raporo." },
+      { "title": "API yo Gucunga Imirimo (Node.js + JWT + MySQL)", "description": "Yashyize mu bikorwa ibikorwa bya CRUD, kwemeza, no kugenzura uburenganzira bushingiye ku nshingano ku munyeshuri." },
+      { "title": "Ibigana Imbuga Nkoranyambaga (React)", "description": "Yubatse porogaramu imeze nka Facebook ifite kwemeza, imyirondoro, ibigezweho, no guhanga inyandiko." },
+      { "title": "Porofofolio ya Next.js Interineti", "description": "Yubatswe n'imihindagurikire, Framer Motion, n'uburyo bwiza bwa UI." },
+      { "title": "Imishinga ya Blockchain & Solidity", "description": "Iterambere ry'amasezerano y'ubwenge, Ibishingiro bya porogaramu yegerejwe abaturage, Imiterere yo kwemeza ya Web3." }
+    ],
+    "educationList": [
+      "Impamyabumenyi ya Python — Cambridge (UK)",
+      "Amasomo ya Node.js kuri interineti — Simple Learning",
+      "Solidity & Blockchain (Umutangizi → Impuguke) — Rise In Community",
+      "Impamyabumenyi ya Flutter — Great Learning",
+      "Module za TVET Rwanda: Iterambere rya Database ya NoSQL (SWDND501), Ibishingiro by'Porogaramu ya Blockchain (SWDFB501)"
+    ],
+    "languagesList": ["Icyongereza", "Ikinyarwanda"],
+    "interestsList": ["Iterambere ry'Urubuga & Mobile", "Blockchain & Web3", "UI/UX & Gushushanya", "Imishinga ya Open-Source", "Kwigira ubudahwema"]
+  }
+}

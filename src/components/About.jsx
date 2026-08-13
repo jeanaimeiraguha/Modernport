@@ -227,8 +227,8 @@ export default function About() {
                     {v.icon}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{v.title}</p>
-                    <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{v.desc}</p>
+                    <p className="text-base font-semibold mb-1.5" style={{ color: 'var(--text-primary)' }}>{v.title}</p>
+                    <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{v.desc}</p>
                   </div>
                 </motion.div>
               </FadeUp>

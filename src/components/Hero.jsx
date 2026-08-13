@@ -299,7 +299,7 @@ export default function Hero() {
               }}
             >
               <img
-                src="/images/profile/aime-headshot.png"
+                src="/images/profile/aime-headshot.jpg"
                 alt="Jean Aime Iraguha"
                 className="w-full h-full object-cover"
                 style={{ objectPosition: 'center' }}

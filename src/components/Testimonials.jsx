@@ -98,7 +98,7 @@ export default function Testimonials() {
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-sm" style={{ color: 'var(--text-primary)' }}>{t.name}</p>
+                    <p className="font-display font-bold text-base" style={{ color: 'var(--text-primary)' }}>{t.name}</p>
                     <p className="text-xs mt-0.5 truncate" style={{ color: 'var(--text-muted)' }}>{t.role}</p>
                   </div>
 

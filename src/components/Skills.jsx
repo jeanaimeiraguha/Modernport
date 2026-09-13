@@ -129,13 +129,13 @@ export default function Skills() {
                     {domain.icon}
                   </div>
                   <div>
-                    <p className="text-sm font-bold" style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
+                    <p className="font-display text-lg font-bold" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
                       {domain.label}
                     </p>
-                    <p className="text-xs" style={{ color: domain.color }}>{domain.headline}</p>
+                    <p className="text-sm" style={{ color: domain.color }}>{domain.headline}</p>
                   </div>
                 </div>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                   {domain.desc}
                 </p>
               </div>

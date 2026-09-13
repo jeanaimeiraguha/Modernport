@@ -1,22 +1,27 @@
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt, FaArrowRight } from 'react-icons/fa';
-import { SectionHeader, Badge, stagger } from './motion';
+import { SectionHeader, Badge, stagger, useTilt, Spotlight } from './motion';
 import { PROJECTS } from './data';
 
 function HeroProjectCard({ project }) {
+  const { tiltStyle, tiltHandlers, glow } = useTilt(3);
+
   return (
     <motion.div
       variants={{
         hidden: { opacity: 0, y: 28 },
         show:   { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16,1,0.3,1] } },
       }}
+      {...tiltHandlers}
       className="relative rounded-xl overflow-hidden group"
-      style={{ border: '1px solid var(--border)' }}
-      whileHover={{ borderColor: 'rgba(99,102,241,0.35)' }}
+      style={{ ...tiltStyle, border: '1px solid var(--border)' }}
+      whileHover={{ borderColor: 'rgba(20,184,166,0.35)' }}
       transition={{ duration: 0.2 }}
     >
+      <Spotlight glow={glow} size={560} />
+
       {/* Image */}
-      <div className="relative h-52 sm:h-60 overflow-hidden">
+      <div className="relative z-10 h-52 sm:h-60 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
@@ -47,7 +52,7 @@ function HeroProjectCard({ project }) {
       </div>
 
       {/* Content */}
-      <div className="p-7 sm:p-8" style={{ background: 'var(--bg-card)' }}>
+      <div className="relative z-10 p-7 sm:p-8" style={{ background: 'var(--bg-card)' }}>
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div className="flex-1">
             <h3
@@ -81,19 +86,24 @@ function HeroProjectCard({ project }) {
 }
 
 function ProjectCard({ project }) {
+  const { tiltStyle, tiltHandlers, glow } = useTilt(5);
+
   return (
     <motion.div
       variants={{
         hidden: { opacity: 0, y: 24 },
         show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16,1,0.3,1] } },
       }}
+      {...tiltHandlers}
       className="group relative flex flex-col rounded-xl overflow-hidden"
-      style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}
-      whileHover={{ y: -4, borderColor: 'rgba(99,102,241,0.3)' }}
+      style={{ ...tiltStyle, background: 'var(--bg-card)', border: '1px solid var(--border)' }}
+      whileHover={{ y: -4, borderColor: 'rgba(20,184,166,0.3)' }}
       transition={{ duration: 0.25 }}
     >
+      <Spotlight glow={glow} size={320} />
+
       {/* Image */}
-      <div className="relative h-40 overflow-hidden">
+      <div className="relative z-10 h-40 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
@@ -108,7 +118,7 @@ function ProjectCard({ project }) {
         <div className="absolute top-3 left-3">
           <span
             className="text-[9px] font-semibold tracking-[0.1em] uppercase px-2.5 py-1 rounded-full"
-            style={{ background: 'rgba(99,102,241,0.85)', color: '#fff' }}
+            style={{ background: 'rgba(20,184,166,0.85)', color: '#fff' }}
           >
             {project.category}
           </span>
@@ -126,7 +136,7 @@ function ProjectCard({ project }) {
       </div>
 
       {/* Content */}
-      <div className="p-5 flex flex-col flex-1">
+      <div className="relative z-10 p-5 flex flex-col flex-1">
         <h3
           className="font-display font-bold mb-2"
           style={{ fontSize: '1rem', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}
@@ -148,8 +158,12 @@ export default function Projects() {
   const [hero, ...rest] = PROJECTS;
 
   return (
-    <section id="projects" className="py-20 sm:py-32" style={{ background: 'var(--bg-surface)' }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="projects" className="relative py-20 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
+      <div
+        className="orb animate-orb"
+        style={{ top: '10%', right: '-10%', width: 460, height: 460, background: 'radial-gradient(circle, rgba(20,184,166,0.1), transparent 70%)' }}
+      />
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeader
           label="Projects"
           heading="Things I've built"

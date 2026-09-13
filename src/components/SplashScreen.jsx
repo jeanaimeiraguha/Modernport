@@ -27,10 +27,10 @@ const S = {
   textPrimary: '#0d0d1a',
   textMuted:   '#9ca3af',
   textSub:     '#6b7280',
-  accent:      '#4f46e5',
-  accentSoft:  '#818cf8',
+  accent:      '#0d9488',
+  accentSoft:  '#2dd4bf',
   border:      'rgba(0,0,0,0.07)',
-  gridLine:    'rgba(79,70,229,0.05)',
+  gridLine:    'rgba(13,148,136,0.05)',
 };
 
 export default function SplashScreen({ onDone }) {
@@ -121,7 +121,7 @@ export default function SplashScreen({ onDone }) {
             style={{
               top: '-10%', right: '-5%',
               width: 480, height: 480,
-              background: 'radial-gradient(circle, rgba(79,70,229,0.07) 0%, transparent 65%)',
+              background: 'radial-gradient(circle, rgba(13,148,136,0.07) 0%, transparent 65%)',
               filter: 'blur(80px)',
             }}
           />
@@ -143,7 +143,7 @@ export default function SplashScreen({ onDone }) {
               animate={{ y: 0 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
               style={{
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'Plus Jakarta Sans, sans-serif',
                 fontSize: '10px',
                 letterSpacing: '0.28em',
                 textTransform: 'uppercase',
@@ -161,7 +161,7 @@ export default function SplashScreen({ onDone }) {
               animate={{ y: 0 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
               style={{
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'Plus Jakarta Sans, sans-serif',
                 fontSize: '10px',
                 letterSpacing: '0.28em',
                 textTransform: 'uppercase',
@@ -196,7 +196,7 @@ export default function SplashScreen({ onDone }) {
                     fontVariantNumeric: 'tabular-nums',
                     userSelect: 'none',
                     /* Very subtle shadow for depth on white */
-                    textShadow: '0 2px 40px rgba(79,70,229,0.08)',
+                    textShadow: '0 2px 40px rgba(13,148,136,0.08)',
                   }}
                 >
                   {String(count).padStart(2, '0')}
@@ -271,7 +271,7 @@ export default function SplashScreen({ onDone }) {
               </div>
               <p
                 style={{
-                  fontFamily: 'Inter, monospace',
+                  fontFamily: 'JetBrains Mono, monospace',
                   fontSize: '11px',
                   color: S.textMuted,
                   letterSpacing: '0.06em',
@@ -289,7 +289,7 @@ export default function SplashScreen({ onDone }) {
           {/* ── Skip button ── */}
           <motion.button
             className="absolute bottom-10 right-8 sm:right-12 z-20 text-[10px] tracking-[0.2em] uppercase flex items-center gap-2"
-            style={{ color: S.textMuted, fontFamily: 'Inter, sans-serif', cursor: 'pointer' }}
+            style={{ color: S.textMuted, fontFamily: 'Plus Jakarta Sans, sans-serif', cursor: 'pointer' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}

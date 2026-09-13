@@ -160,7 +160,7 @@ export default function ChatBot() {
       <motion.button
         onClick={() => setOpen((o) => !o)}
         className="fixed bottom-6 right-6 z-[200] w-14 h-14 rounded-full overflow-hidden shadow-xl flex items-center justify-center"
-        style={{ background: '#6366f1' }}
+        style={{ background: '#14b8a6' }}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.94 }}
         aria-label="Chat with Jean Aime"
@@ -203,7 +203,7 @@ export default function ChatBot() {
             style={{
               width: 'min(360px, calc(100vw - 24px))',
               maxHeight: '72vh',
-              background: '#0f0f18',
+              background: '#071322',
               boxShadow: '0 20px 60px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.04) inset',
               border: '1px solid rgba(255,255,255,0.07)',
             }}
@@ -211,7 +211,7 @@ export default function ChatBot() {
             {/* ── Header ── */}
             <div
               className="flex items-center gap-3 px-4 py-3 shrink-0"
-              style={{ background: '#13131f', borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+              style={{ background: '#0b1a2c', borderBottom: '1px solid rgba(255,255,255,0.06)' }}
             >
               {/* Avatar */}
               <div className="relative shrink-0">
@@ -219,7 +219,7 @@ export default function ChatBot() {
                   src="/images/profile/aime picture.jpeg"
                   alt="Jean Aime"
                   className="w-10 h-10 rounded-full object-cover"
-                  style={{ border: '2px solid rgba(99,102,241,0.4)' }}
+                  style={{ border: '2px solid rgba(20,184,166,0.4)' }}
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     e.currentTarget.nextSibling.style.display = 'flex';
@@ -228,20 +228,20 @@ export default function ChatBot() {
                 {/* Fallback initials */}
                 <div
                   className="w-10 h-10 rounded-full items-center justify-center text-sm font-bold text-white"
-                  style={{ background: '#6366f1', display: 'none' }}
+                  style={{ background: '#14b8a6', display: 'none' }}
                 >
                   JA
                 </div>
                 {/* Online dot */}
                 <span
                   className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full"
-                  style={{ background: '#22c55e', border: '2px solid #13131f' }}
+                  style={{ background: '#22c55e', border: '2px solid #0b1a2c' }}
                 />
               </div>
 
               {/* Name + status */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold leading-tight" style={{ color: '#f1f5f9' }}>
+                <p className="text-sm font-semibold leading-tight" style={{ color: '#eaf3f3' }}>
                   Jean Aime Iraguha
                 </p>
                 <p className="text-[11px] mt-0.5" style={{ color: '#22c55e' }}>
@@ -253,7 +253,7 @@ export default function ChatBot() {
               <button
                 onClick={() => setOpen(false)}
                 className="w-8 h-8 rounded-full flex items-center justify-center transition-colors shrink-0"
-                style={{ color: '#475569' }}
+                style={{ color: '#5b7086' }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.06)')}
                 onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
               >
@@ -264,12 +264,12 @@ export default function ChatBot() {
             {/* ── Messages ── */}
             <div
               className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-1"
-              style={{ minHeight: 0, scrollbarWidth: 'thin', scrollbarColor: '#1e1e2e transparent' }}
+              style={{ minHeight: 0, scrollbarWidth: 'thin', scrollbarColor: '#123246 transparent' }}
             >
               {/* Date separator */}
               <div className="flex items-center gap-3 mb-3">
                 <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
-                <span className="text-[10px] px-2" style={{ color: '#334155' }}>Today</span>
+                <span className="text-[10px] px-2" style={{ color: '#3f5468' }}>Today</span>
                 <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
               </div>
 
@@ -301,7 +301,7 @@ export default function ChatBot() {
                         )}
                         <div
                           className="w-6 h-6 rounded-full items-center justify-center text-[9px] font-bold text-white"
-                          style={{ background: '#6366f1', display: 'none' }}
+                          style={{ background: '#14b8a6', display: 'none' }}
                         >
                           JA
                         </div>
@@ -314,13 +314,13 @@ export default function ChatBot() {
                         style={
                           isBot
                             ? {
-                                background: '#1c1c2e',
-                                color: '#cbd5e1',
+                                background: '#0b1a2c',
+                                color: '#c3d6da',
                                 borderRadius: '18px 18px 18px 4px',
                                 border: '1px solid rgba(255,255,255,0.05)',
                               }
                             : {
-                                background: '#6366f1',
+                                background: '#14b8a6',
                                 color: '#fff',
                                 borderRadius: '18px 18px 4px 18px',
                               }
@@ -331,10 +331,10 @@ export default function ChatBot() {
 
                       {/* Timestamp + read receipt */}
                       {(!msgs[i + 1] || msgs[i + 1].from !== m.from) && (
-                        <div className="flex items-center gap-1 px-1" style={{ color: '#334155' }}>
+                        <div className="flex items-center gap-1 px-1" style={{ color: '#3f5468' }}>
                           <span className="text-[10px]">{m.time}</span>
                           {!isBot && (
-                            <span className="text-[10px]" style={{ color: '#6366f1' }}>✓✓</span>
+                            <span className="text-[10px]" style={{ color: '#14b8a6' }}>✓✓</span>
                           )}
                         </div>
                       )}
@@ -358,14 +358,14 @@ export default function ChatBot() {
                     />
                     <div
                       className="flex items-center gap-1 px-4 py-3"
-                      style={{ background: '#1c1c2e', borderRadius: '18px 18px 18px 4px', border: '1px solid rgba(255,255,255,0.05)' }}
+                      style={{ background: '#0b1a2c', borderRadius: '18px 18px 18px 4px', border: '1px solid rgba(255,255,255,0.05)' }}
                     >
                       {[0, 0.18, 0.36].map((d, i) => (
                         <motion.span
                           key={i}
                           className="block w-1.5 h-1.5 rounded-full"
-                          style={{ background: '#475569' }}
-                          animate={{ y: [0, -4, 0], background: ['#475569', '#818cf8', '#475569'] }}
+                          style={{ background: '#5b7086' }}
+                          animate={{ y: [0, -4, 0], background: ['#5b7086', '#2dd4bf', '#5b7086'] }}
                           transition={{ duration: 0.65, delay: d, repeat: Infinity }}
                         />
                       ))}
@@ -387,7 +387,7 @@ export default function ChatBot() {
                   className="px-4 pb-3 flex gap-2 flex-wrap shrink-0 overflow-hidden"
                   style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}
                 >
-                  <p className="w-full text-[10px] pt-2.5 pb-1" style={{ color: '#334155' }}>Suggested</p>
+                  <p className="w-full text-[10px] pt-2.5 pb-1" style={{ color: '#3f5468' }}>Suggested</p>
                   {QUICK_REPLIES.map((q) => (
                     <button
                       key={q}
@@ -395,10 +395,10 @@ export default function ChatBot() {
                       className="text-[11.5px] font-medium px-3 py-1.5 rounded-full transition-all"
                       style={{
                         background: 'transparent',
-                        color: '#818cf8',
-                        border: '1px solid rgba(99,102,241,0.3)',
+                        color: '#2dd4bf',
+                        border: '1px solid rgba(20,184,166,0.3)',
                       }}
-                      onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(99,102,241,0.1)'; }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(20,184,166,0.1)'; }}
                       onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
                     >
                       {q}
@@ -411,7 +411,7 @@ export default function ChatBot() {
             {/* ── Input ── */}
             <div
               className="flex items-center gap-2.5 px-4 py-3 shrink-0"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: '#0f0f18' }}
+              style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: '#071322' }}
             >
               <input
                 ref={inputRef}
@@ -420,13 +420,13 @@ export default function ChatBot() {
                 onKeyDown={handleKey}
                 placeholder="Message Jean Aime…"
                 className="flex-1 text-[13.5px] outline-none bg-transparent"
-                style={{ color: '#e2e8f0' }}
+                style={{ color: '#dcecec' }}
               />
               <motion.button
                 onClick={() => send(input)}
                 disabled={!input.trim() || typing}
                 className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 disabled:opacity-30"
-                style={{ background: input.trim() ? '#6366f1' : 'rgba(99,102,241,0.2)' }}
+                style={{ background: input.trim() ? '#14b8a6' : 'rgba(20,184,166,0.2)' }}
                 whileHover={input.trim() ? { scale: 1.1 } : {}}
                 whileTap={input.trim() ? { scale: 0.9 } : {}}
               >

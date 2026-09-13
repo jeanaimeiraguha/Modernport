@@ -36,20 +36,20 @@ function Counter({ target, suffix = '' }) {
 }
 
 const STATS = [
-  { value: '4',  suffix: '+', label: 'Years experience', color: '#6366f1' },
-  { value: '50', suffix: '+', label: 'Projects shipped',  color: '#a78bfa' },
+  { value: '4',  suffix: '+', label: 'Years experience', color: '#14b8a6' },
+  { value: '50', suffix: '+', label: 'Projects shipped',  color: '#38bdf8' },
   { value: '30', suffix: '+', label: 'Clients & partners', color: '#22d3ee' },
   { value: '1',  suffix: '',  label: 'Startup as CTO',    color: '#f59e0b' },
 ];
 
 const VALUE_PROPS = [
   {
-    icon: <FaRocket size={14} />, color: '#6366f1',
+    icon: <FaRocket size={14} />, color: '#14b8a6',
     title: 'Ships fast without breaking things',
     desc: 'From zero to production in weeks, not months. I\'ve built entire platforms solo and led teams to do the same.',
   },
   {
-    icon: <FaBrain size={14} />, color: '#a78bfa',
+    icon: <FaBrain size={14} />, color: '#38bdf8',
     title: 'Full-stack depth across 6 domains',
     desc: 'Web, mobile, AI/ML, blockchain, DevOps, computer vision — production code in every one of these areas.',
   },

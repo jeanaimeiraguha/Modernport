@@ -11,8 +11,8 @@ export default function ParticleCanvas({ phase, light = false }) {
 
   // Colour palette based on mode
   const C = light
-    ? { globe: '79,70,229', particle: '100,116,139', connect: '79,70,229' }
-    : { globe: '99,102,241', particle: '148,163,184', connect: '99,102,241' };
+    ? { globe: '13,148,136', particle: '100,116,139', connect: '13,148,136' }
+    : { globe: '20,184,166', particle: '148,163,184', connect: '20,184,166' };
 
   useEffect(() => {
     const canvas = canvasRef.current;

@@ -30,8 +30,12 @@ export default function Testimonials() {
   const t = TESTIMONIALS[active];
 
   return (
-    <section id="testimonials" className="py-20 sm:py-28" style={{ background: 'var(--bg-base)' }}>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+    <section id="testimonials" className="relative py-20 sm:py-28 overflow-hidden" style={{ background: 'var(--bg-base)' }}>
+      <div
+        className="orb animate-orb"
+        style={{ top: '-10%', left: '50%', transform: 'translateX(-50%)', width: 520, height: 300, background: 'radial-gradient(ellipse, rgba(20,184,166,0.09), transparent 70%)' }}
+      />
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
 
         <SectionHeader
           label="Testimonials"
@@ -167,7 +171,7 @@ export default function Testimonials() {
                 onClick={() => go(i)}
                 className="shrink-0 flex items-center gap-2 px-2.5 sm:px-3 py-2 rounded-xl transition-all"
                 style={{
-                  background: i === active ? 'rgba(99,102,241,0.1)' : 'var(--bg-surface)',
+                  background: i === active ? 'rgba(20,184,166,0.1)' : 'var(--bg-surface)',
                   border: `1px solid ${i === active ? 'var(--accent)' : 'var(--border)'}`,
                 }}
               >

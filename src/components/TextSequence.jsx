@@ -3,21 +3,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 const SEQUENCES_DARK = [
   { id: 0, text: 'Technology never stops evolving.',                          size: 'clamp(1.1rem, 3.5vw, 2rem)',   color: '#8892aa' },
   { id: 1, text: 'The world changes every second.',                           size: 'clamp(1.1rem, 3.5vw, 2rem)',   color: '#8892aa' },
-  { id: 2, text: 'Artificial Intelligence is reshaping\nthe future.',         size: 'clamp(1.2rem, 4vw, 2.4rem)',   color: '#a78bfa' },
+  { id: 2, text: 'Artificial Intelligence is reshaping\nthe future.',         size: 'clamp(1.2rem, 4vw, 2.4rem)',   color: '#38bdf8' },
   { id: 3, text: 'Developers must evolve\nwith innovation.',                  size: 'clamp(1.2rem, 4vw, 2.4rem)',   color: '#eef0f8' },
   { id: 4, text: 'Building intelligent\ndigital experiences.',                size: 'clamp(1.3rem, 4.5vw, 2.8rem)', color: '#eef0f8' },
   { id: 5, text: 'IRAGUHA Jean Aime',                                         size: 'clamp(2rem, 7vw, 4.5rem)',     color: '#eef0f8', bold: true },
-  { id: 6, text: 'Software Engineer  ·  Creative Developer  ·  Problem Solver', size: 'clamp(0.75rem, 2vw, 1rem)', color: '#6366f1', spacing: true },
+  { id: 6, text: 'Software Engineer  ·  Creative Developer  ·  Problem Solver', size: 'clamp(0.75rem, 2vw, 1rem)', color: '#14b8a6', spacing: true },
 ];
 
 const SEQUENCES_LIGHT = [
   { id: 0, text: 'Technology never stops evolving.',                          size: 'clamp(1.1rem, 3.5vw, 2rem)',   color: '#6b7280' },
   { id: 1, text: 'The world changes every second.',                           size: 'clamp(1.1rem, 3.5vw, 2rem)',   color: '#6b7280' },
-  { id: 2, text: 'Artificial Intelligence is reshaping\nthe future.',         size: 'clamp(1.2rem, 4vw, 2.4rem)',   color: '#4f46e5' },
+  { id: 2, text: 'Artificial Intelligence is reshaping\nthe future.',         size: 'clamp(1.2rem, 4vw, 2.4rem)',   color: '#0d9488' },
   { id: 3, text: 'Developers must evolve\nwith innovation.',                  size: 'clamp(1.2rem, 4vw, 2.4rem)',   color: '#0d0d1a' },
   { id: 4, text: 'Building intelligent\ndigital experiences.',                size: 'clamp(1.3rem, 4.5vw, 2.8rem)', color: '#0d0d1a' },
   { id: 5, text: 'IRAGUHA Jean Aime',                                         size: 'clamp(2rem, 7vw, 4.5rem)',     color: '#0d0d1a', bold: true },
-  { id: 6, text: 'Software Engineer  ·  Creative Developer  ·  Problem Solver', size: 'clamp(0.75rem, 2vw, 1rem)', color: '#4f46e5', spacing: true },
+  { id: 6, text: 'Software Engineer  ·  Creative Developer  ·  Problem Solver', size: 'clamp(0.75rem, 2vw, 1rem)', color: '#0d9488', spacing: true },
 ];
 
 const wordVariants = {
@@ -34,7 +34,7 @@ export default function TextSequence({ phase, light = false }) {
   const seqIndex  = phase - 1;
   const seq       = SEQUENCES[seqIndex];
 
-  const accentLine = light ? '#4f46e5' : '#6366f1';
+  const accentLine = light ? '#0d9488' : '#14b8a6';
 
   return (
     <div className="absolute inset-0 flex items-center justify-center px-8 sm:px-16 pointer-events-none">
@@ -62,7 +62,7 @@ export default function TextSequence({ phase, light = false }) {
                       animate="show"
                       exit="exit"
                       style={{
-                        fontFamily:    seq.bold ? 'Space Grotesk, sans-serif' : 'Inter, sans-serif',
+                        fontFamily:    seq.bold ? 'Space Grotesk, sans-serif' : 'Plus Jakarta Sans, sans-serif',
                         fontWeight:    seq.bold ? 700 : 400,
                         fontSize:      seq.size,
                         color:         seq.color,

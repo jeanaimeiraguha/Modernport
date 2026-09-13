@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes, FaFileAlt } from 'react-icons/fa';
-import { HiSun, HiMoon } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { NAV_LINKS } from './data';
-import { useTheme } from '../ThemeContext';
+import { useMagnetic } from './motion';
+import CommandPalette from './CommandPalette';
 
 const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
@@ -12,7 +12,7 @@ export default function Navbar() {
   const [open, setOpen]        = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive]    = useState('');
-  const { theme, toggleTheme } = useTheme();
+  const magnetic = useMagnetic(0.35);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -32,7 +32,7 @@ export default function Navbar() {
 
   const handleNav = (id) => { scrollTo(id); setOpen(false); };
 
-  const bg = theme === 'dark' ? 'rgba(8,8,16,0.95)' : 'rgba(248,248,252,0.95)';
+  const bg = 'rgba(8,8,16,0.95)';
 
   return (
     <>
@@ -81,7 +81,7 @@ export default function Navbar() {
                       className="relative px-3 py-1.5 text-sm font-medium capitalize rounded-lg"
                       style={{
                         color:      isActive ? 'var(--accent)' : 'var(--text-muted)',
-                        background: isActive ? 'rgba(99,102,241,0.07)' : 'transparent',
+                        background: isActive ? 'rgba(20,184,166,0.07)' : 'transparent',
                         transition: 'color 0.2s ease, background 0.2s ease',
                       }}
                       onMouseEnter={(e) => {
@@ -101,6 +101,9 @@ export default function Navbar() {
             {/* Right controls */}
             <div className="flex items-center gap-2 shrink-0">
 
+              {/* Command palette */}
+              <CommandPalette />
+
               {/* Available badge */}
               <div
                 className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium"
@@ -113,23 +116,6 @@ export default function Navbar() {
                 <span className="glow-dot" />
                 Available
               </div>
-
-              {/* Theme toggle */}
-              <button
-                onClick={toggleTheme}
-                className="w-8 h-8 rounded-lg flex items-center justify-center"
-                style={{
-                  background: 'var(--bg-elevated)',
-                  border:     '1px solid var(--border)',
-                  color:      'var(--text-secondary)',
-                  transition: 'border-color 0.2s ease',
-                }}
-                aria-label="Toggle theme"
-                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
-                onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border)')}
-              >
-                {theme === 'dark' ? <HiSun size={14} /> : <HiMoon size={14} />}
-              </button>
 
               {/* CV */}
               <Link
@@ -147,18 +133,20 @@ export default function Navbar() {
               </Link>
 
               {/* Hire me */}
-              <button
+              <motion.button
                 onClick={() => handleNav('contact')}
+                {...magnetic.handlers}
                 className="hidden md:block text-xs font-semibold px-4 py-1.5 rounded-lg text-white"
                 style={{
                   background: 'var(--accent)',
                   transition: 'opacity 0.2s ease',
+                  ...magnetic.style,
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; magnetic.handlers.onMouseLeave(e); }}
               >
                 Hire me
-              </button>
+              </motion.button>
 
               {/* Hamburger */}
               <button
@@ -197,7 +185,7 @@ export default function Navbar() {
                     className="text-sm capitalize text-left px-3 py-2.5 rounded-lg"
                     style={{
                       color:      active === l ? 'var(--accent)' : 'var(--text-secondary)',
-                      background: active === l ? 'rgba(99,102,241,0.07)' : 'transparent',
+                      background: active === l ? 'rgba(20,184,166,0.07)' : 'transparent',
                     }}
                   >
                     {l}

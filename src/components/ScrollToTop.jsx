@@ -49,7 +49,7 @@ export default function ScrollNavigator() {
             onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = 'var(--accent)';
               e.currentTarget.style.color       = 'var(--accent)';
-              e.currentTarget.style.background  = 'rgba(99,102,241,0.06)';
+              e.currentTarget.style.background  = 'rgba(20,184,166,0.06)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = 'var(--border)';
@@ -72,7 +72,7 @@ export default function ScrollNavigator() {
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = 'var(--accent)';
                 e.currentTarget.style.color       = 'var(--accent)';
-                e.currentTarget.style.background  = 'rgba(99,102,241,0.06)';
+                e.currentTarget.style.background  = 'rgba(20,184,166,0.06)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = 'var(--border)';

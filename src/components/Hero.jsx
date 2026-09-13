@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FaLinkedin, FaGithub, FaWhatsapp, FaArrowRight, FaDownload } from 'react-icons/fa';
 import GlobeCanvas from './GlobeCanvas';
+import WaveField from './WaveField';
+import StarField from './StarField';
+import CodeWindow from './CodeWindow';
+import { useMagnetic } from './motion';
 
 const ROLES = [
   'Full-Stack Engineer',
@@ -42,6 +46,7 @@ const item = (delay) => ({
 
 export default function Hero() {
   const role = useTypewriter(ROLES);
+  const magnetic = useMagnetic(0.3);
 
   const mouseX  = useMotionValue(0);
   const mouseY  = useMotionValue(0);
@@ -65,8 +70,36 @@ export default function Hero() {
       className="relative flex items-center overflow-hidden"
       style={{ background: 'var(--bg-base)', minHeight: '100vh' }}
     >
+      {/* Deep gradient wash — lifts flat navy into a richer, bertin-style depth */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 1100px 700px at 85% -5%, rgba(20,90,150,0.35), transparent 60%), ' +
+            'radial-gradient(ellipse 900px 600px at 100% 100%, rgba(20,120,110,0.22), transparent 60%)',
+        }}
+      />
+
       {/* Subtle grid */}
       <div className="absolute inset-0 grid-bg pointer-events-none" style={{ opacity: 0.18 }} />
+
+      {/* Star field — upper reaches of the hero */}
+      <StarField count={32} className="hidden sm:block" />
+
+      {/* Flowing wave-grid — the "advanced" signature layer, bottom half */}
+      <div className="absolute inset-x-0 bottom-0 pointer-events-none" style={{ height: '62%' }}>
+        <WaveField color="45,212,191" opacity={0.9} />
+      </div>
+
+      {/* Ambient glow orbs — depth behind the globe/portrait */}
+      <div
+        className="orb animate-orb hidden sm:block"
+        style={{ top: '18%', right: '8%', width: 460, height: 460, background: 'radial-gradient(circle, rgba(20,184,166,0.22), transparent 70%)' }}
+      />
+      <div
+        className="orb animate-orb hidden sm:block"
+        style={{ bottom: '8%', right: '20%', width: 320, height: 320, background: 'radial-gradient(circle, rgba(167,139,250,0.16), transparent 70%)', animationDelay: '-7s' }}
+      />
 
       {/* Globe — centered on the right half, clearly visible */}
       <div
@@ -74,15 +107,15 @@ export default function Hero() {
         style={{
           top:    '50%',
           right:  '2%',
-          width:  560,
-          height: 560,
+          width:  620,
+          height: 620,
           transform: 'translateY(-50%)',
         }}
       >
-        <GlobeCanvas opacity={0.32} size={0.46} />
+        <GlobeCanvas opacity={0.4} size={0.46} />
       </div>
 
-      {/* Gradient mask — fades globe where it meets the text */}
+      {/* Gradient mask — fades effects where they meet the text */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -127,21 +160,21 @@ export default function Hero() {
             {...item(0.1)}
             className="font-display font-bold mb-4"
             style={{
-              fontSize:      'clamp(2.6rem, 6vw, 4.5rem)',
+              fontSize:      'clamp(3rem, 6.6vw, 5.25rem)',
               color:         'var(--text-primary)',
               letterSpacing: '-0.04em',
               lineHeight:    1.0,
             }}
           >
             Jean Aime<br />
-            <span style={{ color: 'var(--accent)' }}>Iraguha</span>
+            <span className="gradient-text">Iraguha</span>
           </motion.h1>
 
           {/* Typewriter */}
           <motion.div {...item(0.16)} className="flex items-center gap-2 mb-5" style={{ height: 32 }}>
             <span
               className="font-display font-medium"
-              style={{ fontSize: '1.0625rem', color: 'var(--text-secondary)', letterSpacing: '-0.01em' }}
+              style={{ fontSize: '1.1875rem', color: 'var(--text-secondary)', letterSpacing: '-0.01em' }}
             >
               {role}
             </span>
@@ -157,7 +190,7 @@ export default function Hero() {
           <motion.p
             {...item(0.22)}
             className="leading-relaxed max-w-md mb-7"
-            style={{ fontSize: '0.9375rem', color: 'var(--text-secondary)' }}
+            style={{ fontSize: '1.0625rem', color: 'var(--text-secondary)' }}
           >
             I build software that solves real problems, scales under pressure, and{' '}
             <strong style={{ color: 'var(--text-primary)', fontWeight: 600 }}>stays reliable beyond the prototype.</strong>
@@ -190,12 +223,19 @@ export default function Hero() {
           <motion.div {...item(0.32)} className="flex flex-wrap gap-3 justify-center lg:justify-start mb-6">
             <motion.button
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              {...magnetic.handlers}
               className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl text-white"
-              style={{ background: 'var(--accent)' }}
-              whileHover={{ opacity: 0.88 }}
+              style={{ background: 'var(--gradient-brand)', ...magnetic.style, boxShadow: '0 8px 28px rgba(45,212,191,0.32)' }}
+              whileHover={{ opacity: 0.9 }}
               whileTap={{ scale: 0.97 }}
             >
-              View my work <FaArrowRight size={11} />
+              View my work
+              <span
+                className="inline-flex items-center justify-center rounded-full"
+                style={{ width: 18, height: 18, background: 'rgba(255,255,255,0.22)' }}
+              >
+                <FaArrowRight size={9} />
+              </span>
             </motion.button>
 
             <motion.button
@@ -212,7 +252,7 @@ export default function Hero() {
               href="/cv"
               className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl"
               style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }}
-              whileHover={{ borderColor: 'rgba(99,102,241,0.35)', color: 'var(--text-primary)' }}
+              whileHover={{ borderColor: 'rgba(20,184,166,0.35)', color: 'var(--text-primary)' }}
               whileTap={{ scale: 0.97 }}
             >
               <FaDownload size={11} /> Resume
@@ -253,10 +293,22 @@ export default function Hero() {
         >
           <div className="relative">
 
+            {/* Halo glow behind portrait — echoes the glow bertin uses behind its 3D object */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                inset: '-18%',
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(45,212,191,0.28) 0%, rgba(167,139,250,0.14) 45%, transparent 72%)',
+                filter: 'blur(28px)',
+                animation: 'pulse-slow 4.5s ease-in-out infinite',
+              }}
+            />
+
             {/* Slow rotating ring — desktop */}
             <motion.div
               className="absolute hidden lg:block rounded-full pointer-events-none"
-              style={{ inset: -16, border: '1px solid rgba(99,102,241,0.14)' }}
+              style={{ inset: -16, border: '1px solid rgba(20,184,166,0.14)' }}
               animate={{ rotate: 360 }}
               transition={{ duration: 44, repeat: Infinity, ease: 'linear' }}
             />
@@ -283,6 +335,9 @@ export default function Hero() {
                 style={{ objectPosition: 'center 8%' }}
               />
             </div>
+
+            {/* Floating code window — a literal "engineer" visual, echoing bertin's floating 3D object */}
+            <CodeWindow className="hidden lg:block" style={{ left: -140, bottom: 36 }} />
 
             {/* Available badge */}
             <motion.div

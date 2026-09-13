@@ -6,6 +6,7 @@ import CustomCursor  from './components/CustomCursor';
 import ScrollProgress from './components/ScrollProgress';
 import Navbar        from './components/Navbar';
 import Hero          from './components/Hero';
+import Roles         from './components/Roles';
 import About         from './components/About';
 import Skills        from './components/Skills';
 import Projects      from './components/Projects';
@@ -56,6 +57,7 @@ export default function PortfolioPage() {
             <Navbar />
             <main>
               <Hero />
+              <Roles />
               <About />
               <Skills />
               <Projects />

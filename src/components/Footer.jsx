@@ -13,7 +13,7 @@ export default function Footer() {
     <footer className="relative overflow-hidden" style={{ background: 'var(--bg-base)', borderTop: '1px solid var(--border)' }}>
       {/* Ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-24 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(99,102,241,0.08) 0%, transparent 70%)', filter: 'blur(30px)' }} />
+        style={{ background: 'radial-gradient(ellipse, rgba(20,184,166,0.08) 0%, transparent 70%)', filter: 'blur(30px)' }} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 relative z-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="flex items-center gap-2.5">
             <div
               className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, #6366f1, #4f46e5)', boxShadow: '0 0 12px rgba(99,102,241,0.3)' }}
+              style={{ background: 'linear-gradient(135deg, #14b8a6, #0d9488)', boxShadow: '0 0 12px rgba(20,184,166,0.3)' }}
             >
               <span className="font-display font-bold text-xs text-white">JA</span>
             </div>
@@ -68,7 +68,7 @@ export default function Footer() {
         {/* Bottom line */}
         <div className="mt-6 pt-5 flex items-center justify-center" style={{ borderTop: '1px solid var(--border)' }}>
           <p className="text-[11px] text-center" style={{ color: 'var(--text-muted)' }}>
-            Designed & built with{' '}
+            Built with{' '}
             <span style={{ color: 'var(--accent)' }}>React</span> ·{' '}
             <span style={{ color: 'var(--accent)' }}>Framer Motion</span> ·{' '}
             <span style={{ color: 'var(--accent)' }}>Tailwind CSS</span>

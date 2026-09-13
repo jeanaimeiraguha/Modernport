@@ -80,13 +80,21 @@ export default function Contact() {
     color: 'var(--text-primary)',
     outline: 'none',
     transition: 'border-color 0.2s',
-    boxShadow: focused === name && !errors[name] ? '0 0 0 3px rgba(99,102,241,0.08)' : 'none',
-    fontFamily: 'Inter, sans-serif',
+    boxShadow: focused === name && !errors[name] ? '0 0 0 3px rgba(20,184,166,0.08)' : 'none',
+    fontFamily: 'Plus Jakarta Sans, sans-serif',
   });
 
   return (
-    <section id="contact" className="py-20 sm:py-32" style={{ background: 'var(--bg-surface)' }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="contact" className="relative py-20 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
+      <div
+        className="orb animate-orb"
+        style={{ bottom: '-15%', left: '-8%', width: 480, height: 480, background: 'radial-gradient(circle, rgba(20,184,166,0.1), transparent 70%)' }}
+      />
+      <div
+        className="orb animate-orb"
+        style={{ top: '0%', right: '-8%', width: 360, height: 360, background: 'radial-gradient(circle, rgba(34,211,238,0.09), transparent 70%)', animationDelay: '-6s' }}
+      />
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeader
           label="Contact"
           heading={<>Ready to build<br />something great?</>}
@@ -122,7 +130,7 @@ export default function Contact() {
                   <button
                     onClick={() => setStatus('idle')}
                     className="text-sm font-medium px-5 py-2 rounded-lg"
-                    style={{ background: 'rgba(99,102,241,0.08)', color: 'var(--accent)', border: '1px solid rgba(99,102,241,0.18)' }}
+                    style={{ background: 'rgba(20,184,166,0.08)', color: 'var(--accent)', border: '1px solid rgba(20,184,166,0.18)' }}
                   >
                     Send another message
                   </button>
@@ -182,7 +190,7 @@ export default function Contact() {
           <FadeUp delay={0.2}>
             <div
               className="rounded-xl p-5 mb-5"
-              style={{ background: 'rgba(99,102,241,0.04)', border: '1px solid rgba(99,102,241,0.14)' }}
+              style={{ background: 'rgba(20,184,166,0.04)', border: '1px solid rgba(20,184,166,0.14)' }}
             >
               <div className="flex items-center gap-2 mb-2">
                 <span className="glow-dot" />
@@ -205,7 +213,7 @@ export default function Contact() {
                 >
                   <span
                     className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                    style={{ background: 'rgba(99,102,241,0.08)', color: ICON_COLORS[item.type] || 'var(--accent)' }}
+                    style={{ background: 'rgba(20,184,166,0.08)', color: ICON_COLORS[item.type] || 'var(--accent)' }}
                   >
                     {ICONS[item.type]}
                   </span>

@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SectionHeader, stagger, viewportOnce } from './motion';
+import { SectionHeader, stagger, viewportOnce, useTilt, Spotlight, hexToRgb } from './motion';
 import { DOMAINS } from './data';
+import TechTree from './TechTree';
 
 function DomainCard({ domain, index, isActive, onClick }) {
+  const { tiltStyle, tiltHandlers, glow } = useTilt(6);
+
   return (
     <motion.div
       variants={{
@@ -12,14 +15,18 @@ function DomainCard({ domain, index, isActive, onClick }) {
       }}
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       onClick={onClick}
+      {...tiltHandlers}
       className="relative rounded-xl p-6 cursor-pointer overflow-hidden"
       style={{
+        ...tiltStyle,
         background: isActive ? `${domain.color}0c` : 'var(--bg-card)',
         border: `1px solid ${isActive ? domain.color + '45' : 'var(--border)'}`,
         transition: 'border-color 0.25s ease, background 0.25s ease',
       }}
     >
-      <div className="flex items-start justify-between mb-5">
+      <Spotlight glow={glow} color={hexToRgb(domain.color)} />
+
+      <div className="relative z-10 flex items-start justify-between mb-5">
         <span className="text-2xl font-bold select-none" style={{ color: domain.color }}>
           {domain.icon}
         </span>
@@ -31,15 +38,15 @@ function DomainCard({ domain, index, isActive, onClick }) {
         </span>
       </div>
 
-      <p className="text-sm font-bold mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
+      <p className="relative z-10 font-display text-lg font-bold mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
         {domain.label}
       </p>
-      <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+      <p className="relative z-10 text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
         {domain.headline}
       </p>
 
       <motion.div
-        className="absolute bottom-0 left-0 h-[2px] rounded-b-xl"
+        className="absolute bottom-0 left-0 h-[2px] rounded-b-xl z-10"
         style={{ background: domain.color }}
         initial={{ width: 0 }}
         animate={{ width: isActive ? '100%' : 0 }}
@@ -54,8 +61,27 @@ export default function Skills() {
   const domain = DOMAINS[active];
 
   return (
-    <section id="skills" className="py-20 sm:py-32" style={{ background: 'var(--bg-base)' }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="skills" className="relative py-20 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-base)' }}>
+      <div
+        className="orb animate-orb"
+        style={{ top: '5%', left: '-8%', width: 420, height: 420, background: 'radial-gradient(circle, rgba(20,184,166,0.12), transparent 70%)' }}
+      />
+      <div
+        className="orb animate-orb"
+        style={{ bottom: '0%', right: '-6%', width: 380, height: 380, background: 'radial-gradient(circle, rgba(34,211,238,0.1), transparent 70%)', animationDelay: '-9s' }}
+      />
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+        <SectionHeader
+          label="Tech stack"
+          heading={<>Frameworks, languages,<br />and the tools between.</>}
+          sub="From markup to machine learning — the technologies behind every project I ship, from frontend polish to backend resilience."
+        />
+
+        <div className="mt-16">
+          <TechTree />
+        </div>
+
+        <div className="mt-24">
         <SectionHeader
           label="What I do"
           heading={<>Six domains.<br />One engineer.</>}
@@ -130,7 +156,7 @@ export default function Skills() {
                         background: `${domain.color}10`,
                         color: domain.color,
                         border: `1px solid ${domain.color}28`,
-                        fontFamily: 'Inter, monospace',
+                        fontFamily: 'JetBrains Mono, monospace',
                       }}
                     >
                       {skill}
@@ -145,6 +171,7 @@ export default function Skills() {
         <p className="mt-4 text-center text-[11px]" style={{ color: 'var(--text-muted)' }}>
           Click any domain to explore
         </p>
+        </div>
       </div>
     </section>
   );

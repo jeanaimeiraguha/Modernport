@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { useTheme } from '../ThemeContext';
 
 function project3D(x, y, z, cx, cy, fov) {
   const scale = fov / (fov + z);
@@ -7,13 +6,10 @@ function project3D(x, y, z, cx, cy, fov) {
 }
 
 export default function GlobeCanvas({ opacity = 0.32, size = 0.46 }) {
-  const { theme } = useTheme();
   const canvasRef = useRef(null);
   const rafRef    = useRef(null);
-  const light     = theme !== 'dark';
 
-  // Indigo accent — slightly different shade per theme
-  const rgb = light ? '79,70,229' : '99,102,241';
+  const rgb = '20,184,166';
 
   useEffect(() => {
     const canvas = canvasRef.current;

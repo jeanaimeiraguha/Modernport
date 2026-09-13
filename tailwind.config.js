@@ -9,16 +9,16 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans:    ['Inter', 'sans-serif'],
+        sans:    ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
         display: ['Space Grotesk', 'sans-serif'],
-        mono:    ['Inter', 'monospace'],
+        mono:    ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       colors: {
         dark: {
-          900: '#080810', 800: '#0c0c16',
-          700: '#0e0e1c', 600: '#111120', 500: '#1a1a2e',
+          900: '#030c18', 800: '#071322',
+          700: '#081521', 600: '#0b1a2c', 500: '#123246',
         },
-        accent: { DEFAULT: '#6366f1', hover: '#818cf8', glow: 'rgba(99,102,241,0.25)' },
+        accent: { DEFAULT: '#14b8a6', hover: '#2dd4bf', glow: 'rgba(20,184,166,0.25)' },
       },
       keyframes: {
         'gradient-shift': {

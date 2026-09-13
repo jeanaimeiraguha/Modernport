@@ -20,13 +20,13 @@ function TimelineItem({ item, isWork }) {
         style={{
           border: `2px solid ${isCTO ? 'var(--accent)' : 'var(--border)'}`,
           background: isCTO ? 'var(--accent)' : 'var(--bg-base)',
-          boxShadow: isCTO ? '0 0 8px rgba(99,102,241,0.5)' : 'none',
+          boxShadow: isCTO ? '0 0 8px rgba(20,184,166,0.5)' : 'none',
         }}
       />
 
       <div className="pb-9">
         <div className="flex flex-wrap items-center gap-2 mb-0.5">
-          <p className="text-sm font-bold" style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
+          <p className="font-display text-lg font-bold" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
             {isWork ? item.role : item.degree}
           </p>
           {item.current && (
@@ -40,14 +40,14 @@ function TimelineItem({ item, isWork }) {
           {isCTO && (
             <span
               className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-              style={{ color: 'var(--accent)', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.18)' }}
+              style={{ color: 'var(--accent)', background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.18)' }}
             >
               Co-Founder
             </span>
           )}
         </div>
 
-        <p className="text-sm font-semibold mb-0.5" style={{ color: 'var(--accent)' }}>
+        <p className="text-[0.9375rem] font-semibold mb-0.5" style={{ color: 'var(--accent)' }}>
           {isWork ? item.company : item.institution}
         </p>
         <p className="text-xs mb-3" style={{ color: 'var(--text-muted)' }}>{item.period}</p>
@@ -55,7 +55,7 @@ function TimelineItem({ item, isWork }) {
         {isWork ? (
           <ul className="space-y-2">
             {item.points.map((pt) => (
-              <li key={pt} className="text-sm leading-relaxed flex gap-2.5" style={{ color: 'var(--text-secondary)' }}>
+              <li key={pt} className="text-[0.9375rem] leading-relaxed flex gap-2.5" style={{ color: 'var(--text-secondary)' }}>
                 <span className="shrink-0 mt-[7px] w-1 h-1 rounded-full" style={{ background: 'var(--accent)' }} />
                 {pt}
               </li>
@@ -63,11 +63,11 @@ function TimelineItem({ item, isWork }) {
           </ul>
         ) : (
           <>
-            <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{item.note}</p>
+            <p className="text-[0.9375rem]" style={{ color: 'var(--text-muted)' }}>{item.note}</p>
             {item.anlm && (
               <div
                 className="mt-3 rounded-xl px-4 py-3"
-                style={{ background: 'rgba(99,102,241,0.04)', border: '1px solid rgba(99,102,241,0.14)' }}
+                style={{ background: 'rgba(20,184,166,0.04)', border: '1px solid rgba(20,184,166,0.14)' }}
               >
                 <p className="text-xs font-semibold mb-1" style={{ color: 'var(--accent)' }}>✦ Grateful to ANLM</p>
                 <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
@@ -147,11 +147,11 @@ export default function Experience() {
                     key={c.title}
                     className="rounded-xl px-4 py-3"
                     style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
-                    whileHover={{ borderColor: 'rgba(99,102,241,0.3)', x: 3 }}
+                    whileHover={{ borderColor: 'rgba(20,184,166,0.3)', x: 3 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <p className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{c.title}</p>
-                    <p className="text-[11px] mt-0.5" style={{ color: 'var(--text-muted)' }}>{c.sub}</p>
+                    <p className="font-display text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{c.title}</p>
+                    <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>{c.sub}</p>
                   </motion.div>
                 ))}
               </div>

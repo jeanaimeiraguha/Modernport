@@ -50,7 +50,7 @@ export const DOMAINS = [
     id: 'web',
     icon: '⬡',
     label: 'Full-Stack Web',
-    color: '#6366f1',
+    color: '#14b8a6',
     headline: 'Production-grade web apps',
     desc: 'End-to-end systems — from pixel-perfect UIs to battle-tested APIs. I ship things that scale.',
     skills: ['React', 'Next.js', 'TypeScript', 'Node.js', 'GraphQL', 'Tailwind CSS', 'PostgreSQL', 'Redis'],

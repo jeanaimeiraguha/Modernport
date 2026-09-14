@@ -194,9 +194,9 @@ export default function Contact() {
             >
               <div className="flex items-center gap-2 mb-2">
                 <span className="glow-dot" />
-                <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>Currently available</p>
+                <p className="font-display font-bold text-base" style={{ color: 'var(--text-primary)' }}>Currently available</p>
               </div>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 Open to senior full-stack, lead engineer, or CTO-track remote roles. Also available
                 for consulting and fractional CTO engagements.
               </p>
@@ -224,7 +224,7 @@ export default function Contact() {
                     {item.href ? (
                       <a
                         href={item.href} target="_blank" rel="noopener noreferrer"
-                        className="text-sm truncate block transition-colors"
+                        className="font-display font-semibold text-[0.9375rem] truncate block transition-colors"
                         style={{ color: 'var(--text-secondary)' }}
                         onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
                         onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
@@ -232,7 +232,7 @@ export default function Contact() {
                         {item.value}
                       </a>
                     ) : (
-                      <p className="text-sm truncate" style={{ color: 'var(--text-secondary)' }}>{item.value}</p>
+                      <p className="font-display font-semibold text-[0.9375rem] truncate" style={{ color: 'var(--text-secondary)' }}>{item.value}</p>
                     )}
                   </div>
                 </motion.div>

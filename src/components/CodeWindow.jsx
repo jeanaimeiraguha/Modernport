@@ -49,7 +49,7 @@ export default function CodeWindow({ className = '', style = {} }) {
         >
           <LINE><span style={{ color: '#a78bfa' }}>const</span> <span style={{ color: '#38bdf8' }}>engineer</span> = {'{'}</LINE>
           <LINE>{'  '}name: <span style={{ color: '#5eead4' }}>'Jean Aime Iraguha'</span>,</LINE>
-          <LINE>{'  '}role: <span style={{ color: '#5eead4' }}>'Full-Stack · CTO'</span>,</LINE>
+          <LINE>{'  '}role: <span style={{ color: '#5eead4' }}>'Full-Stack · Founder'</span>,</LINE>
           <LINE>{'  '}stack: [<span style={{ color: '#5eead4' }}>'AI'</span>, <span style={{ color: '#5eead4' }}>'Web3'</span>, <span style={{ color: '#5eead4' }}>'Cloud'</span>],</LINE>
           <LINE>{'  '}available: <span style={{ color: '#facc15' }}>true</span>,</LINE>
           <LINE>

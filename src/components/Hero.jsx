@@ -9,7 +9,7 @@ import { useMagnetic } from './motion';
 
 const ROLES = [
   'Full-Stack Engineer',
-  'CTO @ Igifu Meals',
+  'Founder Mode',
   'Blockchain Developer',
   'AI & ML Builder',
   'Open to Remote Roles',
@@ -194,8 +194,8 @@ export default function Hero() {
           >
             I build software that solves real problems, scales under pressure, and{' '}
             <strong style={{ color: 'var(--text-primary)', fontWeight: 600 }}>stays reliable beyond the prototype.</strong>
-            {' '}Co-founder & CTO at{' '}
-            <strong style={{ color: 'var(--accent)', fontWeight: 600 }}>Igifu Meals</strong>.
+            {' '}Currently building a startup from the ground up as{' '}
+            <strong style={{ color: 'var(--accent)', fontWeight: 600 }}>founder</strong>.
           </motion.p>
 
           {/* Stats */}

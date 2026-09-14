@@ -3,160 +3,195 @@ import { FaHtml5, FaCss3Alt, FaAws } from 'react-icons/fa';
 import {
   SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiTailwindcss,
   SiRedis, SiPostgresql, SiMongodb, SiGraphql, SiNodedotjs, SiPython, SiTensorflow,
-  SiFirebase, SiSolidity, SiLinux, SiGithub, SiDocker,
+  SiSolidity, SiEthereum, SiLinux, SiGithub, SiDocker,
 } from 'react-icons/si';
-import { viewportOnce } from './motion';
+import { SectionHeader, viewportOnce } from './motion';
 
-const BRANCHES = [
+const CATEGORIES = [
+  { id: 'frontend',   label: 'Frontend',   color: '#38bdf8' },
+  { id: 'backend',    label: 'Backend',    color: '#34d399' },
+  { id: 'database',   label: 'Database',   color: '#14b8a6' },
+  { id: 'devops',     label: 'DevOps',     color: '#22d3ee' },
+  { id: 'mobile',     label: 'Mobile',     color: '#fb7185' },
+  { id: 'ai',         label: 'AI / ML',    color: '#f59e0b' },
+  { id: 'blockchain', label: 'Blockchain', color: '#a78bfa' },
+];
+const CAT = Object.fromEntries(CATEGORIES.map((c) => [c.id, c.color]));
+
+/* Each column is a chevron: an apex icon at the bottom, with an arm of
+   icons rising to the left and another rising to the right. */
+const COLUMNS = [
   {
-    id: 'frontend',
-    label: 'Frontend',
-    color: '#14b8a6',
-    techs: [
-      { name: 'Tailwind CSS', Icon: SiTailwindcss, color: '#38bdf8' },
-      { name: 'Next.js',      Icon: SiNextdotjs,   color: '#e2e8f0' },
-      { name: 'React',        Icon: SiReact,       color: '#61dafb' },
-      { name: 'TypeScript',   Icon: SiTypescript,  color: '#3178c6' },
-      { name: 'JavaScript',   Icon: SiJavascript,  color: '#f7df1e' },
-      { name: 'CSS3',         Icon: FaCss3Alt,     color: '#2965f1' },
-      { name: 'HTML5',        Icon: FaHtml5,       color: '#e34f26' },
+    id: 'web',
+    apex:  { name: 'Next.js',    Icon: SiNextdotjs,  cat: 'frontend' },
+    left:  [
+      { name: 'TypeScript', Icon: SiTypescript, cat: 'frontend' },
+      { name: 'JavaScript', Icon: SiJavascript, cat: 'frontend' },
+      { name: 'HTML5',      Icon: FaHtml5,      cat: 'frontend' },
+    ],
+    right: [
+      { name: 'React',        Icon: SiReact,       cat: 'frontend' },
+      { name: 'CSS3',         Icon: FaCss3Alt,     cat: 'frontend' },
+      { name: 'Tailwind CSS', Icon: SiTailwindcss, cat: 'frontend' },
     ],
   },
   {
-    id: 'backend',
-    label: 'Backend & AI',
-    color: '#a78bfa',
-    techs: [
-      { name: 'Redis',      Icon: SiRedis,       color: '#dc382d' },
-      { name: 'PostgreSQL', Icon: SiPostgresql,  color: '#4169e1' },
-      { name: 'MongoDB',    Icon: SiMongodb,     color: '#47a248' },
-      { name: 'GraphQL',    Icon: SiGraphql,     color: '#e10098' },
-      { name: 'Node.js',    Icon: SiNodedotjs,   color: '#3c873a' },
-      { name: 'Python',     Icon: SiPython,      color: '#4b8bbe' },
-      { name: 'TensorFlow', Icon: SiTensorflow,  color: '#ff6f00' },
+    id: 'data',
+    apex:  { name: 'Node.js', Icon: SiNodedotjs, cat: 'backend' },
+    left:  [
+      { name: 'Python',     Icon: SiPython,     cat: 'backend' },
+      { name: 'GraphQL',    Icon: SiGraphql,    cat: 'backend' },
+      { name: 'PostgreSQL', Icon: SiPostgresql, cat: 'database' },
+    ],
+    right: [
+      { name: 'MongoDB', Icon: SiMongodb, cat: 'database' },
+      { name: 'Redis',   Icon: SiRedis,   cat: 'database' },
+      { name: 'Docker',  Icon: SiDocker,  cat: 'devops' },
     ],
   },
   {
-    id: 'cloud',
-    label: 'Cloud & Beyond',
-    color: '#38bdf8',
-    techs: [
-      { name: 'Firebase',      Icon: SiFirebase, color: '#ffca28' },
-      { name: 'Solidity',      Icon: SiSolidity, color: '#cbd5e1' },
-      { name: 'React Native',  Icon: SiReact,    color: '#61dafb' },
-      { name: 'Linux',         Icon: SiLinux,    color: '#e5e7eb' },
-      { name: 'GitHub',        Icon: SiGithub,   color: '#e5e7eb' },
-      { name: 'AWS',           Icon: FaAws,      color: '#ff9900' },
-      { name: 'Docker',        Icon: SiDocker,   color: '#2496ed' },
+    id: 'infra',
+    apex:  { name: 'AWS', Icon: FaAws, cat: 'devops' },
+    left:  [
+      { name: 'Linux',        Icon: SiLinux,  cat: 'devops' },
+      { name: 'GitHub',       Icon: SiGithub, cat: 'devops' },
+      { name: 'React Native', Icon: SiReact,  cat: 'mobile' },
+    ],
+    right: [
+      { name: 'TensorFlow', Icon: SiTensorflow, cat: 'ai' },
+      { name: 'Solidity',   Icon: SiSolidity,   cat: 'blockchain' },
+      { name: 'Ethereum',   Icon: SiEthereum,   cat: 'blockchain' },
     ],
   },
 ];
 
-const ROW_H  = 58;
-const STEP_X = 24;
-const SIZE   = 50;
+const ARM     = 3;
+const STEP_X  = 26;
+const STEP_Y  = 56;
+const SIZE    = 50;
 
-function Branch({ branch, branchIndex }) {
-  const n = branch.techs.length;
-  const width  = (n - 1) * STEP_X + SIZE;
-  const height = (n - 1) * ROW_H + SIZE;
-  const gradId = `tt-grad-${branch.id}`;
+const COL_W = 2 * ARM * STEP_X + SIZE;
+const COL_H = ARM * STEP_Y + SIZE;
+
+function nodePos(index) {
+  // index: -ARM..-1 = left arm (far to near), 0 = apex, 1..ARM = right arm
+  const cx = COL_W / 2;
+  const cy = COL_H - SIZE / 2;
+  return { x: cx + index * STEP_X, y: cy - Math.abs(index) * STEP_Y };
+}
+
+function Node({ tech, index, colIndex }) {
+  const { x, y } = nodePos(index);
+  const color = CAT[tech.cat];
+  return (
+    <motion.div
+      title={tech.name}
+      className="absolute rounded-full flex items-center justify-center"
+      style={{
+        width: SIZE, height: SIZE,
+        left: x - SIZE / 2, top: y - SIZE / 2,
+        background: 'var(--bg-card)',
+        border: `1.5px solid ${color}55`,
+        boxShadow: `0 4px 18px ${color}22`,
+      }}
+      initial={{ opacity: 0, scale: 0.5 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={viewportOnce}
+      whileHover={{ scale: 1.14, borderColor: color }}
+      transition={{ duration: 0.4, delay: colIndex * 0.15 + Math.abs(index) * 0.06, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <tech.Icon size={20} style={{ color }} />
+    </motion.div>
+  );
+}
+
+function Column({ col, colIndex }) {
+  const apexPos = nodePos(0);
+  const leftEnd  = nodePos(-ARM);
+  const rightEnd = nodePos(ARM);
+  const gradId = `tt-grad-${col.id}`;
 
   return (
-    <div className="flex flex-col items-start">
-      <div className="relative" style={{ width, height }}>
-        <svg
-          className="absolute inset-0 pointer-events-none"
-          width={width}
-          height={height}
-          style={{ overflow: 'visible' }}
-        >
-          <defs>
-            <linearGradient id={gradId} x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%"   stopColor={branch.color} stopOpacity="0.05" />
-              <stop offset="100%" stopColor={branch.color} stopOpacity="0.6" />
-            </linearGradient>
-          </defs>
-          <line
-            x1={SIZE / 2} y1={height - SIZE / 2}
-            x2={width - SIZE / 2} y2={SIZE / 2}
-            stroke={`url(#${gradId})`}
-            strokeWidth="1.5"
-          />
-        </svg>
+    <div className="relative shrink-0" style={{ width: COL_W, height: COL_H }}>
+      <svg className="absolute inset-0 pointer-events-none" width={COL_W} height={COL_H} style={{ overflow: 'visible' }}>
+        <defs>
+          <linearGradient id={gradId} x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%"   stopColor="#5eead4" stopOpacity="0.05" />
+            <stop offset="100%" stopColor="#5eead4" stopOpacity="0.5" />
+          </linearGradient>
+        </defs>
+        <line x1={apexPos.x} y1={apexPos.y} x2={leftEnd.x}  y2={leftEnd.y}  stroke={`url(#${gradId})`} strokeWidth="1.5" />
+        <line x1={apexPos.x} y1={apexPos.y} x2={rightEnd.x} y2={rightEnd.y} stroke={`url(#${gradId})`} strokeWidth="1.5" />
+      </svg>
 
-        {branch.techs.map((t, i) => (
-          <motion.div
-            key={t.name}
-            title={t.name}
-            className="absolute rounded-full flex items-center justify-center"
-            style={{
-              width: SIZE, height: SIZE,
-              left: i * STEP_X,
-              bottom: i * ROW_H,
-              background: 'var(--bg-card)',
-              border: `1.5px solid ${t.color}55`,
-              boxShadow: `0 4px 18px ${t.color}22`,
-            }}
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={viewportOnce}
-            whileHover={{ scale: 1.12, borderColor: t.color }}
-            transition={{ duration: 0.4, delay: branchIndex * 0.12 + i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <t.Icon size={20} style={{ color: t.color }} />
-          </motion.div>
-        ))}
-      </div>
-      <p
-        className="mt-4 text-[10px] font-bold uppercase tracking-[0.18em]"
-        style={{ color: 'var(--text-muted)' }}
-      >
-        {branch.label}
-      </p>
+      {col.left.map((t, i) => (
+        <Node key={t.name} tech={t} index={-(i + 1)} colIndex={colIndex} />
+      ))}
+      <Node tech={col.apex} index={0} colIndex={colIndex} />
+      {col.right.map((t, i) => (
+        <Node key={t.name} tech={t} index={i + 1} colIndex={colIndex} />
+      ))}
     </div>
   );
 }
 
-/* ── Mobile fallback: flat wrapped grid, grouped by branch ── */
-function MobileBranch({ branch }) {
+function Legend() {
   return (
-    <div>
-      <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-3" style={{ color: 'var(--text-muted)' }}>
-        {branch.label}
-      </p>
-      <div className="flex flex-wrap gap-3">
-        {branch.techs.map((t) => (
-          <div
-            key={t.name}
-            title={t.name}
-            className="w-11 h-11 rounded-full flex items-center justify-center shrink-0"
-            style={{
-              background: 'var(--bg-card)',
-              border: `1.5px solid ${t.color}55`,
-              boxShadow: `0 4px 14px ${t.color}1c`,
-            }}
-          >
-            <t.Icon size={17} style={{ color: t.color }} />
-          </div>
-        ))}
-      </div>
+    <div className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2">
+      {CATEGORIES.map((c) => (
+        <span key={c.id} className="inline-flex items-center gap-1.5 text-[11px] font-medium" style={{ color: 'var(--text-muted)' }}>
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: c.color }} />
+          {c.label}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/* ── Mobile fallback: flat wrapped grid, grouped by column ── */
+function MobileColumn({ col }) {
+  const all = [...col.left, col.apex, ...col.right];
+  return (
+    <div className="flex flex-wrap gap-3 justify-center">
+      {all.map((t) => (
+        <div
+          key={t.name}
+          title={t.name}
+          className="w-11 h-11 rounded-full flex items-center justify-center shrink-0"
+          style={{
+            background: 'var(--bg-card)',
+            border: `1.5px solid ${CAT[t.cat]}55`,
+            boxShadow: `0 4px 14px ${CAT[t.cat]}1c`,
+          }}
+        >
+          <t.Icon size={17} style={{ color: CAT[t.cat] }} />
+        </div>
+      ))}
     </div>
   );
 }
 
 export default function TechTree() {
   return (
-    <div className="relative">
-      <div className="hidden md:flex justify-center gap-8 lg:gap-14 overflow-x-auto pb-2">
-        {BRANCHES.map((b, i) => (
-          <Branch key={b.id} branch={b} branchIndex={i} />
-        ))}
-      </div>
-      <div className="md:hidden space-y-8">
-        {BRANCHES.map((b) => (
-          <MobileBranch key={b.id} branch={b} />
-        ))}
+    <div>
+      <SectionHeader
+        label="My expertise"
+        heading={<>Skills &amp; Technologies.</>}
+        sub="A toolkit spanning full-stack development, cloud infrastructure, and the frameworks I reach for daily — from frontend polish to backend resilience, shipped as clean, scalable code."
+      />
+
+      <div className="relative mt-14">
+        <div className="hidden md:flex justify-center gap-10 lg:gap-16 overflow-x-auto pb-2">
+          {COLUMNS.map((c, i) => (
+            <Column key={c.id} col={c} colIndex={i} />
+          ))}
+        </div>
+        <div className="md:hidden space-y-6">
+          {COLUMNS.map((c) => (
+            <MobileColumn key={c.id} col={c} />
+          ))}
+        </div>
+        <Legend />
       </div>
     </div>
   );

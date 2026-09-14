@@ -71,15 +71,7 @@ export default function Skills() {
         style={{ bottom: '0%', right: '-6%', width: 380, height: 380, background: 'radial-gradient(circle, rgba(34,211,238,0.1), transparent 70%)', animationDelay: '-9s' }}
       />
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-        <SectionHeader
-          label="Tech stack"
-          heading={<>Frameworks, languages,<br />and the tools between.</>}
-          sub="From markup to machine learning — the technologies behind every project I ship, from frontend polish to backend resilience."
-        />
-
-        <div className="mt-16">
-          <TechTree />
-        </div>
+        <TechTree />
 
         <div className="mt-24">
         <SectionHeader

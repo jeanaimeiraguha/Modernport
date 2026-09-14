@@ -138,8 +138,8 @@ export default function About() {
               >
                 <span className="glow-dot mt-1.5 shrink-0" />
                 <div>
-                  <p className="text-sm font-semibold mb-1" style={{ color: '#4ade80' }}>Currently available for hire</p>
-                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  <p className="font-display font-bold text-base mb-1" style={{ color: '#4ade80' }}>Currently available for hire</p>
+                  <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                     Open to senior full-stack, lead engineer, or CTO-track remote roles. Also available for
                     consulting and fractional CTO engagements. I reply within 24 hours.
                   </p>
@@ -168,7 +168,7 @@ export default function About() {
                       style={{ background: 'var(--bg-surface)', borderColor: 'var(--accent)' }}
                     />
                     <span className="text-[11px] font-bold tracking-widest" style={{ color: 'var(--accent)' }}>{w.year}</span>
-                    <p className="text-sm mt-0.5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{w.text}</p>
+                    <p className="text-[0.9375rem] mt-0.5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{w.text}</p>
                   </motion.div>
                 ))}
               </div>
@@ -187,7 +187,8 @@ export default function About() {
                   <FaEnvelope size={12} /> Let's talk
                 </motion.a>
                 <motion.a
-                  href="/cv"
+                  href="/cv/Jean-Aime-Iraguha-CV.pdf"
+                  download
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold"
                   style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
                   whileHover={{ borderColor: 'var(--accent)', color: 'var(--text-primary)' }}
@@ -226,8 +227,8 @@ export default function About() {
                     {v.icon}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{v.title}</p>
-                    <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{v.desc}</p>
+                    <p className="font-display font-bold text-base mb-1" style={{ color: 'var(--text-primary)' }}>{v.title}</p>
+                    <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{v.desc}</p>
                   </div>
                 </motion.div>
               </FadeUp>
@@ -250,7 +251,7 @@ export default function About() {
                   ].map((a) => (
                     <div key={a} className="flex items-start gap-2.5">
                       <FaCheckCircle size={11} className="shrink-0 mt-0.5" style={{ color: '#4ade80' }} />
-                      <p className="text-sm leading-snug" style={{ color: 'var(--text-secondary)' }}>{a}</p>
+                      <p className="text-[0.9375rem] leading-snug" style={{ color: 'var(--text-secondary)' }}>{a}</p>
                     </div>
                   ))}
                 </div>
@@ -263,13 +264,13 @@ export default function About() {
                 <p className="text-[10px] font-semibold uppercase tracking-[0.22em] mb-3" style={{ color: 'var(--text-muted)' }}>
                   Outside of work
                 </p>
-                <p className="text-sm leading-relaxed mb-3" style={{ color: 'var(--text-secondary)' }}>
+                <p className="text-[0.9375rem] leading-relaxed mb-3" style={{ color: 'var(--text-secondary)' }}>
                   Football keeps me grounded — it taught me teamwork and composure under pressure.
                   I follow <strong style={{ color: '#6CABDD' }}>Manchester City</strong>,{' '}
                   <strong style={{ color: '#DAA520' }}>Real Madrid</strong>, and{' '}
                   <strong style={{ color: '#0346A0' }}>Chelsea</strong>.
                 </p>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                   I grew up in <strong style={{ color: 'var(--text-primary)' }}>Bugesera, Rwanda</strong>, shaped
                   by the <strong style={{ color: 'var(--accent)' }}>ANLM community</strong> at Kibenga Primary School —
                   whose mentorship gave me the integrity I bring to every team.

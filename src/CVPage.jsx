@@ -176,15 +176,16 @@ export default function CVPage() {
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
             Open to work
           </span>
-          <button
-            onClick={() => window.print()}
+          <a
+            href="/cv/Jean-Aime-Iraguha-CV.pdf"
+            download
             className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg transition-all"
             style={{ background: 'var(--accent)', color: '#fff' }}
             onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--accent-hover)')}
             onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--accent)')}
           >
             <FaDownload size={11} /> Download PDF
-          </button>
+          </a>
         </div>
       </div>
 

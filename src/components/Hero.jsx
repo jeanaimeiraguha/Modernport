@@ -249,7 +249,8 @@ export default function Hero() {
             </motion.button>
 
             <motion.a
-              href="/cv"
+              href="/cv/Jean-Aime-Iraguha-CV.pdf"
+              download
               className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl"
               style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }}
               whileHover={{ borderColor: 'rgba(20,184,166,0.35)', color: 'var(--text-primary)' }}
@@ -329,10 +330,10 @@ export default function Hero() {
               }}
             >
               <img
-                src="/aime rm.png"
+                src="/images/profile/aime-headshot.jpg"
                 alt="Jean Aime Iraguha"
                 className="w-full h-full object-cover"
-                style={{ objectPosition: 'center 8%' }}
+                style={{ objectPosition: 'center' }}
               />
             </div>
 

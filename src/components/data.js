@@ -1,4 +1,90 @@
-export const NAV_LINKS = ['about', 'skills', 'projects', 'experience', 'testimonials', 'contact'];
+export const NAV_LINKS = ['about', 'services', 'skills', 'projects', 'experience', 'testimonials', 'contact'];
+
+export const SERVICES = [
+  {
+    id: 'frontend',
+    icon: '⬡',
+    color: '#38bdf8',
+    accent: '#818cf8',
+    title: 'Frontend Development',
+    desc: 'Turning designs into responsive, accessible interfaces with React, Next.js, and TypeScript — from UI/UX and layout decisions to smooth, high-performance experiences across desktop, tablet, and mobile.',
+  },
+  {
+    id: 'backend',
+    icon: '◈',
+    color: '#34d399',
+    accent: '#4ade80',
+    title: 'Backend Development',
+    desc: 'Designing and building APIs, auth, and data layers with Node.js and PostgreSQL — handling everything from payments and permissions to audit trails and business logic.',
+  },
+  {
+    id: 'fullstack',
+    icon: '◎',
+    color: '#a78bfa',
+    accent: '#f472b6',
+    title: 'Full-Stack Product Development',
+    desc: 'Owning a product end to end — frontend, backend, database, and deployment — to ship complete, reliable platforms for fintech, food-tech, and startup clients.',
+  },
+];
+
+export const SKILL_GROUPS = [
+  {
+    title: 'Frontend Development',
+    color: '#38bdf8',
+    skills: [
+      { name: 'React', level: 'Experienced' },
+      { name: 'Next.js', level: 'Experienced' },
+      { name: 'TypeScript', level: 'Experienced' },
+      { name: 'JavaScript', level: 'Experienced' },
+      { name: 'React Native', level: 'Experienced' },
+      { name: 'HTML5', level: 'Experienced' },
+    ],
+  },
+  {
+    title: 'Backend & Databases',
+    color: '#34d399',
+    skills: [
+      { name: 'Node.js', level: 'Experienced' },
+      { name: 'PostgreSQL', level: 'Experienced' },
+      { name: 'MongoDB', level: 'Experienced' },
+      { name: 'Redis', level: 'Intermediate' },
+      { name: 'Firebase', level: 'Intermediate' },
+      { name: 'GraphQL', level: 'Intermediate' },
+    ],
+  },
+  {
+    title: 'Styling & State Management',
+    color: '#a78bfa',
+    skills: [
+      { name: 'Tailwind CSS', level: 'Experienced' },
+      { name: 'Redux Toolkit', level: 'Experienced' },
+      { name: 'Zustand', level: 'Intermediate' },
+      { name: 'CSS3', level: 'Experienced' },
+    ],
+  },
+  {
+    title: 'AI, Blockchain & Robotics',
+    color: '#f59e0b',
+    skills: [
+      { name: 'TensorFlow', level: 'Intermediate' },
+      { name: 'OpenCV', level: 'Intermediate' },
+      { name: 'Python', level: 'Experienced' },
+      { name: 'Solidity', level: 'Intermediate' },
+      { name: 'Web3.js', level: 'Intermediate' },
+      { name: 'YOLO', level: 'Intermediate' },
+    ],
+  },
+  {
+    title: 'DevOps & Cloud',
+    color: '#fb7185',
+    skills: [
+      { name: 'Docker', level: 'Experienced' },
+      { name: 'AWS', level: 'Experienced' },
+      { name: 'GitHub Actions', level: 'Experienced' },
+      { name: 'Nginx', level: 'Intermediate' },
+    ],
+  },
+];
 
 export const TESTIMONIALS = [
   {

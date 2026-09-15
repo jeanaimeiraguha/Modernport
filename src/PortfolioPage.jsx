@@ -2,12 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Lenis from 'lenis';
 import LoadingAnimation from './LoadingAnimation';
-import CustomCursor  from './components/CustomCursor';
 import ScrollProgress from './components/ScrollProgress';
 import Navbar        from './components/Navbar';
 import Hero          from './components/Hero';
-import Roles         from './components/Roles';
 import About         from './components/About';
+import Services      from './components/Services';
 import Skills        from './components/Skills';
 import Projects      from './components/Projects';
 import Experience    from './components/Experience';
@@ -15,7 +14,6 @@ import Testimonials  from './components/Testimonials';
 import Contact       from './components/Contact';
 import Footer        from './components/Footer';
 import ScrollToTop   from './components/ScrollToTop';
-import ChatBot       from './components/ChatBot';
 
 export default function PortfolioPage() {
   const [loaded, setLoaded] = useState(false);
@@ -36,8 +34,6 @@ export default function PortfolioPage() {
 
   return (
     <>
-      <CustomCursor />
-
       <AnimatePresence mode="wait">
         {!loaded && (
           <LoadingAnimation key="loader" onDone={() => setLoaded(true)} />
@@ -57,8 +53,8 @@ export default function PortfolioPage() {
             <Navbar />
             <main>
               <Hero />
-              <Roles />
               <About />
+              <Services />
               <Skills />
               <Projects />
               <Experience />
@@ -67,7 +63,6 @@ export default function PortfolioPage() {
             </main>
             <Footer />
             <ScrollToTop />
-            <ChatBot />
           </motion.div>
         )}
       </AnimatePresence>

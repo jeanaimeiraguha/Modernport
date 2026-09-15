@@ -86,25 +86,17 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative py-20 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
-      <div
-        className="orb animate-orb"
-        style={{ bottom: '-15%', left: '-8%', width: 480, height: 480, background: 'radial-gradient(circle, rgba(20,184,166,0.1), transparent 70%)' }}
-      />
-      <div
-        className="orb animate-orb"
-        style={{ top: '0%', right: '-8%', width: 360, height: 360, background: 'radial-gradient(circle, rgba(34,211,238,0.09), transparent 70%)', animationDelay: '-6s' }}
-      />
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeader
           label="Contact"
-          heading={<>Ready to build<br />something great?</>}
+          heading={<>Let's talk on your<br />great project together.</>}
           sub="Whether you're hiring, have a project in mind, or just want to connect — I reply within 24 hours."
         />
 
         <div className="mt-14 grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* Form */}
-          <FadeUp delay={0.1}>
+          <FadeUp delay={0.1} className="lg:order-2">
             <AnimatePresence mode="wait">
               {status === 'sent' ? (
                 <motion.div
@@ -187,7 +179,7 @@ export default function Contact() {
           </FadeUp>
 
           {/* Info */}
-          <FadeUp delay={0.2}>
+          <FadeUp delay={0.2} className="lg:order-1">
             <div
               className="rounded-xl p-5 mb-5"
               style={{ background: 'rgba(20,184,166,0.04)', border: '1px solid rgba(20,184,166,0.14)' }}

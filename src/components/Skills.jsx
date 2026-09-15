@@ -1,169 +1,106 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { SectionHeader, stagger, viewportOnce, useTilt, Spotlight, hexToRgb } from './motion';
-import { DOMAINS } from './data';
-import TechTree from './TechTree';
+import { motion } from 'framer-motion';
+import { FaCode, FaAws, FaCss3Alt } from 'react-icons/fa';
+import {
+  SiReact, SiNextdotjs, SiTypescript, SiJavascript, SiHtml5,
+  SiNodedotjs, SiPostgresql, SiMongodb, SiRedis, SiFirebase, SiGraphql,
+  SiTailwindcss, SiRedux, SiTensorflow, SiOpencv, SiPython, SiSolidity,
+  SiWeb3Dotjs, SiDocker, SiGithubactions, SiNginx,
+} from 'react-icons/si';
+import { SectionHeader, stagger, viewportOnce } from './motion';
+import { SKILL_GROUPS } from './data';
 
-function DomainCard({ domain, index, isActive, onClick }) {
-  const { tiltStyle, tiltHandlers, glow } = useTilt(6);
+const ICONS = {
+  'React':           { Icon: SiReact,        color: '#61DAFB' },
+  'Next.js':         { Icon: SiNextdotjs,     color: '#ffffff' },
+  'TypeScript':      { Icon: SiTypescript,    color: '#3178C6' },
+  'JavaScript':      { Icon: SiJavascript,    color: '#F7DF1E' },
+  'React Native':    { Icon: SiReact,         color: '#61DAFB' },
+  'HTML5':           { Icon: SiHtml5,         color: '#E34F26' },
+  'Node.js':         { Icon: SiNodedotjs,     color: '#3C873A' },
+  'PostgreSQL':      { Icon: SiPostgresql,    color: '#4169E1' },
+  'MongoDB':         { Icon: SiMongodb,       color: '#47A248' },
+  'Redis':           { Icon: SiRedis,         color: '#DC382D' },
+  'Firebase':        { Icon: SiFirebase,      color: '#FFCA28' },
+  'GraphQL':         { Icon: SiGraphql,       color: '#E10098' },
+  'Tailwind CSS':    { Icon: SiTailwindcss,   color: '#38BDF8' },
+  'Redux Toolkit':   { Icon: SiRedux,         color: '#764ABC' },
+  'Zustand':         { Icon: FaCode,          color: '#ff8a65' },
+  'CSS3':            { Icon: FaCss3Alt,       color: '#1572B6' },
+  'TensorFlow':      { Icon: SiTensorflow,    color: '#FF6F00' },
+  'OpenCV':          { Icon: SiOpencv,        color: '#5C3EE8' },
+  'Python':          { Icon: SiPython,        color: '#3776AB' },
+  'Solidity':        { Icon: SiSolidity,      color: '#a78bfa' },
+  'Web3.js':         { Icon: SiWeb3Dotjs,     color: '#F16822' },
+  'YOLO':            { Icon: FaCode,          color: '#facc15' },
+  'Docker':          { Icon: SiDocker,        color: '#2496ED' },
+  'AWS':             { Icon: FaAws,           color: '#FF9900' },
+  'GitHub Actions':  { Icon: SiGithubactions, color: '#2088FF' },
+  'Nginx':           { Icon: SiNginx,         color: '#009639' },
+};
 
+function SkillRow({ skill }) {
+  const entry = ICONS[skill.name] || { Icon: FaCode, color: 'var(--accent)' };
+  const { Icon, color } = entry;
+  return (
+    <div className="flex items-center gap-3">
+      <span
+        className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+        style={{ background: `${color}18`, color }}
+      >
+        <Icon size={15} />
+      </span>
+      <div className="min-w-0">
+        <p className="text-sm font-semibold truncate" style={{ color: 'var(--text-primary)' }}>{skill.name}</p>
+        <p className="text-[11px]" style={{ color: 'var(--text-muted)' }}>{skill.level}</p>
+      </div>
+    </div>
+  );
+}
+
+function GroupCard({ group }) {
   return (
     <motion.div
       variants={{
         hidden: { opacity: 0, y: 24 },
-        show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16,1,0.3,1] } },
+        show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
       }}
-      whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      onClick={onClick}
-      {...tiltHandlers}
-      className="relative rounded-xl p-6 cursor-pointer overflow-hidden"
-      style={{
-        ...tiltStyle,
-        background: isActive ? `${domain.color}0c` : 'var(--bg-card)',
-        border: `1px solid ${isActive ? domain.color + '45' : 'var(--border)'}`,
-        transition: 'border-color 0.25s ease, background 0.25s ease',
-      }}
+      className="rounded-2xl p-6 sm:p-7"
+      style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}
     >
-      <Spotlight glow={glow} color={hexToRgb(domain.color)} />
-
-      <div className="relative z-10 flex items-start justify-between mb-5">
-        <span className="text-2xl font-bold select-none" style={{ color: domain.color }}>
-          {domain.icon}
-        </span>
-        <span
-          className="text-[10px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-md"
-          style={{ background: `${domain.color}10`, color: domain.color, border: `1px solid ${domain.color}22` }}
-        >
-          {String(index + 1).padStart(2, '0')}
-        </span>
+      <p
+        className="font-display font-bold mb-5"
+        style={{ fontSize: '1.0625rem', color: group.color, letterSpacing: '-0.02em' }}
+      >
+        {group.title}
+      </p>
+      <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+        {group.skills.map((s) => <SkillRow key={s.name} skill={s} />)}
       </div>
-
-      <p className="relative z-10 font-display text-lg font-bold mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-        {domain.label}
-      </p>
-      <p className="relative z-10 text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-        {domain.headline}
-      </p>
-
-      <motion.div
-        className="absolute bottom-0 left-0 h-[2px] rounded-b-xl z-10"
-        style={{ background: domain.color }}
-        initial={{ width: 0 }}
-        animate={{ width: isActive ? '100%' : 0 }}
-        transition={{ duration: 0.35, ease: [0.16,1,0.3,1] }}
-      />
     </motion.div>
   );
 }
 
 export default function Skills() {
-  const [active, setActive] = useState(0);
-  const domain = DOMAINS[active];
-
   return (
     <section id="skills" className="relative py-20 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-base)' }}>
-      <div
-        className="orb animate-orb"
-        style={{ top: '5%', left: '-8%', width: 420, height: 420, background: 'radial-gradient(circle, rgba(20,184,166,0.12), transparent 70%)' }}
-      />
-      <div
-        className="orb animate-orb"
-        style={{ bottom: '0%', right: '-6%', width: 380, height: 380, background: 'radial-gradient(circle, rgba(34,211,238,0.1), transparent 70%)', animationDelay: '-9s' }}
-      />
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-        <TechTree />
-
-        <div className="mt-24">
         <SectionHeader
-          label="What I do"
-          heading={<>Six domains.<br />One engineer.</>}
-          sub="From intelligent systems to decentralised protocols — I build across the full spectrum of modern software."
+          label="My Skills"
+          heading={<>Tools I reach<br />for every day.</>}
+          sub="From intelligent systems to decentralised protocols — the technologies I use to build across the full spectrum of modern software."
         />
 
         <motion.div
-          className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-5"
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          variants={stagger(0.07)}
+          variants={stagger(0.08)}
         >
-          {DOMAINS.map((d, i) => (
-            <DomainCard
-              key={d.id}
-              domain={d}
-              index={i}
-              isActive={active === i}
-              onClick={() => setActive(i)}
-            />
+          {SKILL_GROUPS.map((g) => (
+            <GroupCard key={g.title} group={g} />
           ))}
         </motion.div>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={domain.id}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.35, ease: [0.16,1,0.3,1] }}
-            className="mt-5 rounded-xl p-6 sm:p-7"
-            style={{
-              background: `${domain.color}07`,
-              border: `1px solid ${domain.color}28`,
-            }}
-          >
-            <div className="flex flex-col sm:flex-row sm:items-start gap-6">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center text-xl"
-                    style={{ background: `${domain.color}12`, color: domain.color }}
-                  >
-                    {domain.icon}
-                  </div>
-                  <div>
-                    <p className="font-display text-lg font-bold" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                      {domain.label}
-                    </p>
-                    <p className="text-sm" style={{ color: domain.color }}>{domain.headline}</p>
-                  </div>
-                </div>
-                <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  {domain.desc}
-                </p>
-              </div>
-
-              <div className="sm:w-64 shrink-0">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-3" style={{ color: 'var(--text-muted)' }}>
-                  Tools & Technologies
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {domain.skills.map((skill, i) => (
-                    <motion.span
-                      key={skill}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: i * 0.04, duration: 0.25 }}
-                      className="inline-block px-3 py-1 text-xs font-medium rounded-md"
-                      style={{
-                        background: `${domain.color}10`,
-                        color: domain.color,
-                        border: `1px solid ${domain.color}28`,
-                        fontFamily: 'JetBrains Mono, monospace',
-                      }}
-                    >
-                      {skill}
-                    </motion.span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        <p className="mt-4 text-center text-[11px]" style={{ color: 'var(--text-muted)' }}>
-          Click any domain to explore
-        </p>
-        </div>
       </div>
     </section>
   );

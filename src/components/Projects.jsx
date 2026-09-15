@@ -3,88 +3,6 @@ import { FaExternalLinkAlt, FaArrowRight } from 'react-icons/fa';
 import { SectionHeader, Badge, stagger, useTilt, Spotlight } from './motion';
 import { PROJECTS } from './data';
 
-function HeroProjectCard({ project }) {
-  const { tiltStyle, tiltHandlers, glow } = useTilt(3);
-
-  return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 28 },
-        show:   { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16,1,0.3,1] } },
-      }}
-      {...tiltHandlers}
-      className="relative rounded-xl overflow-hidden group"
-      style={{ ...tiltStyle, border: '1px solid var(--border)' }}
-      whileHover={{ borderColor: 'rgba(20,184,166,0.35)' }}
-      transition={{ duration: 0.2 }}
-    >
-      <Spotlight glow={glow} size={560} />
-
-      {/* Image */}
-      <div className="relative z-10 h-52 sm:h-60 overflow-hidden">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-          style={{ filter: 'brightness(0.4) saturate(0.7)' }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(to top, var(--bg-card) 0%, rgba(8,8,16,0.3) 60%, transparent 100%)' }}
-        />
-        <div className="absolute top-4 left-4">
-          <span
-            className="text-[10px] font-bold tracking-[0.16em] uppercase px-3 py-1.5 rounded-full"
-            style={{ background: 'var(--accent)', color: '#fff' }}
-          >
-            {project.category}
-          </span>
-        </div>
-        {project.live && (
-          <a
-            href={project.live} target="_blank" rel="noopener noreferrer"
-            className="absolute top-4 right-4 flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full transition-opacity hover:opacity-75"
-            style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.12)' }}
-          >
-            <FaExternalLinkAlt size={9} /> Live site
-          </a>
-        )}
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 p-7 sm:p-8" style={{ background: 'var(--bg-card)' }}>
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-          <div className="flex-1">
-            <h3
-              className="font-display font-bold mb-3"
-              style={{ fontSize: 'clamp(1.25rem, 3vw, 1.75rem)', color: 'var(--text-primary)', letterSpacing: '-0.03em' }}
-            >
-              {project.title}
-            </h3>
-            <p className="text-sm leading-relaxed max-w-2xl" style={{ color: 'var(--text-secondary)' }}>
-              {project.description}
-            </p>
-          </div>
-          {project.live && (
-            <motion.a
-              href={project.live} target="_blank" rel="noopener noreferrer"
-              className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white self-start"
-              style={{ background: 'var(--accent)' }}
-              whileHover={{ opacity: 0.88 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              View project <FaArrowRight size={10} />
-            </motion.a>
-          )}
-        </div>
-        <div className="flex flex-wrap gap-2 mt-5">
-          {project.stack.map((t) => <Badge key={t}>{t}</Badge>)}
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 function ProjectCard({ project }) {
   const { tiltStyle, tiltHandlers, glow } = useTilt(5);
 
@@ -92,7 +10,7 @@ function ProjectCard({ project }) {
     <motion.div
       variants={{
         hidden: { opacity: 0, y: 24 },
-        show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16,1,0.3,1] } },
+        show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
       }}
       {...tiltHandlers}
       className="group relative flex flex-col rounded-xl overflow-hidden"
@@ -100,10 +18,10 @@ function ProjectCard({ project }) {
       whileHover={{ y: -4, borderColor: 'rgba(20,184,166,0.3)' }}
       transition={{ duration: 0.25 }}
     >
-      <Spotlight glow={glow} size={320} />
+      <Spotlight glow={glow} size={340} />
 
       {/* Image */}
-      <div className="relative z-10 h-40 overflow-hidden">
+      <div className="relative z-10 h-44 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
@@ -123,29 +41,30 @@ function ProjectCard({ project }) {
             {project.category}
           </span>
         </div>
-        {project.live && (
-          <a
-            href={project.live} target="_blank" rel="noopener noreferrer"
-            className="absolute top-3 right-3 p-1.5 rounded-full transition-opacity hover:opacity-75"
-            style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', backdropFilter: 'blur(6px)' }}
-            aria-label="Live site"
-          >
-            <FaExternalLinkAlt size={9} />
-          </a>
-        )}
       </div>
 
       {/* Content */}
       <div className="relative z-10 p-5 flex flex-col flex-1">
         <h3
           className="font-display font-bold mb-2"
-          style={{ fontSize: '1rem', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}
+          style={{ fontSize: '1.0625rem', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}
         >
           {project.title}
         </h3>
         <p className="text-sm leading-relaxed flex-1 mb-4" style={{ color: 'var(--text-secondary)' }}>
           {project.description}
         </p>
+
+        {project.live && (
+          <a
+            href={project.live} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold mb-4 w-fit"
+            style={{ color: 'var(--accent)' }}
+          >
+            Visit Live Site <FaArrowRight size={10} />
+          </a>
+        )}
+
         <div className="flex flex-wrap gap-1.5 mt-auto">
           {project.stack.map((t) => <Badge key={t}>{t}</Badge>)}
         </div>
@@ -155,14 +74,8 @@ function ProjectCard({ project }) {
 }
 
 export default function Projects() {
-  const [hero, ...rest] = PROJECTS;
-
   return (
     <section id="projects" className="relative py-20 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
-      <div
-        className="orb animate-orb"
-        style={{ top: '10%', right: '-10%', width: 460, height: 460, background: 'radial-gradient(circle, rgba(20,184,166,0.1), transparent 70%)' }}
-      />
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeader
           label="Projects"
@@ -171,23 +84,13 @@ export default function Projects() {
         />
 
         <motion.div
-          className="mt-12"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
-          variants={{ hidden: {}, show: {} }}
-        >
-          <HeroProjectCard project={hero} />
-        </motion.div>
-
-        <motion.div
-          className="mt-5 grid grid-cols-1 xs:grid-cols-2 gap-4 sm:gap-5"
+          className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-60px' }}
           variants={stagger(0.08)}
         >
-          {rest.map((p) => (
+          {PROJECTS.map((p) => (
             <ProjectCard key={p.title} project={p} />
           ))}
         </motion.div>

@@ -77,11 +77,38 @@ export default function About() {
   return (
     <section id="about" className="py-24 sm:py-32" style={{ background: 'var(--bg-surface)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <SectionHeader
-          label="About"
-          heading={<>The engineer behind<br />the work.</>}
-          sub="4 years. 50+ projects. 1 startup. Here's the full picture."
-        />
+
+        {/* Intro card */}
+        <FadeUp>
+          <div
+            className="relative rounded-2xl p-8 sm:p-10 text-center overflow-hidden mb-16"
+            style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
+          >
+            <div
+              className="absolute rounded-full pointer-events-none"
+              style={{
+                top: -60, left: '50%', transform: 'translateX(-50%)', width: 220, height: 220,
+                background: 'radial-gradient(circle, rgba(20,184,166,0.18), transparent 70%)',
+                filter: 'blur(20px)',
+              }}
+            />
+            <div className="relative z-10 mx-auto mb-5 w-9 h-9 rounded-full flex items-center justify-center" style={{ border: '1px solid var(--border)' }}>
+              <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'var(--accent)' }} />
+            </div>
+            <p className="relative z-10 text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: 'var(--text-muted)' }}>
+              About Me
+            </p>
+            <h2 className="relative z-10 font-display font-bold mb-4" style={{ fontSize: 'clamp(1.5rem, 3.4vw, 2.25rem)', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+              I am <span style={{ color: 'var(--accent)' }}>Jean Aime Iraguha</span>
+            </h2>
+            <p className="relative z-10 max-w-2xl mx-auto leading-relaxed" style={{ fontSize: '1.0625rem', color: 'var(--text-secondary)' }}>
+              Full-stack engineer and founder from Kigali, Rwanda, building complete products end to end —
+              responsive, high-performance frontends with React and Next.js, paired with backends in
+              Node.js on PostgreSQL. I've shipped platforms across food-tech, fintech, and education,
+              owning everything from UI/UX and API design to deployment.
+            </p>
+          </div>
+        </FadeUp>
 
         {/* Stats */}
         <motion.div

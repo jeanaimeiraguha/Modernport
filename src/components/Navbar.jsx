@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaTimes, FaFileAlt } from 'react-icons/fa';
+import { FaBars, FaXmark, FaFileLines, FaArrowUpRightFromSquare } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { NAV_LINKS } from './data';
 import { useMagnetic } from './motion';
-import CommandPalette from './CommandPalette';
 
 const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
@@ -32,23 +31,22 @@ export default function Navbar() {
 
   const handleNav = (id) => { scrollTo(id); setOpen(false); };
 
-  const bg = 'rgba(8,8,16,0.95)';
-
   return (
     <>
-      {/* ── Fixed navbar — always solid, never moves ── */}
-      <header
-        className="fixed top-0 left-0 right-0 z-50"
-        style={{
-          background:          scrolled ? bg : 'var(--bg-base)',
-          backdropFilter:      scrolled ? 'blur(20px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-          borderBottom:        `1px solid ${scrolled ? 'var(--border)' : 'transparent'}`,
-          transition:          'background 0.25s ease, border-color 0.25s ease',
-        }}
-      >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <nav className="flex items-center justify-between h-16">
+      {/* ── Floating pill navbar ── */}
+      <header className="fixed top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 z-50">
+        <div
+          className="max-w-5xl mx-auto rounded-full"
+          style={{
+            background:           scrolled ? 'rgba(10,11,13,0.85)' : 'rgba(10,11,13,0.55)',
+            backdropFilter:       'blur(20px) saturate(160%)',
+            WebkitBackdropFilter: 'blur(20px) saturate(160%)',
+            border:               `1px solid ${scrolled ? 'var(--border-hover)' : 'var(--border)'}`,
+            boxShadow:            scrolled ? '0 8px 32px rgba(0,0,0,0.35)' : 'none',
+            transition:           'background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease',
+          }}
+        >
+          <nav className="flex items-center justify-between h-14 sm:h-16 pl-2 pr-2 sm:pl-3 sm:pr-3">
 
             {/* Logo */}
             <button
@@ -57,7 +55,7 @@ export default function Navbar() {
               aria-label="Home"
             >
               <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center"
+                className="w-9 h-9 rounded-full flex items-center justify-center"
                 style={{ background: 'var(--accent)' }}
               >
                 <span className="font-display font-bold text-sm text-white">JA</span>
@@ -78,7 +76,7 @@ export default function Navbar() {
                   <li key={l}>
                     <button
                       onClick={() => handleNav(l)}
-                      className="relative px-3 py-1.5 text-sm font-medium capitalize rounded-lg"
+                      className="relative px-3 py-1.5 text-sm font-medium capitalize rounded-full"
                       style={{
                         color:      isActive ? 'var(--accent)' : 'var(--text-muted)',
                         background: isActive ? 'rgba(20,184,166,0.07)' : 'transparent',
@@ -101,26 +99,10 @@ export default function Navbar() {
             {/* Right controls */}
             <div className="flex items-center gap-2 shrink-0">
 
-              {/* Command palette */}
-              <CommandPalette />
-
-              {/* Available badge */}
-              <div
-                className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium"
-                style={{
-                  background: 'rgba(74,222,128,0.07)',
-                  border:     '1px solid rgba(74,222,128,0.18)',
-                  color:      '#16a34a',
-                }}
-              >
-                <span className="glow-dot" />
-                Available
-              </div>
-
               {/* CV */}
               <Link
                 to="/cv"
-                className="hidden md:inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg"
+                className="hidden md:inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full"
                 style={{
                   border:     '1px solid var(--border)',
                   color:      'var(--text-muted)',
@@ -129,33 +111,37 @@ export default function Navbar() {
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)';  e.currentTarget.style.color = 'var(--text-muted)'; }}
               >
-                <FaFileAlt size={10} /> CV
+                <FaFileLines size={10} /> CV
               </Link>
 
-              {/* Hire me */}
+              {/* Hire me — pill with icon button, echoing the reference's split treatment */}
               <motion.button
                 onClick={() => handleNav('contact')}
                 {...magnetic.handlers}
-                className="hidden md:block text-xs font-semibold px-4 py-1.5 rounded-lg text-white"
+                className="hidden md:flex items-center gap-2 pl-4 pr-1.5 py-1.5 text-xs font-semibold rounded-full text-white"
                 style={{
-                  background: 'var(--accent)',
-                  transition: 'opacity 0.2s ease',
+                  background: 'var(--bg-elevated)',
+                  border: '1px solid var(--border)',
                   ...magnetic.style,
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-                onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; magnetic.handlers.onMouseLeave(e); }}
               >
                 Hire me
+                <span
+                  className="w-7 h-7 rounded-lg flex items-center justify-center"
+                  style={{ background: 'var(--brand-blue)' }}
+                >
+                  <FaArrowUpRightFromSquare size={10} />
+                </span>
               </motion.button>
 
               {/* Hamburger */}
               <button
-                className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center"
+                className="md:hidden w-9 h-9 rounded-full flex items-center justify-center"
                 style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
                 onClick={() => setOpen((o) => !o)}
                 aria-label="Toggle menu"
               >
-                {open ? <FaTimes size={14} /> : <FaBars size={14} />}
+                {open ? <FaXmark size={14} /> : <FaBars size={14} />}
               </button>
             </div>
           </nav>
@@ -169,20 +155,20 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.18 }}
-              className="md:hidden px-4 pb-4"
+              className="md:hidden max-w-6xl mx-auto mt-2 px-4 py-3 rounded-3xl"
               style={{
-                background:          bg,
-                backdropFilter:      'blur(20px)',
+                background:           'rgba(10,11,13,0.95)',
+                backdropFilter:       'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
-                borderBottom:        '1px solid var(--border)',
+                border:               '1px solid var(--border)',
               }}
             >
-              <div className="flex flex-col gap-1 pt-2">
+              <div className="flex flex-col gap-1">
                 {NAV_LINKS.map((l) => (
                   <button
                     key={l}
                     onClick={() => handleNav(l)}
-                    className="text-sm capitalize text-left px-3 py-2.5 rounded-lg"
+                    className="text-sm capitalize text-left px-3 py-2.5 rounded-xl"
                     style={{
                       color:      active === l ? 'var(--accent)' : 'var(--text-secondary)',
                       background: active === l ? 'rgba(20,184,166,0.07)' : 'transparent',
@@ -195,18 +181,18 @@ export default function Navbar() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleNav('contact')}
-                    className="flex-1 text-sm font-semibold py-2.5 rounded-lg text-white"
+                    className="flex-1 text-sm font-semibold py-2.5 rounded-xl text-white"
                     style={{ background: 'var(--accent)' }}
                   >
                     Hire me
                   </button>
                   <Link
                     to="/cv"
-                    className="flex-1 text-sm font-medium py-2.5 rounded-lg text-center inline-flex items-center justify-center gap-1.5"
+                    className="flex-1 text-sm font-medium py-2.5 rounded-xl text-center inline-flex items-center justify-center gap-1.5"
                     style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
                     onClick={() => setOpen(false)}
                   >
-                    <FaFileAlt size={10} /> View CV
+                    <FaFileLines size={10} /> View CV
                   </Link>
                 </div>
               </div>

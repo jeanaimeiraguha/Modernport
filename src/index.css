@@ -7,24 +7,25 @@
 /* ── Design tokens ─────────────────────────────────────────────────────────── */
 /* Dark is the only theme */
 :root {
-  --bg-base:         #030c18;
-  --bg-surface:      #071322;
-  --bg-elevated:     #0b1a2c;
-  --bg-card:         #081521;
-  --border:          rgba(148,197,199,0.09);
+  --bg-base:         #0a0b0d;
+  --bg-surface:      #101216;
+  --bg-elevated:     #16181d;
+  --bg-card:         #131519;
+  --border:          rgba(210,215,220,0.08);
   --border-hover:    rgba(45,212,191,0.5);
-  --text-primary:    #eaf3f3;
-  --text-secondary:  #8fa3ba;
-  --text-muted:      #3f5468;
+  --text-primary:    #f2f4f5;
+  --text-secondary:  #9aa1ab;
+  --text-muted:      #565c66;
   --accent:          #14b8a6;
   --accent-hover:    #2dd4bf;
   --accent-glow:     rgba(20,184,166,0.25);
   --cyan:            #22d3ee;
   --cyan-glow:       rgba(34,211,238,0.2);
   --green:           #4ade80;
-  --scrollbar-bg:    #030c18;
-  --scrollbar-thumb: #123246;
-  --gradient-brand:  linear-gradient(90deg, #2dd4bf 0%, #38bdf8 55%, #a78bfa 100%);
+  --scrollbar-bg:    #0a0b0d;
+  --scrollbar-thumb: #2a2d33;
+  --gradient-brand:  linear-gradient(90deg, #14b8a6, #2dd4bf);
+  --brand-blue:      #3b6bf0;
 }
 
 /* ── Base ──────────────────────────────────────────────────────────────────── */
@@ -42,8 +43,6 @@ body {
   line-height: 1.7;
   overflow-x: hidden;
 }
-
-@media (pointer: fine) { body { cursor: none; } }
 
 .font-display { font-family: 'Space Grotesk', sans-serif; }
 .font-sans    { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; }
@@ -70,8 +69,6 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  background-size: 200% 200%;
-  animation: gradient-shift 5s ease infinite;
 }
 
 
@@ -280,36 +277,6 @@ body {
   background: linear-gradient(90deg, #14b8a6, #38bdf8, #22d3ee);
   z-index: 9999;
   transform-origin: left;
-}
-
-/* ── Custom cursor ─────────────────────────────────────────────────────────── */
-.cursor-dot {
-  position: fixed;
-  width: 5px;
-  height: 5px;
-  background: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-}
-
-.cursor-ring {
-  position: fixed;
-  width: 32px;
-  height: 32px;
-  border: 1px solid rgba(20,184,166,0.4);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
-}
-
-.cursor-ring.hovering {
-  width: 48px;
-  height: 48px;
-  border-color: rgba(20,184,166,0.7);
 }
 
 /* ── Ambient orbs ──────────────────────────────────────────────────────────── */

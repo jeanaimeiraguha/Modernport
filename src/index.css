@@ -199,6 +199,17 @@ body {
   background-size: 30px 30px;
 }
 
+/* ── Notched card — chamfered top-left / bottom-right corners, the
+   reference's signature "tech card" silhouette ── */
+.card-notch {
+  --notch: 22px;
+  clip-path: polygon(
+    var(--notch) 0, 100% 0,
+    100% calc(100% - var(--notch)), calc(100% - var(--notch)) 100%,
+    0 100%, 0 var(--notch)
+  );
+}
+
 /* ── Card hover ────────────────────────────────────────────────────────────── */
 .card-hover {
   transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),

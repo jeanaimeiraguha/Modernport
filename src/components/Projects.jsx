@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { FaExternalLinkAlt, FaArrowRight } from 'react-icons/fa';
-import { SectionHeader, Badge, stagger, useTilt, Spotlight } from './motion';
+import { FaArrowRight } from 'react-icons/fa';
+import { SectionHeader, stagger, useTilt, Spotlight } from './motion';
 import { PROJECTS } from './data';
+import { getTechIcon } from './techIcons';
 
 function ProjectCard({ project }) {
   const { tiltStyle, tiltHandlers, glow } = useTilt(5);
@@ -27,30 +28,20 @@ function ProjectCard({ project }) {
           alt={project.title}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-105"
-          style={{ filter: 'brightness(0.45) saturate(0.7)' }}
         />
-        <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(to top, var(--bg-card) 0%, transparent 55%)' }}
-        />
-        <div className="absolute top-3 left-3">
-          <span
-            className="text-[9px] font-semibold tracking-[0.1em] uppercase px-2.5 py-1 rounded-full"
-            style={{ background: 'rgba(20,184,166,0.85)', color: '#fff' }}
-          >
-            {project.category}
-          </span>
-        </div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 p-5 flex flex-col flex-1">
         <h3
-          className="font-display font-bold mb-2"
+          className="font-display font-bold mb-0.5"
           style={{ fontSize: '1.0625rem', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}
         >
           {project.title}
         </h3>
+        <p className="text-xs font-medium mb-3" style={{ color: 'var(--text-muted)' }}>
+          {project.category}
+        </p>
         <p className="text-sm leading-relaxed flex-1 mb-4" style={{ color: 'var(--text-secondary)' }}>
           {project.description}
         </p>
@@ -66,7 +57,20 @@ function ProjectCard({ project }) {
         )}
 
         <div className="flex flex-wrap gap-1.5 mt-auto">
-          {project.stack.map((t) => <Badge key={t}>{t}</Badge>)}
+          {project.stack.map((t) => {
+            const { Icon, color } = getTechIcon(t);
+            return (
+              <span
+                key={t}
+                aria-label={t}
+                title={t}
+                className="w-7 h-7 rounded-md flex items-center justify-center shrink-0"
+                style={{ background: `${color}18`, color }}
+              >
+                <Icon size={13} />
+              </span>
+            );
+          })}
         </div>
       </div>
     </motion.div>

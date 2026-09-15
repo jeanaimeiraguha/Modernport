@@ -5,7 +5,7 @@ import {
   FaMapMarkerAlt, FaWhatsapp, FaCheckCircle,
   FaExclamationCircle, FaPaperPlane,
 } from 'react-icons/fa';
-import { SectionHeader, FadeUp } from './motion';
+import { FadeUp } from './motion';
 import { CONTACT_ITEMS } from './data';
 
 const ICONS = {
@@ -87,16 +87,80 @@ export default function Contact() {
   return (
     <section id="contact" className="relative py-20 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-        <SectionHeader
-          label="Contact"
-          heading={<>Let's talk on your<br />great project together.</>}
-          sub="Whether you're hiring, have a project in mind, or just want to connect — I reply within 24 hours."
-        />
 
-        <div className="mt-14 grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div
+          className="card-notch p-6 sm:p-10 lg:p-12"
+          style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
+        >
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+
+          {/* Info */}
+          <FadeUp delay={0.1}>
+            <h2
+              className="font-display font-bold mb-4"
+              style={{ fontSize: 'clamp(1.75rem, 3.6vw, 2.5rem)', letterSpacing: '-0.02em', lineHeight: 1.15 }}
+            >
+              <span style={{ color: 'var(--text-primary)' }}>Let's talk on your </span>
+              <span style={{ color: 'var(--text-muted)' }}>great project together.</span>
+            </h2>
+            <p className="mb-8" style={{ fontSize: '1.0625rem', color: 'var(--text-secondary)' }}>
+              Whether you're hiring, have a project in mind, or just want to connect — I reply within 24 hours.
+            </p>
+
+            <div
+              className="rounded-xl p-5 mb-5"
+              style={{ background: 'rgba(20,184,166,0.04)', border: '1px solid rgba(20,184,166,0.14)' }}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <span className="glow-dot" />
+                <p className="font-display font-bold text-base" style={{ color: 'var(--text-primary)' }}>Currently available</p>
+              </div>
+              <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                Open to senior full-stack, lead engineer, or CTO-track remote roles. Also available
+                for consulting and fractional CTO engagements.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {CONTACT_ITEMS.map((item) => (
+                <motion.div
+                  key={item.label}
+                  whileHover={{ x: 4 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+                  className="flex items-center gap-4 rounded-xl px-4 py-3.5"
+                  style={{ background: 'var(--bg-base)', border: '1px solid var(--border)' }}
+                >
+                  <span
+                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                    style={{ background: 'rgba(20,184,166,0.08)', color: ICON_COLORS[item.type] || 'var(--accent)' }}
+                  >
+                    {ICONS[item.type]}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] mb-0.5" style={{ color: 'var(--text-muted)' }}>
+                      {item.label}
+                    </p>
+                    {item.href ? (
+                      <a
+                        href={item.href} target="_blank" rel="noopener noreferrer"
+                        className="font-display font-semibold text-[0.9375rem] truncate block transition-colors"
+                        style={{ color: 'var(--text-secondary)' }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p className="font-display font-semibold text-[0.9375rem] truncate" style={{ color: 'var(--text-secondary)' }}>{item.value}</p>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </FadeUp>
 
           {/* Form */}
-          <FadeUp delay={0.1} className="lg:order-2">
+          <FadeUp delay={0.2}>
             <AnimatePresence mode="wait">
               {status === 'sent' ? (
                 <motion.div
@@ -177,60 +241,7 @@ export default function Contact() {
               )}
             </AnimatePresence>
           </FadeUp>
-
-          {/* Info */}
-          <FadeUp delay={0.2} className="lg:order-1">
-            <div
-              className="rounded-xl p-5 mb-5"
-              style={{ background: 'rgba(20,184,166,0.04)', border: '1px solid rgba(20,184,166,0.14)' }}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="glow-dot" />
-                <p className="font-display font-bold text-base" style={{ color: 'var(--text-primary)' }}>Currently available</p>
-              </div>
-              <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                Open to senior full-stack, lead engineer, or CTO-track remote roles. Also available
-                for consulting and fractional CTO engagements.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              {CONTACT_ITEMS.map((item) => (
-                <motion.div
-                  key={item.label}
-                  whileHover={{ x: 4 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-                  className="flex items-center gap-4 rounded-xl px-4 py-3.5"
-                  style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
-                >
-                  <span
-                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                    style={{ background: 'rgba(20,184,166,0.08)', color: ICON_COLORS[item.type] || 'var(--accent)' }}
-                  >
-                    {ICONS[item.type]}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] mb-0.5" style={{ color: 'var(--text-muted)' }}>
-                      {item.label}
-                    </p>
-                    {item.href ? (
-                      <a
-                        href={item.href} target="_blank" rel="noopener noreferrer"
-                        className="font-display font-semibold text-[0.9375rem] truncate block transition-colors"
-                        style={{ color: 'var(--text-secondary)' }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
-                      >
-                        {item.value}
-                      </a>
-                    ) : (
-                      <p className="font-display font-semibold text-[0.9375rem] truncate" style={{ color: 'var(--text-secondary)' }}>{item.value}</p>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </FadeUp>
+        </div>
         </div>
       </div>
     </section>

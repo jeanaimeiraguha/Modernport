@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { FaQuoteLeft } from 'react-icons/fa';
 import { SectionHeader, stagger, viewportOnce } from './motion';
 import { TESTIMONIALS } from './data';
 
@@ -10,34 +9,28 @@ function TestimonialCard({ t }) {
         hidden: { opacity: 0, y: 24 },
         show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
       }}
-      className="relative rounded-2xl p-6 sm:p-7 flex flex-col"
+      className="card-notch relative p-7 sm:p-8 flex flex-col items-center text-center"
       style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}
       whileHover={{ y: -3, borderColor: 'rgba(20,184,166,0.3)' }}
       transition={{ duration: 0.2 }}
     >
-      <FaQuoteLeft size={18} style={{ color: 'var(--accent)', opacity: 0.3, marginBottom: 14 }} />
-      <p className="text-sm leading-[1.85] flex-1 mb-6" style={{ color: 'var(--text-secondary)' }}>
-        "{t.text}"
-      </p>
-      <div className="flex items-center gap-3">
-        <img
-          src={t.image}
-          alt={t.name}
-          className="w-11 h-11 rounded-full object-cover shrink-0"
-          style={{ border: '2px solid var(--border)' }}
-          onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
-        />
-        <div
-          className="w-11 h-11 rounded-full items-center justify-center text-xs font-bold shrink-0"
-          style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-hover))', color: '#fff', display: 'none' }}
-        >
-          {t.avatar}
-        </div>
-        <div className="min-w-0">
-          <p className="font-display font-bold text-sm" style={{ color: 'var(--text-primary)' }}>{t.name}</p>
-          <p className="text-xs mt-0.5 leading-snug" style={{ color: 'var(--text-muted)' }}>{t.role}</p>
-        </div>
+      <img
+        src={t.image}
+        alt={t.name}
+        className="w-16 h-16 rounded-xl object-cover shrink-0 mb-4"
+        style={{ border: '1px solid var(--border)' }}
+        onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+      />
+      <div
+        className="w-16 h-16 rounded-xl items-center justify-center text-sm font-bold shrink-0 mb-4"
+        style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-hover))', color: '#fff', display: 'none' }}
+      >
+        {t.avatar}
       </div>
+      <p className="font-display font-bold text-base mb-2" style={{ color: 'var(--text-primary)' }}>{t.name}</p>
+      <p className="text-sm leading-[1.85]" style={{ color: 'var(--text-secondary)' }}>
+        {t.text}
+      </p>
     </motion.div>
   );
 }

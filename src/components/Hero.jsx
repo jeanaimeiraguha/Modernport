@@ -136,8 +136,8 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 900px 600px at 15% -5%, rgba(20,140,130,0.12), transparent 60%), ' +
-            'radial-gradient(ellipse 700px 500px at 100% 100%, rgba(20,140,130,0.08), transparent 60%)',
+            'radial-gradient(ellipse 900px 600px at 15% -5%, rgba(79,70,229,0.06), transparent 60%), ' +
+            'radial-gradient(ellipse 700px 500px at 100% 100%, rgba(79,70,229,0.04), transparent 60%)',
         }}
       />
 

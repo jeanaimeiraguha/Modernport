@@ -14,9 +14,14 @@ function ProjectCard({ project }) {
         show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
       }}
       {...tiltHandlers}
-      className="group relative flex flex-col rounded-xl overflow-hidden"
-      style={{ ...tiltStyle, background: 'var(--bg-card)', border: '1px solid var(--border)' }}
-      whileHover={{ y: -4, borderColor: 'rgba(20,184,166,0.3)' }}
+      className="group relative flex flex-col rounded-2xl overflow-hidden"
+      style={{
+        ...tiltStyle,
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border)',
+        boxShadow: '0 1px 2px rgba(15,23,42,0.04), 0 8px 24px rgba(15,23,42,0.06)',
+      }}
+      whileHover={{ y: -4, borderColor: 'var(--border-hover)' }}
       transition={{ duration: 0.25 }}
     >
       <Spotlight glow={glow} size={340} />

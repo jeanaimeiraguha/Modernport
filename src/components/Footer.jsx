@@ -13,7 +13,7 @@ export default function Footer() {
     <footer className="relative overflow-hidden" style={{ background: 'var(--bg-base)', borderTop: '1px solid var(--border)' }}>
       {/* Ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-24 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(20,184,166,0.08) 0%, transparent 70%)', filter: 'blur(30px)' }} />
+        style={{ background: 'radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%)', filter: 'blur(30px)' }} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 relative z-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="flex items-center gap-2.5">
             <div
               className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, #14b8a6, #0d9488)', boxShadow: '0 0 12px rgba(20,184,166,0.3)' }}
+              style={{ background: 'var(--gradient-brand)', boxShadow: '0 0 12px var(--accent-glow)' }}
             >
               <span className="font-display font-bold text-xs text-white">JA</span>
             </div>

@@ -1,14 +1,10 @@
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, useContext } from 'react';
 
-const ThemeContext = createContext();
+const ThemeContext = createContext({ theme: 'light' });
 
 export function ThemeProvider({ children }) {
-  useEffect(() => {
-    document.documentElement.classList.add('dark');
-  }, []);
-
   return (
-    <ThemeContext.Provider value={{ theme: 'dark' }}>
+    <ThemeContext.Provider value={{ theme: 'light' }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -1,31 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ── Design tokens ─────────────────────────────────────────────────────────── */
-/* Dark is the only theme */
+/* White is the only theme */
 :root {
-  --bg-base:         #0a0b0d;
-  --bg-surface:      #101216;
-  --bg-elevated:     #16181d;
-  --bg-card:         #131519;
-  --border:          rgba(210,215,220,0.08);
-  --border-hover:    rgba(45,212,191,0.5);
-  --text-primary:    #f2f4f5;
-  --text-secondary:  #9aa1ab;
-  --text-muted:      #565c66;
-  --accent:          #14b8a6;
-  --accent-hover:    #2dd4bf;
-  --accent-glow:     rgba(20,184,166,0.25);
-  --cyan:            #22d3ee;
-  --cyan-glow:       rgba(34,211,238,0.2);
-  --green:           #4ade80;
-  --scrollbar-bg:    #0a0b0d;
-  --scrollbar-thumb: #2a2d33;
-  --gradient-brand:  linear-gradient(90deg, #14b8a6, #2dd4bf);
-  --brand-blue:      #3b6bf0;
+  --bg-base:         #ffffff;
+  --bg-surface:      #f8fafc;
+  --bg-elevated:     #ffffff;
+  --bg-card:         #ffffff;
+  --border:          rgba(15,23,42,0.1);
+  --border-hover:    rgba(79,70,229,0.45);
+  --text-primary:    #162b3d;
+  --text-secondary:  #4b5563;
+  --text-muted:      #94a3b8;
+  --accent:          #4f46e5;
+  --accent-hover:    #6366f1;
+  --accent-glow:     rgba(79,70,229,0.18);
+  --cyan:            #0891b2;
+  --cyan-glow:       rgba(8,145,178,0.15);
+  --green:           #16a34a;
+  --scrollbar-bg:    #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+  --gradient-brand:  linear-gradient(90deg, #4f46e5, #6366f1);
+  --brand-blue:      #4f46e5;
+  --nav-bg:           rgba(255,255,255,0.7);
+  --nav-bg-scrolled:  rgba(255,255,255,0.92);
+  --ring-color:        rgba(15,23,42,0.14);
+  --font-display:     'Poppins', sans-serif;
+  --font-sans:        'Poppins', sans-serif;
 }
 
 /* ── Base ──────────────────────────────────────────────────────────────────── */
@@ -34,7 +39,7 @@
 html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-family: var(--font-sans);
   background: var(--bg-base);
   color: var(--text-primary);
   font-size: 16px;
@@ -42,11 +47,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.7;
   overflow-x: hidden;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
-.font-display { font-family: 'Space Grotesk', sans-serif; }
-.font-sans    { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; }
+.font-display { font-family: var(--font-display); }
+.font-sans    { font-family: var(--font-sans); }
 .font-mono    { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+/* ── Light-mode dampening for dark-tuned decorative effects ──────────────────── */
+.orb { opacity: 0.22; }
+.grid-bg { opacity: 0.5 !important; }
 
 /* ── Scrollbar ─────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 3px; }
@@ -199,15 +209,11 @@ body {
   background-size: 30px 30px;
 }
 
-/* ── Notched card — chamfered top-left / bottom-right corners, the
-   reference's signature "tech card" silhouette ── */
+/* ── Card — plain rounded card with a soft shadow, matching a clean
+   white-card look rather than heavy borders/glow ── */
 .card-notch {
-  --notch: 22px;
-  clip-path: polygon(
-    var(--notch) 0, 100% 0,
-    100% calc(100% - var(--notch)), calc(100% - var(--notch)) 100%,
-    0 100%, 0 var(--notch)
-  );
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.04), 0 8px 24px rgba(15,23,42,0.06);
 }
 
 /* ── Card hover ────────────────────────────────────────────────────────────── */
@@ -218,7 +224,7 @@ body {
 }
 .card-hover:hover {
   border-color: var(--border-hover);
-  box-shadow: 0 12px 40px rgba(20,184,166,0.12), 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 12px 32px rgba(79,70,229,0.1), 0 2px 8px rgba(15,23,42,0.06);
 }
 
 /* ── Glass ─────────────────────────────────────────────────────────────────── */

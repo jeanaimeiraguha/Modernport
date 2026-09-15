@@ -12,31 +12,21 @@ function ServiceCard({ service }) {
         hidden: { opacity: 0, y: 24 },
         show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
       }}
-      whileHover={{ y: -4 }}
+      whileHover={{ y: -3 }}
       {...tiltHandlers}
-      className="relative rounded-2xl p-7 sm:p-8 overflow-hidden flex flex-col"
+      className="card-notch relative p-7 sm:p-8 flex flex-col"
       style={{
         ...tiltStyle,
-        background: `linear-gradient(155deg, ${service.color}14, var(--bg-card) 55%)`,
-        border: `1px solid ${service.color}28`,
-        minHeight: 300,
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border)',
+        minHeight: 280,
       }}
     >
       <Spotlight glow={glow} color={hexToRgb(service.color)} />
 
-      {/* Glow blob, top-right — echoes the reference's colored orb behind each icon */}
       <div
-        className="absolute rounded-full pointer-events-none"
-        style={{
-          top: -40, right: -40, width: 160, height: 160,
-          background: `radial-gradient(circle, ${service.color}55, transparent 70%)`,
-          filter: 'blur(20px)',
-        }}
-      />
-
-      <div
-        className="relative z-10 w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold mb-6"
-        style={{ background: `linear-gradient(135deg, ${service.color}, ${service.accent})`, color: '#fff' }}
+        className="relative z-10 w-11 h-11 rounded-xl flex items-center justify-center text-lg font-bold mb-6"
+        style={{ background: `${service.color}14`, color: service.color }}
       >
         {service.icon}
       </div>

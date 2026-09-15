@@ -38,7 +38,7 @@ export default function Navbar() {
         <div
           className="max-w-5xl mx-auto rounded-full"
           style={{
-            background:           scrolled ? 'rgba(10,11,13,0.85)' : 'rgba(10,11,13,0.55)',
+            background:           scrolled ? 'var(--nav-bg-scrolled)' : 'var(--nav-bg)',
             backdropFilter:       'blur(20px) saturate(160%)',
             WebkitBackdropFilter: 'blur(20px) saturate(160%)',
             border:               `1px solid ${scrolled ? 'var(--border-hover)' : 'var(--border)'}`,
@@ -118,10 +118,11 @@ export default function Navbar() {
               <motion.button
                 onClick={() => handleNav('contact')}
                 {...magnetic.handlers}
-                className="hidden md:flex items-center gap-2 pl-4 pr-1.5 py-1.5 text-xs font-semibold rounded-full text-white"
+                className="hidden md:flex items-center gap-2 pl-4 pr-1.5 py-1.5 text-xs font-semibold rounded-full"
                 style={{
                   background: 'var(--bg-elevated)',
                   border: '1px solid var(--border)',
+                  color: 'var(--text-primary)',
                   ...magnetic.style,
                 }}
               >
@@ -157,7 +158,7 @@ export default function Navbar() {
               transition={{ duration: 0.18 }}
               className="md:hidden max-w-6xl mx-auto mt-2 px-4 py-3 rounded-3xl"
               style={{
-                background:           'rgba(10,11,13,0.95)',
+                background:           'var(--nav-bg-scrolled)',
                 backdropFilter:       'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
                 border:               '1px solid var(--border)',

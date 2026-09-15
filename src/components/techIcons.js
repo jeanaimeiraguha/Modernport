@@ -10,7 +10,7 @@ import {
 export const TECH_ICONS = {
   'React':           { Icon: SiReact,        color: '#61DAFB' },
   'React Native':    { Icon: SiReact,         color: '#61DAFB' },
-  'Next.js':         { Icon: SiNextdotjs,     color: '#ffffff' },
+  'Next.js':         { Icon: SiNextdotjs,     color: '#111827' },
   'TypeScript':      { Icon: SiTypescript,    color: '#3178C6' },
   'JavaScript':      { Icon: SiJavascript,    color: '#F7DF1E' },
   'HTML5':           { Icon: SiHtml5,         color: '#E34F26' },
@@ -33,7 +33,7 @@ export const TECH_ICONS = {
   'GitHub Actions':  { Icon: SiGithubactions, color: '#2088FF' },
   'Nginx':           { Icon: SiNginx,         color: '#009639' },
   'Stripe':          { Icon: SiStripe,        color: '#635BFF' },
-  'Socket.io':       { Icon: SiSocketdotio,   color: '#ffffff' },
+  'Socket.io':       { Icon: SiSocketdotio,   color: '#111827' },
   'D3.js':           { Icon: SiD3,            color: '#F9A03C' },
   'MySQL':           { Icon: SiMysql,         color: '#4479A1' },
   'Chart.js':        { Icon: SiChartdotjs,    color: '#FF6384' },

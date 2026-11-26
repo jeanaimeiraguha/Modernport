@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
-  darkMode: 'class',
   theme: {
     screens: {
       xs: '480px', sm: '640px', md: '768px',
@@ -9,35 +8,49 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans:    ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
-        display: ['Space Grotesk', 'sans-serif'],
+        sans:    ['Kumbh Sans', 'sans-serif'],
+        display: ['Kumbh Sans', 'sans-serif'],
         mono:    ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       colors: {
-        dark: {
-          900: '#030c18', 800: '#071322',
-          700: '#081521', 600: '#0b1a2c', 500: '#123246',
+        primary: {
+          DEFAULT: '#054163',
+          dark:    '#022e47',
+          light:   '#0b6a9e',
+          sky:     '#0991df',
         },
-        accent: { DEFAULT: '#14b8a6', hover: '#2dd4bf', glow: 'rgba(20,184,166,0.25)' },
+        ink:  { DEFAULT: '#0f0d1d', body: '#585858', muted: '#8a8f98' },
+        sub:  '#f3f7fb',
+        line: { DEFAULT: '#e3e3e3', soft: '#eaecf0' },
+      },
+      maxWidth: {
+        content: '1350px',
+      },
+      boxShadow: {
+        qt:    '0px 4px 25px 0px rgba(0,0,0,0.06)',
+        'qt-lg': '0px 12px 40px 0px rgba(5,65,99,0.12)',
+      },
+      backgroundImage: {
+        'gradient-dark': 'linear-gradient(90deg, #0f0d1d -76.72%, #054163 191.51%)',
       },
       keyframes: {
-        'gradient-shift': {
-          '0%,100%': { backgroundPosition: '0% 50%' },
-          '50%':      { backgroundPosition: '100% 50%' },
+        fadeInUp: {
+          from: { opacity: '0', transform: 'translate3d(0,40px,0)' },
+          to:   { opacity: '1', transform: 'translate3d(0,0,0)' },
         },
-        float: {
-          '0%,100%': { transform: 'translateY(0px)' },
-          '50%':      { transform: 'translateY(-20px)' },
+        sway_Y: {
+          from: { transform: 'translateY(0)' },
+          to:   { transform: 'translateY(20px)' },
         },
-        'orb-drift': {
-          '0%,100%': { transform: 'translate(0,0) scale(1)' },
-          '50%':      { transform: 'translate(30px,-20px) scale(1.05)' },
+        sway_X: {
+          from: { transform: 'translateX(-26px)' },
+          to:   { transform: 'translateX(26px)' },
         },
       },
       animation: {
-        'gradient-shift': 'gradient-shift 5s ease infinite',
-        'float':          'float 7s ease-in-out infinite',
-        'orb-drift':      'orb-drift 18s ease-in-out infinite',
+        'fade-in-up': 'fadeInUp 0.8s ease-out both',
+        'sway-y':     'sway_Y 5s linear infinite alternate',
+        'sway-x':     'sway_X 9s ease-in-out infinite alternate',
       },
     },
   },

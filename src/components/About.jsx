@@ -1,311 +1,261 @@
-import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  FaEnvelope, FaMapMarkerAlt, FaRocket, FaCode,
-  FaUsers, FaBrain, FaCheckCircle, FaDownload,
+  FaEnvelope, FaMapMarkerAlt, FaRocket, FaBrain,
+  FaCode, FaUsers, FaCheck, FaDownload, FaArrowRight,
 } from 'react-icons/fa';
-import { FadeUp, SectionHeader, stagger, viewportOnce } from './motion';
+import { SectionHeader, Reveal, viewportOnce, stagger } from './motion';
 
-function Counter({ target, suffix = '' }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !started.current) {
-        started.current = true;
-        const num = parseInt(target);
-        const steps = 50;
-        const inc = num / steps;
-        let cur = 0;
-        const timer = setInterval(() => {
-          cur += inc;
-          if (cur >= num) { setCount(num); clearInterval(timer); }
-          else setCount(Math.floor(cur));
-        }, 1800 / steps);
-      }
-    }, { threshold: 0.5 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [target]);
-
-  return <span ref={ref}>{count}{suffix}</span>;
-}
-
-const STATS = [
-  { value: '4',  suffix: '+', label: 'Years experience', color: '#14b8a6' },
-  { value: '50', suffix: '+', label: 'Projects shipped',  color: '#38bdf8' },
-  { value: '30', suffix: '+', label: 'Clients & partners', color: '#22d3ee' },
-  { value: '1',  suffix: '',  label: 'Startup as CTO',    color: '#f59e0b' },
+/* The two headline qualities, shown as the reference's paired feature items. */
+const FEATURES = [
+  {
+    icon: <FaRocket size={22} />,
+    title: 'Business Growth',
+    desc: 'I build for outcomes, not demos — platforms that take a business from idea to paying customers.',
+  },
+  {
+    icon: <FaBrain size={22} />,
+    title: 'High End Technologies',
+    desc: 'Modern stacks across web, mobile, AI, Web3 and cloud, chosen for the problem rather than the trend.',
+  },
 ];
 
-const VALUE_PROPS = [
+const PILLARS = [
   {
-    icon: <FaRocket size={14} />, color: '#14b8a6',
+    icon: <FaRocket size={16} />,
     title: 'Ships fast without breaking things',
-    desc: 'From zero to production in weeks, not months. I\'ve built entire platforms solo and led teams to do the same.',
+    desc: 'Zero to production in weeks, not months. I have built entire platforms solo and led teams to do the same.',
   },
   {
-    icon: <FaBrain size={14} />, color: '#38bdf8',
-    title: 'Full-stack depth across 6 domains',
-    desc: 'Web, mobile, AI/ML, blockchain, DevOps, computer vision — production code in every one of these areas.',
+    icon: <FaBrain size={16} />,
+    title: 'Full-stack depth across six domains',
+    desc: 'Web, mobile, AI/ML, blockchain, DevOps and computer vision — production code in every one of them.',
   },
   {
-    icon: <FaCode size={14} />, color: '#22d3ee',
+    icon: <FaCode size={16} />,
     title: 'Code teams actually want to maintain',
     desc: 'At Igifu Meals, onboarding new engineers took half the usual time because of the code culture I built.',
   },
   {
-    icon: <FaUsers size={14} />, color: '#f59e0b',
+    icon: <FaUsers size={16} />,
     title: 'Thinks like a founder, not just an engineer',
-    desc: 'As CTO I made decisions that moved the business — not just the codebase. I understand tradeoffs and timelines.',
+    desc: 'As CTO I made the calls that moved the business, not only the codebase. I understand tradeoffs and timelines.',
   },
 ];
 
-const WINS = [
-  { year: '2020', text: 'Automated 20+ hrs/week of manual work as a first-year intern.' },
-  { year: '2021', text: 'Built an e-learning platform used by 5,000+ students daily across Rwanda.' },
-  { year: '2022', text: 'Delivered a fintech dashboard processing $2M+ in transactions — zero critical bugs.' },
-  { year: '2023', text: 'Co-founded Igifu Meals as CTO, grew to 30+ restaurant partners.' },
-  { year: '2024', text: 'Leading engineering, mentoring 4 devs, scaling for 500+ concurrent users.' },
+const RESULTS = [
+  'First Class Honors — University of Rwanda (GPA 3.8 / 4.0)',
+  '$2M+ in fintech transactions with zero critical production bugs',
+  '5,000+ daily active students on the e-learning platform I built',
+  '500+ concurrent users served at sub-200ms latency',
+  '30+ restaurant partners onboarded at Igifu Meals',
+  'Mentored 4 engineers and cut onboarding time by half',
 ];
 
 export default function About() {
   return (
-    <section id="about" className="py-24 sm:py-32" style={{ background: 'var(--bg-surface)' }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="about" className="qt-section bg-main">
+      <div className="qt-container">
 
-        {/* Intro card */}
-        <FadeUp>
-          <div
-            className="relative rounded-2xl p-8 sm:p-10 text-center overflow-hidden mb-16"
-            style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
-          >
-            <div
-              className="absolute rounded-full pointer-events-none"
-              style={{
-                top: -60, left: '50%', transform: 'translateX(-50%)', width: 220, height: 220,
-                background: 'radial-gradient(circle, rgba(20,184,166,0.18), transparent 70%)',
-                filter: 'blur(20px)',
-              }}
+        {/* ══ Intro: copy left, mission/vision right ══ */}
+        <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-start">
+          <div>
+            <SectionHeader
+              label="About Me"
+              heading="Empowering businesses with reliable software"
             />
-            <div className="relative z-10 mx-auto mb-5 w-9 h-9 rounded-full flex items-center justify-center" style={{ border: '1px solid var(--border)' }}>
-              <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'var(--accent)' }} />
+
+            <div style={{ marginTop: 30 }}>
+              <p style={{ color: 'var(--paragraph)', marginBottom: 18 }}>
+                I am <strong style={{ color: 'var(--heading)' }}>Jean Aime Iraguha</strong>, a full-stack
+                engineer and co-founder based in <strong style={{ color: 'var(--heading)' }}>Kigali, Rwanda</strong>,
+                with four years spent turning hard problems into software that holds up in production.
+              </p>
+              <p style={{ color: 'var(--paragraph)', marginBottom: 18 }}>
+                I graduated with <strong style={{ color: 'var(--heading)' }}>First Class Honors</strong> from the
+                University of Rwanda, then went straight to shipping real systems with real users, real money
+                and real consequences when things break.
+              </p>
+              <p style={{ color: 'var(--paragraph)' }}>
+                In 2023 I co-founded <strong style={{ color: 'var(--primary)' }}>Igifu Meals</strong> and took the
+                CTO seat — designing the architecture, hiring the team, and making the calls that carried us from
+                an idea to <strong style={{ color: 'var(--heading)' }}>30+ restaurant partners</strong>.
+              </p>
             </div>
-            <p className="relative z-10 text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: 'var(--text-muted)' }}>
-              About Me
-            </p>
-            <h2 className="relative z-10 font-display font-bold mb-4" style={{ fontSize: 'clamp(1.5rem, 3.4vw, 2.25rem)', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-              I am <span style={{ color: 'var(--accent)' }}>Jean Aime Iraguha</span>
-            </h2>
-            <p className="relative z-10 max-w-2xl mx-auto leading-relaxed" style={{ fontSize: '1.0625rem', color: 'var(--text-secondary)' }}>
-              Full-stack engineer and founder from Kigali, Rwanda, building complete products end to end —
-              responsive, high-performance frontends with React and Next.js, paired with backends in
-              Node.js on PostgreSQL. I've shipped platforms across food-tech, fintech, and education,
-              owning everything from UI/UX and API design to deployment.
-            </p>
-          </div>
-        </FadeUp>
 
-        {/* Stats */}
-        <motion.div
-          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-12 mb-16"
-          initial="hidden" whileInView="show" viewport={viewportOnce}
-          variants={stagger(0.08)}
-        >
-          {STATS.map((s) => (
+            {/* Paired feature items */}
             <motion.div
-              key={s.label}
-              variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16,1,0.3,1] } } }}
-              className="rounded-xl p-5 sm:p-6 text-center"
-              style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
-              whileHover={{ y: -3, borderColor: s.color }}
-              transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+              className="grid sm:grid-cols-2 gap-7"
+              style={{ marginTop: 44 }}
+              initial="hidden"
+              whileInView="show"
+              viewport={viewportOnce}
+              variants={stagger(0.12)}
             >
-              <p className="font-display text-3xl sm:text-4xl font-bold mb-1.5" style={{ color: s.color }}>
-                <Counter target={s.value} suffix={s.suffix} />
-              </p>
-              <p className="text-xs leading-snug" style={{ color: 'var(--text-muted)' }}>{s.label}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-
-          {/* Left */}
-          <div className="space-y-8">
-            <FadeUp delay={0.05}>
-              <div className="space-y-4 leading-[1.85]" style={{ fontSize: '1.0625rem', color: 'var(--text-secondary)' }}>
-                <p>
-                  I'm <strong style={{ color: 'var(--text-primary)' }}>Jean Aime Iraguha</strong> — a Full-Stack Engineer
-                  and Co-Founder from <strong style={{ color: 'var(--text-primary)' }}>Kigali, Rwanda</strong> who has spent
-                  the last 4 years turning hard problems into software that works in production.
-                </p>
-                <p>
-                  I graduated <strong style={{ color: 'var(--text-primary)' }}>First Class Honors (GPA 3.8)</strong> from
-                  the University of Rwanda — then immediately started shipping real systems with real users,
-                  real money, and real consequences when things break.
-                </p>
-                <p>
-                  In 2023 I co-founded <strong style={{ color: 'var(--accent)' }}>Igifu Meals</strong> and became CTO —
-                  designing the architecture, hiring the team, and making the calls that took us from idea to{' '}
-                  <strong style={{ color: 'var(--text-primary)' }}>30+ restaurant partners</strong>.
-                </p>
-              </div>
-            </FadeUp>
-
-            {/* Availability */}
-            <FadeUp delay={0.1}>
-              <div
-                className="rounded-xl p-5 flex items-start gap-4"
-                style={{ background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.14)' }}
-              >
-                <span className="glow-dot mt-1.5 shrink-0" />
-                <div>
-                  <p className="font-display font-bold text-base mb-1" style={{ color: '#4ade80' }}>Currently available for hire</p>
-                  <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                    Open to senior full-stack, lead engineer, or CTO-track remote roles. Also available for
-                    consulting and fractional CTO engagements. I reply within 24 hours.
-                  </p>
-                </div>
-              </div>
-            </FadeUp>
-
-            {/* Timeline */}
-            <FadeUp delay={0.15}>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] mb-6" style={{ color: 'var(--text-muted)' }}>
-                Career highlights
-              </p>
-              <div className="relative pl-5 space-y-5">
-                <div className="absolute left-0 top-2 bottom-2 w-px" style={{ background: 'var(--border)' }} />
-                {WINS.map((w, i) => (
-                  <motion.div
-                    key={w.year}
-                    className="relative"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={viewportOnce}
-                    transition={{ delay: i * 0.07, duration: 0.45, ease: [0.16,1,0.3,1] }}
+              {FEATURES.map((f) => (
+                <motion.div
+                  key={f.title}
+                  variants={{
+                    hidden: { opacity: 0, y: 26 },
+                    show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+                  }}
+                >
+                  <span
+                    className="inline-flex items-center justify-center"
+                    style={{ width: 56, height: 56, background: 'var(--gradient-dark)', color: '#ffffff', marginBottom: 18 }}
                   >
-                    <span
-                      className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full border-2"
-                      style={{ background: 'var(--bg-surface)', borderColor: 'var(--accent)' }}
-                    />
-                    <span className="text-[11px] font-bold tracking-widest" style={{ color: 'var(--accent)' }}>{w.year}</span>
-                    <p className="text-[0.9375rem] mt-0.5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{w.text}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </FadeUp>
+                    {f.icon}
+                  </span>
+                  <h4 style={{ marginBottom: 8 }}>{f.title}</h4>
+                  <p style={{ color: 'var(--paragraph)', fontSize: 15, lineHeight: '26px' }}>{f.desc}</p>
+                </motion.div>
+              ))}
+            </motion.div>
 
-            {/* CTAs */}
-            <FadeUp delay={0.2}>
-              <div className="flex flex-wrap gap-3 pt-2">
-                <motion.a
-                  href="mailto:jeanaimeiraguha@gmail.com"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white"
-                  style={{ background: 'var(--accent)' }}
-                  whileHover={{ opacity: 0.88 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  <FaEnvelope size={12} /> Let's talk
-                </motion.a>
-                <motion.a
-                  href="/cv/Jean-Aime-Iraguha-CV.pdf"
-                  download
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold"
-                  style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
-                  whileHover={{ borderColor: 'var(--accent)', color: 'var(--text-primary)' }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  <FaDownload size={11} /> Download CV
-                </motion.a>
-                <span className="inline-flex items-center gap-2 text-sm self-center" style={{ color: 'var(--text-muted)' }}>
-                  <FaMapMarkerAlt size={11} style={{ color: 'var(--accent)' }} />
+            {/* Actions */}
+            <Reveal>
+              <div className="flex flex-wrap items-center gap-4" style={{ marginTop: 44 }}>
+                <a href="mailto:jeanaimeiraguha@gmail.com" className="btn-one">
+                  <FaEnvelope size={13} /> Let&apos;s Talk
+                  <span className="btn-icon"><FaArrowRight size={11} /></span>
+                </a>
+                <a href="/cv/Jean-Aime-Iraguha-CV.pdf" download className="btn-one btn-two">
+                  <FaDownload size={12} /> Download CV
+                </a>
+                <span className="inline-flex items-center gap-2" style={{ color: 'var(--muted)', fontSize: 14 }}>
+                  <FaMapMarkerAlt size={12} style={{ color: 'var(--primary)' }} />
                   Kigali, Rwanda · Remote-first
                 </span>
               </div>
-            </FadeUp>
+            </Reveal>
           </div>
 
-          {/* Right */}
-          <div className="space-y-4">
-            <FadeUp delay={0.08}>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] mb-6" style={{ color: 'var(--text-muted)' }}>
-                Why teams hire me
-              </p>
-            </FadeUp>
-
-            {VALUE_PROPS.map((v, i) => (
-              <FadeUp key={v.title} delay={0.1 + i * 0.07}>
-                <motion.div
-                  className="rounded-xl p-4 sm:p-5 flex gap-4"
-                  style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
-                  whileHover={{ borderColor: v.color }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ background: `${v.color}12`, color: v.color }}
-                  >
-                    {v.icon}
-                  </div>
-                  <div>
-                    <p className="font-display font-bold text-base mb-1" style={{ color: 'var(--text-primary)' }}>{v.title}</p>
-                    <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{v.desc}</p>
-                  </div>
-                </motion.div>
-              </FadeUp>
-            ))}
-
-            {/* Key results */}
-            <FadeUp delay={0.38}>
-              <div className="rounded-xl p-4 sm:p-5" style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: 'var(--text-muted)' }}>
-                  Key results
+          {/* ══ Right column ══ */}
+          <div className="flex flex-col gap-7">
+            {/* Mission / Vision */}
+            <Reveal>
+              <div className="qt-card leaf-card" style={{ padding: '36px 32px' }}>
+                <h5 style={{ color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 500, marginBottom: 10 }}>
+                  My Mission
+                </h5>
+                <p style={{ color: 'var(--paragraph)', marginBottom: 28 }}>
+                  To build software that solves genuine problems for the people who use it, and to leave every
+                  codebase I touch easier to work in than I found it.
                 </p>
-                <div className="space-y-2.5">
-                  {[
-                    'First Class Honors — University of Rwanda (GPA 3.8 / 4.0)',
-                    '$2M+ in fintech transactions — zero critical production bugs',
-                    '5,000+ daily active students on the e-learning platform I built',
-                    '500+ concurrent users at sub-200ms latency',
-                    '30+ restaurant partners onboarded at Igifu Meals',
-                    'Mentored 4 engineers — cut onboarding time by 50%',
-                  ].map((a) => (
-                    <div key={a} className="flex items-start gap-2.5">
-                      <FaCheckCircle size={11} className="shrink-0 mt-0.5" style={{ color: '#4ade80' }} />
-                      <p className="text-[0.9375rem] leading-snug" style={{ color: 'var(--text-secondary)' }}>{a}</p>
-                    </div>
-                  ))}
+                <h5 style={{ color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 500, marginBottom: 10 }}>
+                  My Vision
+                </h5>
+                <p style={{ color: 'var(--paragraph)' }}>
+                  To help put African engineering teams at the centre of the products the world depends on —
+                  where technology and people unite to shape the future.
+                </p>
+              </div>
+            </Reveal>
+
+            {/* Availability */}
+            <Reveal delay={0.06}>
+              <div
+                className="flex items-start gap-4"
+                style={{ background: 'var(--sub-bg)', border: '1px solid var(--border-soft)', padding: '24px 26px' }}
+              >
+                <span className="glow-dot" style={{ marginTop: 10 }} />
+                <div>
+                  <h4 style={{ marginBottom: 6 }}>Currently available for hire</h4>
+                  <p style={{ color: 'var(--paragraph)', fontSize: 15, lineHeight: '26px' }}>
+                    Open to senior full-stack, lead engineer and CTO-track remote roles, plus consulting and
+                    fractional CTO engagements. I reply within 24 hours.
+                  </p>
                 </div>
               </div>
-            </FadeUp>
+            </Reveal>
 
-            {/* Personal */}
-            <FadeUp delay={0.44}>
-              <div className="rounded-xl p-4 sm:p-5" style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] mb-3" style={{ color: 'var(--text-muted)' }}>
-                  Outside of work
-                </p>
-                <p className="text-[0.9375rem] leading-relaxed mb-3" style={{ color: 'var(--text-secondary)' }}>
-                  Football keeps me grounded — it taught me teamwork and composure under pressure.
-                  I follow <strong style={{ color: '#6CABDD' }}>Manchester City</strong>,{' '}
-                  <strong style={{ color: '#DAA520' }}>Real Madrid</strong>, and{' '}
-                  <strong style={{ color: '#0346A0' }}>Chelsea</strong>.
-                </p>
-                <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  I grew up in <strong style={{ color: 'var(--text-primary)' }}>Bugesera, Rwanda</strong>, shaped
-                  by the <strong style={{ color: 'var(--accent)' }}>ANLM community</strong> at Kibenga Primary School —
-                  whose mentorship gave me the integrity I bring to every team.
-                </p>
+            {/* Key results */}
+            <Reveal delay={0.1}>
+              <div className="qt-card" style={{ padding: '32px 30px' }}>
+                <h5 style={{ color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 500, marginBottom: 20 }}>
+                  Key Results
+                </h5>
+                <ul className="flex flex-col gap-3">
+                  {RESULTS.map((r) => (
+                    <li key={r} className="flex items-start gap-3">
+                      <span
+                        className="inline-flex items-center justify-center shrink-0"
+                        style={{ width: 20, height: 20, marginTop: 4, background: 'var(--primary)', color: '#ffffff' }}
+                      >
+                        <FaCheck size={9} />
+                      </span>
+                      <span style={{ color: 'var(--paragraph)', fontSize: 15, lineHeight: '25px' }}>{r}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </FadeUp>
+            </Reveal>
           </div>
         </div>
+
+        {/* ══ Why teams hire me ══ */}
+        <div style={{ marginTop: 110 }}>
+          <SectionHeader label="Why Teams Hire Me" heading="What I bring to a team" align="center" />
+
+          <motion.div
+            className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7"
+            initial="hidden"
+            whileInView="show"
+            viewport={viewportOnce}
+            variants={stagger(0.09)}
+          >
+            {PILLARS.map((p, i) => (
+              <motion.div
+                key={p.title}
+                variants={{
+                  hidden: { opacity: 0, y: 28 },
+                  show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+                }}
+                className="qt-card qt-card-sm flex flex-col"
+                style={{ padding: '32px 26px' }}
+              >
+                <span className="qt-icon-tile-soft" style={{ marginBottom: 20 }}>{p.icon}</span>
+                <span
+                  className="block"
+                  style={{ color: 'var(--muted)', fontSize: 12, fontWeight: 600, letterSpacing: '0.12em', marginBottom: 8 }}
+                >
+                  0{i + 1}
+                </span>
+                <h4 style={{ marginBottom: 10, fontSize: 17, lineHeight: '26px' }}>{p.title}</h4>
+                <p style={{ color: 'var(--paragraph)', fontSize: 14.5, lineHeight: '25px' }}>{p.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* ══ Outside of work ══ */}
+        <Reveal delay={0.08}>
+          <div
+            className="grid md:grid-cols-2 gap-10 md:gap-16"
+            style={{ marginTop: 90, background: 'var(--sub-bg)', padding: '48px 44px' }}
+          >
+            <div>
+              <h5 style={{ color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 500, marginBottom: 14 }}>
+                Outside Of Work
+              </h5>
+              <p style={{ color: 'var(--paragraph)' }}>
+                Football keeps me grounded — it taught me teamwork and composure under pressure. I follow{' '}
+                <strong style={{ color: 'var(--heading)' }}>Manchester City</strong>,{' '}
+                <strong style={{ color: 'var(--heading)' }}>Real Madrid</strong> and{' '}
+                <strong style={{ color: 'var(--heading)' }}>Chelsea</strong>.
+              </p>
+            </div>
+            <div>
+              <h5 style={{ color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 500, marginBottom: 14 }}>
+                Where I Come From
+              </h5>
+              <p style={{ color: 'var(--paragraph)' }}>
+                I grew up in <strong style={{ color: 'var(--heading)' }}>Bugesera, Rwanda</strong>, shaped by the{' '}
+                <strong style={{ color: 'var(--primary)' }}>ANLM community</strong> at Kibenga Primary School, whose
+                mentorship gave me the integrity I bring to every team.
+              </p>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,161 +1,162 @@
 import { motion } from 'framer-motion';
-import { SectionHeader, FadeUp, stagger, viewportOnce } from './motion';
+import { FaBriefcase, FaGraduationCap, FaAward } from 'react-icons/fa';
+import { SectionHeader, Reveal, stagger, viewportOnce } from './motion';
 import { EXPERIENCE, EDUCATION } from './data';
 
-function TimelineItem({ item, isWork }) {
-  const isCTO = item.role?.includes('CTO') || item.role?.includes('Co-Founder');
+const CERTS = [
+  { title: 'AWS Certified Developer – Associate', sub: 'Amazon Web Services' },
+  { title: 'First Class Honors',                  sub: 'University of Rwanda · Top 5%' },
+  { title: 'CS Club President',                   sub: '2020–2022 · Led 100+ members' },
+  { title: 'IEEE Research Publication',           sub: 'Blockchain in supply chain' },
+];
+
+function ColumnHeading({ icon, children }) {
+  return (
+    <div className="flex items-center gap-3" style={{ marginBottom: 36 }}>
+      <span
+        className="inline-flex items-center justify-center shrink-0"
+        style={{ width: 44, height: 44, background: 'var(--primary)', color: '#ffffff' }}
+      >
+        {icon}
+      </span>
+      <h4 style={{ marginBottom: 0 }}>{children}</h4>
+    </div>
+  );
+}
+
+function TimelineItem({ item, isWork, isLast }) {
+  const isLead = item.role?.includes('CTO') || item.role?.includes('Co-Founder');
 
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, x: -16 },
-        show:   { opacity: 1, x: 0, transition: { duration: 0.55, ease: [0.16,1,0.3,1] } },
+        hidden: { opacity: 0, x: -18 },
+        show:   { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
       }}
-      className="relative pl-6"
+      className="relative"
+      style={{ paddingLeft: 34, paddingBottom: isLast ? 0 : 40 }}
     >
-      <div className="absolute left-0 top-2 bottom-0 w-px" style={{ background: 'var(--border)' }} />
-
-      <div
-        className="absolute left-[-4px] top-2 w-[9px] h-[9px] rounded-full"
+      {/* Rail */}
+      {!isLast && (
+        <span
+          className="absolute"
+          style={{ left: 7, top: 20, bottom: 0, width: 1, background: 'var(--border)' }}
+        />
+      )}
+      {/* Marker — a rotated square, matching the brand's square geometry */}
+      <span
+        className="absolute"
         style={{
-          border: `2px solid ${isCTO ? 'var(--accent)' : 'var(--border)'}`,
-          background: isCTO ? 'var(--accent)' : 'var(--bg-base)',
-          boxShadow: isCTO ? '0 0 8px rgba(20,184,166,0.5)' : 'none',
+          left: 2, top: 8, width: 12, height: 12,
+          transform: 'rotate(45deg)',
+          background: isLead ? 'var(--primary)' : '#ffffff',
+          border: `2px solid ${isLead ? 'var(--primary)' : 'var(--border)'}`,
         }}
       />
 
-      <div className="pb-9">
-        <div className="flex flex-wrap items-center gap-2 mb-0.5">
-          <p className="font-display text-lg font-bold" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-            {isWork ? item.role : item.degree}
-          </p>
-          {item.current && (
-            <span
-              className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-              style={{ color: '#4ade80', background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.18)' }}
-            >
-              Current
-            </span>
-          )}
-          {isCTO && (
-            <span
-              className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-              style={{ color: 'var(--accent)', background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.18)' }}
-            >
-              Co-Founder
-            </span>
-          )}
-        </div>
-
-        <p className="text-[0.9375rem] font-semibold mb-0.5" style={{ color: 'var(--accent)' }}>
-          {isWork ? item.company : item.institution}
-        </p>
-        <p className="text-xs mb-3" style={{ color: 'var(--text-muted)' }}>{item.period}</p>
-
-        {isWork ? (
-          <ul className="space-y-2">
-            {item.points.map((pt) => (
-              <li key={pt} className="text-[0.9375rem] leading-relaxed flex gap-2.5" style={{ color: 'var(--text-secondary)' }}>
-                <span className="shrink-0 mt-[7px] w-1 h-1 rounded-full" style={{ background: 'var(--accent)' }} />
-                {pt}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <>
-            <p className="text-[0.9375rem]" style={{ color: 'var(--text-muted)' }}>{item.note}</p>
-            {item.anlm && (
-              <div
-                className="mt-3 rounded-xl px-4 py-3"
-                style={{ background: 'rgba(20,184,166,0.04)', border: '1px solid rgba(20,184,166,0.14)' }}
-              >
-                <p className="text-xs font-semibold mb-1" style={{ color: 'var(--accent)' }}>✦ Grateful to ANLM</p>
-                <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  The ANLM (African New Life Ministries) supported and mentored me throughout my primary years.
-                  Their spiritual leadership and community values shaped who I am — teaching me discipline,
-                  integrity, and the importance of giving back.
-                </p>
-              </div>
-            )}
-          </>
+      <div className="flex flex-wrap items-center gap-2.5" style={{ marginBottom: 2 }}>
+        <h4 style={{ marginBottom: 0 }}>{isWork ? item.role : item.degree}</h4>
+        {item.current && (
+          <span
+            style={{
+              background: 'rgba(26,156,91,0.1)', color: 'var(--green)',
+              fontSize: 11, fontWeight: 600, padding: '3px 9px',
+              textTransform: 'uppercase', letterSpacing: '0.06em',
+            }}
+          >
+            Current
+          </span>
         )}
       </div>
+
+      <p style={{ color: 'var(--primary)', fontWeight: 600, fontSize: 15, marginBottom: 2 }}>
+        {isWork ? item.company : item.institution}
+      </p>
+      <p style={{ color: 'var(--muted)', fontSize: 13, marginBottom: 14 }}>{item.period}</p>
+
+      {isWork ? (
+        <ul className="flex flex-col gap-2.5">
+          {item.points.map((pt) => (
+            <li key={pt} className="flex gap-3" style={{ color: 'var(--paragraph)', fontSize: 15, lineHeight: '25px' }}>
+              <span className="divider-dot shrink-0" style={{ marginTop: 10 }} />
+              {pt}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <>
+          <p style={{ color: 'var(--paragraph)', fontSize: 15 }}>{item.note}</p>
+          {item.anlm && (
+            <div
+              style={{
+                marginTop: 14, padding: '18px 20px',
+                background: 'var(--sub-bg)', borderLeft: '3px solid var(--primary)',
+              }}
+            >
+              <p style={{ color: 'var(--primary)', fontWeight: 600, fontSize: 14, marginBottom: 6 }}>
+                Grateful to ANLM
+              </p>
+              <p style={{ color: 'var(--paragraph)', fontSize: 14, lineHeight: '24px' }}>
+                African New Life Ministries supported and mentored me throughout my primary years. Their
+                community values shaped who I am — teaching me discipline, integrity and the importance of
+                giving back.
+              </p>
+            </div>
+          )}
+        </>
+      )}
     </motion.div>
   );
 }
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-20 sm:py-32" style={{ background: 'var(--bg-base)' }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="experience" className="qt-section bg-main">
+      <div className="qt-container">
         <SectionHeader
-          label="Background"
-          heading="Experience & Education"
-          sub="4+ years of building — from intern to co-founder."
+          label="My Background"
+          heading="Experience & education"
+          sub="Four years of building — from intern to co-founder and CTO."
+          align="center"
         />
 
-        <div className="mt-12 sm:mt-16 grid md:grid-cols-[3fr_2fr] gap-10 md:gap-16">
+        <div className="mt-16 grid lg:grid-cols-[3fr_2fr] gap-14 lg:gap-20">
           {/* Work */}
           <div>
-            <FadeUp>
-              <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-8" style={{ color: 'var(--text-muted)' }}>
-                Work history
-              </p>
-            </FadeUp>
-            <motion.div
-              initial="hidden"
-              whileInView="show"
-              viewport={viewportOnce}
-              variants={stagger(0.1)}
-            >
-              {EXPERIENCE.map((e) => (
-                <TimelineItem key={e.company} item={e} isWork />
+            <Reveal><ColumnHeading icon={<FaBriefcase size={16} />}>Work history</ColumnHeading></Reveal>
+            <motion.div initial="hidden" whileInView="show" viewport={viewportOnce} variants={stagger(0.1)}>
+              {EXPERIENCE.map((e, i) => (
+                <TimelineItem key={e.company} item={e} isWork isLast={i === EXPERIENCE.length - 1} />
               ))}
             </motion.div>
           </div>
 
-          {/* Education + certs */}
+          {/* Education + certifications */}
           <div>
-            <FadeUp>
-              <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-8" style={{ color: 'var(--text-muted)' }}>
-                Education
-              </p>
-            </FadeUp>
-            <motion.div
-              initial="hidden"
-              whileInView="show"
-              viewport={viewportOnce}
-              variants={stagger(0.1)}
-            >
-              {EDUCATION.map((e) => (
-                <TimelineItem key={e.institution} item={e} isWork={false} />
+            <Reveal><ColumnHeading icon={<FaGraduationCap size={17} />}>Education</ColumnHeading></Reveal>
+            <motion.div initial="hidden" whileInView="show" viewport={viewportOnce} variants={stagger(0.1)}>
+              {EDUCATION.map((e, i) => (
+                <TimelineItem key={e.institution} item={e} isWork={false} isLast={i === EDUCATION.length - 1} />
               ))}
             </motion.div>
 
-            <FadeUp delay={0.2}>
-              <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-5 mt-2" style={{ color: 'var(--text-muted)' }}>
-                Certifications & Awards
-              </p>
-              <div className="space-y-3">
-                {[
-                  { title: 'AWS Certified Developer – Associate', sub: 'Amazon Web Services' },
-                  { title: 'First Class Honors', sub: 'University of Rwanda · Top 5%' },
-                  { title: 'CS Club President', sub: '2020–2022 · Led 100+ members' },
-                  { title: 'IEEE Research Publication', sub: 'Blockchain in supply chain' },
-                ].map((c) => (
-                  <motion.div
-                    key={c.title}
-                    className="rounded-xl px-4 py-3"
-                    style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
-                    whileHover={{ borderColor: 'rgba(20,184,166,0.3)', x: 3 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <p className="font-display text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{c.title}</p>
-                    <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>{c.sub}</p>
-                  </motion.div>
-                ))}
+            <Reveal delay={0.15}>
+              <div style={{ marginTop: 52 }}>
+                <ColumnHeading icon={<FaAward size={16} />}>Certifications &amp; awards</ColumnHeading>
+                <div className="flex flex-col gap-4">
+                  {CERTS.map((c) => (
+                    <div
+                      key={c.title}
+                      className="qt-card qt-card-sm"
+                      style={{ padding: '18px 22px', borderLeft: '3px solid var(--primary)' }}
+                    >
+                      <p style={{ color: 'var(--heading)', fontWeight: 700, fontSize: 15 }}>{c.title}</p>
+                      <p style={{ color: 'var(--muted)', fontSize: 13, marginTop: 2 }}>{c.sub}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </FadeUp>
+            </Reveal>
           </div>
         </div>
       </div>

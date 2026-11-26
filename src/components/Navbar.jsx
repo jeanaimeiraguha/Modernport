@@ -1,21 +1,26 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaXmark, FaFileLines, FaArrowUpRightFromSquare } from 'react-icons/fa6';
+import { FaBars, FaXmark, FaArrowRight } from 'react-icons/fa6';
+import { FaLinkedin, FaGithub, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { NAV_LINKS } from './data';
-import { useMagnetic } from './motion';
 
 const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
+const SOCIALS = [
+  { icon: <FaLinkedin size={14} />, href: 'https://www.linkedin.com/in/iraguha-jean-aime-53ba74405/', label: 'LinkedIn' },
+  { icon: <FaGithub   size={14} />, href: 'https://github.com/jeanaimeiraguha',                       label: 'GitHub'   },
+  { icon: <FaWhatsapp size={14} />, href: 'https://wa.me/250793411594',                               label: 'WhatsApp' },
+];
+
 export default function Navbar() {
-  const [open, setOpen]        = useState(false);
+  const [open, setOpen]         = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive]    = useState('');
-  const magnetic = useMagnetic(0.35);
+  const [active, setActive]     = useState('');
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 20);
-    fn(); // run once on mount
+    const fn = () => setScrolled(window.scrollY > 60);
+    fn();
     window.addEventListener('scroll', fn, { passive: true });
     return () => window.removeEventListener('scroll', fn);
   }, []);
@@ -23,184 +28,234 @@ export default function Navbar() {
   useEffect(() => {
     const obs = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); }),
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
     NAV_LINKS.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
   const handleNav = (id) => { scrollTo(id); setOpen(false); };
+
+  /* Over the dark hero the header is transparent with white type; once the page
+     scrolls it becomes the reference's solid white bar with a soft shadow. */
+  const onDark = !scrolled;
+  const textColor = onDark ? '#ffffff' : 'var(--heading)';
 
   return (
     <>
-      {/* ── Floating pill navbar ── */}
-      <header className="fixed top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 z-50">
-        <div
-          className="max-w-5xl mx-auto rounded-full"
-          style={{
-            background:           scrolled ? 'var(--nav-bg-scrolled)' : 'var(--nav-bg)',
-            backdropFilter:       'blur(20px) saturate(160%)',
-            WebkitBackdropFilter: 'blur(20px) saturate(160%)',
-            border:               `1px solid ${scrolled ? 'var(--border-hover)' : 'var(--border)'}`,
-            boxShadow:            scrolled ? '0 8px 32px rgba(0,0,0,0.35)' : 'none',
-            transition:           'background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease',
-          }}
-        >
-          <nav className="flex items-center justify-between h-14 sm:h-16 pl-2 pr-2 sm:pl-3 sm:pr-3">
-
-            {/* Logo */}
+      <header className={`qt-header ${scrolled ? 'is-fixed' : ''}`}>
+        <div className="qt-container">
+          <nav
+            className="flex items-center justify-between"
+            style={{ height: scrolled ? 76 : 92, transition: 'height 0.3s ease-in-out' }}
+          >
+            {/* ── Wordmark ── */}
             <button
               onClick={() => scrollTo('hero')}
-              className="flex items-center gap-2.5 shrink-0"
+              className="flex items-center gap-3 shrink-0"
               aria-label="Home"
             >
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center"
-                style={{ background: 'var(--accent)' }}
-              >
-                <span className="font-display font-bold text-sm text-white">JA</span>
-              </div>
               <span
-                className="font-display font-semibold hidden sm:block"
-                style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em', fontSize: '0.95rem' }}
+                className="inline-flex items-center justify-center shrink-0"
+                style={{
+                  width: 42, height: 42,
+                  background: onDark ? '#ffffff' : 'var(--primary)',
+                  color: onDark ? 'var(--primary)' : '#ffffff',
+                  fontWeight: 800, fontSize: 15, letterSpacing: '-0.02em',
+                  transition: 'var(--transition)',
+                }}
               >
-                Iraguha<span style={{ color: 'var(--accent)' }}>.</span>
+                JA
+              </span>
+              <span className="hidden sm:block text-left leading-tight">
+                <span
+                  className="block"
+                  style={{ color: textColor, fontWeight: 700, fontSize: 17, letterSpacing: '-0.01em', transition: 'var(--transition)' }}
+                >
+                  Iraguha Jean Aime
+                </span>
+                <span
+                  className="block"
+                  style={{
+                    color: onDark ? 'rgba(255,255,255,0.65)' : 'var(--muted)',
+                    fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 500,
+                    transition: 'var(--transition)',
+                  }}
+                >
+                  Software Engineering
+                </span>
               </span>
             </button>
 
-            {/* Desktop links */}
-            <ul className="hidden md:flex items-center gap-0.5">
-              {NAV_LINKS.map((l) => {
-                const isActive = active === l;
-                return (
-                  <li key={l}>
-                    <button
-                      onClick={() => handleNav(l)}
-                      className="relative px-3 py-1.5 text-sm font-medium capitalize rounded-full"
-                      style={{
-                        color:      isActive ? 'var(--accent)' : 'var(--text-muted)',
-                        background: isActive ? 'rgba(20,184,166,0.07)' : 'transparent',
-                        transition: 'color 0.2s ease, background 0.2s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!isActive) e.currentTarget.style.color = 'var(--text-primary)';
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!isActive) e.currentTarget.style.color = 'var(--text-muted)';
-                      }}
-                    >
-                      {l}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-
-            {/* Right controls */}
-            <div className="flex items-center gap-2 shrink-0">
-
-              {/* CV */}
-              <Link
-                to="/cv"
-                className="hidden md:inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full"
-                style={{
-                  border:     '1px solid var(--border)',
-                  color:      'var(--text-muted)',
-                  transition: 'border-color 0.2s ease, color 0.2s ease',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)';  e.currentTarget.style.color = 'var(--text-muted)'; }}
-              >
-                <FaFileLines size={10} /> CV
-              </Link>
-
-              {/* Hire me — pill with icon button, echoing the reference's split treatment */}
-              <motion.button
-                onClick={() => handleNav('contact')}
-                {...magnetic.handlers}
-                className="hidden md:flex items-center gap-2 pl-4 pr-1.5 py-1.5 text-xs font-semibold rounded-full"
-                style={{
-                  background: 'var(--bg-elevated)',
-                  border: '1px solid var(--border)',
-                  color: 'var(--text-primary)',
-                  ...magnetic.style,
-                }}
-              >
-                Hire me
-                <span
-                  className="w-7 h-7 rounded-lg flex items-center justify-center"
-                  style={{ background: 'var(--brand-blue)' }}
-                >
-                  <FaArrowUpRightFromSquare size={10} />
-                </span>
-              </motion.button>
-
-              {/* Hamburger */}
-              <button
-                className="md:hidden w-9 h-9 rounded-full flex items-center justify-center"
-                style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
-                onClick={() => setOpen((o) => !o)}
-                aria-label="Toggle menu"
-              >
-                {open ? <FaXmark size={14} /> : <FaBars size={14} />}
-              </button>
-            </div>
-          </nav>
-        </div>
-
-        {/* Mobile drawer */}
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.18 }}
-              className="md:hidden max-w-6xl mx-auto mt-2 px-4 py-3 rounded-3xl"
-              style={{
-                background:           'var(--nav-bg-scrolled)',
-                backdropFilter:       'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                border:               '1px solid var(--border)',
-              }}
-            >
-              <div className="flex flex-col gap-1">
-                {NAV_LINKS.map((l) => (
+            {/* ── Desktop menu — 35px gaps, 600 weight ── */}
+            <ul className="qt-menu hidden xl:flex">
+              {NAV_LINKS.map((l) => (
+                <li key={l}>
                   <button
-                    key={l}
                     onClick={() => handleNav(l)}
-                    className="text-sm capitalize text-left px-3 py-2.5 rounded-xl"
+                    className={active === l ? 'is-active' : ''}
                     style={{
-                      color:      active === l ? 'var(--accent)' : 'var(--text-secondary)',
-                      background: active === l ? 'rgba(20,184,166,0.07)' : 'transparent',
+                      color: active === l
+                        ? (onDark ? '#ffffff' : 'var(--primary)')
+                        : (onDark ? 'rgba(255,255,255,0.82)' : 'var(--heading)'),
+                      transition: 'var(--transition)',
                     }}
                   >
                     {l}
                   </button>
+                </li>
+              ))}
+            </ul>
+
+            {/* ── Right side ── */}
+            <div className="flex items-center gap-4 shrink-0">
+              <Link
+                to="/cv"
+                className="hidden lg:inline-flex read-more-btn"
+                style={{ color: onDark ? 'rgba(255,255,255,0.82)' : 'var(--paragraph)' }}
+              >
+                View CV
+              </Link>
+
+              <button
+                onClick={() => handleNav('contact')}
+                className={`hidden md:inline-flex btn-one ${onDark ? 'btn-light' : ''}`}
+              >
+                Hire Me
+                <span className="btn-icon"><FaArrowRight size={11} /></span>
+              </button>
+
+              {/* Hamburger */}
+              <button
+                className="xl:hidden inline-flex items-center justify-center"
+                style={{
+                  width: 44, height: 44,
+                  border: `1px solid ${onDark ? 'rgba(255,255,255,0.3)' : 'var(--border)'}`,
+                  color: textColor,
+                  transition: 'var(--transition)',
+                }}
+                onClick={() => setOpen(true)}
+                aria-label="Open menu"
+              >
+                <FaBars size={16} />
+              </button>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      {/* ── Dark slide-in panel ── */}
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0"
+              style={{ background: 'rgba(15,13,29,0.6)', zIndex: 70 }}
+            />
+            <motion.aside
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="qt-sidebar"
+            >
+              <div className="flex items-center justify-between mb-10">
+                <span style={{ color: '#ffffff', fontWeight: 700, fontSize: 17 }}>
+                  Iraguha Jean Aime
+                </span>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center justify-center shrink-0"
+                  style={{ width: 40, height: 40, border: '1px solid rgba(255,255,255,0.25)', color: '#ffffff' }}
+                  aria-label="Close menu"
+                >
+                  <FaXmark size={16} />
+                </button>
+              </div>
+
+              <ul className="flex flex-col">
+                {NAV_LINKS.map((l) => (
+                  <li key={l} style={{ borderBottom: '1px solid rgba(255,255,255,0.12)' }}>
+                    <button
+                      onClick={() => handleNav(l)}
+                      className="w-full text-left capitalize flex items-center justify-between"
+                      style={{
+                        color: active === l ? '#ffffff' : 'rgba(255,255,255,0.78)',
+                        fontWeight: 600,
+                        fontSize: 16,
+                        padding: '15px 0',
+                      }}
+                    >
+                      {l}
+                      <FaArrowRight size={11} style={{ opacity: 0.5 }} />
+                    </button>
+                  </li>
                 ))}
-                <div className="h-px my-2" style={{ background: 'var(--border)' }} />
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleNav('contact')}
-                    className="flex-1 text-sm font-semibold py-2.5 rounded-xl text-white"
-                    style={{ background: 'var(--accent)' }}
-                  >
-                    Hire me
-                  </button>
-                  <Link
-                    to="/cv"
-                    className="flex-1 text-sm font-medium py-2.5 rounded-xl text-center inline-flex items-center justify-center gap-1.5"
-                    style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
-                    onClick={() => setOpen(false)}
-                  >
-                    <FaFileLines size={10} /> View CV
-                  </Link>
+              </ul>
+
+              <div className="mt-9">
+                <button onClick={() => handleNav('contact')} className="btn-one btn-light w-full justify-center">
+                  Hire Me
+                  <span className="btn-icon"><FaArrowRight size={11} /></span>
+                </button>
+                <Link
+                  to="/cv"
+                  onClick={() => setOpen(false)}
+                  className="btn-one btn-outline-light w-full justify-center mt-3"
+                >
+                  View CV
+                </Link>
+              </div>
+
+              {/* Contact block, as on the reference's sidebar */}
+              <div className="mt-10 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.12)' }}>
+                <h5 style={{ color: '#ffffff', marginBottom: 16 }}>Contact</h5>
+                <ul className="flex flex-col gap-3.5">
+                  {[
+                    { icon: <FaEnvelope size={12} />,      text: 'jeanaimeiraguha@gmail.com', href: 'mailto:jeanaimeiraguha@gmail.com' },
+                    { icon: <FaPhone size={12} />,         text: '+250 793 411 594',          href: 'tel:+250793411594' },
+                    { icon: <FaMapMarkerAlt size={12} />,  text: 'Kigali, Rwanda',            href: null },
+                  ].map((c) => (
+                    <li key={c.text} className="flex items-center gap-3">
+                      <span
+                        className="inline-flex items-center justify-center shrink-0"
+                        style={{ width: 30, height: 30, background: 'rgba(255,255,255,0.1)', color: '#ffffff' }}
+                      >
+                        {c.icon}
+                      </span>
+                      {c.href ? (
+                        <a href={c.href} style={{ color: 'rgba(255,255,255,0.82)', fontSize: 14, wordBreak: 'break-all' }}>
+                          {c.text}
+                        </a>
+                      ) : (
+                        <span style={{ color: 'rgba(255,255,255,0.82)', fontSize: 14 }}>{c.text}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="qt-sidebar-social flex items-center gap-3 mt-7">
+                  {SOCIALS.map((s) => (
+                    <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
+                      {s.icon}
+                    </a>
+                  ))}
                 </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }

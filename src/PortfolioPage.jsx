@@ -5,9 +5,10 @@ import LoadingAnimation from './LoadingAnimation';
 import ScrollProgress from './components/ScrollProgress';
 import Navbar        from './components/Navbar';
 import Hero          from './components/Hero';
-import About         from './components/About';
 import Services      from './components/Services';
 import Skills        from './components/Skills';
+import About         from './components/About';
+import Counters      from './components/Counters';
 import Projects      from './components/Projects';
 import Experience    from './components/Experience';
 import Testimonials  from './components/Testimonials';
@@ -44,18 +45,21 @@ export default function PortfolioPage() {
         {loaded && (
           <motion.div
             key="portfolio"
-            initial={{ opacity: 0, filter: 'blur(8px)', y: 16 }}
-            animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            style={{ background: 'var(--bg-base)', color: 'var(--text-primary)', minHeight: '100vh' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            style={{ background: 'var(--main-bg)', color: 'var(--paragraph)', minHeight: '100vh' }}
           >
             <ScrollProgress />
             <Navbar />
             <main>
+              {/* Section order mirrors the reference homepage: banner, services,
+                  capability strip, about, counters, case studies, then contact. */}
               <Hero />
-              <About />
               <Services />
               <Skills />
+              <About />
+              <Counters />
               <Projects />
               <Experience />
               <Testimonials />

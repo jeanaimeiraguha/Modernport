@@ -1,91 +1,80 @@
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { SectionHeader, stagger, viewportOnce, useTilt, Spotlight, hexToRgb } from './motion';
+import { FaArrowRight, FaLayerGroup, FaServer, FaCubes } from 'react-icons/fa';
+import { SectionHeader, stagger, viewportOnce } from './motion';
 import { SERVICES } from './data';
 
-function ServiceCard({ service }) {
-  const { tiltStyle, tiltHandlers, glow } = useTilt(5);
+const ICONS = {
+  frontend:  <FaLayerGroup size={26} />,
+  backend:   <FaServer size={26} />,
+  fullstack: <FaCubes size={26} />,
+};
 
+function ServiceCard({ service, index }) {
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 24 },
-        show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
+        hidden: { opacity: 0, y: 34 },
+        show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
       }}
-      whileHover={{ y: -3 }}
-      {...tiltHandlers}
-      className="card-notch relative p-7 sm:p-8 flex flex-col"
-      style={{
-        ...tiltStyle,
-        background: 'var(--bg-card)',
-        border: '1px solid var(--border)',
-        minHeight: 280,
-      }}
+      className="qt-card leaf-card relative flex flex-col overflow-hidden"
+      style={{ padding: '40px 32px' }}
     >
-      <Spotlight glow={glow} color={hexToRgb(service.color)} />
-
-      <div
-        className="relative z-10 w-11 h-11 rounded-xl flex items-center justify-center text-lg font-bold mb-6"
-        style={{ background: `${service.color}14`, color: service.color }}
+      {/* Oversized index numeral in the corner */}
+      <span
+        className="absolute select-none pointer-events-none"
+        style={{
+          top: 14, right: 26,
+          fontSize: 66, fontWeight: 800, lineHeight: 1,
+          color: 'var(--primary)', opacity: 0.06,
+        }}
       >
-        {service.icon}
-      </div>
+        0{index + 1}
+      </span>
 
-      <h3
-        className="relative z-10 font-display font-bold mb-3"
-        style={{ fontSize: '1.25rem', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}
-      >
+      {/* Icon tile — flips on card hover, as on the reference's service cards */}
+      <span className="qt-icon-tile relative z-10 mb-7">
+        {ICONS[service.id] ?? <FaCubes size={26} />}
+      </span>
+
+      <h3 className="relative z-10" style={{ marginBottom: 14 }}>
         {service.title}
       </h3>
-      <p className="relative z-10 text-sm leading-relaxed flex-1" style={{ color: 'var(--text-secondary)' }}>
+      <p className="relative z-10 flex-1" style={{ color: 'var(--paragraph)' }}>
         {service.desc}
       </p>
 
-      <div className="relative z-10 flex items-center gap-3 mt-6 pt-5" style={{ borderTop: `1px solid ${service.color}1c` }}>
-        <a
-          href="https://github.com/jeanaimeiraguha"
-          target="_blank" rel="noopener noreferrer" aria-label="GitHub"
-          className="transition-colors"
-          style={{ color: 'var(--text-muted)' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = service.color)}
-          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
-        >
-          <FaGithub size={15} />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/iraguha-jean-aime-53ba74405/"
-          target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-          className="transition-colors"
-          style={{ color: 'var(--text-muted)' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = service.color)}
-          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
-        >
-          <FaLinkedin size={15} />
-        </a>
-      </div>
+      <button
+        onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+        className="read-more-btn relative z-10"
+        style={{ marginTop: 26 }}
+      >
+        Read More
+        <span className="btn-icon"><FaArrowRight size={11} /></span>
+      </button>
     </motion.div>
   );
 }
 
 export default function Services() {
   return (
-    <section id="services" className="relative py-20 sm:py-28" style={{ background: 'var(--bg-surface)' }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="services" className="qt-section bg-main">
+      <div className="qt-container">
         <SectionHeader
-          label="Services"
-          heading={<>What I can<br />build for you.</>}
-          sub="From pixel-perfect interfaces to the APIs and databases behind them — I ship the whole product, not just one layer of it."
+          label="What I Do"
+          heading="Wide range of services"
+          sub="From pixel-accurate interfaces to the APIs and databases behind them — I deliver the whole product, not one layer of it."
+          align="center"
         />
 
         <motion.div
-          className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          variants={stagger(0.08)}
+          variants={stagger(0.1)}
         >
-          {SERVICES.map((s) => (
-            <ServiceCard key={s.id} service={s} />
+          {SERVICES.map((s, i) => (
+            <ServiceCard key={s.id} service={s} index={i} />
           ))}
         </motion.div>
       </div>

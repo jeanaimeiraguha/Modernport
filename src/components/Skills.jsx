@@ -3,41 +3,93 @@ import { SectionHeader, stagger, viewportOnce } from './motion';
 import { SKILL_GROUPS } from './data';
 import { getTechIcon } from './techIcons';
 
-function SkillRow({ skill }) {
-  const { Icon, color } = getTechIcon(skill.name);
+/* A continuous logo rail, mirroring the reference's partner carousel. */
+const MARQUEE = [
+  'React', 'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Docker',
+  'AWS', 'Python', 'TensorFlow', 'Solidity', 'MongoDB', 'Tailwind CSS',
+  'GraphQL', 'Redis', 'React Native',
+];
+
+function TechRail() {
+  const row = [...MARQUEE, ...MARQUEE];
   return (
-    <div className="flex items-center gap-3">
-      <span
-        className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-        style={{ background: `${color}18`, color }}
-      >
-        <Icon size={15} />
-      </span>
-      <div className="min-w-0">
-        <p className="text-sm font-semibold truncate" style={{ color: 'var(--text-primary)' }}>{skill.name}</p>
-        <p className="text-[11px]" style={{ color: 'var(--text-muted)' }}>{skill.level}</p>
+    <div className="relative overflow-hidden" style={{ marginBottom: 72 }}>
+      {/* Edge fades */}
+      <div
+        className="absolute inset-y-0 left-0 z-10 pointer-events-none"
+        style={{ width: 120, background: 'linear-gradient(to right, var(--sub-bg), transparent)' }}
+      />
+      <div
+        className="absolute inset-y-0 right-0 z-10 pointer-events-none"
+        style={{ width: 120, background: 'linear-gradient(to left, var(--sub-bg), transparent)' }}
+      />
+
+      <div className="flex animate-marquee" style={{ width: 'max-content' }}>
+        {row.map((name, i) => {
+          const { Icon, color } = getTechIcon(name);
+          return (
+            <div
+              key={`${name}-${i}`}
+              className="flex items-center gap-3 shrink-0"
+              style={{ padding: '0 30px' }}
+            >
+              <Icon size={24} style={{ color }} />
+              <span style={{ color: 'var(--heading)', fontWeight: 600, fontSize: 15, whiteSpace: 'nowrap' }}>
+                {name}
+              </span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 }
 
-function GroupCard({ group }) {
+function SkillRow({ skill }) {
+  const { Icon, color } = getTechIcon(skill.name);
+  return (
+    <div className="flex items-center gap-3">
+      <span
+        className="inline-flex items-center justify-center shrink-0"
+        style={{ width: 38, height: 38, background: 'var(--primary-06)', color }}
+      >
+        <Icon size={17} />
+      </span>
+      <span className="min-w-0">
+        <span className="block truncate" style={{ color: 'var(--heading)', fontWeight: 600, fontSize: 15 }}>
+          {skill.name}
+        </span>
+        <span className="block" style={{ color: 'var(--muted)', fontSize: 12, lineHeight: '18px' }}>
+          {skill.level}
+        </span>
+      </span>
+    </div>
+  );
+}
+
+function GroupCard({ group, index }) {
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 24 },
-        show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
+        hidden: { opacity: 0, y: 30 },
+        show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
       }}
-      className="card-notch p-6 sm:p-7"
-      style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}
+      className="qt-card qt-card-sm"
+      style={{ padding: '32px 28px' }}
     >
-      <p
-        className="font-display font-bold mb-5"
-        style={{ fontSize: '1.0625rem', color: group.color, letterSpacing: '-0.02em' }}
-      >
-        {group.title}
-      </p>
-      <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+      <div className="flex items-center gap-3" style={{ marginBottom: 24 }}>
+        <span
+          className="inline-flex items-center justify-center shrink-0"
+          style={{
+            width: 34, height: 34, background: 'var(--primary)', color: '#ffffff',
+            fontSize: 13, fontWeight: 700,
+          }}
+        >
+          0{index + 1}
+        </span>
+        <h4 style={{ marginBottom: 0 }}>{group.title}</h4>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-5">
         {group.skills.map((s) => <SkillRow key={s.name} skill={s} />)}
       </div>
     </motion.div>
@@ -46,23 +98,26 @@ function GroupCard({ group }) {
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative py-20 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-base)' }}>
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="skills" className="qt-section bg-sub overflow-hidden">
+      <div className="qt-container">
+        <TechRail />
+
         <SectionHeader
           label="My Skills"
-          heading={<>Tools I reach<br />for every day.</>}
-          sub="From intelligent systems to decentralised protocols — the technologies I use to build across the full spectrum of modern software."
+          heading="Technologies I work with"
+          sub="Across intelligent systems, decentralised protocols and cloud infrastructure — the stack I use to build end to end."
+          align="center"
         />
 
         <motion.div
-          className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-5"
+          className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-7"
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          variants={stagger(0.08)}
+          variants={stagger(0.09)}
         >
-          {SKILL_GROUPS.map((g) => (
-            <GroupCard key={g.title} group={g} />
+          {SKILL_GROUPS.map((g, i) => (
+            <GroupCard key={g.title} group={g} index={i} />
           ))}
         </motion.div>
       </div>

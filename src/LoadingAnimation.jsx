@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-/* Minimal brand-mark loader — the pattern most modern apps use
-   (Vercel, Linear, Notion, Raycast): solid background, centered
-   mark, a single spinner ring, quick fade. No choreography, no delay. */
+/* Brand-mark loader on the deep navy band: square mark, one square spinner
+   ring, quick fade — the same geometry the rest of the site uses. */
 export default function LoadingAnimation({ onDone }) {
   const [exit, setExit] = useState(false);
 
@@ -22,46 +21,51 @@ export default function LoadingAnimation({ onDone }) {
         <motion.div
           key="loader"
           className="fixed inset-0 z-[300] flex items-center justify-center"
-          style={{ background: 'var(--bg-base)' }}
+          style={{ background: 'var(--gradient-dark)' }}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }}
         >
-          <div className="relative flex items-center justify-center" style={{ width: 96, height: 96 }}>
-            {/* Ambient glow behind the mark */}
-            <motion.div
-              className="absolute rounded-2xl"
-              style={{ inset: 6, background: 'var(--gradient-brand)', filter: 'blur(22px)' }}
-              animate={{ opacity: [0.25, 0.55, 0.25] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-            />
+          <div className="flex flex-col items-center gap-7">
+            <div className="relative flex items-center justify-center" style={{ width: 84, height: 84 }}>
+              {/* Rotating square ring */}
+              <motion.span
+                className="absolute"
+                style={{
+                  inset: 0,
+                  border: '2px solid rgba(255,255,255,0.14)',
+                  borderTopColor: 'var(--accent-sky)',
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1.1, repeat: Infinity, ease: 'linear' }}
+              />
+              {/* Brand mark */}
+              <motion.span
+                className="relative inline-flex items-center justify-center"
+                style={{
+                  width: 54, height: 54,
+                  background: '#ffffff',
+                  color: 'var(--primary)',
+                  fontWeight: 800,
+                  fontSize: 19,
+                }}
+                animate={{ scale: [1, 1.06, 1] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                JA
+              </motion.span>
+            </div>
 
-            {/* Spinner ring */}
-            <motion.div
-              className="absolute rounded-full"
+            <span
+              className="font-mono"
               style={{
-                inset: 0,
-                border: '2.5px solid transparent',
-                borderTopColor: 'var(--accent)',
-                borderRightColor: 'rgba(20,184,166,0.25)',
+                color: 'rgba(255,255,255,0.6)',
+                fontSize: 10.5,
+                letterSpacing: '0.3em',
+                textTransform: 'uppercase',
               }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 0.85, repeat: Infinity, ease: 'linear' }}
-            />
-
-            {/* Brand mark */}
-            <motion.div
-              className="relative rounded-2xl flex items-center justify-center"
-              style={{
-                width: 60,
-                height: 60,
-                background: 'var(--gradient-brand)',
-                boxShadow: '0 10px 34px rgba(20,184,166,0.35)',
-              }}
-              animate={{ scale: [1, 1.06, 1] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <span className="font-display font-bold text-xl text-white">JA</span>
-            </motion.div>
+              Loading
+            </span>
           </div>
         </motion.div>
       )}

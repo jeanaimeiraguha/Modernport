@@ -36,7 +36,7 @@ export function useTilt(strength = 7) {
   };
 }
 
-export function Spotlight({ glow, color = '20,184,166', size = 420 }) {
+export function Spotlight({ glow, color = '5,65,99', size = 420 }) {
   return (
     <div
       aria-hidden="true"
@@ -160,14 +160,18 @@ export function StaggerItem({ children, className = '' }) {
 }
 
 export function Badge({ children, color }) {
+  const c = color || 'var(--primary)';
   return (
     <span
-      className="inline-block px-2.5 py-0.5 text-[11px] font-medium rounded-md"
+      className="inline-block"
       style={{
         fontFamily: 'JetBrains Mono, monospace',
-        background: color ? `${color}12` : 'rgba(20,184,166,0.08)',
-        color: color || 'var(--accent)',
-        border: `1px solid ${color ? color + '28' : 'rgba(20,184,166,0.18)'}`,
+        fontSize: 11,
+        letterSpacing: '0.04em',
+        padding: '4px 10px',
+        background: 'var(--primary-06)',
+        color: c,
+        border: '1px solid var(--border-soft)',
       }}
     >
       {children}
@@ -175,29 +179,40 @@ export function Badge({ children, color }) {
   );
 }
 
-export function SectionHeader({ label, heading, sub }) {
+/**
+ * SectionHeader — the reference's heading block: a primary-coloured uppercase
+ * eyebrow with 20px of space beneath it, a capitalized 40px heading, then an
+ * optional lede offset by 30px.
+ */
+export function SectionHeader({ label, heading, sub, align = 'left', tone = 'light' }) {
+  const centered = align === 'center';
+  const onDark = tone === 'dark';
+
   return (
-    <Reveal>
-      <p
-        className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-4"
-        style={{ color: 'var(--accent)' }}
-      >
-        {label}
-      </p>
-      <h2
-        className="font-display font-bold leading-[1.06]"
+    <Reveal className={`section-header ${centered ? 'text-center mx-auto' : ''}`}>
+      {label && (
+        <h5 style={onDark ? { color: 'rgba(255,255,255,0.85)' } : undefined}>{label}</h5>
+      )}
+      <h2 style={onDark ? { color: '#ffffff' } : undefined}>{heading}</h2>
+      {/* Short primary rule under the heading */}
+      <span
+        className="block"
         style={{
-          fontSize: 'clamp(2.1rem, 4.8vw, 3.5rem)',
-          color: 'var(--text-primary)',
-          letterSpacing: '-0.03em',
+          width: 56,
+          height: 3,
+          marginTop: 22,
+          background: onDark ? '#ffffff' : 'var(--primary)',
+          marginLeft: centered ? 'auto' : 0,
+          marginRight: centered ? 'auto' : 0,
         }}
-      >
-        {heading}
-      </h2>
+      />
       {sub && (
         <p
-          className="mt-4 max-w-lg leading-relaxed"
-          style={{ fontSize: '1.0625rem', color: 'var(--text-secondary)' }}
+          className={centered ? 'mx-auto' : ''}
+          style={{
+            maxWidth: 620,
+            color: onDark ? 'rgba(255,255,255,0.8)' : 'var(--paragraph)',
+          }}
         >
           {sub}
         </p>

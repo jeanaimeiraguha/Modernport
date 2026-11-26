@@ -1,30 +1,54 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaExclamationTriangle, FaHome } from 'react-icons/fa';
+import { FaArrowRight, FaHome } from 'react-icons/fa';
 
-const NotFoundPage = () => {
+export default function NotFoundPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-slate-900 text-gray-800 dark:text-gray-200 p-4 transition-colors duration-300 ease-in-out">
-      <div className="text-center">
-        <FaExclamationTriangle className="text-yellow-400 text-6xl mx-auto mb-4" />
-        <h1 className="text-4xl md:text-6xl font-bold mb-2">404</h1>
-        <h2 className="text-2xl md:text-3xl font-semibold mb-4"><span>Page Not Found</span></h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md">
-          <span>Oops! The page you are looking for does not exist. It might have been moved or deleted.</span>
-        </p>
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-md hover:bg-cyan-700 transition-colors"
+    <div
+      className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden"
+      style={{ background: 'var(--gradient-dark)', padding: 24 }}
+    >
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: '-25%', right: '-10%', width: 700, height: 700,
+          background: 'radial-gradient(circle, rgba(9,145,223,0.18), transparent 65%)',
+        }}
+      />
+
+      <div className="relative z-10 text-center">
+        <p
+          style={{
+            color: 'rgba(255,255,255,0.7)', fontSize: 14, fontWeight: 600,
+            letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 18,
+          }}
         >
-          <FaHome />
-          <span>Go Back to Home</span>
-        </Link>
+          Error 404
+        </p>
+        <h1 style={{ color: '#ffffff', fontSize: 'clamp(3.5rem, 12vw, 7rem)', lineHeight: 1, marginBottom: 20 }}>
+          404
+        </h1>
+        <h2 style={{ color: '#ffffff', marginBottom: 16 }}>Page not found</h2>
+        <p style={{ color: 'rgba(255,255,255,0.8)', maxWidth: 440, margin: '0 auto 36px' }}>
+          The page you are looking for does not exist. It may have been moved or removed.
+        </p>
+
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <Link to="/" className="btn-one btn-light">
+            <FaHome size={13} /> Back To Home
+            <span className="btn-icon"><FaArrowRight size={11} /></span>
+          </Link>
+          <Link to="/cv" className="btn-one btn-outline-light">
+            View CV
+          </Link>
+        </div>
       </div>
-      <footer className="absolute bottom-4 text-sm text-gray-500 dark:text-gray-400">
-        <p><span>© {new Date().getFullYear()} IRAGUHA Jean Aime</span></p>
-      </footer>
+
+      <p
+        className="absolute"
+        style={{ bottom: 24, color: 'rgba(255,255,255,0.5)', fontSize: 13 }}
+      >
+        © {new Date().getFullYear()} Iraguha Jean Aime
+      </p>
     </div>
   );
-};
-
-export default NotFoundPage;
+}

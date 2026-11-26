@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  FaLinkedin, FaEnvelope, FaPhone,
-  FaMapMarkerAlt, FaWhatsapp, FaCheckCircle,
-  FaExclamationCircle, FaPaperPlane,
+  FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaWhatsapp,
+  FaCheckCircle, FaExclamationCircle, FaPaperPlane, FaArrowRight,
 } from 'react-icons/fa';
-import { FadeUp } from './motion';
+import { Reveal } from './motion';
 import { CONTACT_ITEMS } from './data';
 
 const ICONS = {
@@ -15,22 +14,29 @@ const ICONS = {
   linkedin: <FaLinkedin size={14} />,
   whatsapp: <FaWhatsapp size={14} />,
 };
-const ICON_COLORS = { whatsapp: '#25d366', linkedin: '#0a66c2' };
 
 function Field({ label, error, children }) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: 'var(--text-muted)' }}>
+    <div className="flex flex-col gap-2">
+      <label
+        style={{
+          color: 'var(--heading)', fontSize: 12, fontWeight: 600,
+          letterSpacing: '0.1em', textTransform: 'uppercase',
+        }}
+      >
         {label}
       </label>
       {children}
       <AnimatePresence>
         {error && (
           <motion.p
-            initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-            className="text-xs flex items-center gap-1" style={{ color: '#f87171' }}
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="flex items-center gap-1.5"
+            style={{ color: '#d14343', fontSize: 12.5 }}
           >
-            <FaExclamationCircle size={10} /> {error}
+            <FaExclamationCircle size={11} /> {error}
           </motion.p>
         )}
       </AnimatePresence>
@@ -39,15 +45,14 @@ function Field({ label, error, children }) {
 }
 
 export default function Contact() {
-  const [form, setForm]       = useState({ name: '', email: '', message: '' });
-  const [errors, setErrors]   = useState({});
-  const [status, setStatus]   = useState('idle');
-  const [focused, setFocused] = useState(null);
+  const [form, setForm]     = useState({ name: '', email: '', message: '' });
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState('idle');
 
   const validate = () => {
     const e = {};
-    if (!form.name.trim())    e.name    = 'Name is required';
-    if (!form.email.trim())   e.email   = 'Email is required';
+    if (!form.name.trim())  e.name  = 'Name is required';
+    if (!form.email.trim()) e.email = 'Email is required';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email';
     if (!form.message.trim()) e.message = 'Message is required';
     else if (form.message.trim().length < 10) e.message = 'Message is too short';
@@ -70,178 +75,214 @@ export default function Contact() {
     setForm({ name: '', email: '', message: '' });
   };
 
-  const inputStyle = (name) => ({
-    width: '100%',
-    padding: '11px 14px',
-    fontSize: '0.875rem',
-    borderRadius: '10px',
-    background: 'var(--bg-base)',
-    border: `1.5px solid ${errors[name] ? '#f87171' : focused === name ? 'var(--accent)' : 'var(--border)'}`,
-    color: 'var(--text-primary)',
-    outline: 'none',
-    transition: 'border-color 0.2s',
-    boxShadow: focused === name && !errors[name] ? '0 0 0 3px rgba(20,184,166,0.08)' : 'none',
-    fontFamily: 'Plus Jakarta Sans, sans-serif',
+  const fieldStyle = (name) => ({
+    borderColor: errors[name] ? '#d14343' : undefined,
   });
 
   return (
-    <section id="contact" className="relative py-20 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="contact" className="qt-section bg-main">
+      <div className="qt-container">
+        {/* The reference's "talk to us" panel: a dark gradient block carrying the
+            invitation, with the form sitting on white beside it. */}
+        <div className="grid lg:grid-cols-[1fr_1.15fr]">
 
-        <div
-          className="card-notch p-6 sm:p-10 lg:p-12"
-          style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
-        >
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-
-          {/* Info */}
-          <FadeUp delay={0.1}>
-            <h2
-              className="font-display font-bold mb-4"
-              style={{ fontSize: 'clamp(1.75rem, 3.6vw, 2.5rem)', letterSpacing: '-0.02em', lineHeight: 1.15 }}
-            >
-              <span style={{ color: 'var(--text-primary)' }}>Let's talk on your </span>
-              <span style={{ color: 'var(--text-muted)' }}>great project together.</span>
-            </h2>
-            <p className="mb-8" style={{ fontSize: '1.0625rem', color: 'var(--text-secondary)' }}>
-              Whether you're hiring, have a project in mind, or just want to connect — I reply within 24 hours.
-            </p>
-
+          {/* ══ Dark invitation panel ══ */}
+          <Reveal className="h-full">
             <div
-              className="rounded-xl p-5 mb-5"
-              style={{ background: 'rgba(20,184,166,0.04)', border: '1px solid rgba(20,184,166,0.14)' }}
+              className="relative h-full overflow-hidden"
+              style={{ background: 'var(--gradient-dark)', padding: '56px 44px' }}
             >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="glow-dot" />
-                <p className="font-display font-bold text-base" style={{ color: 'var(--text-primary)' }}>Currently available</p>
-              </div>
-              <p className="text-[0.9375rem] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                Open to senior full-stack, lead engineer, or CTO-track remote roles. Also available
-                for consulting and fractional CTO engagements.
-              </p>
-            </div>
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: '-30%', left: '-20%', width: 460, height: 460,
+                  background: 'radial-gradient(circle, rgba(9,145,223,0.2), transparent 65%)',
+                }}
+              />
 
-            <div className="space-y-3">
-              {CONTACT_ITEMS.map((item) => (
-                <motion.div
-                  key={item.label}
-                  whileHover={{ x: 4 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-                  className="flex items-center gap-4 rounded-xl px-4 py-3.5"
-                  style={{ background: 'var(--bg-base)', border: '1px solid var(--border)' }}
+              <div className="relative z-10">
+                <h5
+                  style={{
+                    color: 'rgba(255,255,255,0.85)', textTransform: 'uppercase',
+                    letterSpacing: '0.1em', fontWeight: 500, marginBottom: 16,
+                  }}
                 >
-                  <span
-                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                    style={{ background: 'rgba(20,184,166,0.08)', color: ICON_COLORS[item.type] || 'var(--accent)' }}
-                  >
-                    {ICONS[item.type]}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] mb-0.5" style={{ color: 'var(--text-muted)' }}>
-                      {item.label}
-                    </p>
-                    {item.href ? (
-                      <a
-                        href={item.href} target="_blank" rel="noopener noreferrer"
-                        className="font-display font-semibold text-[0.9375rem] truncate block transition-colors"
-                        style={{ color: 'var(--text-secondary)' }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
-                      >
-                        {item.value}
-                      </a>
-                    ) : (
-                      <p className="font-display font-semibold text-[0.9375rem] truncate" style={{ color: 'var(--text-secondary)' }}>{item.value}</p>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </FadeUp>
+                  Get In Touch
+                </h5>
+                <h2 style={{ color: '#ffffff', marginBottom: 18 }}>
+                  Let&apos;s build your next project together
+                </h2>
+                <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: 34 }}>
+                  Whether you are hiring, have a project in mind, or simply want to connect — I reply
+                  within 24 hours.
+                </p>
 
-          {/* Form */}
-          <FadeUp delay={0.2}>
-            <AnimatePresence mode="wait">
-              {status === 'sent' ? (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex flex-col items-center justify-center text-center rounded-xl py-16 px-8 gap-5"
-                  style={{ background: 'var(--bg-elevated)', border: '1px solid rgba(74,222,128,0.18)' }}
+                <div
+                  className="flex items-start gap-3"
+                  style={{
+                    background: 'rgba(255,255,255,0.07)',
+                    border: '1px solid rgba(255,255,255,0.14)',
+                    padding: '18px 20px',
+                    marginBottom: 34,
+                  }}
                 >
-                  <motion.div
-                    initial={{ scale: 0 }} animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 200, damping: 14, delay: 0.1 }}
-                  >
-                    <FaCheckCircle size={44} style={{ color: '#4ade80' }} />
-                  </motion.div>
+                  <span className="glow-dot" style={{ marginTop: 9 }} />
                   <div>
-                    <p className="font-display text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Message sent!</p>
-                    <p className="text-sm mt-2" style={{ color: 'var(--text-secondary)' }}>
-                      Thanks for reaching out. I'll get back to you within 24 hours.
+                    <p style={{ color: '#ffffff', fontWeight: 700, fontSize: 15, marginBottom: 4 }}>
+                      Currently available
+                    </p>
+                    <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 14, lineHeight: '24px' }}>
+                      Open to senior full-stack, lead engineer and CTO-track remote roles, plus consulting
+                      and fractional CTO engagements.
                     </p>
                   </div>
-                  <button
-                    onClick={() => setStatus('idle')}
-                    className="text-sm font-medium px-5 py-2 rounded-lg"
-                    style={{ background: 'rgba(20,184,166,0.08)', color: 'var(--accent)', border: '1px solid rgba(20,184,166,0.18)' }}
+                </div>
+
+                <ul className="flex flex-col gap-4">
+                  {CONTACT_ITEMS.map((item) => (
+                    <li key={item.label} className="flex items-center gap-4">
+                      <span
+                        className="inline-flex items-center justify-center shrink-0"
+                        style={{ width: 40, height: 40, background: 'rgba(255,255,255,0.1)', color: '#ffffff' }}
+                      >
+                        {ICONS[item.type]}
+                      </span>
+                      <span className="min-w-0">
+                        <span
+                          className="block"
+                          style={{
+                            color: 'rgba(255,255,255,0.6)', fontSize: 10.5, fontWeight: 600,
+                            letterSpacing: '0.14em', textTransform: 'uppercase',
+                          }}
+                        >
+                          {item.label}
+                        </span>
+                        {item.href ? (
+                          <a
+                            href={item.href}
+                            target={item.href.startsWith('http') ? '_blank' : undefined}
+                            rel="noopener noreferrer"
+                            className="block truncate"
+                            style={{ color: '#ffffff', fontSize: 15, fontWeight: 500 }}
+                          >
+                            {item.value}
+                          </a>
+                        ) : (
+                          <span className="block truncate" style={{ color: '#ffffff', fontSize: 15, fontWeight: 500 }}>
+                            {item.value}
+                          </span>
+                        )}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* ══ Form ══ */}
+          <Reveal delay={0.12} className="h-full">
+            <div
+              className="h-full"
+              style={{
+                background: '#ffffff',
+                border: '1px solid var(--border-soft)',
+                boxShadow: 'var(--shadow)',
+                padding: '56px 44px',
+              }}
+            >
+              <AnimatePresence mode="wait">
+                {status === 'sent' ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex flex-col items-center justify-center text-center h-full gap-6"
+                    style={{ minHeight: 420 }}
                   >
-                    Send another message
-                  </button>
-                </motion.div>
-              ) : (
-                <motion.form
-                  key="form"
-                  onSubmit={handleSubmit}
-                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                  className="space-y-5 rounded-xl p-6 sm:p-7"
-                  style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
-                  noValidate
-                >
-                  <div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
-                    <Field label="Name" error={errors.name}>
-                      <input
-                        name="name" value={form.name} onChange={handleChange}
-                        placeholder="Your name" style={inputStyle('name')}
-                        onFocus={() => setFocused('name')} onBlur={() => setFocused(null)}
-                        autoComplete="name"
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: 'spring', stiffness: 200, damping: 14, delay: 0.1 }}
+                    >
+                      <FaCheckCircle size={48} style={{ color: 'var(--green)' }} />
+                    </motion.span>
+                    <div>
+                      <h3 style={{ marginBottom: 8 }}>Message sent</h3>
+                      <p style={{ color: 'var(--paragraph)' }}>
+                        Thanks for reaching out. I will get back to you within 24 hours.
+                      </p>
+                    </div>
+                    <button onClick={() => setStatus('idle')} className="btn-one btn-two">
+                      Send Another Message
+                      <span className="btn-icon"><FaArrowRight size={11} /></span>
+                    </button>
+                  </motion.div>
+                ) : (
+                  <motion.form
+                    key="form"
+                    onSubmit={handleSubmit}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex flex-col gap-6"
+                    noValidate
+                  >
+                    <div>
+                      <h3 style={{ marginBottom: 6 }}>Send me a message</h3>
+                      <p style={{ color: 'var(--paragraph)', fontSize: 15 }}>
+                        Tell me about the role or the project and I will come back to you quickly.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <Field label="Name" error={errors.name}>
+                        <input
+                          name="name"
+                          value={form.name}
+                          onChange={handleChange}
+                          placeholder="Your name"
+                          className="qt-input"
+                          style={fieldStyle('name')}
+                          autoComplete="name"
+                        />
+                      </Field>
+                      <Field label="Email" error={errors.email}>
+                        <input
+                          name="email"
+                          type="email"
+                          value={form.email}
+                          onChange={handleChange}
+                          placeholder="you@company.com"
+                          className="qt-input"
+                          style={fieldStyle('email')}
+                          autoComplete="email"
+                        />
+                      </Field>
+                    </div>
+
+                    <Field label="Message" error={errors.message}>
+                      <textarea
+                        name="message"
+                        value={form.message}
+                        onChange={handleChange}
+                        placeholder="Tell me about the role or project…"
+                        rows={7}
+                        className="qt-input"
+                        style={{ ...fieldStyle('message'), resize: 'none' }}
                       />
                     </Field>
-                    <Field label="Email" error={errors.email}>
-                      <input
-                        name="email" type="email" value={form.email} onChange={handleChange}
-                        placeholder="you@company.com" style={inputStyle('email')}
-                        onFocus={() => setFocused('email')} onBlur={() => setFocused(null)}
-                        autoComplete="email"
-                      />
-                    </Field>
-                  </div>
 
-                  <Field label="Message" error={errors.message}>
-                    <textarea
-                      name="message" value={form.message} onChange={handleChange}
-                      placeholder="Tell me about the role or project…"
-                      rows={6} style={{ ...inputStyle('message'), resize: 'none' }}
-                      onFocus={() => setFocused('message')} onBlur={() => setFocused(null)}
-                    />
-                  </Field>
-
-                  <motion.button
-                    type="submit"
-                    whileHover={{ opacity: 0.88 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="inline-flex items-center gap-2.5 px-7 py-2.5 text-sm font-semibold rounded-xl text-white"
-                    style={{ background: 'var(--accent)' }}
-                  >
-                    <FaPaperPlane size={12} /> Send message
-                  </motion.button>
-                </motion.form>
-              )}
-            </AnimatePresence>
-          </FadeUp>
-        </div>
+                    <button type="submit" className="btn-one self-start">
+                      <FaPaperPlane size={12} /> Send Message
+                      <span className="btn-icon"><FaArrowRight size={11} /></span>
+                    </button>
+                  </motion.form>
+                )}
+              </AnimatePresence>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

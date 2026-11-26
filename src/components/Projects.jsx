@@ -1,108 +1,144 @@
 import { motion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
-import { SectionHeader, stagger, useTilt, Spotlight } from './motion';
+import { SectionHeader, stagger, viewportOnce } from './motion';
 import { PROJECTS } from './data';
 import { getTechIcon } from './techIcons';
 
-function ProjectCard({ project }) {
-  const { tiltStyle, tiltHandlers, glow } = useTilt(5);
-
+/* Case-study card: full-bleed image under a bottom-up dark scrim, with the
+   title and category sitting on the image and the stack revealed below. */
+function CaseCard({ project }) {
   return (
-    <motion.div
+    <motion.article
       variants={{
-        hidden: { opacity: 0, y: 24 },
-        show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
+        hidden: { opacity: 0, y: 34 },
+        show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
       }}
-      {...tiltHandlers}
-      className="group relative flex flex-col rounded-2xl overflow-hidden"
-      style={{
-        ...tiltStyle,
-        background: 'var(--bg-card)',
-        border: '1px solid var(--border)',
-        boxShadow: '0 1px 2px rgba(15,23,42,0.04), 0 8px 24px rgba(15,23,42,0.06)',
-      }}
-      whileHover={{ y: -4, borderColor: 'var(--border-hover)' }}
-      transition={{ duration: 0.25 }}
+      className="qt-card group relative flex flex-col overflow-hidden"
     >
-      <Spotlight glow={glow} size={340} />
-
-      {/* Image */}
-      <div className="relative z-10 h-44 overflow-hidden">
+      {/* Image + scrim */}
+      <div className="media-zoom case-scrim relative overflow-hidden" style={{ height: 250 }}>
         <img
           src={project.image}
           alt={project.title}
           loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-105"
+          className="w-full h-full object-cover"
         />
-      </div>
 
-      {/* Content */}
-      <div className="relative z-10 p-5 flex flex-col flex-1">
-        <h3
-          className="font-display font-bold mb-0.5"
-          style={{ fontSize: '1.0625rem', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}
+        {/* Category chip */}
+        <span
+          className="absolute z-10"
+          style={{
+            top: 18, left: 18,
+            background: 'var(--primary)', color: '#ffffff',
+            fontSize: 11, fontWeight: 600, letterSpacing: '0.08em',
+            textTransform: 'uppercase', padding: '6px 12px',
+          }}
+        >
+          {project.category}
+        </span>
+
+        {/* Title over the scrim */}
+        <h4
+          className="absolute z-10"
+          style={{ left: 24, right: 24, bottom: 20, color: '#ffffff', marginBottom: 0 }}
         >
           {project.title}
-        </h3>
-        <p className="text-xs font-medium mb-3" style={{ color: 'var(--text-muted)' }}>
-          {project.category}
-        </p>
-        <p className="text-sm leading-relaxed flex-1 mb-4" style={{ color: 'var(--text-secondary)' }}>
+        </h4>
+
+        {/* Circular action button, revealed on hover */}
+        {project.live && (
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${project.title}`}
+            className="absolute z-20 inline-flex items-center justify-center opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0"
+            style={{
+              top: 16, right: 16, width: 46, height: 46,
+              borderRadius: '50%', border: '1px solid rgba(255,255,255,0.6)',
+              color: '#ffffff', background: 'rgba(5,65,99,0.4)',
+              backdropFilter: 'blur(6px)',
+              transition: 'var(--transition)',
+            }}
+          >
+            <FaArrowRight size={13} style={{ transform: 'rotate(-45deg)' }} />
+          </a>
+        )}
+      </div>
+
+      {/* Body */}
+      <div className="flex flex-col flex-1" style={{ padding: 30 }}>
+        <p className="flex-1" style={{ color: 'var(--paragraph)', fontSize: 15, lineHeight: '26px' }}>
           {project.description}
         </p>
 
-        {project.live && (
-          <a
-            href={project.live} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold mb-4 w-fit"
-            style={{ color: 'var(--accent)' }}
-          >
-            Visit Live Site <FaArrowRight size={10} />
-          </a>
-        )}
-
-        <div className="flex flex-wrap gap-1.5 mt-auto">
+        {/* Stack icons */}
+        <div className="flex flex-wrap items-center gap-2" style={{ marginTop: 24 }}>
           {project.stack.map((t) => {
             const { Icon, color } = getTechIcon(t);
             return (
               <span
                 key={t}
-                aria-label={t}
                 title={t}
-                className="w-7 h-7 rounded-md flex items-center justify-center shrink-0"
-                style={{ background: `${color}18`, color }}
+                aria-label={t}
+                className="inline-flex items-center justify-center shrink-0"
+                style={{ width: 32, height: 32, background: 'var(--sub-bg)', color }}
               >
-                <Icon size={13} />
+                <Icon size={15} />
               </span>
             );
           })}
         </div>
+
+        {project.live && (
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="read-more-btn"
+            style={{ marginTop: 22, color: 'var(--primary)' }}
+          >
+            Visit Live Site
+            <span className="btn-icon"><FaArrowRight size={11} /></span>
+          </a>
+        )}
       </div>
-    </motion.div>
+    </motion.article>
   );
 }
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative py-20 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="projects" className="qt-section bg-sub">
+      <div className="qt-container">
         <SectionHeader
-          label="Projects"
-          heading="Things I've built"
-          sub="A selection of work across web, AI, robotics, blockchain, and food-tech."
+          label="From My Case Studies"
+          heading="Selected projects"
+          sub="Production work across food-tech, fintech, education, AI, robotics and Web3."
+          align="center"
         />
 
         <motion.div
-          className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
-          variants={stagger(0.08)}
+          viewport={viewportOnce}
+          variants={stagger(0.09)}
         >
           {PROJECTS.map((p) => (
-            <ProjectCard key={p.title} project={p} />
+            <CaseCard key={p.title} project={p} />
           ))}
         </motion.div>
+
+        <div className="flex justify-center" style={{ marginTop: 56 }}>
+          <button
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            className="btn-one"
+          >
+            Start A Project
+            <span className="btn-icon"><FaArrowRight size={12} /></span>
+          </button>
+        </div>
       </div>
     </section>
   );

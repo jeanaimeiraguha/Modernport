@@ -36,7 +36,7 @@ export default function Footer() {
         className="absolute pointer-events-none"
         style={{
           top: '-30%', right: '-5%', width: 620, height: 620,
-          background: 'radial-gradient(circle, rgba(9,145,223,0.16), transparent 65%)',
+          background: 'radial-gradient(circle, rgba(124,92,255,0.16), transparent 65%)',
         }}
       />
 
@@ -153,9 +153,15 @@ export default function Footer() {
           <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 14 }}>
             © {new Date().getFullYear()} Iraguha Jean Aime. All rights reserved.
           </p>
-          <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 14 }}>
-            Built with React, Framer Motion &amp; Tailwind CSS
-          </p>
+          <a
+            href="https://github.com/jeanaimeiraguha"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-grow"
+            style={{ color: 'var(--text-faint)', fontSize: 14 }}
+          >
+            Source on GitHub
+          </a>
         </div>
       </div>
     </footer>

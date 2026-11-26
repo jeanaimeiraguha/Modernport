@@ -73,8 +73,8 @@ function slerp(a, b, t) {
 /* Two palettes so the same globe reads correctly on a white section or on the
    dark navy hero band. */
 const PALETTES = {
-  light: { base: '5,65,99',     accent: '9,145,223',  ring: '255,255,255', wireMax: 0.26, bodyA: 0.07 },
-  dark:  { base: '255,255,255', accent: '56,189,248', ring: '5,65,99',     wireMax: 0.34, bodyA: 0.06 },
+  light: { base: '15,17,20',    accent: '124,92,255', ring: '255,255,255', wireMax: 0.26, bodyA: 0.07 },
+  dark:  { base: '255,255,255', accent: '124,92,255', ring: '8,9,11',     wireMax: 0.30, bodyA: 0.05 },
 };
 
 export default function BlockchainGlobe({ size = 560, tone = 'light', className = '' }) {

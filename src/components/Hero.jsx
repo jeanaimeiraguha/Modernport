@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaLinkedin, FaGithub, FaWhatsapp, FaArrowRight, FaDownload } from 'react-icons/fa';
+import {
+  FaLinkedin, FaGithub, FaWhatsapp, FaArrowRight,
+  FaDownload, FaMapMarkerAlt, FaBriefcase, FaCode,
+} from 'react-icons/fa';
 import BlockchainGlobe from './BlockchainGlobe';
+import { useMagnetic } from './motion';
 
 const ROLES = [
   'Full-Stack Engineer',
@@ -40,14 +44,22 @@ const SOCIALS = [
   { icon: <FaWhatsapp size={15} />, href: 'https://wa.me/250793411594',                               label: 'WhatsApp' },
 ];
 
+/* Scannable facts — what a recruiter checks in the first five seconds. */
+const FACTS = [
+  { icon: <FaBriefcase size={11} />,    text: '4+ years shipping production' },
+  { icon: <FaCode size={11} />,         text: '50+ projects delivered' },
+  { icon: <FaMapMarkerAlt size={11} />, text: 'Kigali, Rwanda · Remote-first' },
+];
+
 const rise = (delay) => ({
-  initial: { opacity: 0, y: 36 },
+  initial: { opacity: 0, y: 32 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay },
+  transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1], delay },
 });
 
 export default function Hero() {
   const role = useTypewriter(ROLES);
+  const magnetic = useMagnetic(0.25);
 
   return (
     <section
@@ -55,111 +67,122 @@ export default function Hero() {
       className="relative overflow-hidden"
       style={{ background: 'var(--gradient-dark)' }}
     >
-      {/* Faint technical grid, as on the reference's banner */}
+      {/* Technical grid wash */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
             'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), ' +
             'linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
+          backgroundSize: '64px 64px',
         }}
       />
-      {/* Corner light */}
       <div
         className="absolute pointer-events-none"
         style={{
-          top: '-20%', right: '-10%', width: 800, height: 800,
-          background: 'radial-gradient(circle, rgba(9,145,223,0.18), transparent 65%)',
+          top: '-20%', right: '-10%', width: 820, height: 820,
+          background: 'radial-gradient(circle, rgba(124,92,255,0.18), transparent 65%)',
         }}
       />
 
       <div
         className="qt-container relative z-10 grid lg:grid-cols-[1.05fr_0.95fr] items-center gap-12 lg:gap-8"
-        style={{ paddingTop: 170, paddingBottom: 110, minHeight: '100vh' }}
+        style={{ paddingTop: 165, paddingBottom: 110, minHeight: '100vh' }}
       >
         {/* ══ Copy ══ */}
-        <div className="max-w-[640px]">
-          {/* Eyebrow — 18px, 600, uppercase, 1px tracking */}
-          <motion.h4
-            {...rise(0.05)}
-            style={{
-              fontSize: 18,
-              lineHeight: '30px',
-              fontWeight: 600,
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
-              color: '#ffffff',
-              marginBottom: 18,
-            }}
-          >
-            Jean Aime Iraguha
-          </motion.h4>
+        <div className="max-w-[660px]">
+          {/* Availability badge */}
+          <motion.div {...rise(0.05)} style={{ marginBottom: 26 }}>
+            <span className="pill pill-light">
+              <span className="glow-dot" style={{ width: 7, height: 7, boxShadow: 'none' }} />
+              Open to senior &amp; lead roles
+            </span>
+          </motion.div>
 
-          <motion.h1
-            {...rise(0.12)}
-            style={{
-              color: '#ffffff',
-              fontWeight: 700,
-              fontSize: 'clamp(2.1rem, 4.4vw, 3.4rem)',
-              lineHeight: 1.18,
-              letterSpacing: '-0.02em',
-              marginBottom: 24,
-            }}
-          >
-            I Build, Secure, And Ship Production-Grade Digital Products.
+          <motion.h1 {...rise(0.12)} style={{ color: '#ffffff', marginBottom: 22 }}>
+            I build, secure and ship
+            <br />
+            <span style={{ color: 'var(--accent-sky)' }}>production-grade</span> software.
           </motion.h1>
-
-          <motion.p
-            {...rise(0.2)}
-            style={{
-              color: '#ffffff',
-              opacity: 0.9,
-              fontSize: 17,
-              lineHeight: '30px',
-              maxWidth: 540,
-              marginBottom: 14,
-            }}
-          >
-            Full-stack engineer and founder from Kigali, Rwanda, dedicated to turning ideas into
-            software that scales under pressure and stays reliable long past the prototype.
-          </motion.p>
 
           {/* Live role ticker */}
           <motion.div
-            {...rise(0.26)}
-            className="flex items-center gap-2.5"
-            style={{ marginBottom: 36, height: 30 }}
+            {...rise(0.2)}
+            className="flex items-center gap-3 flex-wrap"
+            style={{ marginBottom: 22 }}
           >
-            <span className="glow-dot" />
-            <span style={{ color: '#ffffff', fontWeight: 600, fontSize: 16 }}>
-              {role}
+            <span
+              style={{
+                color: 'rgba(255,255,255,0.55)',
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+              }}
+            >
+              Jean Aime Iraguha
             </span>
-            <motion.span
-              animate={{ opacity: [1, 0, 1] }}
-              transition={{ duration: 0.85, repeat: Infinity }}
-              className="inline-block"
-              style={{ width: 2, height: 17, background: 'var(--accent-sky)' }}
-            />
+            <span style={{ width: 18, height: 1, background: 'rgba(255,255,255,0.3)' }} />
+            <span
+              className="inline-flex items-center"
+              style={{ color: '#ffffff', fontWeight: 700, fontSize: 17, minHeight: 26 }}
+            >
+              {role}
+              <motion.span
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 0.85, repeat: Infinity }}
+                className="inline-block"
+                style={{ width: 2, height: 18, marginLeft: 3, background: 'var(--accent-sky)' }}
+              />
+            </span>
           </motion.div>
 
-          {/* Buttons — square, as on the reference */}
-          <motion.div {...rise(0.32)} className="flex flex-wrap items-center gap-4">
-            <button
+          <motion.p
+            {...rise(0.26)}
+            className="lead"
+            style={{ color: 'rgba(255,255,255,0.82)', maxWidth: 540, marginBottom: 30 }}
+          >
+            Full-stack engineer and founder from Kigali, turning ideas into software that scales
+            under pressure and stays reliable long past the prototype.
+          </motion.p>
+
+          {/* Quick facts */}
+          <motion.ul
+            {...rise(0.32)}
+            className="flex flex-wrap items-center gap-x-6 gap-y-3"
+            style={{ marginBottom: 38 }}
+          >
+            {FACTS.map((f) => (
+              <li
+                key={f.text}
+                className="inline-flex items-center gap-2"
+                style={{ color: 'rgba(255,255,255,0.72)', fontSize: 14 }}
+              >
+                <span style={{ color: 'var(--accent-sky)', display: 'inline-flex' }}>{f.icon}</span>
+                {f.text}
+              </li>
+            ))}
+          </motion.ul>
+
+          {/* CTAs */}
+          <motion.div {...rise(0.38)} className="flex flex-wrap items-center gap-4">
+            <motion.button
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="btn-one btn-light"
+              {...magnetic.handlers}
+              style={magnetic.style}
+              className="btn-one btn-light pressable"
             >
-              Explore More
+              View My Work
               <span className="btn-icon"><FaArrowRight size={12} /></span>
-            </button>
-            <a href="/cv/Jean-Aime-Iraguha-CV.pdf" download className="btn-one btn-outline-light">
+            </motion.button>
+            <a href="/cv/Jean-Aime-Iraguha-CV.pdf" download className="btn-one btn-outline-light pressable">
               Download CV
               <span className="btn-icon"><FaDownload size={12} /></span>
             </a>
           </motion.div>
 
           {/* Socials */}
-          <motion.div {...rise(0.38)} className="qt-sidebar-social flex items-center gap-3 mt-10">
+          <motion.div {...rise(0.44)} className="qt-sidebar-social flex items-center gap-3 mt-10">
             {SOCIALS.map((s) => (
               <a
                 key={s.label}
@@ -167,6 +190,7 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
+                className="pressable"
                 style={{ color: '#ffffff' }}
               >
                 {s.icon}
@@ -180,11 +204,10 @@ export default function Hero() {
           className="relative flex items-center justify-center lg:justify-end"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
         >
           <BlockchainGlobe size={560} tone="dark" />
 
-          {/* Floating label — names what the visual is showing */}
           <div
             className="absolute hidden sm:flex items-center gap-2.5 animate-sway-y"
             style={{
@@ -205,7 +228,10 @@ export default function Hero() {
             />
             <span
               className="font-mono"
-              style={{ color: '#ffffff', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase' }}
+              style={{
+                color: '#ffffff', fontSize: 11,
+                letterSpacing: '0.1em', textTransform: 'uppercase',
+              }}
             >
               Distributed Ledger · Live Peers
             </span>
@@ -215,17 +241,20 @@ export default function Hero() {
 
       {/* Scroll hint */}
       <motion.button
-        onClick={() => document.getElementById('counters')?.scrollIntoView({ behavior: 'smooth' })}
-        className="absolute left-1/2 hidden sm:flex flex-col items-center gap-2"
+        onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+        className="absolute left-1/2 hidden sm:flex flex-col items-center gap-2 pressable"
         style={{ bottom: 28, transform: 'translateX(-50%)', zIndex: 10 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
-        aria-label="Scroll down"
+        aria-label="Scroll to next section"
       >
         <span
           className="font-mono"
-          style={{ color: 'rgba(255,255,255,0.55)', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' }}
+          style={{
+            color: 'rgba(255,255,255,0.55)', fontSize: 10,
+            letterSpacing: '0.18em', textTransform: 'uppercase',
+          }}
         >
           Scroll
         </span>

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaWhatsapp,
   FaCheckCircle, FaExclamationCircle, FaPaperPlane, FaArrowRight,
+  FaRegCopy, FaCheck,
 } from 'react-icons/fa';
 import { Reveal } from './motion';
 import { CONTACT_ITEMS } from './data';
@@ -48,6 +49,28 @@ export default function Contact() {
   const [form, setForm]     = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
+  const [copied, setCopied] = useState(false);
+
+  /* Copying the address is faster than opening a mail client, so offer both. */
+  const copyEmail = async () => {
+    const address = 'jeanaimeiraguha@gmail.com';
+    try {
+      await navigator.clipboard.writeText(address);
+    } catch {
+      // Clipboard API needs a secure context; fall back to a temporary input.
+      const el = document.createElement('textarea');
+      el.value = address;
+      el.setAttribute('readonly', '');
+      el.style.position = 'fixed';
+      el.style.opacity = '0';
+      document.body.appendChild(el);
+      el.select();
+      try { document.execCommand('copy'); } catch { /* nothing more to try */ }
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const validate = () => {
     const e = {};
@@ -90,13 +113,18 @@ export default function Contact() {
           <Reveal className="h-full">
             <div
               className="relative h-full overflow-hidden"
-              style={{ background: 'var(--gradient-dark)', padding: '56px 44px' }}
+              style={{
+                background: 'var(--gradient-dark)',
+                border: '1px solid var(--line)',
+                borderRadius: 'var(--radius-lg)',
+                padding: '56px 44px',
+              }}
             >
               <div
                 className="absolute pointer-events-none"
                 style={{
                   bottom: '-30%', left: '-20%', width: 460, height: 460,
-                  background: 'radial-gradient(circle, rgba(9,145,223,0.2), transparent 65%)',
+                  background: 'radial-gradient(circle, rgba(124,92,255,0.2), transparent 65%)',
                 }}
               />
 
@@ -137,6 +165,23 @@ export default function Contact() {
                     </p>
                   </div>
                 </div>
+
+                <button
+                  onClick={copyEmail}
+                  className="btn-one btn-outline-light pressable w-full justify-center"
+                  style={{ marginBottom: 26 }}
+                  aria-live="polite"
+                >
+                  {copied ? (
+                    <>
+                      <FaCheck size={12} /> Email Copied
+                    </>
+                  ) : (
+                    <>
+                      <FaRegCopy size={12} /> Copy My Email
+                    </>
+                  )}
+                </button>
 
                 <ul className="flex flex-col gap-4">
                   {CONTACT_ITEMS.map((item) => (
@@ -185,8 +230,9 @@ export default function Contact() {
             <div
               className="h-full"
               style={{
-                background: '#ffffff',
-                border: '1px solid var(--border-soft)',
+                background: 'var(--bg-1)',
+                border: '1px solid var(--line)',
+                borderRadius: 'var(--radius-lg)',
                 boxShadow: 'var(--shadow)',
                 padding: '56px 44px',
               }}
@@ -214,7 +260,7 @@ export default function Contact() {
                         Thanks for reaching out. I will get back to you within 24 hours.
                       </p>
                     </div>
-                    <button onClick={() => setStatus('idle')} className="btn-one btn-two">
+                    <button onClick={() => setStatus('idle')} className="btn-two pressable">
                       Send Another Message
                       <span className="btn-icon"><FaArrowRight size={11} /></span>
                     </button>
@@ -274,7 +320,7 @@ export default function Contact() {
                       />
                     </Field>
 
-                    <button type="submit" className="btn-one self-start">
+                    <button type="submit" className="btn-one pressable self-start">
                       <FaPaperPlane size={12} /> Send Message
                       <span className="btn-icon"><FaArrowRight size={11} /></span>
                     </button>

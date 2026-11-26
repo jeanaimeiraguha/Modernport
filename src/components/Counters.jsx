@@ -44,14 +44,7 @@ function Counter({ value, suffix }) {
 
 export default function Counters() {
   return (
-    /* The section background splits halfway so the dark band straddles the
-       boundary between the white section above and the tinted one below —
-       the reference's overlapping-counter effect, without negative margins. */
-    <section
-      id="counters"
-      className="relative"
-      style={{ background: 'linear-gradient(to bottom, var(--main-bg) 50%, var(--sub-bg) 50%)' }}
-    >
+    <section id="counters" className="relative bg-main" style={{ paddingBlock: 24 }}>
       <div className="qt-container">
         <motion.div
           className="dark-band relative overflow-hidden"
@@ -65,7 +58,7 @@ export default function Counters() {
             className="absolute pointer-events-none"
             style={{
               top: '-60%', right: '-5%', width: 520, height: 520,
-              background: 'radial-gradient(circle, rgba(9,145,223,0.22), transparent 65%)',
+              background: 'radial-gradient(circle, rgba(124,92,255,0.22), transparent 65%)',
             }}
           />
 
@@ -80,10 +73,11 @@ export default function Counters() {
                 }}
               >
                 <h3
+                  className="nums"
                   style={{
                     color: '#ffffff',
-                    fontSize: 36,
-                    lineHeight: '50px',
+                    fontSize: 'clamp(2.25rem, 3.4vw, 3rem)',
+                    lineHeight: 1.15,
                     fontWeight: 700,
                     marginBottom: 4,
                   }}

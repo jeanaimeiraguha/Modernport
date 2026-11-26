@@ -94,29 +94,47 @@ export default function Navbar() {
 
             {/* ── Desktop menu — 35px gaps, 600 weight ── */}
             <ul className="qt-menu hidden xl:flex">
-              {NAV_LINKS.map((l) => (
-                <li key={l}>
-                  <button
-                    onClick={() => handleNav(l)}
-                    className={active === l ? 'is-active' : ''}
-                    style={{
-                      color: active === l
-                        ? (onDark ? '#ffffff' : 'var(--primary)')
-                        : (onDark ? 'rgba(255,255,255,0.82)' : 'var(--heading)'),
-                      transition: 'var(--transition)',
-                    }}
-                  >
-                    {l}
-                  </button>
-                </li>
-              ))}
+              {NAV_LINKS.map((l) => {
+                const isActive = active === l;
+                return (
+                  <li key={l} className="relative">
+                    <button
+                      onClick={() => handleNav(l)}
+                      style={{
+                        color: isActive
+                          ? (onDark ? '#ffffff' : 'var(--primary)')
+                          : (onDark ? 'rgba(255,255,255,0.82)' : 'var(--heading)'),
+                        transition: 'color 0.25s ease-in-out',
+                      }}
+                    >
+                      {l}
+                    </button>
+                    {/* One shared element, so it slides between items instead
+                        of fading out and in. */}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active"
+                        transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                        className="absolute"
+                        style={{
+                          left: 0,
+                          right: 0,
+                          bottom: -7,
+                          height: 2,
+                          background: onDark ? '#ffffff' : 'var(--primary)',
+                        }}
+                      />
+                    )}
+                  </li>
+                );
+              })}
             </ul>
 
             {/* ── Right side ── */}
             <div className="flex items-center gap-4 shrink-0">
               <Link
                 to="/cv"
-                className="hidden lg:inline-flex read-more-btn"
+                className="hidden lg:inline-flex read-more-btn pressable"
                 style={{ color: onDark ? 'rgba(255,255,255,0.82)' : 'var(--paragraph)' }}
               >
                 View CV
@@ -124,7 +142,7 @@ export default function Navbar() {
 
               <button
                 onClick={() => handleNav('contact')}
-                className={`hidden md:inline-flex btn-one ${onDark ? 'btn-light' : ''}`}
+                className={`hidden md:inline-flex btn-one pressable ${onDark ? 'btn-light' : ''}`}
               >
                 Hire Me
                 <span className="btn-icon"><FaArrowRight size={11} /></span>

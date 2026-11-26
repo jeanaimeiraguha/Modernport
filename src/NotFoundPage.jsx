@@ -11,7 +11,7 @@ export default function NotFoundPage() {
         className="absolute pointer-events-none"
         style={{
           top: '-25%', right: '-10%', width: 700, height: 700,
-          background: 'radial-gradient(circle, rgba(9,145,223,0.18), transparent 65%)',
+          background: 'radial-gradient(circle, rgba(124,92,255,0.18), transparent 65%)',
         }}
       />
 

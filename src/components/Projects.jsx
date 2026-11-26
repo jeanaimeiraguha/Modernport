@@ -1,143 +1,179 @@
-import { motion } from 'framer-motion';
-import { FaArrowRight } from 'react-icons/fa';
-import { SectionHeader, stagger, viewportOnce } from './motion';
-import { PROJECTS } from './data';
+import { useMemo, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaArrowRight, FaExternalLinkAlt } from 'react-icons/fa';
+import { SectionHeader, viewportOnce, EASE } from './motion';
+import { PROJECTS, PROJECT_FILTERS } from './data';
 import { getTechIcon } from './techIcons';
 
-/* Case-study card: full-bleed image under a bottom-up dark scrim, with the
-   title and category sitting on the image and the stack revealed below. */
-function CaseCard({ project }) {
+/* Text-forward case card. There is no photography here on purpose: stock
+   imagery on a project you actually built reads as filler, and the work
+   itself is the thing worth showing. */
+function CaseCard({ project, index }) {
   return (
     <motion.article
-      variants={{
-        hidden: { opacity: 0, y: 34 },
-        show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
-      }}
-      className="qt-card group relative flex flex-col overflow-hidden"
+      layout
+      initial={{ opacity: 0, y: 26 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.45, ease: EASE }}
+      className="qt-card hover-lift edge-wipe relative flex flex-col overflow-hidden"
+      style={{ padding: '32px 30px' }}
     >
-      {/* Image + scrim */}
-      <div className="media-zoom case-scrim relative overflow-hidden" style={{ height: 250 }}>
-        <img
-          src={project.image}
-          alt={project.title}
-          loading="lazy"
-          className="w-full h-full object-cover"
-        />
+      {/* Index, set large and faint in the corner */}
+      <span
+        aria-hidden="true"
+        className="absolute select-none pointer-events-none nums"
+        style={{
+          top: 18, right: 24,
+          fontFamily: 'var(--font-display)',
+          fontSize: 56, fontWeight: 700, lineHeight: 1,
+          color: 'var(--text)', opacity: 0.045,
+        }}
+      >
+        {String(index + 1).padStart(2, '0')}
+      </span>
 
-        {/* Category chip */}
+      <div className="flex items-center gap-2.5 flex-wrap" style={{ marginBottom: 18 }}>
+        <span className="pill">{project.group}</span>
         <span
-          className="absolute z-10"
-          style={{
-            top: 18, left: 18,
-            background: 'var(--primary)', color: '#ffffff',
-            fontSize: 11, fontWeight: 600, letterSpacing: '0.08em',
-            textTransform: 'uppercase', padding: '6px 12px',
-          }}
+          className="nums"
+          style={{ color: 'var(--text-faint)', fontSize: 12.5, fontFamily: 'var(--font-mono)' }}
         >
-          {project.category}
+          {project.year}
         </span>
+      </div>
 
-        {/* Title over the scrim */}
-        <h4
-          className="absolute z-10"
-          style={{ left: 24, right: 24, bottom: 20, color: '#ffffff', marginBottom: 0 }}
+      <h3 style={{ marginBottom: 6 }}>{project.title}</h3>
+      <p style={{ color: 'var(--accent-hi)', fontSize: 13.5, fontWeight: 500, marginBottom: 14 }}>
+        {project.role}
+      </p>
+
+      <p
+        className="flex-1"
+        style={{ color: 'var(--text-dim)', fontSize: 15, lineHeight: 1.68 }}
+      >
+        {project.description}
+      </p>
+
+      {/* Stack */}
+      <div className="flex flex-wrap items-center gap-2" style={{ marginTop: 24 }}>
+        {project.stack.map((t) => {
+          const { Icon, color } = getTechIcon(t);
+          return (
+            <span
+              key={t}
+              title={t}
+              className="inline-flex items-center gap-1.5 shrink-0"
+              style={{
+                padding: '5px 10px',
+                borderRadius: 'var(--radius-pill)',
+                background: 'var(--bg-2)',
+                border: '1px solid var(--line)',
+                fontSize: 11.5,
+                fontWeight: 500,
+                color: 'var(--text-dim)',
+              }}
+            >
+              <Icon size={12} style={{ color }} />
+              {t}
+            </span>
+          );
+        })}
+      </div>
+
+      {project.live && (
+        <a
+          href={project.live}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="read-more-btn"
+          style={{ marginTop: 22, color: 'var(--accent-hi)' }}
         >
-          {project.title}
-        </h4>
-
-        {/* Circular action button, revealed on hover */}
-        {project.live && (
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Visit ${project.title}`}
-            className="absolute z-20 inline-flex items-center justify-center opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0"
-            style={{
-              top: 16, right: 16, width: 46, height: 46,
-              borderRadius: '50%', border: '1px solid rgba(255,255,255,0.6)',
-              color: '#ffffff', background: 'rgba(5,65,99,0.4)',
-              backdropFilter: 'blur(6px)',
-              transition: 'var(--transition)',
-            }}
-          >
-            <FaArrowRight size={13} style={{ transform: 'rotate(-45deg)' }} />
-          </a>
-        )}
-      </div>
-
-      {/* Body */}
-      <div className="flex flex-col flex-1" style={{ padding: 30 }}>
-        <p className="flex-1" style={{ color: 'var(--paragraph)', fontSize: 15, lineHeight: '26px' }}>
-          {project.description}
-        </p>
-
-        {/* Stack icons */}
-        <div className="flex flex-wrap items-center gap-2" style={{ marginTop: 24 }}>
-          {project.stack.map((t) => {
-            const { Icon, color } = getTechIcon(t);
-            return (
-              <span
-                key={t}
-                title={t}
-                aria-label={t}
-                className="inline-flex items-center justify-center shrink-0"
-                style={{ width: 32, height: 32, background: 'var(--sub-bg)', color }}
-              >
-                <Icon size={15} />
-              </span>
-            );
-          })}
-        </div>
-
-        {project.live && (
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="read-more-btn"
-            style={{ marginTop: 22, color: 'var(--primary)' }}
-          >
-            Visit Live Site
-            <span className="btn-icon"><FaArrowRight size={11} /></span>
-          </a>
-        )}
-      </div>
+          Visit live site
+          <span className="btn-icon"><FaExternalLinkAlt size={10} /></span>
+        </a>
+      )}
     </motion.article>
   );
 }
 
 export default function Projects() {
+  const [filter, setFilter] = useState('All');
+
+  const counts = useMemo(() => {
+    const c = { All: PROJECTS.length };
+    for (const f of PROJECT_FILTERS) {
+      if (f === 'All') continue;
+      c[f] = PROJECTS.filter((p) => p.group === f).length;
+    }
+    return c;
+  }, []);
+
+  const visible = useMemo(
+    () => (filter === 'All' ? PROJECTS : PROJECTS.filter((p) => p.group === filter)),
+    [filter],
+  );
+
   return (
     <section id="projects" className="qt-section bg-sub">
       <div className="qt-container">
         <SectionHeader
-          label="From My Case Studies"
-          heading="Selected projects"
-          sub="Production work across food-tech, fintech, education, AI, robotics and Web3."
+          label="Selected work"
+          heading="Things I have built"
+          sub="Production work across food-tech, education, AI, computer vision and Web3. Filter by the area you care about."
           align="center"
         />
 
+        {/* Filters */}
         <motion.div
-          className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
-          initial="hidden"
-          whileInView="show"
+          className="flex flex-wrap items-center justify-center gap-3"
+          style={{ marginTop: 44 }}
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}
-          variants={stagger(0.09)}
+          transition={{ duration: 0.5 }}
+          role="tablist"
+          aria-label="Filter projects by area"
         >
-          {PROJECTS.map((p) => (
-            <CaseCard key={p.title} project={p} />
-          ))}
+          {PROJECT_FILTERS.map((f) => {
+            const isActive = filter === f;
+            return (
+              <button
+                key={f}
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setFilter(f)}
+                className={`chip pressable ${isActive ? 'is-active' : ''}`}
+              >
+                {f}
+                <span className="chip-count">{counts[f] ?? 0}</span>
+              </button>
+            );
+          })}
+        </motion.div>
+
+        <motion.div
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          style={{ marginTop: 44 }}
+        >
+          <AnimatePresence mode="popLayout">
+            {visible.map((p, i) => (
+              <CaseCard key={p.title} project={p} index={i} />
+            ))}
+          </AnimatePresence>
         </motion.div>
 
         <div className="flex justify-center" style={{ marginTop: 56 }}>
-          <button
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="btn-one"
+          <a
+            href="https://github.com/jeanaimeiraguha"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-two pressable"
           >
-            Start A Project
+            More on GitHub
             <span className="btn-icon"><FaArrowRight size={12} /></span>
-          </button>
+          </a>
         </div>
       </div>
     </section>

@@ -59,7 +59,7 @@ function TimelineItem({ item, isWork, isLast }) {
         {item.current && (
           <span
             style={{
-              background: 'rgba(26,156,91,0.1)', color: 'var(--green)',
+              background: 'rgba(61,220,151,0.1)', color: 'var(--green)',
               fontSize: 11, fontWeight: 600, padding: '3px 9px',
               textTransform: 'uppercase', letterSpacing: '0.06em',
             }}
@@ -147,7 +147,7 @@ export default function Experience() {
                   {CERTS.map((c) => (
                     <div
                       key={c.title}
-                      className="qt-card qt-card-sm"
+                      className="qt-card qt-card-sm hover-lift"
                       style={{ padding: '18px 22px', borderLeft: '3px solid var(--primary)' }}
                     >
                       <p style={{ color: 'var(--heading)', fontWeight: 700, fontSize: 15 }}>{c.title}</p>

@@ -114,11 +114,11 @@ export default function About() {
             {/* Actions */}
             <Reveal>
               <div className="flex flex-wrap items-center gap-4" style={{ marginTop: 44 }}>
-                <a href="mailto:jeanaimeiraguha@gmail.com" className="btn-one">
+                <a href="mailto:jeanaimeiraguha@gmail.com" className="btn-one pressable">
                   <FaEnvelope size={13} /> Let&apos;s Talk
                   <span className="btn-icon"><FaArrowRight size={11} /></span>
                 </a>
-                <a href="/cv/Jean-Aime-Iraguha-CV.pdf" download className="btn-one btn-two">
+                <a href="/cv/Jean-Aime-Iraguha-CV.pdf" download className="btn-two pressable">
                   <FaDownload size={12} /> Download CV
                 </a>
                 <span className="inline-flex items-center gap-2" style={{ color: 'var(--muted)', fontSize: 14 }}>
@@ -133,7 +133,7 @@ export default function About() {
           <div className="flex flex-col gap-7">
             {/* Mission / Vision */}
             <Reveal>
-              <div className="qt-card leaf-card" style={{ padding: '36px 32px' }}>
+              <div className="qt-card leaf-card hover-lift" style={{ padding: '36px 32px' }}>
                 <h5 style={{ color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 500, marginBottom: 10 }}>
                   My Mission
                 </h5>
@@ -210,7 +210,7 @@ export default function About() {
                   hidden: { opacity: 0, y: 28 },
                   show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
                 }}
-                className="qt-card qt-card-sm flex flex-col"
+                className="qt-card qt-card-sm hover-lift edge-wipe flex flex-col"
                 style={{ padding: '32px 26px' }}
               >
                 <span className="qt-icon-tile-soft" style={{ marginBottom: 20 }}>{p.icon}</span>

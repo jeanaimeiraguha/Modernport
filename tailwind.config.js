@@ -8,50 +8,24 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans:    ['Kumbh Sans', 'sans-serif'],
-        display: ['Kumbh Sans', 'sans-serif'],
+        sans:    ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'Inter', 'sans-serif'],
         mono:    ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       colors: {
-        primary: {
-          DEFAULT: '#054163',
-          dark:    '#022e47',
-          light:   '#0b6a9e',
-          sky:     '#0991df',
-        },
-        ink:  { DEFAULT: '#0f0d1d', body: '#585858', muted: '#8a8f98' },
-        sub:  '#f3f7fb',
-        line: { DEFAULT: '#e3e3e3', soft: '#eaecf0' },
+        ink: { DEFAULT: '#08090b', 1: '#0e1013', 2: '#15171c', 3: '#1c1f25' },
+        accent: { DEFAULT: '#7c5cff', hi: '#9b82ff', alt: '#4cc2ff' },
+        body: { DEFAULT: '#f7f8f8', dim: '#9ba1a9', faint: '#666c75' },
       },
-      maxWidth: {
-        content: '1350px',
-      },
-      boxShadow: {
-        qt:    '0px 4px 25px 0px rgba(0,0,0,0.06)',
-        'qt-lg': '0px 12px 40px 0px rgba(5,65,99,0.12)',
-      },
-      backgroundImage: {
-        'gradient-dark': 'linear-gradient(90deg, #0f0d1d -76.72%, #054163 191.51%)',
-      },
+      maxWidth: { content: '1240px' },
+      borderRadius: { xs: '10px', card: '14px', panel: '22px' },
       keyframes: {
         fadeInUp: {
           from: { opacity: '0', transform: 'translate3d(0,40px,0)' },
           to:   { opacity: '1', transform: 'translate3d(0,0,0)' },
         },
-        sway_Y: {
-          from: { transform: 'translateY(0)' },
-          to:   { transform: 'translateY(20px)' },
-        },
-        sway_X: {
-          from: { transform: 'translateX(-26px)' },
-          to:   { transform: 'translateX(26px)' },
-        },
       },
-      animation: {
-        'fade-in-up': 'fadeInUp 0.8s ease-out both',
-        'sway-y':     'sway_Y 5s linear infinite alternate',
-        'sway-x':     'sway_X 9s ease-in-out infinite alternate',
-      },
+      animation: { 'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) both' },
     },
   },
   plugins: [],

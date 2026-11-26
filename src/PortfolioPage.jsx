@@ -11,7 +11,6 @@ import About         from './components/About';
 import Counters      from './components/Counters';
 import Projects      from './components/Projects';
 import Experience    from './components/Experience';
-import Testimonials  from './components/Testimonials';
 import Contact       from './components/Contact';
 import Footer        from './components/Footer';
 import ScrollToTop   from './components/ScrollToTop';
@@ -62,7 +61,6 @@ export default function PortfolioPage() {
               <Counters />
               <Projects />
               <Experience />
-              <Testimonials />
               <Contact />
             </main>
             <Footer />

@@ -94,7 +94,7 @@ function GroupCard({ group, index }) {
         hidden: { opacity: 0, y: 30 },
         show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
       }}
-      className="qt-card hover-lift edge-wipe"
+      className="qt-card hover-lift ring-sweep relative"
       style={{ padding: '32px 28px' }}
     >
       <div className="flex items-center gap-3" style={{ marginBottom: 26 }}>

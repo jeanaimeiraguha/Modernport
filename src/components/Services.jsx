@@ -16,7 +16,7 @@ function ServiceCard({ service, index }) {
         hidden: { opacity: 0, y: 34 },
         show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
       }}
-      className="qt-card leaf-card hover-lift edge-wipe relative flex flex-col overflow-hidden"
+      className="qt-card leaf-card hover-lift ring-sweep relative flex flex-col overflow-hidden"
       style={{ padding: '40px 32px' }}
     >
       {/* Oversized index numeral in the corner */}

@@ -58,7 +58,7 @@ export default function Counters() {
             className="absolute pointer-events-none"
             style={{
               top: '-60%', right: '-5%', width: 520, height: 520,
-              background: 'radial-gradient(circle, rgba(124,92,255,0.22), transparent 65%)',
+              background: 'radial-gradient(circle, rgba(59,130,246,0.22), transparent 65%)',
             }}
           />
 

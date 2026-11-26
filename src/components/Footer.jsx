@@ -36,7 +36,7 @@ export default function Footer() {
         className="absolute pointer-events-none"
         style={{
           top: '-30%', right: '-5%', width: 620, height: 620,
-          background: 'radial-gradient(circle, rgba(124,92,255,0.16), transparent 65%)',
+          background: 'radial-gradient(circle, rgba(59,130,246,0.16), transparent 65%)',
         }}
       />
 

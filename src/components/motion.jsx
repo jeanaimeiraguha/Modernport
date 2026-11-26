@@ -210,7 +210,7 @@ export function useTilt(strength = 6) {
   };
 }
 
-export function Spotlight({ glow, color = '124,92,255', size = 420 }) {
+export function Spotlight({ glow, color = '34,211,238', size = 420 }) {
   return (
     <div
       aria-hidden="true"

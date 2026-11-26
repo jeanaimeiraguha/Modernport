@@ -124,7 +124,7 @@ export default function Contact() {
                 className="absolute pointer-events-none"
                 style={{
                   bottom: '-30%', left: '-20%', width: 460, height: 460,
-                  background: 'radial-gradient(circle, rgba(124,92,255,0.2), transparent 65%)',
+                  background: 'radial-gradient(circle, rgba(59,130,246,0.2), transparent 65%)',
                 }}
               />
 

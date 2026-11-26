@@ -59,7 +59,7 @@ function TimelineItem({ item, isWork, isLast }) {
         {item.current && (
           <span
             style={{
-              background: 'rgba(61,220,151,0.1)', color: 'var(--green)',
+              background: 'rgba(40,200,64,0.1)', color: 'var(--green)',
               fontSize: 11, fontWeight: 600, padding: '3px 9px',
               textTransform: 'uppercase', letterSpacing: '0.06em',
             }}

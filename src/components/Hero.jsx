@@ -65,25 +65,12 @@ export default function Hero() {
     <section
       id="hero"
       className="relative overflow-hidden"
-      style={{ background: 'var(--gradient-dark)' }}
+      style={{ background: 'var(--bg)' }}
     >
-      {/* Technical grid wash */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), ' +
-            'linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
-        }}
-      />
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: '-20%', right: '-10%', width: 820, height: 820,
-          background: 'radial-gradient(circle, rgba(124,92,255,0.18), transparent 65%)',
-        }}
-      />
+      {/* Drifting colour wash */}
+      <div className="aurora" aria-hidden="true" />
+      {/* Technical grid, faded out toward the edges */}
+      <div className="absolute inset-0 grid-bg grid-mask pointer-events-none" aria-hidden="true" />
 
       <div
         className="qt-container relative z-10 grid lg:grid-cols-[1.05fr_0.95fr] items-center gap-12 lg:gap-8"

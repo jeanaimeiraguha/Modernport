@@ -101,7 +101,7 @@ export default function About() {
                 >
                   <span
                     className="inline-flex items-center justify-center"
-                    style={{ width: 56, height: 56, background: 'var(--gradient-dark)', color: '#ffffff', marginBottom: 18 }}
+                    style={{ width: 56, height: 56, background: 'var(--ink)', color: '#ffffff', borderRadius: 'var(--radius-sm)', marginBottom: 18 }}
                   >
                     {f.icon}
                   </span>
@@ -210,7 +210,7 @@ export default function About() {
                   hidden: { opacity: 0, y: 28 },
                   show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
                 }}
-                className="qt-card qt-card-sm hover-lift ring-sweep relative flex flex-col"
+                className="qt-card qt-card-sm hover-lift relative flex flex-col"
                 style={{ padding: '32px 26px' }}
               >
                 <span className="qt-icon-tile-soft" style={{ marginBottom: 20 }}>{p.icon}</span>

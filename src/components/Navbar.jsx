@@ -43,8 +43,7 @@ export default function Navbar() {
 
   /* Over the dark hero the header is transparent with white type; once the page
      scrolls it becomes the reference's solid white bar with a soft shadow. */
-  const onDark = !scrolled;
-  const textColor = onDark ? '#ffffff' : 'var(--heading)';
+  const textColor = 'var(--fg)';
 
   return (
     <>
@@ -64,8 +63,9 @@ export default function Navbar() {
                 className="inline-flex items-center justify-center shrink-0"
                 style={{
                   width: 42, height: 42,
-                  background: onDark ? '#ffffff' : 'var(--primary)',
-                  color: onDark ? 'var(--primary)' : '#ffffff',
+                  background: 'var(--ink)',
+                  color: '#ffffff',
+                  borderRadius: 'var(--radius-sm)',
                   fontWeight: 800, fontSize: 15, letterSpacing: '-0.02em',
                   transition: 'var(--transition)',
                 }}
@@ -82,7 +82,7 @@ export default function Navbar() {
                 <span
                   className="block"
                   style={{
-                    color: onDark ? 'rgba(255,255,255,0.65)' : 'var(--muted)',
+                    color: 'var(--fg-subtle)',
                     fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 500,
                     transition: 'var(--transition)',
                   }}
@@ -101,9 +101,7 @@ export default function Navbar() {
                     <button
                       onClick={() => handleNav(l)}
                       style={{
-                        color: isActive
-                          ? (onDark ? '#ffffff' : 'var(--primary)')
-                          : (onDark ? 'rgba(255,255,255,0.82)' : 'var(--heading)'),
+                        color: isActive ? 'var(--fg)' : 'var(--fg-muted)',
                         transition: 'color 0.25s ease-in-out',
                       }}
                     >
@@ -121,7 +119,7 @@ export default function Navbar() {
                           right: 0,
                           bottom: -7,
                           height: 2,
-                          background: onDark ? '#ffffff' : 'var(--primary)',
+                          background: 'var(--fg)',
                         }}
                       />
                     )}
@@ -135,14 +133,14 @@ export default function Navbar() {
               <Link
                 to="/cv"
                 className="hidden lg:inline-flex read-more-btn pressable"
-                style={{ color: onDark ? 'rgba(255,255,255,0.82)' : 'var(--paragraph)' }}
+                style={{ color: 'var(--fg-muted)' }}
               >
                 View CV
               </Link>
 
               <button
                 onClick={() => handleNav('contact')}
-                className={`hidden md:inline-flex btn-one pressable ${onDark ? 'btn-light' : ''}`}
+                className="hidden md:inline-flex btn-one pressable"
               >
                 Hire Me
                 <span className="btn-icon"><FaArrowRight size={11} /></span>
@@ -153,7 +151,7 @@ export default function Navbar() {
                 className="xl:hidden inline-flex items-center justify-center"
                 style={{
                   width: 44, height: 44,
-                  border: `1px solid ${onDark ? 'rgba(255,255,255,0.3)' : 'var(--border)'}`,
+                  border: '1px solid var(--line-strong)',
                   color: textColor,
                   transition: 'var(--transition)',
                 }}
@@ -188,13 +186,13 @@ export default function Navbar() {
               className="qt-sidebar"
             >
               <div className="flex items-center justify-between mb-10">
-                <span style={{ color: '#ffffff', fontWeight: 700, fontSize: 17 }}>
+                <span style={{ color: 'var(--fg)', fontWeight: 700, fontSize: 17 }}>
                   Iraguha Jean Aime
                 </span>
                 <button
                   onClick={() => setOpen(false)}
                   className="inline-flex items-center justify-center shrink-0"
-                  style={{ width: 40, height: 40, border: '1px solid rgba(255,255,255,0.25)', color: '#ffffff' }}
+                  style={{ width: 40, height: 40, border: '1px solid var(--line)', color: 'var(--fg)' }}
                   aria-label="Close menu"
                 >
                   <FaXmark size={16} />
@@ -203,12 +201,12 @@ export default function Navbar() {
 
               <ul className="flex flex-col">
                 {NAV_LINKS.map((l) => (
-                  <li key={l} style={{ borderBottom: '1px solid rgba(255,255,255,0.12)' }}>
+                  <li key={l} style={{ borderBottom: '1px solid var(--line)' }}>
                     <button
                       onClick={() => handleNav(l)}
                       className="w-full text-left capitalize flex items-center justify-between"
                       style={{
-                        color: active === l ? '#ffffff' : 'rgba(255,255,255,0.78)',
+                        color: active === l ? '#ffffff' : 'var(--fg-muted)',
                         fontWeight: 600,
                         fontSize: 16,
                         padding: '15px 0',
@@ -222,22 +220,22 @@ export default function Navbar() {
               </ul>
 
               <div className="mt-9">
-                <button onClick={() => handleNav('contact')} className="btn-one btn-light w-full justify-center">
+                <button onClick={() => handleNav('contact')} className="btn-one w-full justify-center">
                   Hire Me
                   <span className="btn-icon"><FaArrowRight size={11} /></span>
                 </button>
                 <Link
                   to="/cv"
                   onClick={() => setOpen(false)}
-                  className="btn-one btn-outline-light w-full justify-center mt-3"
+                  className="btn-two w-full justify-center mt-3"
                 >
                   View CV
                 </Link>
               </div>
 
               {/* Contact block, as on the reference's sidebar */}
-              <div className="mt-10 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.12)' }}>
-                <h5 style={{ color: '#ffffff', marginBottom: 16 }}>Contact</h5>
+              <div className="mt-10 pt-8" style={{ borderTop: '1px solid var(--line)' }}>
+                <h5 style={{ color: 'var(--fg)', marginBottom: 16 }}>Contact</h5>
                 <ul className="flex flex-col gap-3.5">
                   {[
                     { icon: <FaEnvelope size={12} />,      text: 'jeanaimeiraguha@gmail.com', href: 'mailto:jeanaimeiraguha@gmail.com' },
@@ -247,16 +245,16 @@ export default function Navbar() {
                     <li key={c.text} className="flex items-center gap-3">
                       <span
                         className="inline-flex items-center justify-center shrink-0"
-                        style={{ width: 30, height: 30, background: 'rgba(255,255,255,0.1)', color: '#ffffff' }}
+                        style={{ width: 30, height: 30, background: 'var(--bg-2)', color: 'var(--fg)' }}
                       >
                         {c.icon}
                       </span>
                       {c.href ? (
-                        <a href={c.href} style={{ color: 'rgba(255,255,255,0.82)', fontSize: 14, wordBreak: 'break-all' }}>
+                        <a href={c.href} style={{ color: 'var(--fg-muted)', fontSize: 14, wordBreak: 'break-all' }}>
                           {c.text}
                         </a>
                       ) : (
-                        <span style={{ color: 'rgba(255,255,255,0.82)', fontSize: 14 }}>{c.text}</span>
+                        <span style={{ color: 'var(--fg-muted)', fontSize: 14 }}>{c.text}</span>
                       )}
                     </li>
                   ))}

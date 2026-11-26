@@ -210,14 +210,14 @@ export function useTilt(strength = 6) {
   };
 }
 
-export function Spotlight({ glow, color = '34,211,238', size = 420 }) {
+export function Spotlight({ glow, color = '11,13,16', size = 420 }) {
   return (
     <div
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 z-0"
       style={{
         borderRadius: 'inherit',
-        background: `radial-gradient(${size}px circle at ${glow.x}% ${glow.y}%, rgba(${color},0.16), transparent 65%)`,
+        background: `radial-gradient(${size}px circle at ${glow.x}% ${glow.y}%, rgba(${color},0.05), transparent 65%)`,
         opacity: glow.opacity,
         transition: 'opacity 0.35s ease',
       }}

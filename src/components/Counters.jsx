@@ -54,13 +54,6 @@ export default function Counters() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Corner light */}
-          <div
-            className="absolute pointer-events-none"
-            style={{
-              top: '-60%', right: '-5%', width: 520, height: 520,
-              background: 'radial-gradient(circle, rgba(59,130,246,0.22), transparent 65%)',
-            }}
-          />
 
           <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-6">
             {COUNTERS.map((c, i) => (
@@ -68,14 +61,14 @@ export default function Counters() {
                 key={c.label}
                 className="text-center lg:text-left"
                 style={{
-                  borderLeft: i === 0 ? 'none' : '1px solid rgba(255,255,255,0.14)',
+                  borderLeft: i === 0 ? 'none' : '1px solid var(--line)',
                   paddingLeft: i === 0 ? 0 : 28,
                 }}
               >
                 <h3
                   className="nums"
                   style={{
-                    color: '#ffffff',
+                    color: 'var(--fg)',
                     fontSize: 'clamp(2.25rem, 3.4vw, 3rem)',
                     lineHeight: 1.15,
                     fontWeight: 700,
@@ -86,7 +79,7 @@ export default function Counters() {
                 </h3>
                 <p
                   style={{
-                    color: 'rgba(255,255,255,0.78)',
+                    color: 'var(--fg-muted)',
                     fontSize: 15,
                     lineHeight: '24px',
                     textTransform: 'capitalize',

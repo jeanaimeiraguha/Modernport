@@ -21,7 +21,7 @@ export default function LoadingAnimation({ onDone }) {
         <motion.div
           key="loader"
           className="fixed inset-0 z-[300] flex items-center justify-center"
-          style={{ background: 'var(--gradient-dark)' }}
+          style={{ background: 'var(--bg)' }}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }}
         >
@@ -32,7 +32,7 @@ export default function LoadingAnimation({ onDone }) {
                 className="absolute"
                 style={{
                   inset: 0,
-                  border: '2px solid rgba(255,255,255,0.14)',
+                  border: '2px solid var(--line)',
                   borderTopColor: 'var(--accent-sky)',
                 }}
                 animate={{ rotate: 360 }}
@@ -43,8 +43,8 @@ export default function LoadingAnimation({ onDone }) {
                 className="relative inline-flex items-center justify-center"
                 style={{
                   width: 54, height: 54,
-                  background: '#ffffff',
-                  color: 'var(--primary)',
+                  background: 'var(--ink)',
+                  color: '#ffffff',
                   fontWeight: 800,
                   fontSize: 19,
                 }}
@@ -58,7 +58,7 @@ export default function LoadingAnimation({ onDone }) {
             <span
               className="font-mono"
               style={{
-                color: 'rgba(255,255,255,0.6)',
+                color: 'var(--fg-muted)',
                 fontSize: 10.5,
                 letterSpacing: '0.3em',
                 textTransform: 'uppercase',

@@ -16,7 +16,7 @@ function CaseCard({ project, index }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.45, ease: EASE }}
-      className="qt-card hover-lift ring-sweep relative flex flex-col overflow-hidden"
+      className="qt-card hover-lift relative flex flex-col overflow-hidden"
       style={{ padding: '32px 30px' }}
     >
       {/* Index, set large and faint in the corner */}

@@ -35,7 +35,7 @@ function Field({ label, error, children }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             className="flex items-center gap-1.5"
-            style={{ color: '#d14343', fontSize: 12.5 }}
+            style={{ color: 'var(--danger)', fontSize: 12.5 }}
           >
             <FaExclamationCircle size={11} /> {error}
           </motion.p>
@@ -99,7 +99,7 @@ export default function Contact() {
   };
 
   const fieldStyle = (name) => ({
-    borderColor: errors[name] ? '#d14343' : undefined,
+    borderColor: errors[name] ? 'var(--danger)' : undefined,
   });
 
   return (
@@ -114,33 +114,26 @@ export default function Contact() {
             <div
               className="relative h-full overflow-hidden"
               style={{
-                background: 'var(--gradient-dark)',
+                background: 'var(--bg-1)',
                 border: '1px solid var(--line)',
                 borderRadius: 'var(--radius-lg)',
                 padding: '56px 44px',
               }}
             >
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  bottom: '-30%', left: '-20%', width: 460, height: 460,
-                  background: 'radial-gradient(circle, rgba(59,130,246,0.2), transparent 65%)',
-                }}
-              />
 
               <div className="relative z-10">
                 <h5
                   style={{
-                    color: 'rgba(255,255,255,0.85)', textTransform: 'uppercase',
+                    color: 'var(--fg-muted)', textTransform: 'uppercase',
                     letterSpacing: '0.1em', fontWeight: 500, marginBottom: 16,
                   }}
                 >
                   Get In Touch
                 </h5>
-                <h2 style={{ color: '#ffffff', marginBottom: 18 }}>
+                <h2 style={{ color: 'var(--fg)', marginBottom: 18 }}>
                   Let&apos;s build your next project together
                 </h2>
-                <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: 34 }}>
+                <p style={{ color: 'var(--fg-muted)', marginBottom: 34 }}>
                   Whether you are hiring, have a project in mind, or simply want to connect — I reply
                   within 24 hours.
                 </p>
@@ -148,18 +141,18 @@ export default function Contact() {
                 <div
                   className="flex items-start gap-3"
                   style={{
-                    background: 'rgba(255,255,255,0.07)',
-                    border: '1px solid rgba(255,255,255,0.14)',
+                    background: 'var(--bg-2)',
+                    border: '1px solid var(--line)',
                     padding: '18px 20px',
                     marginBottom: 34,
                   }}
                 >
                   <span className="glow-dot" style={{ marginTop: 9 }} />
                   <div>
-                    <p style={{ color: '#ffffff', fontWeight: 700, fontSize: 15, marginBottom: 4 }}>
+                    <p style={{ color: 'var(--fg)', fontWeight: 700, fontSize: 15, marginBottom: 4 }}>
                       Currently available
                     </p>
-                    <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 14, lineHeight: '24px' }}>
+                    <p style={{ color: 'var(--fg-muted)', fontSize: 14, lineHeight: '24px' }}>
                       Open to senior full-stack, lead engineer and CTO-track remote roles, plus consulting
                       and fractional CTO engagements.
                     </p>
@@ -168,7 +161,7 @@ export default function Contact() {
 
                 <button
                   onClick={copyEmail}
-                  className="btn-one btn-outline-light pressable w-full justify-center"
+                  className="btn-two pressable w-full justify-center"
                   style={{ marginBottom: 26 }}
                   aria-live="polite"
                 >
@@ -188,7 +181,7 @@ export default function Contact() {
                     <li key={item.label} className="flex items-center gap-4">
                       <span
                         className="inline-flex items-center justify-center shrink-0"
-                        style={{ width: 40, height: 40, background: 'rgba(255,255,255,0.1)', color: '#ffffff' }}
+                        style={{ width: 40, height: 40, background: 'var(--bg-2)', color: 'var(--fg)' }}
                       >
                         {ICONS[item.type]}
                       </span>
@@ -196,7 +189,7 @@ export default function Contact() {
                         <span
                           className="block"
                           style={{
-                            color: 'rgba(255,255,255,0.6)', fontSize: 10.5, fontWeight: 600,
+                            color: 'var(--fg-muted)', fontSize: 10.5, fontWeight: 600,
                             letterSpacing: '0.14em', textTransform: 'uppercase',
                           }}
                         >
@@ -208,12 +201,12 @@ export default function Contact() {
                             target={item.href.startsWith('http') ? '_blank' : undefined}
                             rel="noopener noreferrer"
                             className="block truncate"
-                            style={{ color: '#ffffff', fontSize: 15, fontWeight: 500 }}
+                            style={{ color: 'var(--fg)', fontSize: 15, fontWeight: 500 }}
                           >
                             {item.value}
                           </a>
                         ) : (
-                          <span className="block truncate" style={{ color: '#ffffff', fontSize: 15, fontWeight: 500 }}>
+                          <span className="block truncate" style={{ color: 'var(--fg)', fontSize: 15, fontWeight: 500 }}>
                             {item.value}
                           </span>
                         )}

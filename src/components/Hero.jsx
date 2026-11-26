@@ -67,8 +67,6 @@ export default function Hero() {
       className="relative overflow-hidden"
       style={{ background: 'var(--bg)' }}
     >
-      {/* Drifting colour wash */}
-      <div className="aurora" aria-hidden="true" />
       {/* Technical grid, faded out toward the edges */}
       <div className="absolute inset-0 grid-bg grid-mask pointer-events-none" aria-hidden="true" />
 
@@ -80,13 +78,13 @@ export default function Hero() {
         <div className="max-w-[660px]">
           {/* Availability badge */}
           <motion.div {...rise(0.05)} style={{ marginBottom: 26 }}>
-            <span className="pill pill-light">
+            <span className="pill">
               <span className="glow-dot" style={{ width: 7, height: 7, boxShadow: 'none' }} />
               Open to senior &amp; lead roles
             </span>
           </motion.div>
 
-          <motion.h1 {...rise(0.12)} style={{ color: '#ffffff', marginBottom: 22 }}>
+          <motion.h1 {...rise(0.12)} style={{ color: 'var(--fg)', marginBottom: 22 }}>
             I build, secure and ship
             <br />
             <span style={{ color: 'var(--accent-sky)' }}>production-grade</span> software.
@@ -100,7 +98,7 @@ export default function Hero() {
           >
             <span
               style={{
-                color: 'rgba(255,255,255,0.55)',
+                color: 'var(--fg-subtle)',
                 fontSize: 12,
                 fontWeight: 700,
                 letterSpacing: '0.18em',
@@ -109,10 +107,10 @@ export default function Hero() {
             >
               Jean Aime Iraguha
             </span>
-            <span style={{ width: 18, height: 1, background: 'rgba(255,255,255,0.3)' }} />
+            <span style={{ width: 18, height: 1, background: 'var(--line)' }} />
             <span
               className="inline-flex items-center"
-              style={{ color: '#ffffff', fontWeight: 700, fontSize: 17, minHeight: 26 }}
+              style={{ color: 'var(--fg)', fontWeight: 700, fontSize: 17, minHeight: 26 }}
             >
               {role}
               <motion.span
@@ -127,7 +125,7 @@ export default function Hero() {
           <motion.p
             {...rise(0.26)}
             className="lead"
-            style={{ color: 'rgba(255,255,255,0.82)', maxWidth: 540, marginBottom: 30 }}
+            style={{ color: 'var(--fg-muted)', maxWidth: 540, marginBottom: 30 }}
           >
             Full-stack engineer and founder from Kigali, turning ideas into software that scales
             under pressure and stays reliable long past the prototype.
@@ -143,7 +141,7 @@ export default function Hero() {
               <li
                 key={f.text}
                 className="inline-flex items-center gap-2"
-                style={{ color: 'rgba(255,255,255,0.72)', fontSize: 14 }}
+                style={{ color: 'var(--fg-muted)', fontSize: 14 }}
               >
                 <span style={{ color: 'var(--accent-sky)', display: 'inline-flex' }}>{f.icon}</span>
                 {f.text}
@@ -157,12 +155,12 @@ export default function Hero() {
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
               {...magnetic.handlers}
               style={magnetic.style}
-              className="btn-one btn-light pressable"
+              className="btn-one pressable"
             >
               View My Work
               <span className="btn-icon"><FaArrowRight size={12} /></span>
             </motion.button>
-            <a href="/cv/Jean-Aime-Iraguha-CV.pdf" download className="btn-one btn-outline-light pressable">
+            <a href="/cv/Jean-Aime-Iraguha-CV.pdf" download className="btn-two pressable">
               Download CV
               <span className="btn-icon"><FaDownload size={12} /></span>
             </a>
@@ -178,7 +176,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 aria-label={s.label}
                 className="pressable"
-                style={{ color: '#ffffff' }}
+                style={{ color: 'var(--fg)' }}
               >
                 {s.icon}
               </a>
@@ -193,15 +191,15 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
         >
-          <BlockchainGlobe size={560} tone="dark" />
+          <BlockchainGlobe size={560} tone="light" />
 
           <div
             className="absolute hidden sm:flex items-center gap-2.5 animate-sway-y"
             style={{
               bottom: '6%',
               left: 0,
-              background: 'rgba(255,255,255,0.08)',
-              border: '1px solid rgba(255,255,255,0.16)',
+              background: 'var(--bg-2)',
+              border: '1px solid var(--line)',
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)',
               padding: '10px 16px',
@@ -216,7 +214,7 @@ export default function Hero() {
             <span
               className="font-mono"
               style={{
-                color: '#ffffff', fontSize: 11,
+                color: 'var(--fg)', fontSize: 11,
                 letterSpacing: '0.1em', textTransform: 'uppercase',
               }}
             >
@@ -239,7 +237,7 @@ export default function Hero() {
         <span
           className="font-mono"
           style={{
-            color: 'rgba(255,255,255,0.55)', fontSize: 10,
+            color: 'var(--fg-subtle)', fontSize: 10,
             letterSpacing: '0.18em', textTransform: 'uppercase',
           }}
         >
@@ -248,7 +246,7 @@ export default function Hero() {
         <motion.span
           animate={{ y: [0, 7, 0] }}
           transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-          style={{ width: 1, height: 26, background: 'rgba(255,255,255,0.35)' }}
+          style={{ width: 1, height: 26, background: 'var(--line)' }}
         />
       </motion.button>
     </section>

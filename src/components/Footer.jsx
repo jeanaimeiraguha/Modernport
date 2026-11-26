@@ -30,15 +30,8 @@ const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior:
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden" style={{ background: 'var(--gradient-dark)' }}>
+    <footer className="relative overflow-hidden" style={{ background: 'var(--bg-1)', borderTop: '1px solid var(--line)' }}>
       {/* Corner light */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: '-30%', right: '-5%', width: 620, height: 620,
-          background: 'radial-gradient(circle, rgba(59,130,246,0.16), transparent 65%)',
-        }}
-      />
 
       <div className="qt-container relative z-10" style={{ paddingTop: 90, paddingBottom: 0 }}>
         <div className="grid lg:grid-cols-[1.4fr_1fr_1.2fr] gap-12 lg:gap-16">
@@ -48,24 +41,24 @@ export default function Footer() {
             <div className="flex items-center gap-3" style={{ marginBottom: 22 }}>
               <span
                 className="inline-flex items-center justify-center shrink-0"
-                style={{ width: 44, height: 44, background: '#ffffff', color: 'var(--primary)', fontWeight: 800, fontSize: 16 }}
+                style={{ width: 44, height: 44, background: 'var(--ink)', color: '#ffffff', fontWeight: 700, fontSize: 15, borderRadius: 'var(--radius-sm)' }}
               >
                 JA
               </span>
               <span className="leading-tight">
-                <span className="block" style={{ color: '#ffffff', fontWeight: 700, fontSize: 18 }}>
+                <span className="block" style={{ color: 'var(--fg)', fontWeight: 700, fontSize: 18 }}>
                   Iraguha Jean Aime
                 </span>
                 <span
                   className="block"
-                  style={{ color: 'rgba(255,255,255,0.6)', fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 500 }}
+                  style={{ color: 'var(--fg-muted)', fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 500 }}
                 >
                   Software Engineering
                 </span>
               </span>
             </div>
 
-            <p style={{ color: 'rgba(255,255,255,0.8)', maxWidth: 400, marginBottom: 28 }}>
+            <p style={{ color: 'var(--fg-muted)', maxWidth: 400, marginBottom: 28 }}>
               I build, secure and ship production-grade digital products — full-stack web, mobile, AI and Web3
               systems, from Kigali to teams anywhere.
             </p>
@@ -78,7 +71,7 @@ export default function Footer() {
                   target={s.href.startsWith('mailto') ? undefined : '_blank'}
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  style={{ color: '#ffffff' }}
+                  style={{ color: 'var(--fg)' }}
                 >
                   {s.icon}
                 </a>
@@ -88,16 +81,16 @@ export default function Footer() {
 
           {/* ── Quick links ── */}
           <div>
-            <h5 style={{ color: '#ffffff', marginBottom: 22 }}>Quick Links</h5>
+            <h5 style={{ color: 'var(--fg)', marginBottom: 22 }}>Quick Links</h5>
             <ul className="flex flex-col gap-3">
               {QUICK_LINKS.map((l) => (
                 <li key={l.id}>
                   <button
                     onClick={() => scrollTo(l.id)}
                     className="inline-flex items-center gap-2 text-left"
-                    style={{ color: 'rgba(255,255,255,0.8)', fontSize: 15, transition: 'var(--transition)' }}
+                    style={{ color: 'var(--fg-muted)', fontSize: 15, transition: 'var(--transition)' }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.8)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--fg-muted)'; }}
                   >
                     <FaArrowRight size={9} style={{ opacity: 0.6 }} />
                     {l.label}
@@ -108,7 +101,7 @@ export default function Footer() {
                 <Link
                   to="/cv"
                   className="inline-flex items-center gap-2"
-                  style={{ color: 'rgba(255,255,255,0.8)', fontSize: 15 }}
+                  style={{ color: 'var(--fg-muted)', fontSize: 15 }}
                 >
                   <FaArrowRight size={9} style={{ opacity: 0.6 }} />
                   View CV
@@ -119,25 +112,25 @@ export default function Footer() {
 
           {/* ── Contact ── */}
           <div>
-            <h5 style={{ color: '#ffffff', marginBottom: 22 }}>Contact Me</h5>
+            <h5 style={{ color: 'var(--fg)', marginBottom: 22 }}>Contact Me</h5>
             <ul className="flex flex-col gap-4">
               {CONTACT.map((c) => (
                 <li key={c.text} className="flex items-start gap-3">
                   <span
                     className="inline-flex items-center justify-center shrink-0"
-                    style={{ width: 30, height: 30, background: 'rgba(255,255,255,0.1)', color: '#ffffff', marginTop: 2 }}
+                    style={{ width: 30, height: 30, background: 'var(--bg-2)', color: 'var(--fg)', marginTop: 2 }}
                   >
                     {c.icon}
                   </span>
                   {c.href ? (
                     <a
                       href={c.href}
-                      style={{ color: 'rgba(255,255,255,0.8)', fontSize: 15, wordBreak: 'break-word' }}
+                      style={{ color: 'var(--fg-muted)', fontSize: 15, wordBreak: 'break-word' }}
                     >
                       {c.text}
                     </a>
                   ) : (
-                    <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: 15 }}>{c.text}</span>
+                    <span style={{ color: 'var(--fg-muted)', fontSize: 15 }}>{c.text}</span>
                   )}
                 </li>
               ))}
@@ -148,9 +141,9 @@ export default function Footer() {
         {/* ── Bottom bar ── */}
         <div
           className="flex flex-col sm:flex-row items-center justify-between gap-4"
-          style={{ marginTop: 70, paddingTop: 26, paddingBottom: 30, borderTop: '1px solid rgba(255,255,255,0.14)' }}
+          style={{ marginTop: 70, paddingTop: 26, paddingBottom: 30, borderTop: '1px solid var(--line)' }}
         >
-          <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 14 }}>
+          <p style={{ color: 'var(--fg-muted)', fontSize: 14 }}>
             © {new Date().getFullYear()} Iraguha Jean Aime. All rights reserved.
           </p>
           <a

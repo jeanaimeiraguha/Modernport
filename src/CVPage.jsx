@@ -58,8 +58,8 @@ const ACHIEVEMENTS = [
 function AvatarSVG() {
   return (
     <svg width="80" height="80" viewBox="0 0 112 112" fill="none">
-      <circle cx="56" cy="56" r="56" fill="rgba(59,130,246,0.15)" />
-      <ellipse cx="56" cy="95" rx="28" ry="18" fill="#3b82f6" opacity="0.9" />
+      <circle cx="56" cy="56" r="56" fill="var(--accent-soft)" />
+      <ellipse cx="56" cy="95" rx="28" ry="18" fill="#101317" opacity="0.9" />
       <rect x="50" y="72" width="12" height="10" rx="4" fill="#f5c5a3" />
       <circle cx="56" cy="58" r="20" fill="#f5c5a3" />
       <path d="M36 54 Q36 34 56 34 Q76 34 76 54 Q72 44 56 44 Q40 44 36 54Z" fill="#1a1a2e" />
@@ -68,7 +68,7 @@ function AvatarSVG() {
       <circle cx="50" cy="55" r="0.8" fill="white" />
       <circle cx="64" cy="55" r="0.8" fill="white" />
       <path d="M49 63 Q56 69 63 63" stroke="#c0845a" strokeWidth="1.8" strokeLinecap="round" fill="none" />
-      <path d="M44 78 L56 84 L68 78 L64 72 L56 76 L48 72Z" fill="#3b82f6" />
+      <path d="M44 78 L56 84 L68 78 L64 72 L56 76 L48 72Z" fill="#101317" />
     </svg>
   );
 }
@@ -77,13 +77,13 @@ function SkillBar({ name, level, animated }) {
   return (
     <div className="mb-3">
       <div className="flex justify-between mb-1">
-        <span className="text-[0.72rem] font-medium" style={{ color: 'rgba(255,255,255,0.8)' }}>{name}</span>
-        <span className="text-[0.68rem]" style={{ color: 'rgba(255,255,255,0.35)' }}>{level}%</span>
+        <span className="text-[0.72rem] font-medium" style={{ color: 'var(--fg)' }}>{name}</span>
+        <span className="text-[0.68rem]" style={{ color: 'var(--fg-subtle)' }}>{level}%</span>
       </div>
-      <div className="h-[3px] rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
+      <div className="h-[3px] rounded-full overflow-hidden" style={{ background: 'var(--line)' }}>
         <motion.div
           className="h-full rounded-full"
-          style={{ background: 'linear-gradient(90deg,#3b82f6,#22d3ee)' }}
+          style={{ background: 'var(--ink)' }}
           initial={{ width: 0 }}
           animate={{ width: animated ? `${level}%` : 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
@@ -97,13 +97,13 @@ function LangBar({ lang, level, pct, animated }) {
   return (
     <div className="mb-3">
       <div className="flex justify-between mb-1">
-        <span className="text-[0.72rem] font-medium" style={{ color: 'rgba(255,255,255,0.8)' }}>{lang}</span>
-        <span className="text-[0.68rem] px-1.5 py-0.5 rounded" style={{ background: 'rgba(59,130,246,0.2)', color: '#22d3ee' }}>{level}</span>
+        <span className="text-[0.72rem] font-medium" style={{ color: 'var(--fg)' }}>{lang}</span>
+        <span className="text-[0.68rem] px-1.5 py-0.5 rounded" style={{ background: 'var(--accent-soft)', color: 'var(--fg)' }}>{level}</span>
       </div>
-      <div className="h-[3px] rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
+      <div className="h-[3px] rounded-full overflow-hidden" style={{ background: 'var(--line)' }}>
         <motion.div
           className="h-full rounded-full"
-          style={{ background: 'linear-gradient(90deg,#60a5fa,#22d3ee)' }}
+          style={{ background: 'var(--ink)' }}
           initial={{ width: 0 }}
           animate={{ width: animated ? `${pct}%` : 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
@@ -117,9 +117,9 @@ function SideSection({ title, children }) {
   return (
     <div className="mb-6">
       <div className="flex items-center gap-2 mb-3">
-        <div className="h-px flex-1" style={{ background: 'rgba(255,255,255,0.08)' }} />
-        <p className="text-[9px] font-bold tracking-[0.22em] uppercase px-1" style={{ color: 'rgba(255,255,255,0.3)' }}>{title}</p>
-        <div className="h-px flex-1" style={{ background: 'rgba(255,255,255,0.08)' }} />
+        <div className="h-px flex-1" style={{ background: 'var(--line)' }} />
+        <p className="text-[9px] font-bold tracking-[0.22em] uppercase px-1" style={{ color: 'var(--fg-subtle)' }}>{title}</p>
+        <div className="h-px flex-1" style={{ background: 'var(--line)' }} />
       </div>
       {children}
     </div>
@@ -131,7 +131,7 @@ function MainSection({ icon, title, children }) {
     <div className="mb-8 print:mb-5">
       <div className="flex items-center gap-2.5 mb-5">
         <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-          style={{ background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.2)' }}>
+          style={{ background: 'var(--accent-soft)', border: '1px solid var(--accent-soft)' }}>
           <span style={{ color: 'var(--accent)' }}>{icon}</span>
         </div>
         <h2 className="font-display text-sm font-bold tracking-[0.1em] uppercase" style={{ color: 'var(--text-primary)' }}>
@@ -172,7 +172,7 @@ export default function CVPage() {
 
         <div className="flex items-center gap-3">
           <span className="hidden sm:flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full"
-            style={{ background: 'rgba(40,200,64,0.08)', color: '#28c840', border: '1px solid rgba(40,200,64,0.2)' }}>
+            style={{ background: 'rgba(40,200,64,0.08)', color: 'var(--positive)', border: '1px solid rgba(40,200,64,0.2)' }}>
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
             Open to work
           </span>
@@ -180,7 +180,7 @@ export default function CVPage() {
             href="/cv/Jean-Aime-Iraguha-CV.pdf"
             download
             className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg transition-all"
-            style={{ background: 'var(--accent)', color: '#fff' }}
+            style={{ background: 'var(--accent)', color: 'var(--fg)' }}
             onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--accent-hover)')}
             onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--accent)')}
           >
@@ -202,13 +202,13 @@ export default function CVPage() {
           {/* ════ SIDEBAR ════ */}
           <aside
             className="w-full lg:w-[240px] lg:shrink-0 flex flex-col print:w-48"
-            style={{ background: 'linear-gradient(175deg,#060b1a 0%,#030712 50%,#0e1833 100%)' }}
+            style={{ background: 'var(--bg-1)', borderRight: '1px solid var(--line)' }}
           >
             {/* Top accent bar */}
-            <div className="h-1 w-full" style={{ background: 'linear-gradient(90deg,#3b82f6,#22d3ee,#3b82f6)' }} />
+            <div className="h-1 w-full" style={{ background: 'var(--ink)' }} />
 
             {/* Avatar + name */}
-            <div className="px-5 sm:px-6 pt-6 sm:pt-8 pb-5 sm:pb-6 flex flex-row lg:flex-col items-center lg:items-start gap-4 lg:gap-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="px-5 sm:px-6 pt-6 sm:pt-8 pb-5 sm:pb-6 flex flex-row lg:flex-col items-center lg:items-start gap-4 lg:gap-0" style={{ borderBottom: '1px solid var(--bg-2)' }}>
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -216,20 +216,20 @@ export default function CVPage() {
                 className="relative w-20 h-20 mb-4"
               >
                 {/* Glow ring */}
-                <div className="absolute inset-[-3px] rounded-full" style={{ background: 'linear-gradient(135deg,#3b82f6,#22d3ee)', padding: 2, borderRadius: '9999px' }}>
-                  <div className="w-full h-full rounded-full overflow-hidden" style={{ background: '#060b1a' }}>
+                <div className="absolute inset-[-3px] rounded-full" style={{ background: 'var(--line-strong)', padding: 2, borderRadius: '9999px' }}>
+                  <div className="w-full h-full rounded-full overflow-hidden" style={{ background: 'var(--bg-2)' }}>
                     <img src="/images/profile/aime picture.jpeg" alt="Jean Aime Iraguha" className="w-full h-full object-cover rounded-full" />
                   </div>
                 </div>
-                <div className="absolute inset-0 rounded-full blur-lg opacity-30" style={{ background: '#3b82f6' }} />
+                <div className="absolute inset-0 rounded-full blur-lg opacity-30" style={{ display: 'none' }} />
                 {/* Online dot */}
                 <span className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full"
-                  style={{ background: '#28c840', border: '2px solid #060b1a', boxShadow: '0 0 6px rgba(40,200,64,0.6)' }} />
+                  style={{ background: 'var(--positive)', border: '2px solid var(--bg)', boxShadow: '0 0 6px rgba(21,128,61,0.35)' }} />
               </motion.div>
 
-              <h1 className="font-display text-base font-bold leading-tight" style={{ color: '#fff' }}>
+              <h1 className="font-display text-base font-bold leading-tight" style={{ color: 'var(--fg)' }}>
                 Jean Aime<br />
-                <span style={{ color: '#60a5fa' }}>IRAGUHA</span>
+                <span style={{ color: 'var(--accent)' }}>IRAGUHA</span>
               </h1>
               <p className="text-[0.7rem] mt-1.5 font-semibold tracking-wide" style={{ color: 'rgba(129,140,248,0.7)' }}>
                 Full-Stack Engineer · CTO
@@ -239,12 +239,12 @@ export default function CVPage() {
               <div className="mt-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full"
                 style={{ background: 'rgba(40,200,64,0.08)', border: '1px solid rgba(40,200,64,0.2)' }}>
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-[9px] font-semibold" style={{ color: '#28c840' }}>Available for hire</span>
+                <span className="text-[9px] font-semibold" style={{ color: 'var(--positive)' }}>Available for hire</span>
               </div>
             </div>
 
             {/* Contact */}
-            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid var(--bg-2)' }}>
               <SideSection title="Contact">
                 <div className="space-y-2">
                   {[
@@ -256,8 +256,8 @@ export default function CVPage() {
                     { icon: <FaGlobe size={9} />,    text: 'igifumeals.com' },
                   ].map(({ icon, text }) => (
                     <div key={text} className="flex items-start gap-2">
-                      <span className="mt-0.5 shrink-0" style={{ color: '#3b82f6' }}>{icon}</span>
-                      <span className="text-[0.68rem] leading-snug break-all" style={{ color: 'rgba(255,255,255,0.6)' }}>{text}</span>
+                      <span className="mt-0.5 shrink-0" style={{ color: 'var(--accent)' }}>{icon}</span>
+                      <span className="text-[0.68rem] leading-snug break-all" style={{ color: 'var(--fg)' }}>{text}</span>
                     </div>
                   ))}
                 </div>
@@ -265,14 +265,14 @@ export default function CVPage() {
             </div>
 
             {/* Stats */}
-            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid var(--bg-2)' }}>
               <SideSection title="At a Glance">
                 <div className="grid grid-cols-2 gap-2">
                   {STATS.map((s) => (
                     <div key={s.label} className="rounded-lg p-2.5 text-center"
-                      style={{ background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.15)' }}>
-                      <p className="font-display text-lg font-black" style={{ color: '#22d3ee' }}>{s.value}</p>
-                      <p className="text-[9px] mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{s.label}</p>
+                      style={{ background: 'var(--accent-soft)', border: '1px solid var(--accent-soft)' }}>
+                      <p className="font-display text-lg font-black" style={{ color: 'var(--fg)' }}>{s.value}</p>
+                      <p className="text-[9px] mt-0.5" style={{ color: 'var(--fg-subtle)' }}>{s.label}</p>
                     </div>
                   ))}
                 </div>
@@ -280,19 +280,19 @@ export default function CVPage() {
             </div>
 
             {/* Skills */}
-            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid var(--bg-2)' }}>
               <SideSection title="Core Skills">
                 {SKILLS.map((s) => <SkillBar key={s.name} {...s} animated={animated} />)}
               </SideSection>
             </div>
 
             {/* Tech tags */}
-            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="px-5 py-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-6" style={{ borderBottom: '1px solid var(--bg-2)' }}>
               <SideSection title="Also Proficient In">
                 <div className="flex flex-wrap gap-1">
                   {TAGS.map((t) => (
                     <span key={t} className="text-[9px] px-1.5 py-0.5 rounded"
-                      style={{ background: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.45)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                      style={{ background: 'var(--bg-2)', color: 'var(--fg-subtle)', border: '1px solid var(--line)' }}>
                       {t}
                     </span>
                   ))}
@@ -308,7 +308,7 @@ export default function CVPage() {
             </div>
 
             {/* Bottom accent */}
-            <div className="mt-auto h-1 w-full" style={{ background: 'linear-gradient(90deg,#3b82f6,#22d3ee,#3b82f6)' }} />
+            <div className="mt-auto h-1 w-full" style={{ background: 'var(--ink)' }} />
           </aside>
 
           {/* ════ MAIN ════ */}
@@ -320,12 +320,12 @@ export default function CVPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
               className="relative rounded-xl p-5 mb-8 overflow-hidden"
-              style={{ background: 'linear-gradient(120deg,rgba(59,130,246,0.1) 0%,rgba(59,130,246,0.05) 100%)', border: '1px solid rgba(59,130,246,0.18)' }}
+              style={{ background: 'var(--accent-soft)', border: '1px solid var(--accent-soft)' }}
             >
               <div className="absolute -right-6 -top-6 w-28 h-28 rounded-full opacity-10"
-                style={{ background: 'radial-gradient(circle,#3b82f6,transparent)' }} />
+                style={{ display: 'none' }} />
               <div className="absolute -left-4 -bottom-4 w-20 h-20 rounded-full opacity-5"
-                style={{ background: 'radial-gradient(circle,#22d3ee,transparent)' }} />
+                style={{ display: 'none' }} />
               <p className="text-[0.875rem] leading-[1.85] relative z-10" style={{ color: 'var(--text-secondary)' }}>
                 A builder at heart —{' '}
                 <strong style={{ color: 'var(--text-primary)' }}>not just an engineer who writes code, but one who ships products that matter.</strong>
@@ -358,8 +358,8 @@ export default function CVPage() {
                         className="absolute left-0 top-1.5 w-3 h-3 rounded-full border-2"
                         style={{
                           borderColor: e.current ? 'var(--accent)' : 'var(--border)',
-                          background: e.current ? 'rgba(59,130,246,0.25)' : 'var(--bg-surface)',
-                          boxShadow: e.current ? '0 0 8px rgba(59,130,246,0.4)' : 'none',
+                          background: e.current ? 'var(--accent-soft)' : 'var(--bg-surface)',
+                          boxShadow: e.current ? '0 0 8px var(--accent-soft)' : 'none',
                         }}
                       />
                       <div className="flex items-start justify-between gap-3 flex-wrap">
@@ -369,9 +369,9 @@ export default function CVPage() {
                         </div>
                         <span className="text-[10px] px-2.5 py-0.5 rounded-full shrink-0 font-medium"
                           style={{
-                            background: e.current ? 'rgba(59,130,246,0.1)' : 'var(--bg-elevated)',
+                            background: e.current ? 'var(--accent-soft)' : 'var(--bg-elevated)',
                             color: e.current ? 'var(--accent)' : 'var(--text-muted)',
-                            border: `1px solid ${e.current ? 'rgba(59,130,246,0.25)' : 'var(--border)'}`,
+                            border: `1px solid ${e.current ? 'var(--accent-soft)' : 'var(--border)'}`,
                           }}>
                           {e.period}
                         </span>
@@ -412,7 +412,7 @@ export default function CVPage() {
               <div className="grid sm:grid-cols-2 gap-2.5">
                 {CERTS.map((c) => (
                   <div key={c.title} className="flex items-start gap-3 rounded-xl px-4 py-3"
-                    style={{ background: 'rgba(59,130,246,0.05)', border: '1px solid rgba(59,130,246,0.12)' }}>
+                    style={{ background: 'var(--accent-soft)', border: '1px solid var(--accent-soft)' }}>
                     <span className="text-base shrink-0">{c.icon}</span>
                     <div>
                       <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{c.title}</p>
